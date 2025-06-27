@@ -3191,17 +3191,18 @@ input[type="button"].btn-block {
     padding: 0.5rem 0;
     margin: 0.125rem 0 0;
     font-size: 1rem;
-    color: #212529;
+    color: #fff;
     text-align: left;
     list-style: none;
-    background-color: #6DBD14;
+    / /*background-color: #6DBD14;*/
+    background-color: #fff;
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
 }
 
 .dropdown-menu-right {
-    right: 0;
+    right: auto;
     left: auto;
 }
 
@@ -3317,7 +3318,7 @@ input[type="button"].btn-block {
     padding: 0.25rem 1.5rem;
     clear: both;
     font-weight: 400;
-    color: #fff;
+    color: #060606;
     text-align: inherit;
     white-space: nowrap;
     background-color: transparent;
@@ -3325,9 +3326,10 @@ input[type="button"].btn-block {
 }
 
     .dropdown-item:hover, .dropdown-item:focus {
+        /*color: #16181b;*/
         color: #16181b;
         text-decoration: none;
-        background-color: #f8f9fa;
+        background-color: #6DBD14;
     }
 
     .dropdown-item.active, .dropdown-item:active {
