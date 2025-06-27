@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-SportCenterVictory-096db460-2966-4a94-a576-e6b2671b69e1</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="8.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.16" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.16" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SCV.Data\SCV.Data.csproj" />
+    <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
+    <ProjectReference Include="..\SVC.Services.Core\SVC.Services.Core.csproj" />
+    <ProjectReference Include="..\SVC.Web.ViewModels\SVC.Web.ViewModels.csproj" />
+  </ItemGroup>
+
+</Project>
