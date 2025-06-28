@@ -16,7 +16,7 @@
                 return NotFound("No exercises found.");
             }
 
-            ViewBag.Message = exercises;
+            //ViewBag.Message = exercises;
 
             return View();
         }
