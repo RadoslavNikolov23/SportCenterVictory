@@ -2,51 +2,34 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 
-@if (SignInManager.IsSignedIn(User))
-    {
-        <!-- When user is signed in -->
 
-            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+<form class="form-inline my-2 my-lg-0">
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+            <!-- User Icon (FontAwesome) with dropdown trigger -->
+            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-user-circle"></i>
+            </a>
 
-            <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-            </form>
-    }
-    else
-    {
-        <!-- When user is not signed in-->
- 
-            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
+            <!-- Dropdown Menu (contains _LoginPartial) -->
+            <div class="dropdown-menu" aria-labelledby="userDropdown">
+                @if (SignInManager.IsSignedIn(User))
+                {
+                    <!-- When user is signed in -->
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
+                    <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                        <button type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+                    </form>
+                }
+                else
+                {
+                    <!-- When user is not signed in-->
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a>
+                    <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a>
+                }
+            </div>
+        </li>
+    </ul>
 
-            <a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a> 
-            
-        @* <li class="nav-item d-flex flex-column align-items-start">
-            <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-        </li> *@
-    }
+</form>
 
-@*
-<ul class="navbar-nav ml-auto">
-    @if (SignInManager.IsSignedIn(User))
-{
-
-    <li class="nav-item">
-        <a  class="nav-link" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
-*@
