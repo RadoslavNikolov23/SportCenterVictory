@@ -234,7 +234,7 @@ button {
 .navbar-light .navbar-nav .nav-link {
     color: #fff;
     font-size: 18px;
-    padding: 0px 15px 0px 15px;
+    padding: 0px 10px 0px 10px;
 }
 
 .navbar-light .navbar-nav .nav-link:focus,
@@ -286,14 +286,16 @@ button {
 .banner_section {
     width: 100%;
     float: left;
-    background-image: url(../images/banner-bg.png);
+    background-image: url(../images/headquaters.jpg), url(../images/bar-lobi.jpg),url(../images/fitnesscenter.jpg);
+    background-size: 100%, 100%, 100%; /* Adjust the size for each image */
+    background-repeat: no-repeat, no-repeat, no-repeat; /* Ensure images don’t repeat */
+    background-position: center, top left, bottom right; /* Position each image differently */
     height: auto;
-    background-size: 100%;
-    background-repeat: no-repeat;
     padding: 150px 0px;
     z-index: 1;
     position: relative;
 }
+
 
 .banner_section::after {
     content: '';
