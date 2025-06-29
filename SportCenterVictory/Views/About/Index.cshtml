@@ -7,10 +7,47 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="about_taital">ABOUT TEAM</div>
-                <p class="about_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum </p>
-                <div class="about_img"><img src="images/about-img.png"></div>
-                <div class="read_bt"><a href="#">Read More</a></div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="~/images/headquaters.jpg" class="d-block w-100" alt="Headquarters">
+                    </div>
+                    <div class="col-md-6">
+                        <img src="~/images/bar-lobi.jpg" class="d-block w-100" alt="Lobby Bar">
+                    </div>
+                </div>
+
+
+                <div class="about_taital text-center">ABOUT SPORT CENTER VICTORY</div>
+
+                <p class="about_text text-center">
+                    <strong>Sport Center Victory</strong> was founded in <strong>2025</strong> in <strong>Ruse, Bulgaria</strong> with the vision of becoming the ultimate destination for strength, endurance, and health enthusiasts. The center houses <strong>three specialized zones</strong>:
+                    <br><br>
+                    <ul>
+                        <li><strong>🏋️ Fitness Center:</strong> Offers modern gym facilities, experienced personal trainers, and certified nutrition experts who work directly with clients to design custom plans.</li>
+                        <li><strong>🔥 CrossFit Arena:</strong> Hosts daily group classes, WODs (Workouts of the Day), and regional events scheduled in a professional sports calendar.</li>
+                        <li><strong>💪 Powerlifting Zone:</strong> Designed for serious lifters, with personal coaching available and competitive programming tailored to athletes.</li>
+                    </ul>
+                    <br>
+                    Our center regularly organizes <strong>Fitness Events, CrossFit Competitions</strong>, and <strong>Powerlifting Meets</strong>, all featured in each discipline's dedicated calendar. Between workouts, members can relax at our welcoming <strong>Lobby Bar</strong>.
+                </p>
+
+
+                <div class="text-center mt-4">
+                    <a asp-controller="Fitness" asp-action="FitnessCenter" class="btn btn-lg btn-success px-3 shadow-sm">
+                        🏋️ Fitness Center
+                    </a>
+
+                    <a asp-controller="Crossfit" asp-action="CrossfitCenter" class="btn btn-lg btn-success px-3 shadow-sm">
+                        🔥 CrossFit Arena
+                    </a>
+                    <a asp-controller="Powerlifting" asp-action="PowerliftingCenter" class="btn btn-lg btn-success px-3 shadow-sm">
+                        💪 Powerlifting Zone
+                    </a>
+                    <a asp-controller="Store" asp-action="Index" class="btn btn-lg btn-success px-3 shadow-sm">
+                        🛒 Explore Our Store
+                    </a>
+                </div>
             </div>
         </div>
     </div>

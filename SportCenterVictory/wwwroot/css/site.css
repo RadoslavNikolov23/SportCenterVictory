@@ -20,3 +20,22 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+
+#dualImageCarousel {
+    max-width: 900px;
+    margin: 40px auto;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-item img {
+    height: 300px;
+    object-fit: cover;
+}
+
+.about-preview {
+    background: linear-gradient(to right, #f8f9fa, #e9ecef);
+    border-top: 1px solid #ddd;
+}

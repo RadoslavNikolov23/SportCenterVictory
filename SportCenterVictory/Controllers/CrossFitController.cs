@@ -4,7 +4,7 @@
 
     public class CrossFitController : Controller
     {
-        public IActionResult Index()
+        public IActionResult CrossFitCenter()
         {
             return View();
         }

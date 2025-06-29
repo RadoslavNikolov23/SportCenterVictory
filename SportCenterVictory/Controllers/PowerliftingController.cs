@@ -4,7 +4,7 @@
 
     public class PowerliftingController : Controller
     {
-        public IActionResult Index()
+        public IActionResult PowerliftingCenter()
         {
             return View();
         }

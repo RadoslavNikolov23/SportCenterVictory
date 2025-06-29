@@ -5,6 +5,11 @@
 
     public class FitnessController : Controller
     {
+        public IActionResult FitnessCenter()
+        {
+            return View();
+        }
+
         public IActionResult Exercises()
         {
 

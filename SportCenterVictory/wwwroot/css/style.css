@@ -286,10 +286,9 @@ button {
 .banner_section {
     width: 100%;
     float: left;
-    background-image: url(../images/headquaters.jpg), url(../images/bar-lobi.jpg),url(../images/fitnesscenter.jpg);
+    background-image: url(../images/headquaters.jpg), url(../images/bar-lobi.jpg);
     background-size: 100%, 100%, 100%; /* Adjust the size for each image */
-    background-repeat: no-repeat, no-repeat, no-repeat; /* Ensure images don’t repeat */
-    background-position: center, top left, bottom right; /* Position each image differently */
+    background-repeat:repeat,repeat;
     height: auto;
     padding: 150px 0px;
     z-index: 1;
