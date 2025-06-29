@@ -3,7 +3,7 @@
 <!-- banner section start -->
 <div class="banner_section layout_padding">
     <div class="container">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
@@ -17,10 +17,12 @@
                             <p class="banner_text">"Your Journey. Your Rules. Your Victory."</p>
                             <div class="btn_main">
                                 <div class="started_bt"><a asp-controller="About" asp-action="Index">About Us</a></div>
+                                <div class="started_bt" active><a asp-controller="Contact" asp-action="Index">Contact Us</a></div>
                             </div>
                         </div>
                     </div>
                 </div>
+                @* Change the content of the carousel items as needed to a trainers menu  *@
                 <div class="carousel-item">
                     <div class="row">
                         <div class="col-sm-12">
@@ -33,7 +35,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> 
                 </div>
                 <div class="carousel-item">
                     <div class="row">
@@ -73,35 +75,36 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="games_taital">Our Sports Games</h1>
-                <p class="games_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum </p>
+                <h1 class="games_taital">Our areas await you, Choose from where to Start</h1>
+                <p class="games_text">The resistance that you fight physically in the gym and the resistance that you fight in life can only build a strong character. - <italic>A. Schwarzenegger</italic></p>
             </div>
         </div>
         <div class="games_section_2">
             <div class="row">
                 <div class="col-lg-4">
                     <div class="hover01 column">
-                        <figure><img src="images/img-1.png"></figure>
+                        <figure><img src="~/images/game01.jpg"></figure>
                     </div>
-                    <h3 class="basketball_text">Basketball</h3>
-                    <p class="lorem_text">that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editor</p>
-                    <div class="readmore_bt"><a href="#">Read More</a></div>
+                    <h3 class="basketball_text">Fitness</h3>
+                    <p class="lorem_text">Build Your Best Self. Step into our Fitness Center and take control of your transformation. With expert trainers, personalized programs, and top-tier equipment — your goals become your results.</p>
+                    <div class="readmore_bt"><a asp-controller="Fitness" asp-action="FitnessCenter">Read More</a></div>
                 </div>
                 <div class="col-lg-4">
                     <div class="hover01 column">
-                        <figure><img src="images/img-2.png"></figure>
+                        <figure><img src="~/images/game02.jpg"></figure>
                     </div>
-                    <h3 class="basketball_text">Hockey</h3>
-                    <p class="lorem_text">that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editor</p>
-                    <div class="readmore_bt"><a href="#">Read More</a></div>
+                    <h3 class="basketball_text">Crossfit</h3>
+                    <p class="lorem_text">Train for the Unexpected. Challenge yourself with high-intensity CrossFit workouts, daily WODs, and a strong community. Every session is designed to build functional strength, endurance, and mental toughness.</p>
+                    <div class="readmore_bt"><a asp-controller="CrossFit" asp-action="CrossFitCenter">Read More</a></div>
                 </div>
                 <div class="col-lg-4">
                     <div class="hover01 column">
-                        <figure><img src="images/img-3.png"></figure>
+                        <figure><img src="~/images/game03.jpg"></figure>
                     </div>
-                    <h3 class="basketball_text">Basketball</h3>
-                    <p class="lorem_text">that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editor</p>
-                    <div class="readmore_bt"><a href="#">Read More</a></div>
+                    <h3 class="basketball_text">Powerlifting</h3>
+                    <p class="lorem_text">Lift Heavy. Live Strong. Our Powerlifting Zone is built for strength athletes. From squats to deadlifts, train with precision under the guidance of expert coaches and hit your next PR.</p>
+                    <div class="readmore_bt"><a asp-controller="Powerlifting" asp-action="PowerliftingCenter">Read More</a></div>
+                
                 </div>
             </div>
         </div>
@@ -109,7 +112,7 @@
 </div>
 <!-- games section end -->
 <!-- blog section start -->
-<div class="blog_section layout_padding">
+@* <div class="blog_section layout_padding">
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
@@ -135,7 +138,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> *@
 <!-- blog section end -->
 <!-- client section start -->
 <div class="client_section layout_padding">
@@ -155,13 +158,13 @@
                                     <div class="box_main">
                                         <div class="customer_main">
                                             <div class="customer_left">
-                                                <div class="customer_img"><img src="images/client-img.png"></div>
+                                                <div class="customer_img"><img src="~/images/client-img.png"></div>
                                             </div>
                                             <div class="customer_right">
                                                 <h3 class="customer_name">Hitman</h3>
                                                 <p class="enim_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or </p>
                                                 <p class="enim_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or </p>
-                                                <div class="quick_icon"><img src="images/quick-icon.png"></div>
+                                                <div class="quick_icon"><img src="~/images/quick-icon.png" style="max-height: 30px"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -178,13 +181,13 @@
                                     <div class="box_main">
                                         <div class="customer_main">
                                             <div class="customer_left">
-                                                <div class="customer_img"><img src="images/client-img.png"></div>
+                                                <div class="customer_img"><img src="~/images/client-img.png"></div>
                                             </div>
                                             <div class="customer_right">
                                                 <h3 class="customer_name">Hitman</h3>
                                                 <p class="enim_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or </p>
                                                 <p class="enim_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or </p>
-                                                <div class="quick_icon"><img src="images/quick-icon.png"></div>
+                                                <div class="quick_icon"><img src="~/images/quick-icon.png" style="max-height: 30px"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -201,13 +204,13 @@
                                     <div class="box_main">
                                         <div class="customer_main">
                                             <div class="customer_left">
-                                                <div class="customer_img"><img src="images/client-img.png"></div>
+                                                <div class="customer_img"><img src="~/images/client-img.png"></div>
                                             </div>
                                             <div class="customer_right">
                                                 <h3 class="customer_name">Hitman</h3>
                                                 <p class="enim_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or </p>
                                                 <p class="enim_text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or </p>
-                                                <div class="quick_icon"><img src="images/quick-icon.png"></div>
+                                                <div class="quick_icon"><img src="~/images/quick-icon.png" style="max-height: 30px"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -244,7 +247,7 @@
                 </div>
             </div>
             <div class="col-md-6 padding_right_0">
-                <div class="contact_img"><img src="images/contact-img.png"></div>
+                <div class="contact_img"><img src="~/images/lobby.jpg"></div>
             </div>
         </div>
     </div>

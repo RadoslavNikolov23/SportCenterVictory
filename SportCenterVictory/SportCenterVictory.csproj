@@ -22,4 +22,10 @@
     <ProjectReference Include="..\SVC.Web.ViewModels\SVC.Web.ViewModels.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="wwwroot\data\allExercisesSeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

@@ -2,12 +2,26 @@
 {
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using SVC.Data.Models;
+    using System.Reflection;
 
-    public class ApplicationDbContext : IdentityDbContext
+    public class SportCenterDbContext : IdentityDbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public SportCenterDbContext(DbContextOptions<SportCenterDbContext> options)
             : base(options)
         {
+        }
+
+        public virtual DbSet<Exercise> Exercises { get; set; } = null!;
+
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
         }
     }
 }

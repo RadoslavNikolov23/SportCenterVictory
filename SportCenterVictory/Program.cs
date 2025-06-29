@@ -16,7 +16,7 @@ namespace SportCenterVictory
                 throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services
-                .AddDbContext<ApplicationDbContext>(options=>
+                .AddDbContext<SportCenterDbContext>(options=>
                     {
                      options.UseSqlServer(connectionString);
 
@@ -31,7 +31,7 @@ namespace SportCenterVictory
                     options.SignIn.RequireConfirmedAccount = true;
                 })
                 .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<SportCenterDbContext>();
 
             builder.Services
                 .AddControllersWithViews();

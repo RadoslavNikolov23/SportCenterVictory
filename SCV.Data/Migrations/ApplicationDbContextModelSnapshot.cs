@@ -8,7 +8,7 @@ namespace SportCenterVictory.Data.Migrations
     using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
     using SportCenterVictory.Data;
 
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(SportCenterDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

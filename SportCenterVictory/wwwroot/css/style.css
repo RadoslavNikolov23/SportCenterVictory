@@ -286,15 +286,34 @@ button {
 .banner_section {
     width: 100%;
     float: left;
-    background-image: url(../images/headquaters.jpg), url(../images/bar-lobi.jpg);
-    background-size: 100%, 100%, 100%; /* Adjust the size for each image */
-    background-repeat:repeat,repeat;
+    background-image: url(../images/headquarters.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
     height: auto;
     padding: 150px 0px;
     z-index: 1;
     position: relative;
+    animation: backgroundRotation 15s infinite;
+    transition: background-image 1s ease-in-out;
 }
 
+@keyframes backgroundRotation {
+    0% {
+        background-image: url(../images/headquarters.jpg);
+    }
+
+    33% {
+        background-image: url(../images/front02.jpg);
+    }
+
+    66% {
+        background-image: url(../images/front03.jpg);
+    }
+
+    100% {
+        background-image: url(../images/headquarters.jpg);
+    }
+}
 
 .banner_section::after {
     content: '';
@@ -702,7 +721,7 @@ figure:hover+span {
 
 .quick_icon {
     text-align: right;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
 }
 
 .customer_main {

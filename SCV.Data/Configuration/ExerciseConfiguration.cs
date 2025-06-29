@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using Newtonsoft.Json;
     using SVC.Data.Models;
 
     public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
@@ -14,24 +15,45 @@
                 .IsRequired()
                 .HasMaxLength(100);
 
-            entity.Property(ex => ex.MuscleGroup)
-                .IsRequired()
-                .HasMaxLength(50);
+            //entity.Property(ex => ex.MuscleGroup)
+            //    .IsRequired()
+            //    .HasMaxLength(50);
 
-            entity.Property(ex => ex.Description)
-                .HasMaxLength(1000);
+            //entity.Property(ex => ex.Description)
+            //    .HasMaxLength(1000);
 
-            entity.Property(ex => ex.ImageUrl)
-                .HasMaxLength(300);
+            //entity.Property(ex => ex.ImageUrl)
+            //    .HasMaxLength(300);
 
-            entity.HasData(new Exercise
+
+            /*----------------------------------------------------------------------------
+            //--!!--------The seed for the exercises is done in the exercises.json file--------!!--------
+            entity.HasData(exercisesSeed());
+            */
+
+
+        }
+
+        private Exercise[]? exercisesSeed()
+        {
+            string filePath = Path
+                            .Combine(AppContext.BaseDirectory, "wwwroot", "data", "allExercisesSeed.json");
+
+            if (!File.Exists(filePath))
             {
-                Id = 1,
-                Name = "Barbell Squat",
-                MuscleGroup = "Legs",
-                Description = "Compound movement that targets the quadriceps, glutes, and hamstrings.",
-                ImageUrl = "https://youtube.com/example/barbell-squat"
-            });
+                throw new FileNotFoundException("Seed JSON file not found", filePath);
+            }
+
+            string jsonFile = File
+                                .ReadAllText(filePath);
+
+
+            Exercise[]? exercisesList = JsonConvert
+                                             .DeserializeObject<Exercise[]>(jsonFile);
+
+            return exercisesList;
+   
+
         }
     }
 }

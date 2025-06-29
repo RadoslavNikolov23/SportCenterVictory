@@ -43,7 +43,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-                 <a class="nav-link" asp-controller="Home" asp-action="Index"><img src="~/images/SVC-logo.png" class="img-fluid" style="width: 350px;" alt="Logo"></a>
+                 <a class="nav-link" asp-controller="Home" asp-action="Index"><img src="~/images/SVC-logo.png" class="img-fluid" style="width: 300px;" alt="Logo"></a>
 
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -103,7 +103,8 @@
                         </li>
 
 
-                         <li class="nav-item">
+                        @*  Put here hidden content for admin, moderator, trainers
+                            <li class="nav-item">
                             <a class="nav-link" asp-controller="About" asp-action="Index">
                                 About
                             </a>
@@ -113,15 +114,18 @@
                             <a class="nav-link" asp-controller="Contact" asp-action="Index">
                                 Contact
                             </a>
-                        </li>
-                        <li class="nav-item">
-                                <partial name="_LoginPartial" />
+                        </li> *@
+
+
+                        <li class="nav-item dropdown">
+                         <a class="nav-link" href="@Url.Action("Search", "Home")">
+                                @* <i class="fas fa-search" style="font-size: 24px;"></i> <!-- Search Icon --> *@
+                                Search
+                            </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="@Url.Action("Search", "Home")" class="btn btn-link">
-                                <i class="fas fa-search" style="font-size: 24px;"></i> <!-- Search Icon -->
-                            </a>
+                        <li class="nav-item dropdown">
+                            <partial name="_LoginPartial" />
                         </li>
                         
                     </ul>
@@ -202,10 +206,10 @@
 
 
     <!-- Javascript files-->
-    <script src="~/js/jquery.min.js"></script>
-    <script src="~/js/popper.min.js"></script>
+    <script src="~/js/jquery.min.js" asp-append-version="true"></script>
+    <script src="~/js/popper.min.js" asp-append-version="true"></script>
     <script src="~/js/jquery-3.0.0.min.js"></script>
-    <script src="~/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
     <script src="~/js/plugin.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -213,6 +217,7 @@
     <!-- sidebar -->
     <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="~/js/custom.js"></script>
+
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>

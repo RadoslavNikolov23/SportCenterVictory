@@ -9,7 +9,7 @@ using SportCenterVictory.Data;
 
 namespace SportCenterVictory.Data.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(SportCenterDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {
