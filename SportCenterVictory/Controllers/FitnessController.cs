@@ -13,13 +13,13 @@
         public IActionResult Exercises()
         {
 
-            FitnessService fitnessService = new FitnessService();
+            //FitnessService fitnessService = new FitnessService();
 
-            string exercises = fitnessService.GetAllExercises();
-            if (string.IsNullOrEmpty(exercises))
-            {
-                return NotFound("No exercises found.");
-            }
+            //string exercises = fitnessService.GetAllExercises();
+            //if (string.IsNullOrEmpty(exercises))
+            //{
+            //    return NotFound("No exercises found.");
+            //}
 
             //ViewBag.Message = exercises;
 

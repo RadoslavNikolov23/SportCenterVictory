@@ -9,11 +9,11 @@
     {
         public void Configure(EntityTypeBuilder<Exercise> entity)
         {
-            entity.HasKey(ex => ex.Id);
+            //entity.HasKey(ex => ex.Id);
 
-            entity.Property(ex => ex.Name)
-                .IsRequired()
-                .HasMaxLength(100);
+            //entity.Property(ex => ex.Name)
+            //    .IsRequired()
+            //    .HasMaxLength(100);
 
             //entity.Property(ex => ex.MuscleGroup)
             //    .IsRequired()

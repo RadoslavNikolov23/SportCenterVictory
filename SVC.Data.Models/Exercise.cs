@@ -25,5 +25,7 @@
         public string? ImageUrlTwo { get; set; }
 
         public bool IsDeleted { get; set; }
+
+        public ICollection<WorkoutPlanExercise> WorkoutPlanExercises { get; set; } = new HashSet<WorkoutPlanExercise>();
     }
 }
