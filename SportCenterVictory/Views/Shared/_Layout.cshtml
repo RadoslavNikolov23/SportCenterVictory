@@ -37,73 +37,74 @@
 
 <body>
     <header>
-       
-       <div class="header_section">
 
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="header_section">
 
-                 <a class="nav-link" asp-controller="Home" asp-action="Index"><img src="~/images/SVC-logo.png" class="img-fluid" style="width: 300px;" alt="Logo"></a>
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    <a class="nav-link" asp-controller="Home" asp-action="Index"><img src="~/images/SVC-logo.png" class="img-fluid" style="width: 300px;" alt="Logo"></a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="fitnessDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Fitness
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="fitnessDropdown">
-                                <a class="dropdown-item" asp-controller="Fitness" asp-action="FitnessCenter">Fitness Center</a>
-                                <a class="dropdown-item" asp-controller="Fitness" asp-action="Trainers">Trainers</a>
-                                <a class="dropdown-item" asp-controller="Fitness" asp-action="WorkoutPlans">Workout Plans</a>
-                                <a class="dropdown-item" asp-controller="Fitness" asp-action="MealPlans">Meal Plans</a>
-                                <a class="dropdown-item" asp-controller="Fitness" asp-action="Exercises">Exercises</a>
-                                <a class="dropdown-item" asp-controller="Fitness" asp-action="FitnessEvents">Fitness Events</a>
-                            </div>
-                        </li>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="crossfitDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                CrossFit
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="crossfitDropdown">
-                                <a class="dropdown-item" asp-controller="CrossFit" asp-action="CrossFitCenter">CrossFit Arena</a>
-                                <a class="dropdown-item" asp-controller="CrossFit" asp-action="Coaches">Coaches</a>
-                                <a class="dropdown-item" asp-controller="CrossFit" asp-action="WorkoutSchedules">Workout Schedule</a>
-                                <a class="dropdown-item" asp-controller="CrossFit" asp-action="WOD">Work Out of The Day</a>
-                                <a class="dropdown-item" asp-controller="CrossFit" asp-action="CrossFitEvents">CrossFIt Events</a>
-                            </div>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="fitnessDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Fitness
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="fitnessDropdown">
+                                    <a class="dropdown-item" asp-controller="Fitness" asp-action="FitnessCenter">Fitness Center</a>
+                                    <a class="dropdown-item" asp-controller="Fitness" asp-action="FitnessTrainer">Trainers</a>
+                                    <a class="dropdown-item" asp-controller="Fitness" asp-action="FitnessMembership ">Membership </a>
+                                    <a class="dropdown-item" asp-controller="Fitness" asp-action="WorkoutPlans">Workout Plans</a>
+                                    <a class="dropdown-item" asp-controller="Fitness" asp-action="Exercises">Exercises</a>
+                                    <a class="dropdown-item" asp-controller="Fitness" asp-action="FitnessEvents">Fitness Events</a>
+                                </div>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="powerliftingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Powerlifting
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="powerliftingDropdown">
-                                <a class="dropdown-item" asp-controller="Powerlifting" asp-action="PowerliftingCenter">Powerlifting Zone</a>
-                                <a class="dropdown-item" asp-controller="Powerlifting" asp-action="Coaches">Coaches</a>
-                                <a class="dropdown-item" asp-controller="Powerlifting" asp-action="WorkoutPlans">Workout Plans</a>
-                                <a class="dropdown-item" asp-controller="Powerlifting" asp-action="PowerliftingEvents">Powerlifting Events</a>
-                            </div>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="crossfitDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    CrossFit
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="crossfitDropdown">
+                                    <a class="dropdown-item" asp-controller="CrossFit" asp-action="CrossFitCenter">CrossFit Arena</a>
+                                    <a class="dropdown-item" asp-controller="CrossFit" asp-action="CrossFitCoaches">Coaches</a>
+                                    <a class="dropdown-item" asp-controller="CrossFit" asp-action="CrossFitMembership ">Membership </a>
+                                    <a class="dropdown-item" asp-controller="CrossFit" asp-action="CrossFitClasses">CrossFit Classes</a>
+                                    <a class="dropdown-item" asp-controller="CrossFit" asp-action="WOD">Workout of The Day</a>
+                                    <a class="dropdown-item" asp-controller="CrossFit" asp-action="CrossFitEvents">CrossFit Events</a>
+                                </div>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="storeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Store
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="storeDropdown">
-                                <a class="dropdown-item" asp-controller="Store" asp-action="Equipment">Equipment</a>
-                                <a class="dropdown-item" asp-controller="Store" asp-action="Nutrition">Nutrition</a>
-                                <a class="dropdown-item" asp-controller="Store" asp-action="WorkoutMealPlans">Workout & Meal Plans</a>
-                            </div>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="powerliftingDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Powerlifting
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="powerliftingDropdown">
+                                    <a class="dropdown-item" asp-controller="Powerlifting" asp-action="PowerliftingCenter">Powerlifting Zone</a>
+                                    <a class="dropdown-item" asp-controller="Powerlifting" asp-action="PowerliftingCoaches">Coaches</a>
+                                    <a class="dropdown-item" asp-controller="Powerlifting" asp-action="PowerliftingPrograms">Powerlifting Programs</a>
+                                    <a class="dropdown-item" asp-controller="Powerlifting" asp-action="PowerliftingEvents">Powerlifting Events</a>
+                                </div>
+                            </li>
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="storeDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Store
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="storeDropdown">
+                                    <a class="dropdown-item" asp-controller="Store" asp-action="Equipment">Equipment</a>
+                                    <a class="dropdown-item" asp-controller="Store" asp-action="Nutrition">Nutrition</a>
+                                    <a class="dropdown-item" asp-controller="Store" asp-action="Memberships">Memberships</a>
+                                </div>
+                            </li>
 
 
-                        @*  Put here hidden content for admin, moderator, trainers
+                            @*  Put here hidden content for admin, moderator, trainers
                             <li class="nav-item">
                             <a class="nav-link" asp-controller="About" asp-action="Index">
                                 About
@@ -117,26 +118,26 @@
                         </li> *@
 
 
-                        <li class="nav-item dropdown">
-                         <a class="nav-link" href="@Url.Action("Search", "Home")">
-                                @* <i class="fas fa-search" style="font-size: 24px;"></i> <!-- Search Icon --> *@
-                                Search
-                            </a>
-                        </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" href="@Url.Action("Search", "Home")">
+                                    @* <i class="fas fa-search" style="font-size: 24px;"></i> <!-- Search Icon --> *@
+                                    Search
+                                </a>
+                            </li>
 
-                        <li class="nav-item dropdown">
-                            <partial name="_LoginPartial" />
-                        </li>
-                        
-                    </ul>
-                   
+                            <li class="nav-item dropdown">
+                                <partial name="_LoginPartial" />
+                            </li>
+
+                        </ul>
 
 
-                </div>
-            </nav>
+
+                    </div>
+                </nav>
+            </div>
         </div>
-    </div>
-     </header>
+    </header>
     <!-- header section end -->
 
     <div class="container">
