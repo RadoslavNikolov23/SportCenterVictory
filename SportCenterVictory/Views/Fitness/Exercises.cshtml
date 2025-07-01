@@ -1,21 +1,158 @@
-﻿@{
-    ViewData["Title"] = "All Exercises";
+﻿@using SVC.Web.ViewModels.FitnessVM
+
+@model ICollection<ExercisesViewModel>
+
+@{
+    ViewData["Title"] = "Exercise Library";
 }
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8 col-sm-10 text-center">
-            <h1 class="display-4">All Exercises</h1>
-            <p>Bench press
-                Deadlift
-                Squats
+<style>
+    .exercise-card {
+        background: white;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        overflow: hidden;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+    }
 
-                <img src="https://github.com/RadoslavNikolov23/SportCenterVictory/tree/master/CloudFiles/ImagesExercises/3_4_Sit-Up/1.jpg"/>
+        .exercise-card img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: contain;
+        }
 
-                <img src="https://raw.githubusercontent.com/RadoslavNikolov23/SportCenterVictory/refs/heads/master/CloudFiles/ImagesExercises/3_4_Sit-Up/0.jpg?token=GHSAT0AAAAAADGR3VOOL2X2AB3BSQ47KJXI2DC57EQ" />
-                <img src="https://raw.githubusercontent.com/RadoslavNikolov23/SportCenterVictory/refs/heads/master/CloudFiles/ImagesExercises/3_4_Sit-Up/1.jpg?token=GHSAT0AAAAAADGR3VOP5P7MCRWJOSVP7ZKS2DC57UA" />
-            </p>
-        </div>
+    .content {
+        padding: 15px;
+    }
+
+    .bookmark {
+        float: right;
+        cursor: pointer;
+        font-size: 18px;
+        user-select: none;
+    }
+
+    .bookmarked {
+        color: red;
+    }
+
+    .name {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    section.collapsed p:not(:first-child) {
+        display: none;
+    }
+
+    .more-link {
+        color: blue;
+        font-size: 0.9em;
+        cursor: pointer;
+        display: inline-block;
+        margin-top: 5px;
+        text-decoration: underline;
+    }
+
+    section.instructions-section.collapsed .instructions-text {
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Show about 3 lines */
+        -webkit-box-orient: vertical;
+        max-height: 4.5em; /* approx 3 lines */
+        text-overflow: ellipsis; }
+
+</style>
+
+
+<div class="row text-center layout_padding">
+    <h1 class="text-center">Exercise Library</h1>
+    <input type="text" id="search" placeholder="Search exercises..." class="form-control mb-3" />
+
+    <div class="row mb-4" id="exercise-list">
+        @foreach (var exercise in Model)
+        {
+            <div class="col-md-6">
+                <div class="card h-100 exercise-card" data-name="@exercise.Name.ToLower()">
+
+                    <img src="@exercise.ImageUrlOne"
+                         data-first="@exercise.ImageUrlOne"
+                         data-second="@exercise.ImageUrlTwo"
+                         class="toggle-image"
+                         alt="@exercise.Name"
+                         style="cursor: pointer;" />
+
+                    <div class="card-body content">
+                        <h5 class="card-title name">@exercise.Name</h5>
+                        <section class="instructions-section collapsed" style="position: relative;">
+                            @if (string.IsNullOrWhiteSpace(exercise.Instructions))
+                            {
+                                <p class="text-muted">No instructions available.</p>
+                            }
+                            else if (exercise.Instructions.Length <= 70)
+                            {
+                                <p>@exercise.Instructions</p>
+                            }
+                            else
+                            {
+                                <p class="instructions-text" style="margin-bottom: 8px;">
+                                    @exercise.Instructions
+                                </p>
+                                <a href="#" class="toggle-instructions-link">More</a>
+                            }
+                        </section>
+                    </div>
+                </div>
+            </div>
+        }
     </div>
 </div>
+
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+
+            // Toggle instructions link
+            document.querySelectorAll('.toggle-instructions-link').forEach(link => {
+                link.addEventListener('click', async (e) => {
+                    e.preventDefault();
+
+                    const section = link.closest('section.instructions-section');
+                    const isCollapsed = section.classList.contains('collapsed');
+
+                    if (isCollapsed) {
+                        section.classList.remove('collapsed');
+                        link.textContent = 'Collapse';
+                    } else {
+                        section.classList.add('collapsed');
+                        link.textContent = 'More';
+                    }
+                });
+            });
+
+            // Image toggle
+            document.querySelectorAll('.toggle-image').forEach(img => {
+                let toggled = false;
+                img.addEventListener('click', async () => {
+                    const first = img.getAttribute('data-first');
+                    const second = img.getAttribute('data-second');
+                    img.src = toggled ? first : second;
+                    toggled = !toggled;
+                });
+            });
+
+            // Search filter
+            document.getElementById('search')?.addEventListener('input', async (e) => {
+                const query = e.target.value.toLowerCase();
+                document.querySelectorAll('.exercise-card').forEach(card => {
+                    const name = card.dataset.name;
+                    card.parentElement.style.display = name.includes(query) ? 'block' : 'none';
+                });
+            });
+
+        });
+    </script>
+}
 

@@ -1,7 +1,11 @@
 ﻿namespace SportCenterVictory.Controllers
 {
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
+    using SVC.Data.Models;
     using SVC.Services.Core;
+    using SVC.Web.ViewModels.FitnessVM;
 
     public class FitnessController : Controller
     {
@@ -12,10 +16,14 @@
 
         public IActionResult Exercises()
         {
+            //var jsonPath = Path.Combine(_webHostEnvironment.WebRootPath, "data", "exercises.json");
+            //var exercises = JsonConvert.DeserializeObject<List<Exercise>>(System.IO.File.ReadAllText(jsonPath));
+            //return View(exercises);
 
-            //FitnessService fitnessService = new FitnessService();
+            FitnessService fitnessService = new FitnessService();
 
-            //string exercises = fitnessService.GetAllExercises();
+            IEnumerable<ExercisesViewModel>? exercises = fitnessService.GetAllExercises();
+            
             //if (string.IsNullOrEmpty(exercises))
             //{
             //    return NotFound("No exercises found.");
@@ -23,7 +31,7 @@
 
             //ViewBag.Message = exercises;
 
-            return View();
+            return View(exercises);
         }
     }
 }

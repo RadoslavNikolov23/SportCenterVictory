@@ -13,30 +13,30 @@
         [JsonPropertyName("force")]
         public string? Force { get; set; }
 
-        [JsonPropertyName("level")]
-        public string? Level { get; set; }
-
         [JsonPropertyName("mechanic")]
         public string? Mechanic { get; set; }
 
         [JsonPropertyName("equipment")]
         public string? Equipment { get; set; }
 
-
         [JsonPropertyName("primaryMuscles")]
-        public List<string> PrimaryMuscles { get; set; } = new List<string>();
+        public string PrimaryMuscles { get; set; } = null!;
 
         [JsonPropertyName("secondaryMuscles")]
-        public List<string>? SecondaryMuscles { get; set; }
+        public string? SecondaryMuscles { get; set; }
 
         [JsonPropertyName("instructions")]
-        public List<string> Instructions { get; set; } = new List<string>();
+        public string? Instructions { get; set; }
 
         [JsonPropertyName("category")]
         public string Category { get; set; } = null!;
 
-        [JsonPropertyName("images")]
-        public List<string>? Images { get; set; }
+        [JsonPropertyName("imageUrlOne")]
+        public string? ImageUrlOne { get; set; }
+
+        [JsonPropertyName("imageUrlTwo")]
+        public string? ImageUrlTwo { get; set; }
+
     }
 
 }
