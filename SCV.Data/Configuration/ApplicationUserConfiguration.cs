@@ -3,8 +3,6 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Microsoft.Extensions.DependencyInjection;
-    using SVC.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<IdentityUser>
     {
@@ -21,7 +19,7 @@
             IdentityUser defaultUser = new IdentityUser
             {
                 Id = "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd",
-                UserName = "adminsvc",
+                UserName = "admin",
                 NormalizedUserName = "ADMINSVC",
                 Email = "admin@sportcentervictory.com",
                 NormalizedEmail = "ADMIN@SPORTCENTERVICTORY.COM",
@@ -29,7 +27,7 @@
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
 
-            defaultUser.PasswordHash = hasherUser.HashPassword(defaultUser, "Adminsvc123");
+            defaultUser.PasswordHash = hasherUser.HashPassword(defaultUser, "Admin123");
 
             return defaultUser;
         }

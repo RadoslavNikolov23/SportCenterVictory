@@ -5,9 +5,9 @@
     public class MembershipUser
     {
 
-        public string UserId { get; set; } = null!;
+        public string ApplicationUserId { get; set; } = null!;
 
-        public IdentityUser User { get; set; } = null!;
+        public IdentityUser ApplicationUser { get; set; } = null!;
 
         public int MembershipId { get; set; }
 
