@@ -30,11 +30,11 @@
         [Comment("Indicates whether the membership is deleted.")]
         public bool IsDeleted { get; set; }
 
-        [Comment("Foreign Key to the Trainer who created the membership.")]
-        public Guid TrainerId { get; set; }
+        [Comment("Foreign Key to the Trainer, who coaches in the membership. If null the membership is a class.")]
+        public Guid? TrainerId { get; set; }
 
-        [Comment("Navigation property to the Trainer who created the membership.")]
-        public virtual Trainer Trainer { get; set; } = null!;
+        [Comment("Navigation property to the Trainer, who coaches in the membership..")]
+        public virtual Trainer Trainer { get; set; }
 
         [Comment("Collection of MembershipUsers associated with this membership.")]
         public virtual ICollection<MembershipUser> MembershipUsers { get; set; } = new HashSet<MembershipUser>();
