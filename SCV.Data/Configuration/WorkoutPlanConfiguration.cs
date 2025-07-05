@@ -2,30 +2,47 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SVC.Data.Models;
+    using SCV.Data.Models;
+    using static SCV.Data.Common.EntityConstraintsWorkoutPlan;
+    using static SCV.GlCommon.ApplicationConstants;
 
     public class WorkoutPlanConfiguration : IEntityTypeConfiguration<WorkoutPlan>
     {
         public void Configure(EntityTypeBuilder<WorkoutPlan> entity)
         {
-            //entity.HasKey(w => w.Id);
+            entity
+                .HasKey(wp => wp.Id);
 
-            //entity.Property(w => w.Title)
-            //    .IsRequired()
-            //    .HasMaxLength(100);
+            entity
+                .Property(wp => wp.Title)
+                .IsRequired()
+                .HasMaxLength(TitleMaxLength);
 
-            //entity.Property(w => w.Description)
-            //    .HasMaxLength(1000);
+            entity
+                .Property(wp => wp.Description)
+                .IsRequired()
+                .HasMaxLength(DescriptionMaxLength);
 
-            //entity.Property(w => w.Type)
-            //    .IsRequired()
-            //    .HasMaxLength(50);
+            entity
+                .Property(wp => wp.Type)
+                .IsRequired();
 
-            //entity.Property(w => w.Price)
-            //    .HasColumnType("decimal(18,2)");
+            entity
+                .Property(wp => wp.ImageUrl)
+                .IsRequired(false)
+                .HasMaxLength(ImageUrlMaxLength);
 
-            //entity.Property(w => w.DurationWeeks)
-            //    .IsRequired();
+            entity
+                .Property(wp => wp.Price)
+                .IsRequired(false)
+                .HasColumnName(PriceSqlType);
+
+            entity
+                .Property(wp => wp.IsDeleted)
+                .HasDefaultValue(false);
+
+            entity
+                .HasQueryFilter(wp => wp.IsDeleted==false);
 
             //// Optional: seed
             //entity.HasData(new WorkoutPlan

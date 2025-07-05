@@ -2,7 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SVC.Data.Models;
+    using SCV.Data.Models;
 
     public class CrossfitClassUserConfiguration : IEntityTypeConfiguration<CrossfitClassUser>
     {
@@ -25,14 +25,15 @@
             entity
                 .HasOne(ccu => ccu.ApplicationUser)
                 .WithMany()
-                .HasForeignKey(ccu => ccu.ApplicationUserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(ccu => ccu.ApplicationUserId);
 
             entity
                 .HasOne(ccu => ccu.CrossfitClass)
                 .WithMany(cc => cc.CrossfitClassUsers)
-                .HasForeignKey(ccu => ccu.CrossfitClassId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(ccu => ccu.CrossfitClassId);
+
+            entity
+                .HasQueryFilter(ccu => ccu.CrossfitClass.IsActive == true);
 
         }
     }

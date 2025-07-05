@@ -1,11 +1,8 @@
 ﻿namespace SportCenterVictory.Controllers
 {
-    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
-    using SVC.Data.Models;
-    using SVC.Services.Core;
-    using SVC.Web.ViewModels.FitnessVM;
+    using SCV.Services.Core;
+    using SCV.Web.ViewModels.FitnessVM;
 
     public class FitnessController : Controller
     {

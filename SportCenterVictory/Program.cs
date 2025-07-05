@@ -2,7 +2,7 @@ namespace SportCenterVictory
 {
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
-    using SportCenterVictory.Data;
+    using SCV.Data;
 
     public class Program
     {

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SportCenterVictory.Data;
+using SCV.Data;
 
-namespace SportCenterVictory.Data.Migrations
+namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]

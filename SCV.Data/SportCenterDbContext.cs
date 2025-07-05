@@ -1,9 +1,9 @@
-﻿namespace SportCenterVictory.Data
+﻿namespace SCV.Data
 {
+    using System.Reflection;
+    using SCV.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
-    using SVC.Data.Models;
-    using System.Reflection;
 
     public class SportCenterDbContext : IdentityDbContext
     {
@@ -12,8 +12,35 @@
         {
         }
 
+        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; } = null!;
+
+        public virtual DbSet<CrossfitClass> CrossfitClasses { get; set; } = null!;
+
+        public virtual DbSet<CrossfitClassUser> CrossfitClassUsers { get; set; } = null!;
+
+        public virtual DbSet<CrossfitWorkoutOfTheDay> CrossfitWorkoutOfTheDays { get; set; } = null!;
+
+        public virtual DbSet<Event> Events { get; set; } = null!;   
+
         public virtual DbSet<Exercise> Exercises { get; set; } = null!;
 
+        public virtual DbSet<Membership> Memberships { get; set; } = null!;
+
+        public virtual DbSet<MembershipUser> MembershipUsers { get; set; } = null!;
+
+        public virtual DbSet<Order> Orders { get; set; } = null!;
+
+        public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
+
+        public virtual DbSet<Product> Products { get; set; } = null!;
+
+        public virtual DbSet<Trainer> Trainers { get; set; } = null!;
+
+        public virtual DbSet<TrainerUser> TrainerUsers { get; set; } = null!;
+
+        public virtual DbSet<WorkoutPlan> WorkoutPlans { get; set; } = null!;
+
+        public virtual DbSet<WorkoutPlanExercise> WorkoutPlanExercises { get; set; } = null!;
 
 
         protected override void OnModelCreating(ModelBuilder builder)

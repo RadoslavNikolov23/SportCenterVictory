@@ -19,8 +19,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
-    <ProjectReference Include="..\SVC.Data.Common\SVC.Data.Common.csproj" />
-    <ProjectReference Include="..\SVC.Data.Models\SVC.Data.Models.csproj" />
+    <ProjectReference Include="..\SCV.Data.Common\SCV.Data.Common.csproj" />
+    <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

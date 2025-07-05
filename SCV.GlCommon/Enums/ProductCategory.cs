@@ -5,6 +5,5 @@
         Equipment = 1,
         Nutrition = 2,
         Membership = 3,
-
     }
 }

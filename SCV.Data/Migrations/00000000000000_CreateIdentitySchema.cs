@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace SportCenterVictory.Data.Migrations
+namespace SCV.Data.Migrations
 {
     public partial class CreateIdentitySchema : Migration
     {

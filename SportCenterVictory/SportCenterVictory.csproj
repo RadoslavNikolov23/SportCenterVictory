@@ -18,8 +18,8 @@
   <ItemGroup>
     <ProjectReference Include="..\SCV.Data\SCV.Data.csproj" />
     <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
-    <ProjectReference Include="..\SVC.Services.Core\SVC.Services.Core.csproj" />
-    <ProjectReference Include="..\SVC.Web.ViewModels\SVC.Web.ViewModels.csproj" />
+    <ProjectReference Include="..\SCV.Services.Core\SCV.Services.Core.csproj" />
+    <ProjectReference Include="..\SCV.Web.ViewModels\SCV.Web.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>

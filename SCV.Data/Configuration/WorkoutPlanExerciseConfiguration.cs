@@ -1,0 +1,29 @@
+﻿namespace SCV.Data.Configuration
+{
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using SCV.Data.Models;
+
+    public class WorkoutPlanExerciseConfiguration : IEntityTypeConfiguration<WorkoutPlanExercise>
+    {
+        public void Configure(EntityTypeBuilder<WorkoutPlanExercise> entity)
+        {
+            entity
+                 .HasKey(wpe => new { wpe.ExerciseId, wpe.WorkoutPlanId });
+
+            entity
+                .HasOne(wpe => wpe.Exercise)
+                .WithMany(e => e.WorkoutPlanExercises)
+                .HasForeignKey(wpe => wpe.ExerciseId);
+
+            entity
+                .HasOne(wpe => wpe.WorkoutPlan)
+                .WithMany(wp => wp.WorkoutPlanExercises)
+                .HasForeignKey(wpe => wpe.WorkoutPlanId);
+
+            entity
+                .HasQueryFilter(wpe => wpe.WorkoutPlan.IsDeleted == false);
+
+        }
+    }
+}

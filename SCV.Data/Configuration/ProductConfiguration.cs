@@ -2,30 +2,52 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SVC.Data.Models;
+    using SCV.Data.Models;
+    using static SCV.Data.Common.EntityConstantsProduct;
+    using static SCV.GlCommon.ApplicationConstants;
+
 
     public class ProductConfiguration : IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> entity)
         {
-            //entity.HasKey(p => p.Id);
+            entity
+                .HasKey(p => p.Id);
 
-            //entity.Property(p => p.Title)
-            //    .IsRequired()
-            //    .HasMaxLength(100);
+            entity
+                .Property(p => p.Title)
+                .IsRequired()
+                .HasMaxLength(TitleMaxLength);
 
-            //entity.Property(p => p.Description)
-            //    .HasMaxLength(1000);
+            entity 
+                .Property(p => p.ProductCategory)
+                .IsRequired();
 
-            //entity.Property(p => p.Category)
-            //    .IsRequired()
-            //    .HasMaxLength(50);
+            entity
+                .Property(p => p.Quantity)
+                .IsRequired();
 
-            //entity.Property(p => p.Price)
-            //    .HasColumnType("decimal(18,2)");
+            entity
+                .Property(p => p.Description)
+                .IsRequired(false)
+                .HasMaxLength(DescriptionMaxLength);
 
-            //entity.Property(p => p.ImageUrl)
-            //    .HasMaxLength(300);
+            entity
+                .Property(m => m.Price)
+                .IsRequired()
+                .HasColumnType(PriceSqlType);
+
+            entity
+                .Property(p => p.ImageUrl)
+                .IsRequired(false)
+                .HasMaxLength(ImageUrlMaxLength);
+
+            entity
+                 .Property(m => m.IsDeleted)
+                 .HasDefaultValue(false);
+
+            entity
+                .HasQueryFilter(e => e.IsDeleted == false);
 
             //entity.HasData(new Product
             //{

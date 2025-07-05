@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
+    <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
+  </ItemGroup>
+
+</Project>

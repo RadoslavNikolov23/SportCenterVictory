@@ -2,27 +2,57 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SVC.Data.Models;
+    using SCV.Data.Models;
+    using static SCV.Data.Common.EntityConstantsTrainer;
 
     public class TrainerConfiguration : IEntityTypeConfiguration<Trainer>
     {
         public void Configure(EntityTypeBuilder<Trainer> entity)
         {
-            //entity.HasKey(t => t.Id);
+            entity
+                .HasKey(t => t.Id);
 
-            //entity.Property(t => t.FullName)
-            //    .IsRequired()
-            //    .HasMaxLength(100);
+            entity
+                .Property(t => t.FirstName)
+                .IsRequired()
+                .HasMaxLength(FirstNameMaxLength);
 
-            //entity.Property(t => t.Bio)
-            //    .HasMaxLength(1000);
+            entity
+                .Property(t => t.LastName)
+                .IsRequired()
+                .HasMaxLength(LastNameMaxLength);
 
-            //entity.Property(t => t.Specialty)
-            //    .IsRequired()
-            //    .HasMaxLength(50);
+            entity
+                .Property(t => t.Email)
+                .IsRequired()
+                .HasMaxLength(EmailMaxLength);
 
-            //entity.Property(t => t.ImageUrl)
-            //    .HasMaxLength(300);
+            entity
+                .Property(t => t.PhoneNumber)
+                .IsRequired(false)
+                .HasMaxLength(PhoneNumberMaxLength);
+
+            entity
+                .Property(t => t.Bio)
+                .IsRequired()
+                .HasMaxLength(BioMaxLength);
+
+            entity
+                .Property(t => t.TrainerSpecialty)
+                .IsRequired();
+
+            entity
+                .Property(t => t.ImageUrl)
+                .IsRequired(false)
+                .HasMaxLength(ImageUrlMaxLength);
+
+            entity
+                .Property(t => t.IsDeleted)
+                .HasDefaultValue(false);
+
+            entity
+                .HasQueryFilter(t => t.IsDeleted==false);
+
 
             //// Optional: Seed example trainer
             //entity.HasData(new Trainer

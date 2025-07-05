@@ -2,34 +2,50 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SVC.Data.Models;
+    using SCV.Data.Models;
+    using static SCV.Data.Common.EntityConstantsEvent;
 
     public class EventConfiguration : IEntityTypeConfiguration<Event>
     {
         public void Configure(EntityTypeBuilder<Event> entity)
         {
-            //entity.HasKey(e => e.Id);
+            entity
+                .HasKey(e => e.Id);
 
-            //entity.Property(e => e.Title)
-            //    .IsRequired()
-            //    .HasMaxLength(100);
+            entity
+                .Property(e => e.Title)
+                .IsRequired()
+                .HasMaxLength(TitleMaxLength);
 
-            //entity.Property(e => e.Description)
-            //    .HasMaxLength(1000);
+            entity
+                .Property(e => e.EventType)
+                .IsRequired();
 
-            //entity.Property(e => e.Category)
-            //    .IsRequired()
-            //    .HasMaxLength(50);
+            entity
+                .Property(e => e.Description)
+                .IsRequired(false)
+                .HasMaxLength(DescriptionMaxLength);
 
-            //entity.Property(e => e.Location)
-            //    .IsRequired()
-            //    .HasMaxLength(100);
+            entity
+                .Property(e => e.StartDate)
+                .IsRequired();
 
-            //entity.Property(e => e.ImageUrl)
-            //    .HasMaxLength(300);
+            entity
+                .Property(e => e.Location)
+                .IsRequired()
+                .HasMaxLength(LocationMaxLength);
 
-            //entity.Property(e => e.StartDate)
-            //    .IsRequired();
+            entity
+                .Property(e => e.ImageUrl)
+                .IsRequired(false)
+                .HasMaxLength(ImageUrlMaxLength);
+
+            entity
+                .Property(e => e.IsDeleted)
+                .HasDefaultValue(false);
+
+            entity
+                .HasQueryFilter(e => e.IsDeleted==false);
 
             //entity.HasData(new Event
             //{

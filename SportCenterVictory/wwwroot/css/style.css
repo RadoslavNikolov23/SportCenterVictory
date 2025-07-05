@@ -201,7 +201,7 @@ button {
 }
 
 .layout_padding {
-    padding-top: 100px;
+    padding-top: 30px;
     padding-bottom: 0px;
 }
 
@@ -286,32 +286,32 @@ button {
 .banner_section {
     width: 100%;
     float: left;
-    background-image: url(../images/SVC-Front01.jpg);
-    background-size:cover;
+    background-image: url(../images/Main/SVC-Front01.jpg);
+    background-size: cover;
     background-repeat: no-repeat;
     height: auto;
     padding: 150px 0px;
     z-index: 1;
     position: relative;
     animation: backgroundRotation 20s infinite;
-    transition: background-image 3s ease-in-out;
+    transition: background-image 4s ease-in-out;
 }
 
 @keyframes backgroundRotation {
     0% {
-        background-image: url(../images/SVC-Front01.jpg);
+        background-image: url(../images/Main/SVC-Front01.jpg);
     }
 
     33% {
-        background-image: url(../images/SVC-Front02.jpg);
+        background-image: url(../images/Main/SVC-Front02.jpg);
     }
 
     66% {
-        background-image: url(../images/SVC-Front03.jpg);
+        background-image: url(../images/Main/SVC-Front03.jpg);
     }
 
     100% {
-        background-image: url(../images/SVC-Front01.jpg);
+        background-image: url(../images/Main/SVC-Front01.jpg);
     }
 }
 
@@ -573,7 +573,7 @@ figure:hover+span {
     margin: 0 auto;
     text-align: center;
     display: flex;
-    padding-top: 55px;
+    padding-top: 25px;
 }
 
 .readmore_bt a {
@@ -742,6 +742,7 @@ figure:hover+span {
 
 .customer_name {
     width: 100%;
+    padding-top:10px;
     float: left;
     font-size: 26px;
     font-weight: bold;

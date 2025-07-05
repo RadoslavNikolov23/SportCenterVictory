@@ -8,8 +8,8 @@
     {
         public void Configure(EntityTypeBuilder<IdentityUser> entity)
         {
-            entity
-                 .HasData(this.SeedDefaultUser());
+            //entity
+            //     .HasData(this.SeedDefaultUser());
         }
 
         private IdentityUser SeedDefaultUser()
