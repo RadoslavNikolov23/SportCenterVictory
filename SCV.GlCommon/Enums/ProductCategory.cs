@@ -2,8 +2,8 @@
 {
     public enum ProductCategory
     {
-        Equipment = 1,
-        Nutrition = 2,
-        Membership = 3,
+        Equipment = 0,
+        Nutrition = 1,
+        Membership = 2,
     }
 }

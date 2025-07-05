@@ -23,4 +23,8 @@
     <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="SeedFiles\" />
+  </ItemGroup>
+
 </Project>

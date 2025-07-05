@@ -31,7 +31,7 @@
         public bool IsDeleted { get; set; }
 
         [Comment("Foreign Key to the Trainer who created the membership.")]
-        public int TrainerId { get; set; }
+        public Guid TrainerId { get; set; }
 
         [Comment("Navigation property to the Trainer who created the membership.")]
         public virtual Trainer Trainer { get; set; } = null!;

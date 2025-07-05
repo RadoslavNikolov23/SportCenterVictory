@@ -1,9 +1,9 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
+    using Newtonsoft.Json;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Newtonsoft.Json;
-    using SCV.Data.Models;
     using static SCV.Data.Common.EntityConstantsExercise;
 
     public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>

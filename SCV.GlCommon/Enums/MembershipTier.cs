@@ -2,14 +2,14 @@
 {
     public enum MembershipTier
     {
-        FitnessStandard = 1,
-        FitnessPremium = 2,
-        CrossFitUnlimited= 3,
-        CrossFitLimited = 4,
-        CrossFitDropIn = 5,
-        PowerliftingBeginners = 6,
-        PowerliftingIntermediates = 7,
-        PowerliftingExperts = 8,
-        PowerliftingPros = 9,
+        FitnessStandard = 0,
+        FitnessPremium = 1,
+        CrossFitUnlimited= 2,
+        CrossFitLimited = 3,
+        CrossFitDropIn = 4,
+        PowerliftingBeginners = 5,
+        PowerliftingIntermediates = 6,
+        PowerliftingExperts = 7,
+        PowerliftingPros = 8,
     }
 }

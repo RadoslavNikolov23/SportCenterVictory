@@ -21,7 +21,7 @@
         public string TrainerName { get; set; } = null!;
 
         [Comment("Indicates if the class is active or not")]
-        public bool IsActive { get; set; } = true;
+        public bool IsActive { get; set; }
         
         [Comment("Collection of participants in the class")]
         public virtual ICollection<CrossfitClassUser> CrossfitClassUsers { get; set; } = new HashSet<CrossfitClassUser>();

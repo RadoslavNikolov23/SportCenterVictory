@@ -2,8 +2,8 @@
 {
     public enum SportType
     {
-        Fitness = 1,
-        CrossFit = 2,
-        Powerlifting = 3,
+        Fitness = 0,
+        CrossFit = 1,
+        Powerlifting = 2,
     }
 }

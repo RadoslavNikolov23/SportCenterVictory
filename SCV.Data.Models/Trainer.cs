@@ -40,8 +40,5 @@
         [Comment("Collection of Membership entities that link trainers to memberships they manage.")]
         public virtual ICollection<Membership> Memberships { get; set; } = new HashSet<Membership>();
 
-
-
-
     }
 }
