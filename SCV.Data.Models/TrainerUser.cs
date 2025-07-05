@@ -15,5 +15,7 @@
         public int trainerId { get; set; }
 
         public virtual Trainer Trainer { get; set; } = null!;
+
+        //Add a property in which can add ifnormation about which course/membership/plan is the user attached to the trainer
     }
 }
