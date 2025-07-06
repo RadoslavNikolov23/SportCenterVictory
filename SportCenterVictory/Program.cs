@@ -3,6 +3,7 @@ namespace SportCenterVictory
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using SCV.Data;
+    using SCV.Data.Models;
 
     public class Program
     {
@@ -26,9 +27,13 @@ namespace SportCenterVictory
                     .AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services
-                .AddDefaultIdentity<IdentityUser>(options =>
+                .AddDefaultIdentity<ApplicationUser>(options =>
                 {
-                    options.SignIn.RequireConfirmedAccount = true;
+                    options.SignIn.RequireConfirmedAccount = false;
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireLowercase = false;
                 })
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<SportCenterDbContext>();
@@ -57,6 +62,11 @@ namespace SportCenterVictory
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            //For the area routing, uncomment the following lines and adjust as needed
+            //app.MapControllerRoute(
+            //  name: "MyArea",
+            //  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",

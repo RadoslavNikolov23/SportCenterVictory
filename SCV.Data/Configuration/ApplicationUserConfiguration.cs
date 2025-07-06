@@ -3,28 +3,31 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using SCV.Data.Models;
 
-    public class ApplicationUserConfiguration : IEntityTypeConfiguration<IdentityUser>
+    public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
-        public void Configure(EntityTypeBuilder<IdentityUser> entity)
+        public void Configure(EntityTypeBuilder<ApplicationUser> entity)
         {
             //entity
             //     .HasData(this.SeedDefaultUser());
         }
 
-        private IdentityUser SeedDefaultUser()
+        private ApplicationUser SeedDefaultUser()
         {
-            PasswordHasher<IdentityUser> hasherUser = new PasswordHasher<IdentityUser>();
+            PasswordHasher<ApplicationUser> hasherUser = new PasswordHasher<ApplicationUser>();
 
-            IdentityUser defaultUser = new IdentityUser
+            ApplicationUser defaultUser = new ApplicationUser
             {
-                Id = "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd",
-                UserName = "admin",
-                NormalizedUserName = "ADMINSVC",
-                Email = "admin@sportcentervictory.com",
-                NormalizedEmail = "ADMIN@SPORTCENTERVICTORY.COM",
+                Id = "admin-user-id-0001",
+                UserName = "admin@demo.com",
+                NormalizedUserName = "ADMIN@DEMO.COM",
+                Email = "admin@demo.com",
+                NormalizedEmail = "ADMIN@DEMO.COM",
                 EmailConfirmed = true,
                 SecurityStamp = Guid.NewGuid().ToString(),
+                FullName = "Admin User",
+                RegisteredOn = DateTime.UtcNow,
             };
 
             defaultUser.PasswordHash = hasherUser.HashPassword(defaultUser, "Admin123");

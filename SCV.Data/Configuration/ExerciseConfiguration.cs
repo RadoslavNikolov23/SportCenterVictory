@@ -1,12 +1,11 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
-    using Newtonsoft.Json;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using SCV.Data.Models;
     using static SCV.Data.Common.EntityConstantsExercise;
 
-    public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
+    public class ExerciseConfiguration : BaseConfiguration, IEntityTypeConfiguration<Exercise>
     {
         public void Configure(EntityTypeBuilder<Exercise> entity)
         {
@@ -74,33 +73,7 @@
             entity
                 .HasQueryFilter(e => e.IsDeleted==false);
 
-            /*----------------------------------------------------------------------------
-            //--!!--------The seed for the exercises is done in the exercises.json file--------!!--------
-            entity.HasData(exercisesSeed());
-            */
-
-
-        }
-
-        private Exercise[]? exercisesSeed()
-        {
-            string filePath = Path
-                            .Combine(AppContext.BaseDirectory, "wwwroot", "data", "allExercisesSeed.json");
-
-            if (!File.Exists(filePath))
-            {
-                throw new FileNotFoundException("Seed JSON file not found", filePath);
-            }
-
-            string jsonFile = File
-                                .ReadAllText(filePath);
-
-
-            Exercise[]? exercisesList = JsonConvert
-                                             .DeserializeObject<Exercise[]>(jsonFile);
-
-            return exercisesList;
-   
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "ExercisesAll", "allExercisesSeed.json")));
 
         }
     }

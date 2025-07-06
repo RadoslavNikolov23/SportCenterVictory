@@ -1,11 +1,12 @@
 ﻿namespace SCV.Data
 {
-    using System.Reflection;
     using SCV.Data.Models;
+    using System.Reflection;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class SportCenterDbContext : IdentityDbContext
+    public class SportCenterDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
     {
         public SportCenterDbContext(DbContextOptions<SportCenterDbContext> options)
             : base(options)
@@ -37,6 +38,8 @@
         public virtual DbSet<Trainer> Trainers { get; set; } = null!;
 
         public virtual DbSet<TrainerUser> TrainerUsers { get; set; } = null!;
+
+        public virtual DbSet<UserFeedback> UserFeedbacks { get; set; } = null!;
 
         public virtual DbSet<WorkoutPlan> WorkoutPlans { get; set; } = null!;
 

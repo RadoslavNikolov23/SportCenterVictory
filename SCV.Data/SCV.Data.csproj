@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="SeedFiles\ExercisesAll\allExercisesSeed.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.16" />
@@ -21,10 +29,6 @@
     <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
     <ProjectReference Include="..\SCV.Data.Common\SCV.Data.Common.csproj" />
     <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="SeedFiles\" />
   </ItemGroup>
 
 </Project>
