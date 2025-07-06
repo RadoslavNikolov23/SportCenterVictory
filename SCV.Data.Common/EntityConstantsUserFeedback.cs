@@ -1,6 +1,6 @@
 ﻿namespace SCV.Data.Common
 {
-    public static class EntityConstraintsUserFeedback
+    public static class EntityConstantsUserFeedback
     {
         public const int UserNameMaxLength = 100;
         public const int UserNameMinLength = 3;

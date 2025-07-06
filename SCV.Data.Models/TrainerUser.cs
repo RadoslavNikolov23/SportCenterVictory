@@ -1,6 +1,5 @@
 ﻿namespace SCV.Data.Models
 {
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     [Comment("Entity representing the many-to-many relationship between ApplicationUser and Trainer.")]
@@ -16,6 +15,7 @@
 
         public virtual Trainer Trainer { get; set; } = null!;
 
-        //Add a property in which can add ifnormation about which course/membership/plan is the user attached to the trainer
+        [Comment("Additional information about which course/membership/plan is the user attached to the trainer")]
+        public string? AdditionalInformation { get; set; }
     }
 }

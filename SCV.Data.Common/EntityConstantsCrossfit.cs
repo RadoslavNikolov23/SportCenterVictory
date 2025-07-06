@@ -10,6 +10,9 @@
             public const int ClassDescriptionMaxLength = 255;
             public const int ClassDescriptionMinLength = 10;
 
+            public const int ClassStartTimeMaxLength = 60;
+            public const int ClassStartTimeMinLength = 3;
+
             public const int TrainerNameMaxLength = 60;
             public const int TrainerNameMinLength = 2;
         }

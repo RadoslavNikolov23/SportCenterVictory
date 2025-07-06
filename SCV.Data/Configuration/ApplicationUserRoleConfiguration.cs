@@ -11,8 +11,13 @@
             //entity.HasData(
             //          new IdentityUserRole<string>
             //          {
-            //              RoleId = "role-admin", // must match Admin Role ID
-            //              UserId = "df1c3a0f-1234-4cde-bb55-d5f15a6aabcd" // must match seeded user
+            //              RoleId = "role-admin",
+            //              UserId = "admin-user-id-0001"
+            //          },
+            //          new IdentityUserRole<string>
+            //          {
+            //              RoleId = "role-manager",
+            //              UserId = "manager-user-id-0002"
             //          });
         }
     }

@@ -1,8 +1,8 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SCV.Data.Models;
 
     public class MembershipUserConfiguration : IEntityTypeConfiguration<MembershipUser>
     {
@@ -34,8 +34,6 @@
 
            entity
                 .HasQueryFilter(mu => mu.Membership.IsDeleted == false);
-
-
 
         }
     }

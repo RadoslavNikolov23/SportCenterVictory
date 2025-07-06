@@ -1,8 +1,8 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SCV.Data.Models;
     using static SCV.GlCommon.ApplicationConstants;
 
     public class OrderConfiguration : IEntityTypeConfiguration<Order>
@@ -39,12 +39,8 @@
 
             entity
                 .HasOne(o => o.Customer)
-                .WithMany(c => c.Orders)
+                .WithMany()
                 .HasForeignKey(o => o.CustomerId);
-
-            //entity
-            //    .HasData();
-
         }
     }
 }

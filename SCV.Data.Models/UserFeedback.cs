@@ -14,10 +14,10 @@
         [Comment("The context of the feedback.")]
         public string Feedback { get; set; } = null!;
 
-        [Comment("The Foreing key to the User how added the feedback")]
+        [Comment("The Foreign key to the User how added the feedback")]
         public string UserId { get; set; } = null!;
 
-        public virtual ApplicationUser User { get; set; }
- 
+        public virtual ApplicationUser User { get; set; } = null!;
+
     }
 }

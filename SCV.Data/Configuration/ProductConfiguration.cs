@@ -7,7 +7,7 @@
     using static SCV.GlCommon.ApplicationConstants;
 
 
-    public class ProductConfiguration : IEntityTypeConfiguration<Product>
+    public class ProductConfiguration : BaseConfiguration, IEntityTypeConfiguration<Product>
     {
         public void Configure(EntityTypeBuilder<Product> entity)
         {
@@ -49,15 +49,8 @@
             entity
                 .HasQueryFilter(e => e.IsDeleted == false);
 
-            //entity.HasData(new Product
-            //{
-            //    Id = 1,
-            //    Title = "Weightlifting Belt",
-            //    Description = "High quality leather lifting belt for support.",
-            //    Category = "Equipment",
-            //    Price = 45.00m,
-            //    ImageUrl = "/images/products/belt.jpg"
-            //});
+            // Create a productsSeed.json file in the SeedFiles/Products directory
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Products", "productsSeed.json")));
         }
     }
 }

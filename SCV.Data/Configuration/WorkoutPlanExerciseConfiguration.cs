@@ -1,8 +1,8 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SCV.Data.Models;
 
     public class WorkoutPlanExerciseConfiguration : IEntityTypeConfiguration<WorkoutPlanExercise>
     {
@@ -23,7 +23,6 @@
 
             entity
                 .HasQueryFilter(wpe => wpe.WorkoutPlan.IsDeleted == false);
-
         }
     }
 }

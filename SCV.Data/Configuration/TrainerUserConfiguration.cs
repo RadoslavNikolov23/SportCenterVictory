@@ -1,8 +1,9 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SCV.Data.Models;
+    using static SCV.Data.Common.EntityConstantsTrainerUser;
 
     public class TrainerUserConfiguration : IEntityTypeConfiguration<TrainerUser>
     {
@@ -23,6 +24,11 @@
 
             entity
                 .HasQueryFilter(t=>t.Trainer.IsDeleted==false);
+
+            entity
+                .Property(tu => tu.AdditionalInformation)
+                .HasMaxLength(AdditionalInformationMaxLength)
+                .IsRequired(false);
         }
     }
 }

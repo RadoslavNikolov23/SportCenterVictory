@@ -1,8 +1,8 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SCV.Data.Models;
     using static SCV.Data.Common.EntityConstantsCrossfit.CrossfitWorkoutOfTheDayConstraints;
 
     public class CrossfitWorkoutOfTheDayConfiguration : IEntityTypeConfiguration<CrossfitWorkoutOfTheDay>

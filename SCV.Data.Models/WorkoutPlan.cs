@@ -3,7 +3,7 @@
     using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
 
-    [Comment("Workout Plan entity for a structured workout plan for fitness, crossfit or powerlifting")]
+    [Comment("Workout Plan entity for a structured workout plan for fitness, crossFit or powerlifting")]
     public class WorkoutPlan
     {
         [Comment("Primary key for the workout plan")]
@@ -15,7 +15,7 @@
         [Comment("Description of the workout plan")]
         public string Description { get; set; } = null!;
 
-        [Comment("Type of the workout plan - 'Crossfit', 'Powerlifting', 'Bodybuilding'")]
+        [Comment("Type of the workout plan - 'CrossFit', 'Powerlifting', 'Bodybuilding'")]
         public SportType Type { get; set; }
 
         [Comment("Optional image URL for the workout plan")]
@@ -25,7 +25,7 @@
         public decimal? Price { get; set; }
 
         [Comment("Indicates if the workout plan is currently active or deleted")]
-        public bool IsDeleted { get; set; } // Indicates if the workout plan is currently active
+        public bool IsDeleted { get; set; }
 
         [Comment("Collection of exercises associated with the workout plan")]
         public virtual ICollection<WorkoutPlanExercise> WorkoutPlanExercises { get; set; } = new HashSet<WorkoutPlanExercise>();

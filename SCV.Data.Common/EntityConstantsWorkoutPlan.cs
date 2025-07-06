@@ -1,6 +1,6 @@
 ﻿namespace SCV.Data.Common
 {
-    public static class EntityConstraintsWorkoutPlan
+    public static class EntityConstantsWorkoutPlan
     {
         public const int TitleMaxLength = 120;
         public const int TitleMinLength = 2;

@@ -430,7 +430,7 @@ button {
 .about_text {
     width: 95%;
     margin: 0 auto;
-    font-size: 16px;
+    font-size: 18px;
     color: #292927;
     padding-top: 55px;
     text-align: center;
@@ -926,10 +926,11 @@ figure:hover+span {
 .footer_text {
     width: 100%;
     float: left;
-    font-size: 14px;
+    font-size: 16px;
     color: #ffffff;
     margin: 0px;
     font-family: 'Poppins', sans-serif;
+    text-align:center;
 }
 
 .footer_menu {
@@ -943,7 +944,7 @@ figure:hover+span {
 }
 
 .footer_menu li {
-    font-size: 14px;
+    font-size: 16px;
     color: #ffffff;
     font-family: 'Poppins', sans-serif;
 }

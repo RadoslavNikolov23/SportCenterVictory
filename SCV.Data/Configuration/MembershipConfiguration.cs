@@ -1,8 +1,8 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SCV.Data.Models;
     using static SCV.Data.Common.EntityConstantsMembership;
     using static SCV.GlCommon.ApplicationConstants;
 
@@ -53,8 +53,8 @@
                 .WithMany(t => t.Memberships)
                 .HasForeignKey(m => m.TrainerId);
 
-            // entity
-            //     .HasData();
+            // Create a membershipsSeed.json file in the SeedFiles/Memberships directory
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Memberships", "membershipsSeed.json")));
 
         }
     }

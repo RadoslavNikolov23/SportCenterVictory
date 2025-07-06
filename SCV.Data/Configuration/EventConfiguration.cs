@@ -1,11 +1,11 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SCV.Data.Models;
     using static SCV.Data.Common.EntityConstantsEvent;
 
-    public class EventConfiguration : IEntityTypeConfiguration<Event>
+    public class EventConfiguration : BaseConfiguration, IEntityTypeConfiguration<Event>
     {
         public void Configure(EntityTypeBuilder<Event> entity)
         {
@@ -47,16 +47,7 @@
             entity
                 .HasQueryFilter(e => e.IsDeleted==false);
 
-            //entity.HasData(new Event
-            //{
-            //    Id = 1,
-            //    Title = "CrossFit Regional Challenge",
-            //    Description = "A local competition for intermediate-level CrossFitters.",
-            //    Category = "CrossFit",
-            //    StartDate = new DateTime(2025, 7, 20),
-            //    Location = "Ruse Sports Arena",
-            //    ImageUrl = "/images/events/crossfit-challenge.jpg"
-            //});
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Events", "eventsSeed.json")));
         }
     }
 }

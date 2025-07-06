@@ -29,6 +29,6 @@
 
         public virtual ApplicationUser Customer { get; set; } = null!;
 
-        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public virtual ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
     }
 }

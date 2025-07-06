@@ -14,8 +14,8 @@
         [Comment("CrossFit Class Description for details")]
         public string Description { get; set; } = null!;
 
-        [Comment("CrossFit Class starting date and time")]
-        public DateTime StartTime { get; set; }
+        [Comment("CrossFit Class starting date and time - a string, because it will say in which day of the week will there be classes, ex. Monday 17:00")]
+        public string StartTime { get; set; } = null!;
 
         [Comment("CrossFit Class Trainer name - can be a Trainer in the Sport Center or a guest Trainer")]
         public string TrainerName { get; set; } = null!;

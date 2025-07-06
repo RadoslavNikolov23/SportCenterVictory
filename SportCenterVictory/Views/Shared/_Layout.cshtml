@@ -126,9 +126,12 @@
                                 </a>
                             </li>
 
-                            <li class="nav-item dropdown">
-                                <partial name="_LoginPartial" />
-                            </li>
+                            @* <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Account
+                                </a> *@
+                            <partial name="_LoginPartial" />
+                            @* </li> *@
 
                         </ul>
 
@@ -153,41 +156,42 @@
         <div class="footer_section layout_padding">
             <div class="container">
                 <div class="row">
+
                     <div class="col-lg-3 col-sm-6 align-content-center">
                         <div class="footer_logo"><img src="~/images/footer-logo.png"></div>
-                        <p class="footer_text align-content-center">"Your Journey. Your Rules. Your Victory."</p>
+                        <p class="footer_text">"Your Journey. Your Rules. Your Victory."</p>
                     </div>
+
                     <div class="col-lg-3 col-sm-6">
-                        <h3 class="useful_text">Menu</h3>
+                        <h1 class="useful_text">
+                            Motivational Quotes
+                        </h1>
+                        <p class="footer_text">The pain you feel today will be the strength you feel tomorrow - <i>Arnold Schwarzenegger</i> </p>
+                    </div>
+
+                    <div class="col-lg-3 col-sm-6 pl-5">
+                        <h3 class="useful_text">Useful Link</h3>
                         <div class="footer_menu">
                             <ul>
                                 <li><a asp-area="" asp-controller="About" asp-action="Index">About</a></li>
                                 <li><a asp-area="" asp-controller="Contact" asp-action="Index">Contact</a></li>
+                                <li><a asp-area="" asp-controller="Store" asp-action="Index">Store</a></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-sm-6">
-                        <h1 class="useful_text">Useful Link</h1>
-                        <p class="dummy_text">Adipiscing Elit, sed do Eiusmod Tempor incididunt </p>
-                    </div>
+                   
                     <div class="col-lg-3 col-sm-6">
                         <h1 class="useful_text">Contact Us</h1>
                         <div class="location_text">
                             <ul>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_10">No.123 Chalingt Gates</span>
-                                    </a>
+                                    <i class="fa fa-map-marker" aria-hidden="true"></i><span class="padding_left_10">bul. Botev, Russe Bulgaria</span>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">Call : +01 1234567890</span>
-                                    </a>
+                                    <i class="fa fa-phone" aria-hidden="true"></i><span class="padding_left_10">Call : +359 888 433 131</span>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">Email : demo@gmail.com</span>
-                                    </a>
+                                    <i class="fa fa-envelope" aria-hidden="true"></i><span class="padding_left_10">Email : customs_rd@abv.bg</span>
                                 </li>
                             </ul>
                         </div>
@@ -195,10 +199,10 @@
                 </div>
                 <div class="social_icon">
                     <ul>
-                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
-                        <li><a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.facebook.com/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.youtube.com/"><i class="fa fa-youtube-play" aria-hidden="true"></i></a></li>
+                        <li><a href="https://www.linkedin.com/"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
                     </ul>
                 </div>
             </div>

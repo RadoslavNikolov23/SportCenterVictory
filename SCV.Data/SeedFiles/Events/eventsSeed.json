@@ -1,0 +1,60 @@
+{
+
+"Events": [
+    {
+      "Id": 1,
+      "Title": "Fitness Transformation Bootcamp",
+      "EventType": 0,
+      "Description": "6-week transformation bootcamp with professional trainers and nutritionists.",
+      "StartDate": "2025-08-15T09:00:00",
+      "Location": "Sport Center Victory - Ruse",
+      "ImageUrl": "/events/fitnessTransformation.jpg"
+      
+    },
+    {
+      "Id": 2,
+      "Title": "Yoga Retreat Weekend",
+      "EventType": 0,
+      "Description": "A weekend retreat focusing on yoga, meditation, and wellness on the beach.",
+      "StartDate": "2025-08-20T08:00:00",
+      "Location": "Sport Center Victory - Ruse",
+      "ImageUrl": "/events/fitnessYoga.jpg"
+    },
+    {
+      "Id": 3,
+      "Title": "CrossFit Regional Challenge",
+      "EventType": 1,
+      "Description": "A local competition for intermediate-level CrossFitters.",
+      "StartDate": "2025-08-10T10:00:00",
+      "Location": "Sport Center Victory - Ruse",
+      "ImageUrl": "/events/crossFitRegional.jpg"
+    },
+    {
+      "Id": 4,
+      "Title": "CrossFit Open Night",
+      "EventType": 1,
+      "Description": "Try a real CrossFit Open WOD with the community and judges.",
+      "StartDate": "2025-09-10T16:00:00",
+      "Location": "Sport Center Victory - Ruse",
+      "ImageUrl": "/events/crossFitOpenNight.jpg"
+    },
+    {
+      "Id": 5,
+      "Title": "Bench Press Meet-Up",
+      "EventType": 2,
+      "Description": "Open bench press meet-up for all strength levels.",
+      "StartDate": "2025-08-25T18:00:00",
+      "Location": "Sport Center Victory - Ruse",
+      "ImageUrl": "/events/powerliftingBenchpress.png"
+    },
+    {
+      "Id": 6,
+      "Title": "Olympic Lifting Workshop",
+      "EventType": 2,
+      "Description": "Hands-on technique workshop on snatch and clean & jerk.",
+      "StartDate": "2025-09-05T14:00:00",
+      "Location": "Sport Center Victory - Ruse",
+      "ImageUrl": "/events/powerliftingOlympicLifting.jpg"
+    }
+  ]
+  }

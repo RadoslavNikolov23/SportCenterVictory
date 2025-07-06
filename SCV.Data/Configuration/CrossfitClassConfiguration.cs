@@ -5,7 +5,7 @@
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using static SCV.Data.Common.EntityConstantsCrossfit.CrossfitClassConstraints;
 
-    public class CrossfitClassConfiguration : IEntityTypeConfiguration<CrossfitClass>
+    public class CrossfitClassConfiguration : BaseConfiguration, IEntityTypeConfiguration<CrossfitClass>
     {
         public void Configure(EntityTypeBuilder<CrossfitClass> entity)
         {
@@ -24,7 +24,8 @@
 
             entity
                 .Property(cc => cc.StartTime)
-                .IsRequired();
+                .IsRequired()
+                .HasMaxLength(ClassStartTimeMaxLength);
 
             entity
                 .Property(cc => cc.TrainerName)
@@ -39,10 +40,8 @@
             entity
                 .HasQueryFilter(cc => cc.IsActive==true);
 
-            //entity
-            //    .HasData();
 
-
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "CrossFitClasses", "crossfitClassesSeed.json")));
         }
     }
 }

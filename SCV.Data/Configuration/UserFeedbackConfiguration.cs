@@ -3,9 +3,9 @@
     using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using static SCV.Data.Common.EntityConstraintsUserFeedback;
+    using static SCV.Data.Common.EntityConstantsUserFeedback;
 
-    public class UserFeedbackConfiguration : IEntityTypeConfiguration<UserFeedback>
+    public class UserFeedbackConfiguration : BaseConfiguration, IEntityTypeConfiguration<UserFeedback>
     {
         public void Configure(EntityTypeBuilder<UserFeedback> entity)
         {
@@ -31,8 +31,8 @@
                 .WithMany()
                 .HasForeignKey(uf => uf.UserId);
 
-            //entity
-            //    .HasData();
+            // Create a userFeedbackSeed.json file in the SeedFiles/UserFeedbacks directory
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
         }
     }
 }

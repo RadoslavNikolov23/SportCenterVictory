@@ -3,7 +3,7 @@
     using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using static SCV.Data.Common.EntityConstraintsWorkoutPlan;
+    using static SCV.Data.Common.EntityConstantsWorkoutPlan;
     using static SCV.GlCommon.ApplicationConstants;
 
     public class WorkoutPlanConfiguration : IEntityTypeConfiguration<WorkoutPlan>
@@ -44,16 +44,8 @@
             entity
                 .HasQueryFilter(wp => wp.IsDeleted==false);
 
-            //// Optional: seed
-            //entity.HasData(new WorkoutPlan
-            //{
-            //    Id = 1,
-            //    Title = "Beginner Strength",
-            //    Description = "4-week beginner-friendly strength training program.",
-            //    Type = "Fitness",
-            //    DurationWeeks = 4,
-            //    Price = 29.99m
-            //});
+            // Create a workoutPlansSeed.json file in the SeedFiles/Workouts directory
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Workouts", "workoutPlansSeed.json")));
         }
     }
 }

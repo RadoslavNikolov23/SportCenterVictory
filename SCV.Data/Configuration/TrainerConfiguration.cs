@@ -1,11 +1,11 @@
 ﻿namespace SCV.Data.Configuration
 {
+    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using SCV.Data.Models;
     using static SCV.Data.Common.EntityConstantsTrainer;
 
-    public class TrainerConfiguration : IEntityTypeConfiguration<Trainer>
+    public class TrainerConfiguration : BaseConfiguration, IEntityTypeConfiguration<Trainer>
     {
         public void Configure(EntityTypeBuilder<Trainer> entity)
         {
@@ -53,16 +53,7 @@
             entity
                 .HasQueryFilter(t => t.IsDeleted==false);
 
-
-            //// Optional: Seed example trainer
-            //entity.HasData(new Trainer
-            //{
-            //    Id = 1,
-            //    FullName = "John Smith",
-            //    Bio = "Expert in CrossFit and power training.",
-            //    Specialty = "CrossFit",
-            //    ImageUrl = "/images/trainers/john-smith.jpg"
-            //});
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Trainers", "trainersSeed.json")));
         }
     }
 }

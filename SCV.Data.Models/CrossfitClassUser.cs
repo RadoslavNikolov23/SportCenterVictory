@@ -1,6 +1,5 @@
 ﻿namespace SCV.Data.Models
 {
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     [Comment("Represents a many-to-many relationship between ApplicationUser and CrossfitClass.")]
