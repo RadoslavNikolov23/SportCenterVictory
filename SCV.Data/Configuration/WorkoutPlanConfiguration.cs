@@ -44,8 +44,7 @@
             entity
                 .HasQueryFilter(wp => wp.IsDeleted==false);
 
-            // Create a workoutPlansSeed.json file in the SeedFiles/Workouts directory
-            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Workouts", "workoutPlansSeed.json")));
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "WorkoutPlans", "workoutPlansSeed.json")));
         }
     }
 }

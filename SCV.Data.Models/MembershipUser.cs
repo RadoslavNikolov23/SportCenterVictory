@@ -16,7 +16,7 @@
         public virtual Membership Membership { get; set; } = null!;
 
         [Comment("The date and time when the membership was purchased.")]
-        public DateOnly PurchasedOn { get; set; }
+        public DateTime PurchasedOn { get; set; }
 
         [Comment("Indicates whether the membership user is deleted. Used for soft deletion.")]
         public bool IsDeleted { get; set; }

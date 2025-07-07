@@ -14,6 +14,9 @@
         [Comment("The context of the feedback.")]
         public string Feedback { get; set; } = null!;
 
+        [Comment("The URL of the image associated with the feedback, if any.")]
+        public string? ImageUrl { get; set; }
+
         [Comment("The Foreign key to the User how added the feedback")]
         public string UserId { get; set; } = null!;
 

@@ -9,7 +9,7 @@
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Comment("The day in which the order was made")]
-        public DateOnly OrderDate { get; set; }
+        public DateTime OrderDate { get; set; }
 
         [Comment("The total price of the order")]
         public decimal TotalPrice { get; set; }

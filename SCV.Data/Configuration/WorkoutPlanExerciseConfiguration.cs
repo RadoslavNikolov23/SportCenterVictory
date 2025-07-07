@@ -23,6 +23,10 @@
 
             entity
                 .HasQueryFilter(wpe => wpe.WorkoutPlan.IsDeleted == false);
+
+            //----! Seed after the WorkoutPlan and Exercise entities are configured !----
+
+            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "WorkoutPlanExercises", "workoutPlanExerciseSeed.json")));
         }
     }
 }

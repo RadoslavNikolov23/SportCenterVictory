@@ -1,0 +1,42 @@
+[
+  { "ExerciseId": "Pushups", "WorkoutPlanId": 1 },
+  { "ExerciseId": "Dumbbell_Shoulder_Press", "WorkoutPlanId": 1 },
+  { "ExerciseId": "Bent_Over_Barbell_Row", "WorkoutPlanId": 1 },
+  { "ExerciseId": "Plank", "WorkoutPlanId": 1 },
+  { "ExerciseId": "Bodyweight_Squat", "WorkoutPlanId": 1 },
+  { "ExerciseId": "Barbell_Glute_Bridge", "WorkoutPlanId": 1 },
+  { "ExerciseId": "Bodyweight_Walking_Lunge", "WorkoutPlanId": 1 },
+  { "ExerciseId": "Cable_Russian_Twists", "WorkoutPlanId": 1 },
+  { "ExerciseId": "burpees", "WorkoutPlanId": 1 },
+
+  { "ExerciseId": "Barbell_Bench_Press_-_Medium_Grip", "WorkoutPlanId": 2 },
+  { "ExerciseId": "Incline_Dumbbell_Press", "WorkoutPlanId": 2 },
+  { "ExerciseId": "Dips_-_Triceps_Version", "WorkoutPlanId": 2 },
+  { "ExerciseId": "Barbell_Deadlift", "WorkoutPlanId": 2 },
+  { "ExerciseId": "Full_Range-Of-Motion_Lat_Pulldown", "WorkoutPlanId": 2 },
+  { "ExerciseId": "Flexor_Incline_Dumbbell_Curls", "WorkoutPlanId": 2 },
+  { "ExerciseId": "Barbell_Full_Squat", "WorkoutPlanId": 2 },
+  { "ExerciseId": "Romanian_Deadlift", "WorkoutPlanId": 2 },
+  { "ExerciseId": "Hanging_Leg_Raise", "WorkoutPlanId": 2 },
+
+  { "ExerciseId": "Freehand_Jump_Squat", "WorkoutPlanId": 3 },
+  { "ExerciseId": "Pushups", "WorkoutPlanId": 3 },
+  { "ExerciseId": "Mountain_Climbers", "WorkoutPlanId": 3 },
+  { "ExerciseId": "Kettlebell_Thruster", "WorkoutPlanId": 3 },
+  { "ExerciseId": "Crunches", "WorkoutPlanId": 3 },
+  { "ExerciseId": "Plank", "WorkoutPlanId": 3 },
+
+  { "ExerciseId": "Pullups", "WorkoutPlanId": 4 },
+  { "ExerciseId": "Front_Box_Jump", "WorkoutPlanId": 4 },
+  { "ExerciseId": "One-Arm_Kettlebell_Swings", "WorkoutPlanId": 4 },
+
+  { "ExerciseId": "Barbell_Full_Squat", "WorkoutPlanId": 5 },
+  { "ExerciseId": "Front_Squat_Clean_Grip", "WorkoutPlanId": 5 },
+  { "ExerciseId": "Bodyweight_Walking_Lunge", "WorkoutPlanId": 5 },
+  { "ExerciseId": "Bench_Press_-_Powerlifting", "WorkoutPlanId": 5 },
+  { "ExerciseId": "Barbell_Shoulder_Press", "WorkoutPlanId": 5 },
+  { "ExerciseId": "Triceps_Pushdown", "WorkoutPlanId": 5 },
+  { "ExerciseId": "Barbell_Deadlift", "WorkoutPlanId": 5 },
+  { "ExerciseId": "Bent_Over_Barbell_Row", "WorkoutPlanId": 5 },
+  { "ExerciseId": "Plank", "WorkoutPlanId": 5 }
+]

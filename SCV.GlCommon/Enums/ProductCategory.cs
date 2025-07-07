@@ -4,6 +4,6 @@
     {
         Equipment = 0,
         Nutrition = 1,
-        Membership = 2,
+        //Membership = 2,
     }
 }

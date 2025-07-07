@@ -49,7 +49,6 @@
             entity
                 .HasQueryFilter(e => e.IsDeleted == false);
 
-            // Create a productsSeed.json file in the SeedFiles/Products directory
             //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Products", "productsSeed.json")));
         }
     }

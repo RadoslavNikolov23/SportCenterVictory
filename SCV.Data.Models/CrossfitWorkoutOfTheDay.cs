@@ -12,7 +12,7 @@
         public string Name { get; set; } = null!;
 
         [Comment("Date when the workout of the day is scheduled")]
-        public DateOnly WorkoutDate { get; set; }
+        public DateTime WorkoutDate { get; set; }
 
         [Comment("Plain text description of the workout of the day")]
         public string DescriptionPlain { get; set; } = null!;

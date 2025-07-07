@@ -1,5 +1,4 @@
-{
-"Trainers": [
+[
   {
     "Id": "948af76c-23f3-4487-a245-c011e58a73db",
     "FirstName": "Viktor",
@@ -8,7 +7,7 @@
     "PhoneNumber": null,
     "Bio": "Certified fitness instructor and personal coach with a focus on fat loss and cardio endurance.",
     "Specialty": 0,
-    "ImageUrl": "/trainers/Fitness/viktorNachev.jpg"
+    "ImageUrl": "images/Trainers/Fitness/viktorNachev.jpg"
   },
   {
     "Id": "e2a0a45f-bbe7-468e-b697-17dbcd793c79",
@@ -18,7 +17,7 @@
     "PhoneNumber": "+359888765432",
     "Bio": "Creative Fitness coach with a love for community building and mental resilience.",
     "Specialty": 0,
-    "ImageUrl": "/trainers/Fitness/sofiaZlateva.jpg"
+    "ImageUrl": "images/Trainers/Fitness/sofiaZlateva.jpg"
   },
 
   {
@@ -29,57 +28,56 @@
     "PhoneNumber": "+359883456789",
     "Bio": "Enthusiastic trainer offering tailored programs for male and female fitness and weight training.",
     "Specialty": 0,
-    "ImageUrl": "/trainers/Fitness/desislavIliev.jpg"
+    "ImageUrl": "images/Trainers/Fitness/desislavIliev.jpg"
   },
-    {
-      "Id": "b59e1fd1-f514-4f18-93f0-1d8b7992ce41",
-      "FirstName": "Ivan",
-      "LastName": "Dimitrov",
-      "Email": "ivan.dimitrov@svc.bg",
-      "PhoneNumber": "+359888123456",
-      "Bio": "Certified CrossFit Level 2 coach with 7 years of experience in functional training.",
-      "TrainerSpecialty": 1,
-      "ImageUrl": "/trainers/Crossfit/ivanDimitrov.jpg"
-    },
-    {
-      "Id": "ec83a001-55df-45e5-b8c4-91f4d76f9fd0",
-      "FirstName": "Maya",
-      "LastName": "Ivanova",
-      "Email": "maya.ivanova@svc.bg",
-      "PhoneNumber": "+359885987654",
-      "Bio": "Fitness and bodybuilding expert with over 10 years of personal training experience.",
-      "TrainerSpecialty": 1,
-      "ImageUrl": "/trainers/Crossfit/mayaIvanova.jpg"
-    },
-    {
-      "Id": "1ee19866-6828-412c-80f7-4572630f2a89",
-      "FirstName": "Georgi",
-      "LastName": "Kolev",
-      "Email": "georgi.kolev@sportvictory.bg",
-      "PhoneNumber": "+359886998877",
-      "Bio": "Focused on mobility, recovery, and competitive CrossFit coaching.",
-      "Specialty": 1,
-      "ImageUrl": "/trainers/Crossfit/georgiKolev.jpg"
-    },
-    {
-      "Id": "59015526-c85d-41f8-9550-e8822a1ee4b4",
-      "FirstName": "Kristina",
-      "LastName": "Dimitrova",
-      "Email": "kristina.dimitrova@sportvictory.bg",
-      "PhoneNumber": "+359889332211",
-      "Bio": "Female powerlifting coach with a passion for strength training and mental toughness.",
-      "Specialty": 2,
-      "ImageUrl": "/trainers/Powerlifting/kristinaDimitrova.jpg"
-    },
-    {
-      "Id": "0920b615-dd7d-46f5-b238-3ba891569b44",
-      "FirstName": "Stefan",
-      "LastName": "Todorov",
-      "Email": "stefan.todorov@sportvictory.bg",
-      "PhoneNumber": "+359887123321",
-      "Bio": "Advanced strength trainer focused on Olympic lifts and powerlifting competition prep.",
-      "Specialty": 2,
-      "ImageUrl":  "/trainers/Powerlifting/stefanTodorov.jpg"
-    }
-  ]
-}
+  {
+    "Id": "b59e1fd1-f514-4f18-93f0-1d8b7992ce41",
+    "FirstName": "Ivan",
+    "LastName": "Dimitrov",
+    "Email": "ivan.dimitrov@svc.bg",
+    "PhoneNumber": "+359888123456",
+    "Bio": "Certified CrossFit Level 2 coach with 7 years of experience in functional training.",
+    "TrainerSpecialty": 1,
+    "ImageUrl": "images/Trainers/Crossfit/ivanDimitrov.jpg"
+  },
+  {
+    "Id": "ec83a001-55df-45e5-b8c4-91f4d76f9fd0",
+    "FirstName": "Maya",
+    "LastName": "Ivanova",
+    "Email": "maya.ivanova@svc.bg",
+    "PhoneNumber": "+359885987654",
+    "Bio": "Fitness and bodybuilding expert with over 10 years of personal training experience.",
+    "TrainerSpecialty": 1,
+    "ImageUrl": "images/Trainers/Crossfit/mayaIvanova.jpg"
+  },
+  {
+    "Id": "1ee19866-6828-412c-80f7-4572630f2a89",
+    "FirstName": "Georgi",
+    "LastName": "Kolev",
+    "Email": "georgi.kolev@sportvictory.bg",
+    "PhoneNumber": "+359886998877",
+    "Bio": "Focused on mobility, recovery, and competitive CrossFit coaching.",
+    "Specialty": 1,
+    "ImageUrl": "images/Trainers/Crossfit/georgiKolev.jpg"
+  },
+  {
+    "Id": "59015526-c85d-41f8-9550-e8822a1ee4b4",
+    "FirstName": "Kristina",
+    "LastName": "Dimitrova",
+    "Email": "kristina.dimitrova@sportvictory.bg",
+    "PhoneNumber": "+359889332211",
+    "Bio": "Female powerlifting coach with a passion for strength training and mental toughness.",
+    "Specialty": 2,
+    "ImageUrl": "images/Trainers/Powerlifting/kristinaDimitrova.jpg"
+  },
+  {
+    "Id": "0920b615-dd7d-46f5-b238-3ba891569b44",
+    "FirstName": "Stefan",
+    "LastName": "Todorov",
+    "Email": "stefan.todorov@sportvictory.bg",
+    "PhoneNumber": "+359887123321",
+    "Bio": "Advanced strength trainer focused on Olympic lifts and powerlifting competition prep.",
+    "Specialty": 2,
+    "ImageUrl": "images/Trainers/Powerlifting/stefanTodorov.jpg"
+  }
+]

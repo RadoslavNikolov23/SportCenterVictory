@@ -1,0 +1,137 @@
+[
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0001",
+    "Title": "CrossFit Hoodie",
+    "ProductCategory": 0,
+    "Quantity": 25,
+    "Description": "Brown hoodie for CrossFit training.",
+    "Price": 49.99,
+    "ImageUrl": "images/Store/Eqiupment/crossfitHoodie01.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0002",
+    "Title": "CrossFit Hoodie",
+    "ProductCategory": 0,
+    "Quantity": 30,
+    "Description": "Black hoodie for CrossFit sessions.",
+    "Price": 52.99,
+    "ImageUrl": "images/Store/Eqiupment/crossfitHoodie02.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0003",
+    "Title": "CrossFit Shirt",
+    "ProductCategory": 0,
+    "Quantity": 40,
+    "Description": "Black t-shirt, CrossFit edition.",
+    "Price": 24.99,
+    "ImageUrl": "images/Store/Eqiupment/crossfitShirt01.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0004",
+    "Title": "Crossfit Shirt",
+    "ProductCategory": 0,
+    "Quantity": 40,
+    "Description": "Dark green CrossFit t-shirt.",
+    "Price": 24.99,
+    "ImageUrl": "images/Store/Eqiupment/crossfitShirt02.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0005",
+    "Title": "CrossFit Shirt",
+    "ProductCategory": 0,
+    "Quantity": 35,
+    "Description": "Pink CrossFit t-shirt for women.",
+    "Price": 24.99,
+    "ImageUrl": "images/Store/Eqiupment/crossfitShirt03.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0006",
+    "Title": "Muscle Roller",
+    "ProductCategory": 0,
+    "Quantity": 20,
+    "Description": "Recovery muscle roller for athletes.",
+    "Price": 29.99,
+    "ImageUrl": "images/Store/Eqiupment/muscleRoller.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0007",
+    "Title": "Shaker",
+    "ProductCategory": 0,
+    "Quantity": 50,
+    "Description": "Shaker bottle with Spider-Man face.",
+    "Price": 14.99,
+    "ImageUrl": "images/Store/Eqiupment/shaker01.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0008",
+    "Title": "Shaker",
+    "ProductCategory": 0,
+    "Quantity": 50,
+    "Description": "Shaker bottle with Captain America shield.",
+    "Price": 14.99,
+    "ImageUrl": "images/Store/Eqiupment/shaker02.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0009",
+    "Title": "Wrist Wraps",
+    "ProductCategory": 0,
+    "Quantity": 60,
+    "Description": "Sturdy wrist wraps for weightlifting.",
+    "Price": 9.99,
+    "ImageUrl": "images/Store/Eqiupment/wristWraps.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0010",
+    "Title": "BCAA",
+    "ProductCategory": 1,
+    "Quantity": 40,
+    "Description": "BCAA supplement for muscle recovery - 0.500 grams, mango flavor.",
+    "Price": 14.99,
+    "ImageUrl": "images/Store/Nutrition/bcaa.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0011",
+    "Title": "Creatine",
+    "ProductCategory": 1,
+    "Quantity": 40,
+    "Description": "Creatine monohydrate powder - 0.500grams, unflavour.",
+    "Price": 29.99,
+    "ImageUrl": "images/Store/Nutrition/creatine.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0012",
+    "Title": "Multivatamins",
+    "ProductCategory": 1,
+    "Quantity": 40,
+    "Description": "Multivitamin tablets for daily wellness - 240 tabblets.",
+    "Price": 19.99,
+    "ImageUrl": "images/Store/Nutrition/multivatamins.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0013",
+    "Title": "Preworkout",
+    "ProductCategory": 1,
+    "Quantity": 40,
+    "Description": "Pre-workout supplement for energy and focus - 0.400 grams, cola flavor.",
+    "Price": 32.99,
+    "ImageUrl": "images/Store/Nutrition/preworkout.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0014",
+    "Title": "Essential Omega",
+    "ProductCategory": 1,
+    "Quantity": 40,
+    "Description": "Omega-3 softgels for heart and joint support - 250 soft gel tables.",
+    "Price": 22.99,
+    "ImageUrl": "images/Store/Nutrition/omega.jpg"
+  },
+  {
+    "Id": "9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0015",
+    "Title": "Whey Protein",
+    "ProductCategory": 1,
+    "Quantity": 40,
+    "Description": "Whey protein powder for muscle growth - 1 kg, chocolate flavor.",
+    "Price": 49.99,
+    "ImageUrl": "images/Store/Nutrition/wheyProtein.jpg"
+  }
+]

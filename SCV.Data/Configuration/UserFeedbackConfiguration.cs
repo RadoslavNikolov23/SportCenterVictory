@@ -27,6 +27,11 @@
                 .IsRequired();
 
             entity
+                .Property(uf => uf.ImageUrl)
+                .IsRequired(false)
+                .HasMaxLength(ImageUrlMaxLength);
+
+            entity
                 .HasOne(uf => uf.User)
                 .WithMany()
                 .HasForeignKey(uf => uf.UserId);
