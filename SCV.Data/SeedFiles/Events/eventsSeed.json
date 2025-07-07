@@ -6,7 +6,7 @@
       "Title": "Fitness Transformation Bootcamp",
       "EventType": 0,
       "Description": "6-week transformation bootcamp with professional trainers and nutritionists.",
-      "StartDate": "2025-08-15T09:00:00",
+      "StartDate": "2025-08-15",
       "Location": "Sport Center Victory - Ruse",
       "ImageUrl": "/events/fitnessTransformation.jpg"
       
@@ -16,7 +16,7 @@
       "Title": "Yoga Retreat Weekend",
       "EventType": 0,
       "Description": "A weekend retreat focusing on yoga, meditation, and wellness on the beach.",
-      "StartDate": "2025-08-20T08:00:00",
+      "StartDate": "2025-08-20",
       "Location": "Sport Center Victory - Ruse",
       "ImageUrl": "/events/fitnessYoga.jpg"
     },
@@ -25,7 +25,7 @@
       "Title": "CrossFit Regional Challenge",
       "EventType": 1,
       "Description": "A local competition for intermediate-level CrossFitters.",
-      "StartDate": "2025-08-10T10:00:00",
+      "StartDate": "2025-08-10",
       "Location": "Sport Center Victory - Ruse",
       "ImageUrl": "/events/crossFitRegional.jpg"
     },
@@ -34,7 +34,7 @@
       "Title": "CrossFit Open Night",
       "EventType": 1,
       "Description": "Try a real CrossFit Open WOD with the community and judges.",
-      "StartDate": "2025-09-10T16:00:00",
+      "StartDate": "2025-09-10",
       "Location": "Sport Center Victory - Ruse",
       "ImageUrl": "/events/crossFitOpenNight.jpg"
     },
@@ -43,7 +43,7 @@
       "Title": "Bench Press Meet-Up",
       "EventType": 2,
       "Description": "Open bench press meet-up for all strength levels.",
-      "StartDate": "2025-08-25T18:00:00",
+      "StartDate": "2025-08-25",
       "Location": "Sport Center Victory - Ruse",
       "ImageUrl": "/events/powerliftingBenchpress.png"
     },
@@ -52,7 +52,7 @@
       "Title": "Olympic Lifting Workshop",
       "EventType": 2,
       "Description": "Hands-on technique workshop on snatch and clean & jerk.",
-      "StartDate": "2025-09-05T14:00:00",
+      "StartDate": "2025-09-05",
       "Location": "Sport Center Victory - Ruse",
       "ImageUrl": "/events/powerliftingOlympicLifting.jpg"
     }

@@ -31,7 +31,7 @@
                 .WithMany()
                 .HasForeignKey(uf => uf.UserId);
 
-            // Create a userFeedbackSeed.json file in the SeedFiles/UserFeedbacks directory
+            // ---! TODO: Adjust the userIds they are null at the moment!!!!!
             //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
         }
     }

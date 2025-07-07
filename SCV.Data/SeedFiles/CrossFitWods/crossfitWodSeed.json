@@ -1,0 +1,24 @@
+[
+  {
+  {
+    "Id": 1,
+    "Name": "Friday/250704",
+    "WorkoutDate": "2025-07-04",
+    "DescriptionPlain": "Triple Deuce\n\nAs many rounds and reps as possible in 20 minutes of:\n22 burpees\n22 air squats\n22 pull-ups\n22 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 40-lb sandbag\n♂ 60-lb sandbag\n\nPost rounds and reps to comments.\n\nArmy Sgt. 1st Class Jamie Nicholas...",
+    "DescriptionHTML": "<p><strong>Triple Deuce</strong></p><p>As many rounds and reps as possible in 20 minutes of:<br>22 burpees<br>22 air squats<br>22 pull-ups<br>22 sandbag ground-to-over-the-shoulders<br>722-meter run</p>..."
+  },
+  {
+    "Id": 2,
+    "Name": "Saturday/250705",
+    "WorkoutDate": "2025-07-05",
+    "DescriptionPlain": "5 rounds, each for time, of:\n500-meter row\n\nRest 3 minutes between efforts.\n\nPost times to the comments.\n\nStimulus and Strategy:\nToday’s workout consists of 5 all-out sprints on the rower...",
+    "DescriptionHTML": "<p>5 rounds, each for time, of:<br>500-meter row</p><p>Rest 3 minutes between efforts.</p><p>Post times to the comments.</p>..."
+  },
+  {
+    "Id": 3,
+    "Name": "Sunday/250706",
+    "WorkoutDate": "2025-07-06",
+    "DescriptionPlain": "Rest Day\n\nWhy We Plateau and How to Overcome It\n\nJoin CrossFit coaches Eric O'Connor and Pat Barber as they break down the real reasons athletes hit plateaus and the proven strategies to push past them...",
+    "DescriptionHTML": "<p><strong>Rest Day</strong></p><p><a href=\"https://youtu.be/aqHQ6hpiXdk\">Why We Plateau and How to Overcome It</a></p>..."
+  }
+]

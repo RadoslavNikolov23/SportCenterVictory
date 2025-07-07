@@ -53,7 +53,6 @@
                 .WithMany(t => t.Memberships)
                 .HasForeignKey(m => m.TrainerId);
 
-            // Create a membershipsSeed.json file in the SeedFiles/Memberships directory
             //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Memberships", "membershipsSeed.json")));
 
         }

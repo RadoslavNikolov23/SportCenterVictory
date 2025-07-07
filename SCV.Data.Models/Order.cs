@@ -9,7 +9,7 @@
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [Comment("The day in which the order was made")]
-        public DateTime OrderDate { get; set; }
+        public DateOnly OrderDate { get; set; }
 
         [Comment("The total price of the order")]
         public decimal TotalPrice { get; set; }
@@ -22,7 +22,6 @@
 
         [Comment("Flag which is used for soft deletion")]
         public bool IsDeleted { get; set; } = false;
-
 
         [Comment("Identifier of the customer who made the order")]
         public string CustomerId { get; set; } = null!;

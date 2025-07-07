@@ -19,7 +19,7 @@
         public string? Description { get; set; }
 
         [Comment("Start date and time of the event")]
-        public DateTime StartDate { get; set; }
+        public DateOnly StartDate { get; set; }
 
         [Comment("Location of the event, e.g., 'Sport Center Victory - Ruse'")]
         public string Location { get; set; } = null!;

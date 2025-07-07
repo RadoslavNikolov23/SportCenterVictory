@@ -1,6 +1,5 @@
 ﻿namespace SCV.Data.Models
 {
-    using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
 
     [Comment("Represents a user who has purchased a membership.")]
@@ -17,7 +16,7 @@
         public virtual Membership Membership { get; set; } = null!;
 
         [Comment("The date and time when the membership was purchased.")]
-        public DateTime PurchasedOn { get; set; }
+        public DateOnly PurchasedOn { get; set; }
 
         [Comment("Indicates whether the membership user is deleted. Used for soft deletion.")]
         public bool IsDeleted { get; set; }
