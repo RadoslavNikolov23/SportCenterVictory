@@ -53,7 +53,12 @@
             entity
                 .HasQueryFilter(t => t.IsDeleted==false);
 
-            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Trainers", "trainersSeed.json")));
+            entity
+                .HasOne(t => t.ApplicationUser)
+                .WithMany()
+                .HasForeignKey(t => t.ApplicationUserId);
+
+            //entity.HasData(SeedFromJson<Trainer>(Path.Combine("..", "SeedFiles", "Trainers", "trainersSeed.json")));
         }
     }
 }

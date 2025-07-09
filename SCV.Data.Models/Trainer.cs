@@ -34,6 +34,11 @@
         [Comment("Indicates whether the trainer is marked as deleted. Used for soft deletion.")]
         public bool IsDeleted { get; set; }
 
+        [Comment("Foreign key so that the user can be identify as a trainer/coach.")]
+        public Guid? ApplicationUserId { get; set; }
+
+        public virtual ApplicationUser? ApplicationUser { get; set; }
+
         [Comment("Collection of TrainerUser entities that associate trainers with application users.")]
         public virtual ICollection<TrainerUser> TrainerUsers { get; set; } = new HashSet<TrainerUser>();
 

@@ -15,7 +15,7 @@
         [Comment("Type of the membership - Fitness, CrossFit, Powerlifting.")]
         public SportType MembershipType { get; set; }
 
-        [Comment("Tier of the membership - Basic, Premium, VIP and et.")]
+        [Comment("Tier of the membership - FitnessStandard, CrossFitUnlimited, PowerliftingBeginners and et.")]
         public MembershipTier MembershipTier { get; set; }
 
         [Comment("Description of the membership.")]
@@ -33,7 +33,7 @@
         [Comment("Foreign Key to the Trainer, who coaches in the membership. If null the membership is a class.")]
         public Guid? TrainerId { get; set; }
 
-        [Comment("Navigation property to the Trainer, who coaches in the membership..")]
+        [Comment("Navigation property to the Trainer, who coaches in the membership.")]
         public virtual Trainer? Trainer { get; set; }
 
         [Comment("Collection of MembershipUsers associated with this membership.")]

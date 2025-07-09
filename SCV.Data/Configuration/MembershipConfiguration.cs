@@ -53,7 +53,7 @@
                 .WithMany(t => t.Memberships)
                 .HasForeignKey(m => m.TrainerId);
 
-            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "Memberships", "membershipsSeed.json")));
+            //entity.HasData(SeedFromJson<Membership>(Path.Combine("..", "SeedFiles", "Memberships", "membershipsSeed.json")));
 
         }
     }

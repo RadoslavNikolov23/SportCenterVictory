@@ -29,5 +29,8 @@
 
         [Comment("Indicates if the event is deleted (soft delete)")]
         public bool IsDeleted { get; set; }
+
+        [Comment("Collection of Events the users wants to join.")]
+        public virtual ICollection<EventUser> EventUsers { get; set; } = new HashSet<EventUser>();
     }
 }

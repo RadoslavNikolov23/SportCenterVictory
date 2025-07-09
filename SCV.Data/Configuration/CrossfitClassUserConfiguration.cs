@@ -11,14 +11,6 @@
             entity
                 .HasKey(ccu => new { ccu.CrossfitClassId, ccu.ApplicationUserId });
 
-            entity
-                .Property(ccu=> ccu.ApplicationUserId)
-                .IsRequired();
-
-            entity
-                .Property(ccu => ccu.CrossfitClassId)
-                .IsRequired();
-
             entity.Property(ccu => ccu.JoinedAt)
                 .IsRequired();
 

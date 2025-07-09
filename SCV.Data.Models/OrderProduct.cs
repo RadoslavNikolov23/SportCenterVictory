@@ -3,7 +3,7 @@
     using Microsoft.EntityFrameworkCore;
 
     [Comment("Represents an item in an order, linking a product to an order with quantity and price details")]
-    public class OrderItem
+    public class OrderProduct
     {
         [Comment("Foreign key to the referenced Order. Part of the entity composite PK.")]
         public Guid OrderId { get; set; }

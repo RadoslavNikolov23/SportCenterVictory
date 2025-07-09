@@ -23,10 +23,10 @@
   },
   {
     "Id": 3,
-    "Name": "CrossFit Unlimited",
-    "MembershipType": 1,
+    "Name": "Fitness Individual",
+    "MembershipType": 0,
     "MembershipTier": 2,
-    "Description": "Unlimited CrossFit classes, personal monitoring, and competition prep.",
+    "Description": "Personalized fitness plan tailored by a dedicated trainer. Includes unlimited sessions and full access.",
     "Price": 99.99,
     "Duration": "1 Month",
     "TrainerId": null,
@@ -34,9 +34,20 @@
   },
   {
     "Id": 4,
-    "Name": "CrossFit Limited",
+    "Name": "CrossFit Unlimited",
     "MembershipType": 1,
     "MembershipTier": 3,
+    "Description": "Unlimited CrossFit classes, personal monitoring, and competition prep.",
+    "Price": 99.99,
+    "Duration": "1 Month",
+    "TrainerId": null,
+    "IsDeleted": false
+  },
+  {
+    "Id": 5,
+    "Name": "CrossFit Limited",
+    "MembershipType": 1,
+    "MembershipTier": 4,
     "Description": "Up to 8 classes a month, perfect for beginners or busy athletes.",
     "Price": 59.99,
     "Duration": "1 Month",
@@ -44,10 +55,10 @@
     "IsDeleted": false
   },
   {
-    "Id": 5,
+    "Id": 6,
     "Name": "CrossFit Drop-In",
     "MembershipType": 1,
-    "MembershipTier": 4,
+    "MembershipTier": 5,
     "Description": "One-time access to a CrossFit session, no subscription required.",
     "Price": 14.99,
     "Duration": "1 Day",
@@ -55,10 +66,10 @@
     "IsDeleted": false
   },
   {
-    "Id": 6,
+    "Id": 7,
     "Name": "Powerlifting Beginners",
     "MembershipType": 2,
-    "MembershipTier": 5,
+    "MembershipTier": 6,
     "Description": "Introductory strength program, includes 2 trainer sessions/month.",
     "Price": 29.99,
     "Duration": "1 Month",
@@ -66,10 +77,10 @@
     "IsDeleted": false
   },
   {
-    "Id": 7,
+    "Id": 8,
     "Name": "Powerlifting Intermediates",
     "MembershipType": 2,
-    "MembershipTier": 6,
+    "MembershipTier": 7,
     "Description": "Intermediate training plan with weekly progress check-ins.",
     "Price": 49.99,
     "Duration": "1 Month",
@@ -77,10 +88,10 @@
     "IsDeleted": false
   },
   {
-    "Id": 8,
+    "Id": 9,
     "Name": "Powerlifting Experts",
     "MembershipType": 2,
-    "MembershipTier": 7,
+    "MembershipTier": 8,
     "Description": "Advanced programming with detailed analytics and 24/7 coaching.",
     "Price": 69.99,
     "Duration": "1 Month",
@@ -88,25 +99,14 @@
     "IsDeleted": false
   },
   {
-    "Id": 9,
+    "Id": 10,
     "Name": "Powerlifting Pros",
     "MembershipType": 2,
-    "MembershipTier": 8,
+    "MembershipTier":9,
     "Description": "Elite-level coaching and competition prep for professional lifters.",
     "Price": 99.99,
     "Duration": "1 Month",
     "TrainerId": 6,
-    "IsDeleted": false
-  },
-  {
-    "Id": 10,
-    "Name": "Fitness Premium - 3 Months",
-    "MembershipType": 0,
-    "MembershipTier": 1,
-    "Description": "Three-month package with full gym access, training, meal plan & bonus consultation.",
-    "Price": 199.99,
-    "Duration": "3 Months",
-    "TrainerId": 4,
     "IsDeleted": false
   }
 ]

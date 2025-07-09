@@ -10,7 +10,7 @@
         public void Configure(EntityTypeBuilder<TrainerUser> entity)
         {
            entity
-                .HasKey(tu => new { tu.ApplicationUserId, tu.trainerId });
+                .HasKey(tu => new { tu.ApplicationUserId, tu.TrainerId });
 
             entity
                 .HasOne(tu => tu.ApplicationUser)
@@ -20,7 +20,7 @@
             entity
                 .HasOne(tu => tu.Trainer)
                 .WithMany(t => t.TrainerUsers)
-                .HasForeignKey(tu => tu.trainerId);
+                .HasForeignKey(tu => tu.TrainerId);
 
             entity
                 .HasQueryFilter(t=>t.Trainer.IsDeleted==false);

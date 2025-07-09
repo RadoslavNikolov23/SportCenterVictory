@@ -31,7 +31,7 @@
                 .IsRequired()
                 .HasMaxLength(WODDescriptionHTMLMaxLength);
 
-            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "CrossFitWods", "crossfitWodSeed.json")));
+            //entity.HasData(SeedFromJson<CrossfitWorkoutOfTheDay>(Path.Combine("..", "SeedFiles", "CrossFitWods", "crossfitWodSeed.json")));
         }
     }
 }

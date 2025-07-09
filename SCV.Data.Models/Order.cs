@@ -24,10 +24,10 @@
         public bool IsDeleted { get; set; } = false;
 
         [Comment("Identifier of the customer who made the order")]
-        public string CustomerId { get; set; } = null!;
+        public Guid CustomerId { get; set; }
 
         public virtual ApplicationUser Customer { get; set; } = null!;
 
-        public virtual ICollection<OrderItem> OrderItems { get; set; } = new HashSet<OrderItem>();
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
     }
 }

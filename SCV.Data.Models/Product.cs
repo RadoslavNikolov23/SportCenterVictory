@@ -30,7 +30,7 @@
         [Comment("Indicates if the product is currently available for purchase. If true, the product is deleted and not available.")]
         public bool IsDeleted { get; set; } // Indicates if the product is currently available
 
-        public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 
     }
 }

@@ -26,7 +26,7 @@
 
             //----! Seed after the WorkoutPlan and Exercise entities are configured !----
 
-            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "WorkoutPlanExercises", "workoutPlanExerciseSeed.json")));
+            //entity.HasData(SeedFromJson<WorkoutPlanExercise>(Path.Combine("..", "SeedFiles", "WorkoutPlanExercises", "workoutPlanExerciseSeed.json")));
         }
     }
 }

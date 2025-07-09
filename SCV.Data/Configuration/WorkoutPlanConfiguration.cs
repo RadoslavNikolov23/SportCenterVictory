@@ -44,7 +44,7 @@
             entity
                 .HasQueryFilter(wp => wp.IsDeleted==false);
 
-            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "WorkoutPlans", "workoutPlansSeed.json")));
+            //entity.HasData(SeedFromJson<WorkoutPlan>(Path.Combine("..", "SeedFiles", "WorkoutPlans", "workoutPlansSeed.json")));
         }
     }
 }

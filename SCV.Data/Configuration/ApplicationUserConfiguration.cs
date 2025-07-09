@@ -30,7 +30,7 @@
             // Admin User
             ApplicationUser defaultUserAdmin = new ApplicationUser
             {
-                Id = "admin-user-id-0001",
+                Id = Guid.Parse("28fe258e-8826-4721-abea-f93ce8d1931a"),
                 UserName = "admin@sportcentervictory.com",
                 NormalizedUserName = "ADMIN@SPORTCENTERVICTORY.COM",
                 Email = "admin@sportcentervictory.com",
@@ -44,7 +44,7 @@
             // Manager User
             ApplicationUser defaultUserManager = new ApplicationUser
             {
-                Id = "manager-user-id-0002",
+                Id = Guid.Parse("1293b05f-fc49-49d4-8677-9f01f1274b83"),
                 UserName = "manager@sportcentervictory.com",
                 NormalizedUserName = "MANAGER@SPORTCENTERVICTORY.COM",
                 Email = "manager@sportcentervictory.com",
@@ -58,7 +58,7 @@
             // Trainers Users
             ApplicationUser defaultUserViktorNachev = new ApplicationUser
             {
-                Id = "trainer-user-id-0003",
+                Id = Guid.Parse("ba5666bf-9f1f-4513-92d3-23974d9f687f"),
                 UserName = "viktornachev@sportcentervictory.com",
                 NormalizedUserName = "VIKTORNACHEV@SPORTCENTERVICTORY.COM",
                 Email = "viktornachev@sportcentervictory.com",
@@ -71,7 +71,7 @@
 
             ApplicationUser defaultUserSofiaLateva = new ApplicationUser
             {
-                Id = "trainer-user-id-0004",
+                Id = Guid.Parse("bc4d02a0-44d0-459a-a7e6-04831e417e42"),
                 UserName = "sofiazlateva@sportcentervictory.com",
                 NormalizedUserName = "SOFIAZLATEVA@SPORTCENTERVICTORY.COM",
                 Email = "sofiazlateva@sportcentervictory.com",
@@ -84,7 +84,7 @@
 
             ApplicationUser defaultUserDesislavIliev = new ApplicationUser
             {
-                Id = "trainer-user-id-0005",
+                Id = Guid.Parse("a42e9995-8da2-4a1a-95a0-653809d0feb3"),
                 UserName = "desislaviliev@sportcentervictory.com",
                 NormalizedUserName = "DESISLAVILIEV@SPORTCENTERVICTORY.COM",
                 Email = "desislaviliev@sportcentervictory.com",
@@ -97,7 +97,7 @@
 
             ApplicationUser defaultUserIvanDimitrov = new ApplicationUser
             {
-                Id = "trainer-user-id-0006",
+                Id = Guid.Parse("c3867b78-36a0-44b5-9800-f359a28d2965"),
                 UserName = "ivandimitrov@sportcentervictory.com",
                 NormalizedUserName = "IVANDIMITROV@SPORTCENTERVICTORY.COM",
                 Email = "ivandimitrov@sportcentervictory.com",
@@ -110,7 +110,7 @@
 
             ApplicationUser defaultUserMayaIvanova = new ApplicationUser
             {
-                Id = "trainer-user-id-0007",
+                Id = Guid.Parse("6bdd6544-e5bb-4490-b980-022aad36802a"),
                 UserName = "mayaivanova@sportcentervictory.com",
                 NormalizedUserName = "MAYAIVANOVA@SPORTCENTERVICTORY.COM",
                 Email = "mayaivanova@sportcentervictory.com",
@@ -123,7 +123,7 @@
 
             ApplicationUser defaultUserGeorgiKolev = new ApplicationUser
             {
-                Id = "trainer-user-id-0008",
+                Id = Guid.Parse("bd8a4bc5-c170-4eb8-92b6-fb84bfcd26bd"),
                 UserName = "georgikolev@sportcentervictory.com",
                 NormalizedUserName = "GEORGIKOLEV@SPORTCENTERVICTORY.COM",
                 Email = "georgikolev@sportcentervictory.com",
@@ -136,7 +136,7 @@
 
             ApplicationUser defaultUserKristinaDimitrova = new ApplicationUser
             {
-                Id = "trainer-user-id-0009",
+                Id = Guid.Parse("bc52f7d1-319c-4e02-bc81-9a2b1afdd438"),
                 UserName = "kristinadimitrova@sportcentervictory.com",
                 NormalizedUserName = "KRISTINADIMITROVA@SPORTCENTERVICTORY.COM",
                 Email = "kristinadimitrova@sportcentervictory.com",
@@ -149,7 +149,7 @@
 
             ApplicationUser defaultUserStefanTodorov = new ApplicationUser
             {
-                Id = "trainer-user-id-0010",
+                Id = Guid.Parse("4a4193c1-2fb3-441e-b8e1-74f9b04e0d2c"),
                 UserName = "stefantodorov@sportcentervictory.com",
                 NormalizedUserName = "STEFANTODOROV@SPORTCENTERVICTORY.COM",
                 Email = "stefantodorov@sportcentervictory.com",
@@ -164,7 +164,7 @@
             // Regular Users
             ApplicationUser defaultUserVictoriaDimitrova = new ApplicationUser
             {
-                Id = "regular-user-id-0011",
+                Id = Guid.Parse("16eaaf0f-2efc-4509-8cbe-c8792d187455"),
                 UserName = "victoriadimitrova@sportcentervictory.com",
                 NormalizedUserName = "VICTORIADIMITROVA@SPORTCENTERVICTORY.COM",
                 Email = "victoriadimitrova@sportcentervictory.com",
@@ -177,7 +177,7 @@
 
             ApplicationUser defaultUserIvanPetrov = new ApplicationUser
             {
-                Id = "regular-user-id-0012",
+                Id = Guid.Parse("c3777e33-e646-48a2-8e00-03058aa6e054"),
                 UserName = "ivanpetrov@sportcentervictory.com",
                 NormalizedUserName = "IVANPETROV@SPORTCENTERVICTORY.COM",
                 Email = "ivanpetrov@sportcentervictory.com",
@@ -190,7 +190,7 @@
 
             ApplicationUser defaultUserMariaStefanova = new ApplicationUser
             {
-                Id = "regular-user-id-0013",
+                Id = Guid.Parse("d4fd993d-23fd-4832-9d51-d85a16efa5a8"),
                 UserName = "mariastefanova@sportcentervictory.com",
                 NormalizedUserName = "MARIASTEFANOVA@SPORTCENTERVICTORY.COM",
                 Email = "mariastefanova@sportcentervictory.com",

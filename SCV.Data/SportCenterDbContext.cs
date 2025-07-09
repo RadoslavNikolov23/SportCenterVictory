@@ -6,7 +6,7 @@
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class SportCenterDbContext : IdentityDbContext<ApplicationUser, IdentityRole, string>
+    public class SportCenterDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
     {
         public SportCenterDbContext(DbContextOptions<SportCenterDbContext> options)
             : base(options)
@@ -23,6 +23,8 @@
 
         public virtual DbSet<Event> Events { get; set; } = null!;   
 
+        public virtual DbSet<EventUser> EventUsers { get; set; } = null!;   
+
         public virtual DbSet<Exercise> Exercises { get; set; } = null!;
 
         public virtual DbSet<Membership> Memberships { get; set; } = null!;
@@ -31,7 +33,7 @@
 
         public virtual DbSet<Order> Orders { get; set; } = null!;
 
-        public virtual DbSet<OrderItem> OrderItems { get; set; } = null!;
+        public virtual DbSet<OrderProduct> OrderProducts { get; set; } = null!;
 
         public virtual DbSet<Product> Products { get; set; } = null!;
 

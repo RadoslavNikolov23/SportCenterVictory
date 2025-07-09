@@ -11,7 +11,7 @@
         public virtual ApplicationUser ApplicationUser { get; set; } = null!;
 
         [Comment("Foreign key to the referenced Trainer. Part of the entity composite PK.")]
-        public int trainerId { get; set; }
+        public Guid TrainerId { get; set; }
 
         public virtual Trainer Trainer { get; set; } = null!;
 

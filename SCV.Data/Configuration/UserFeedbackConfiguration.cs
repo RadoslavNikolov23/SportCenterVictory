@@ -4,6 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using static SCV.Data.Common.EntityConstantsUserFeedback;
+    using SCV.GlCommon.Enums;
 
     public class UserFeedbackConfiguration : BaseConfiguration, IEntityTypeConfiguration<UserFeedback>
     {
@@ -23,13 +24,13 @@
                 .HasMaxLength(FeedbackMaxLength);
 
             entity
-                .Property(uf => uf.UserId)
-                .IsRequired();
-
-            entity
                 .Property(uf => uf.ImageUrl)
                 .IsRequired(false)
                 .HasMaxLength(ImageUrlMaxLength);
+
+            entity
+                .Property(uf => uf.Status)
+                .HasDefaultValue(FeedbackStatus.Pending);
 
             entity
                 .HasOne(uf => uf.User)
@@ -37,7 +38,7 @@
                 .HasForeignKey(uf => uf.UserId);
 
             // ---! TODO: Adjust the userIds they are null at the moment!!!!!
-            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
+            //entity.HasData(SeedFromJson<UserFeedback>(Path.Combine("..", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
         }
     }
 }
