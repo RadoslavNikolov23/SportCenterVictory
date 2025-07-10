@@ -84,7 +84,7 @@
     "Description": "Intermediate training plan with weekly progress check-ins.",
     "Price": 49.99,
     "Duration": "1 Month",
-    "TrainerId": 6,
+    "TrainerId": null,
     "IsDeleted": false
   },
   {
@@ -95,18 +95,18 @@
     "Description": "Advanced programming with detailed analytics and 24/7 coaching.",
     "Price": 69.99,
     "Duration": "1 Month",
-    "TrainerId": 3,
+    "TrainerId": null,
     "IsDeleted": false
   },
   {
     "Id": 10,
     "Name": "Powerlifting Pros",
     "MembershipType": 2,
-    "MembershipTier":9,
+    "MembershipTier": 9,
     "Description": "Elite-level coaching and competition prep for professional lifters.",
     "Price": 99.99,
     "Duration": "1 Month",
-    "TrainerId": 6,
+    "TrainerId": null,
     "IsDeleted": false
   }
 ]

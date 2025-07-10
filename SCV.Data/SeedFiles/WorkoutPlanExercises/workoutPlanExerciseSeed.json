@@ -7,7 +7,6 @@
   { "ExerciseId": "Barbell_Glute_Bridge", "WorkoutPlanId": 1 },
   { "ExerciseId": "Bodyweight_Walking_Lunge", "WorkoutPlanId": 1 },
   { "ExerciseId": "Cable_Russian_Twists", "WorkoutPlanId": 1 },
-  { "ExerciseId": "burpees", "WorkoutPlanId": 1 },
 
   { "ExerciseId": "Barbell_Bench_Press_-_Medium_Grip", "WorkoutPlanId": 2 },
   { "ExerciseId": "Incline_Dumbbell_Press", "WorkoutPlanId": 2 },

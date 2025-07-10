@@ -47,7 +47,7 @@
             entity
                 .HasQueryFilter(e => e.IsDeleted==false);
 
-            //entity.HasData(SeedFromJson<Event>(Path.Combine("..", "SeedFiles", "Events", "eventsSeed.json")));
+            entity.HasData(SeedFromJson<Event>(Path.Combine("..", "SCV.Data", "SeedFiles", "Events", "eventsSeed.json")));
         }
     }
 }

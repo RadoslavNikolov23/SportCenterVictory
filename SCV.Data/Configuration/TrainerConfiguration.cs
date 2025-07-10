@@ -55,10 +55,25 @@
 
             entity
                 .HasOne(t => t.ApplicationUser)
-                .WithMany()
+                .WithMany(au=>au.Trainers)
                 .HasForeignKey(t => t.ApplicationUserId);
 
-            //entity.HasData(SeedFromJson<Trainer>(Path.Combine("..", "SeedFiles", "Trainers", "trainersSeed.json")));
+            entity.HasData(SeedFromJson<Trainer>(Path.Combine("..", "SCV.Data", "SeedFiles", "Trainers", "trainersSeed.json")));
+
+            // Uncomment the following line if you want to seed additional trainers
+            /*
+             *   {
+    "Id": "ec83a001-55df-45e5-b8c4-91f4d76f9fd0",
+    "FirstName": "Maya",
+    "LastName": "Ivanova",
+    "Email": "maya.ivanova@svc.bg",
+    "PhoneNumber": "+359885987654",
+    "Bio": "Fitness and bodybuilding expert with over 10 years of personal training experience.",
+    "TrainerSpecialty": 1,
+    "ImageUrl": "images/Trainers/Crossfit/mayaIvanova.jpg"
+  },
+            has to be a crossfit not a fitness/bodubuilding trainer!!!!!!
+             */
         }
     }
 }

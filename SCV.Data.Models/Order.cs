@@ -28,6 +28,7 @@
 
         public virtual ApplicationUser Customer { get; set; } = null!;
 
+        [Comment("Collection of OrderProduct entities that link products to the order with quantity and price details")]
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
     }
 }

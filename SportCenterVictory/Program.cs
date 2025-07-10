@@ -1,18 +1,18 @@
 namespace SportCenterVictory
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using SCV.Data;
     using SCV.Data.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
 
     public class Program
     {
         public static void Main(string[] args)
         {
-            var builder = WebApplication.CreateBuilder(args);
+            WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
+            string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
                 ?? 
                 throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
@@ -27,7 +27,7 @@ namespace SportCenterVictory
                     .AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services
-                .AddDefaultIdentity<ApplicationUser>(options =>
+                .AddIdentity<ApplicationUser, ApplicationRole>(options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;
                     options.Password.RequireDigit = false;
@@ -35,13 +35,16 @@ namespace SportCenterVictory
                     options.Password.RequireUppercase = false;
                     options.Password.RequireLowercase = false;
                 })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<SportCenterDbContext>();
+                .AddEntityFrameworkStores<SportCenterDbContext>()
+                .AddDefaultTokenProviders();
 
             builder.Services
-                .AddControllersWithViews();
+                        .AddControllersWithViews();
 
-            var app = builder.Build();
+            builder.Services
+                        .AddRazorPages();
+
+            WebApplication app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -71,6 +74,7 @@ namespace SportCenterVictory
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
             app.MapRazorPages();
 
             app.Run();

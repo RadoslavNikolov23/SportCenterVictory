@@ -4,20 +4,20 @@
     "UserName": "Victoria Dimitrova",
     "Feedback": "The trainers are amazing and the CrossFit classes push me beyond my limits. Great vibe overall!",
     "ImageUrl": "images/Users/victoriaDimitrova.jpg",
-    "UserId": "regular-user-id-0011"
+    "UserId": "16eaaf0f-2efc-4509-8cbe-c8792d187455"
   },
   {
     "Id": 2,
     "UserName": "Ivan Petrov",
     "Feedback": "I really enjoy the new powerlifting area. More squat racks would be a great addition!",
     "ImageUrl": "images/Users/ivanPetrov.jpg",
-    "UserId": "regular-user-id-0012"
+    "UserId": "c3777e33-e646-48a2-8e00-03058aa6e054"
   },
   {
     "Id": 3,
     "UserName": "Maria Stefanova",
     "Feedback": "Excellent gym with a motivating atmosphere. Love the group workouts and the clean facilities.",
     "ImageUrl": "images/Users/mariaStefanova.jpg",
-    "UserId": "regular-user-id-0013"
+    "UserId": "d4fd993d-23fd-4832-9d51-d85a16efa5a8"
   }
 ]

@@ -73,7 +73,7 @@
             entity
                 .HasQueryFilter(e => e.IsDeleted==false);
 
-            //entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SeedFiles", "ExercisesAll", "allExercisesSeed.json")));
+            entity.HasData(SeedFromJson<Exercise>(Path.Combine("..", "SCV.Data", "SeedFiles", "ExercisesAll", "allExercisesSeed.json")));
 
         }
     }

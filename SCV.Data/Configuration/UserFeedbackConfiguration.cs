@@ -1,10 +1,10 @@
 ﻿namespace SCV.Data.Configuration
 {
     using SCV.Data.Models;
+    using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
     using static SCV.Data.Common.EntityConstantsUserFeedback;
-    using SCV.GlCommon.Enums;
 
     public class UserFeedbackConfiguration : BaseConfiguration, IEntityTypeConfiguration<UserFeedback>
     {
@@ -37,8 +37,7 @@
                 .WithMany()
                 .HasForeignKey(uf => uf.UserId);
 
-            // ---! TODO: Adjust the userIds they are null at the moment!!!!!
-            //entity.HasData(SeedFromJson<UserFeedback>(Path.Combine("..", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
+            entity.HasData(SeedFromJson<UserFeedback>(Path.Combine("..", "SCV.Data", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
         }
     }
 }

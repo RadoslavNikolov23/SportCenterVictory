@@ -28,7 +28,7 @@
         public string? ImageUrl { get; set; } 
 
         [Comment("Indicates if the product is currently available for purchase. If true, the product is deleted and not available.")]
-        public bool IsDeleted { get; set; } // Indicates if the product is currently available
+        public bool IsDeleted { get; set; }
 
         public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 

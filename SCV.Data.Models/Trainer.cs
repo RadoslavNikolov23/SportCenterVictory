@@ -26,7 +26,7 @@
         public string Bio { get; set; } = null!;
 
         [Comment("Specialty of the trainer, indicating their area of expertise (e.g., Fitness, CrossFit, Powerlifting).")]
-        public SportType TrainerSpecialty { get; set; } // Fitness / CrossFit / Powerlifting
+        public SportType TrainerSpecialty { get; set; }
 
         [Comment("URL of the trainer's profile image. Optional, can be null.")]
         public string? ImageUrl { get; set; }

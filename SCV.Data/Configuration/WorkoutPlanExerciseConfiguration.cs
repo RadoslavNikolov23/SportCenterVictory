@@ -4,7 +4,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-    public class WorkoutPlanExerciseConfiguration : IEntityTypeConfiguration<WorkoutPlanExercise>
+    public class WorkoutPlanExerciseConfiguration : BaseConfiguration, IEntityTypeConfiguration<WorkoutPlanExercise>
     {
         public void Configure(EntityTypeBuilder<WorkoutPlanExercise> entity)
         {
@@ -26,7 +26,7 @@
 
             //----! Seed after the WorkoutPlan and Exercise entities are configured !----
 
-            //entity.HasData(SeedFromJson<WorkoutPlanExercise>(Path.Combine("..", "SeedFiles", "WorkoutPlanExercises", "workoutPlanExerciseSeed.json")));
+            entity.HasData(SeedFromJson<WorkoutPlanExercise>(Path.Combine("..", "SCV.Data", "SeedFiles", "WorkoutPlanExercises", "workoutPlanExerciseSeed.json")));
         }
     }
 }

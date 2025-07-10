@@ -41,7 +41,7 @@
                 .HasQueryFilter(cc => cc.IsActive==true);
 
 
-            //entity.HasData(SeedFromJson<CrossfitClass>(Path.Combine("..", "SeedFiles", "CrossFitClasses", "crossfitClassesSeed.json")));
+            entity.HasData(SeedFromJson<CrossfitClass>(Path.Combine("..", "SCV.Data", "SeedFiles", "CrossFitClasses", "crossfitClassesSeed.json")));
         }
     }
 }

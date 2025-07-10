@@ -49,7 +49,7 @@
             entity
                 .HasQueryFilter(e => e.IsDeleted == false);
 
-            //entity.HasData(SeedFromJson<Product>(Path.Combine("..", "SeedFiles", "Products", "productsSeed.json")));
+            entity.HasData(SeedFromJson<Product>(Path.Combine("..", "SCV.Data", "SeedFiles", "Products", "productsSeed.json")));
         }
     }
 }

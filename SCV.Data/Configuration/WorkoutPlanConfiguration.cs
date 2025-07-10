@@ -6,7 +6,7 @@
     using static SCV.Data.Common.EntityConstantsWorkoutPlan;
     using static SCV.GlCommon.ApplicationConstants;
 
-    public class WorkoutPlanConfiguration : IEntityTypeConfiguration<WorkoutPlan>
+    public class WorkoutPlanConfiguration : BaseConfiguration, IEntityTypeConfiguration<WorkoutPlan>
     {
         public void Configure(EntityTypeBuilder<WorkoutPlan> entity)
         {
@@ -33,18 +33,13 @@
                 .HasMaxLength(ImageUrlMaxLength);
 
             entity
-                .Property(wp => wp.Price)
-                .IsRequired(false)
-                .HasColumnName(PriceSqlType);
-
-            entity
                 .Property(wp => wp.IsDeleted)
                 .HasDefaultValue(false);
 
             entity
                 .HasQueryFilter(wp => wp.IsDeleted==false);
 
-            //entity.HasData(SeedFromJson<WorkoutPlan>(Path.Combine("..", "SeedFiles", "WorkoutPlans", "workoutPlansSeed.json")));
+            entity.HasData(SeedFromJson<WorkoutPlan>(Path.Combine("..", "SCV.Data", "SeedFiles", "WorkoutPlans", "workoutPlansSeed.json")));
         }
     }
 }

@@ -1,12 +1,11 @@
 ﻿namespace SCV.Data
 {
-    using SCV.Data.Models;
     using System.Reflection;
-    using Microsoft.AspNetCore.Identity;
+    using SCV.Data.Models;
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
 
-    public class SportCenterDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>
+    public class SportCenterDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, Guid>
     {
         public SportCenterDbContext(DbContextOptions<SportCenterDbContext> options)
             : base(options)
@@ -53,7 +52,6 @@
             base.OnModelCreating(builder);
 
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
         }
     }
 }

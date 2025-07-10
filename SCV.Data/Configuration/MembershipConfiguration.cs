@@ -6,7 +6,7 @@
     using static SCV.Data.Common.EntityConstantsMembership;
     using static SCV.GlCommon.ApplicationConstants;
 
-    public class MembershipConfiguration : IEntityTypeConfiguration<Membership>
+    public class MembershipConfiguration : BaseConfiguration, IEntityTypeConfiguration<Membership>
     {
         public void Configure(EntityTypeBuilder<Membership> entity)
         {
@@ -53,7 +53,7 @@
                 .WithMany(t => t.Memberships)
                 .HasForeignKey(m => m.TrainerId);
 
-            //entity.HasData(SeedFromJson<Membership>(Path.Combine("..", "SeedFiles", "Memberships", "membershipsSeed.json")));
+            entity.HasData(SeedFromJson<Membership>(Path.Combine("..", "SCV.Data", "SeedFiles", "Memberships", "membershipsSeed.json")));
 
         }
     }

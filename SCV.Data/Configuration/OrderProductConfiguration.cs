@@ -33,10 +33,8 @@
                 .HasForeignKey(op => op.ProductId);
 
             entity
-                .HasQueryFilter(op => op.Order.IsDeleted == false);
-
-            entity
-                .HasQueryFilter(op => op.Product.IsDeleted == false);
+                .HasQueryFilter(op => op.Order.IsDeleted == false &&
+                                      op.Product.IsDeleted == false);
         }
     }
 }

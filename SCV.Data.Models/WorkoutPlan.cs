@@ -21,9 +21,6 @@
         [Comment("Optional image URL for the workout plan")]
         public string? ImageUrl { get; set; }
 
-        [Comment("Price of the workout plan, null if free")]
-        public decimal? Price { get; set; }
-
         [Comment("Indicates if the workout plan is currently active or deleted")]
         public bool IsDeleted { get; set; }
 

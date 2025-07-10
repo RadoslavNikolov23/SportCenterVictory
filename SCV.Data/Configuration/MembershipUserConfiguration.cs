@@ -24,7 +24,7 @@
 
             entity
                 .HasOne(mu => mu.ApplicationUser)
-                .WithMany()
+                .WithMany(au=>au.MembershipUsers)
                 .HasForeignKey(mu => mu.ApplicationUserId);
 
             entity
