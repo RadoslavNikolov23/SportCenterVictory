@@ -4,6 +4,10 @@ namespace SportCenterVictory
     using SCV.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+    using SCV.Data.Repository.Contracts;
+    using SCV.Data.Repository;
+    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core;
 
     public class Program
     {
@@ -37,6 +41,10 @@ namespace SportCenterVictory
                 })
                 .AddEntityFrameworkStores<SportCenterDbContext>()
                 .AddDefaultTokenProviders();
+
+            builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+
+            builder.Services.AddScoped<IExerciseService, ExerciseService>();
 
             builder.Services
                         .AddControllersWithViews();
