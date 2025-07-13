@@ -4,6 +4,8 @@
 
     public interface IExerciseService
     {
-        public Task<IEnumerable<ExercisesViewModel>>? GetAllExercises();
+        public Task<IEnumerable<ExercisesIndexViewModel>> GetAllExercises();
+
+        Task<IEnumerable<ExercisesIndexViewModel>> GetExercisesPageAsync(int page, int pageSize, string? query);
     }
 }

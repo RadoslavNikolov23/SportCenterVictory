@@ -1,9 +1,9 @@
 ﻿@using SCV.Web.ViewModels.FitnessVM
 
-@model ICollection<ExercisesViewModel>
+@model ICollection<ExercisesIndexViewModel>
 
 @{
-    ViewData["Title"] = "Exercise Library";
+    ViewData["Title"] = "Exercises ";
 }
 
 <style>
@@ -67,92 +67,102 @@
 
 
 <div class="row text-center layout_padding">
-    <h1 class="text-center">Exercise Library</h1>
+    <h1 class="about_taital text-center">Exercise Library</h1>
     <input type="text" id="search" placeholder="Search exercises..." class="form-control mb-3" />
 
+    <!-- Exercises container -->
     <div class="row mb-4" id="exercise-list">
-        @foreach (var exercise in Model)
-        {
-            <div class="col-md-6">
-                <div class="card h-100 exercise-card" data-name="@exercise.Name.ToLower()">
+        @await Html.PartialAsync("_ExercisePartial", Model)
+    </div>
 
-                    <img src="@exercise.ImageUrlOne"
-                         data-first="@exercise.ImageUrlOne"
-                         data-second="@exercise.ImageUrlTwo"
-                         class="toggle-image"
-                         alt="@exercise.Name"
-                         style="cursor: pointer;" />
-
-                    <div class="card-body content">
-                        <h5 class="card-title name">@exercise.Name</h5>
-                        <section class="instructions-section collapsed" style="position: relative;">
-                            @if (string.IsNullOrWhiteSpace(exercise.Instructions))
-                            {
-                                <p class="text-muted">No instructions available.</p>
-                            }
-                            else if (exercise.Instructions.Length <= 70)
-                            {
-                                <p>@exercise.Instructions</p>
-                            }
-                            else
-                            {
-                                <p class="instructions-text" style="margin-bottom: 8px;">
-                                    @exercise.Instructions
-                                </p>
-                                <a href="#" class="toggle-instructions-link">More</a>
-                            }
-                        </section>
-                    </div>
-                </div>
-            </div>
-        }
+    <!-- Load More button placed outside the row to avoid layout break -->
+    <div class="about_taital text-center mt-1 pt-2">
+        <button id="load-more-btn" class="btn btn-primary" style="width: 250px; height: 50px;">Load More</button>
     </div>
 </div>
 
 
 @section Scripts {
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
+        let currentPage = @ViewBag.CurrentPage;
+        const pageSize = @ViewBag.PageSize;
+        let searchQuery = "";
+        const loadMoreBtn = document.getElementById('load-more-btn');
+        const exerciseList = document.getElementById('exercise-list');
 
+        async function loadExercises() {
+            currentPage++;
+        const response = await fetch(`/Fitness/Exercises?page=${currentPage}&pageSize=${pageSize}&query=${encodeURIComponent(searchQuery)}`, {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+            });
+            const html = await response.text();
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+
+            // Append new cards
+            while (temp.firstChild) {
+                exerciseList.appendChild(temp.firstChild);
+            }
+
+            attachEvents(); // reattach event listeners to new elements
+
+            if (!html.trim()) {
+                loadMoreBtn.style.display = 'none'; // Hide button if no more
+            }
+        }
+
+        function attachEvents() {
             // Toggle instructions link
             document.querySelectorAll('.toggle-instructions-link').forEach(link => {
-                link.addEventListener('click', async (e) => {
+                link.addEventListener('click', (e) => {
                     e.preventDefault();
-
                     const section = link.closest('section.instructions-section');
                     const isCollapsed = section.classList.contains('collapsed');
-
-                    if (isCollapsed) {
-                        section.classList.remove('collapsed');
-                        link.textContent = 'Collapse';
-                    } else {
-                        section.classList.add('collapsed');
-                        link.textContent = 'More';
-                    }
+                    section.classList.toggle('collapsed');
+                    link.textContent = isCollapsed ? 'Collapse' : 'More';
                 });
             });
 
             // Image toggle
             document.querySelectorAll('.toggle-image').forEach(img => {
-                let toggled = false;
-                img.addEventListener('click', async () => {
-                    const first = img.getAttribute('data-first');
-                    const second = img.getAttribute('data-second');
-                    img.src = toggled ? first : second;
-                    toggled = !toggled;
-                });
+                if (!img.dataset.toggleAttached) {
+                    let toggled = false;
+                    img.dataset.toggleAttached = true;
+                    img.addEventListener('click', () => {
+                        const first = img.getAttribute('data-first');
+                        const second = img.getAttribute('data-second');
+                        img.src = toggled ? first : second;
+                        toggled = !toggled;
+                    });
+                }
+            });
+        }
+
+        // Initial attach
+        attachEvents();
+
+        // Load more click
+        loadMoreBtn?.addEventListener('click', loadExercises);
+
+        // Search input handler
+        document.getElementById('search')?.addEventListener('input', async (e) => {
+            searchQuery = e.target.value.toLowerCase();
+            currentPage = 1;
+
+            // Fetch matching exercises from the server
+            const response = await fetch(`/Fitness/Exercises?page=${currentPage}&pageSize=${pageSize}&query=${encodeURIComponent(searchQuery)}`, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest' }
             });
 
-            // Search filter
-            document.getElementById('search')?.addEventListener('input', async (e) => {
-                const query = e.target.value.toLowerCase();
-                document.querySelectorAll('.exercise-card').forEach(card => {
-                    const name = card.dataset.name;
-                    card.parentElement.style.display = name.includes(query) ? 'block' : 'none';
-                });
-            });
+            const html = await response.text();
+            exerciseList.innerHTML = html;
 
+            attachEvents();
+
+            // Show/hide Load More based on query
+            loadMoreBtn.style.display = searchQuery ? 'none' : 'block';
         });
     </script>
 }
+
 

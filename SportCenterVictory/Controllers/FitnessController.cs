@@ -2,32 +2,42 @@
 {
     using Microsoft.AspNetCore.Mvc;
     using SCV.Services.Core;
+    using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.FitnessVM;
 
     public class FitnessController : Controller
     {
+        public readonly IExerciseService exerciseService;
+
+        public FitnessController(IExerciseService exerciseService)
+        {
+            this.exerciseService = exerciseService;
+        }
+
         public IActionResult FitnessCenter()
         {
             return View();
         }
 
-        public IActionResult Exercises()
+        public async Task<IActionResult> Exercises(int page = 1, int pageSize = 20, string? query = null)
         {
-            //var jsonPath = Path.Combine(_webHostEnvironment.WebRootPath, "data", "exercises.json");
-            //var exercises = JsonConvert.DeserializeObject<List<Exercise>>(System.IO.File.ReadAllText(jsonPath));
-            //return View(exercises);
+            //IEnumerable<ExercisesIndexViewModel> exercisesVMs = await this.exerciseService
+            //                       .GetAllExercises();
 
-            FitnessService fitnessService = new FitnessService();
+            //return View(exercisesVMs);
 
-            IEnumerable<ExercisesViewModel>? exercises = fitnessService.GetAllExercises();
-            
-            //if (string.IsNullOrEmpty(exercises))
-            //{
-            //    return NotFound("No exercises found.");
-            //}
+            IEnumerable<ExercisesIndexViewModel> exercises = await this.exerciseService
+                                                    .GetExercisesPageAsync(page, pageSize, query);
 
-            //ViewBag.Message = exercises;
+            ViewBag.CurrentPage = page;
+            ViewBag.PageSize = pageSize;
 
+            if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+            {
+                return PartialView("_ExercisePartial", exercises); // only return the cards
+            }
+
+           // ViewData["Title"] = "Exercises";
             return View(exercises);
         }
     }

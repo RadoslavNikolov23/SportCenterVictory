@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SCV.Data.Common\SCV.Data.Common.csproj" />
     <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
     <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
   </ItemGroup>

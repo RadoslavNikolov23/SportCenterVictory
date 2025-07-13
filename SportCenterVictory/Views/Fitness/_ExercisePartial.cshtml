@@ -1,0 +1,37 @@
+﻿@model IEnumerable<SCV.Web.ViewModels.FitnessVM.ExercisesIndexViewModel>
+
+@foreach (var exercise in Model)
+{
+    <div class="col-md-6 pt-3">
+        <div class="card h-100 exercise-card" data-name="@exercise.Name.ToLower()">
+
+            <img src="@exercise.ImageUrlOne"
+                 data-first="@exercise.ImageUrlOne"
+                 data-second="@exercise.ImageUrlTwo"
+                 class="toggle-image pt-2"
+                 alt="@exercise.Name"
+                 style="cursor: pointer;" />
+
+            <div class="card-body content">
+                <h5 class="card-title name">@exercise.Name</h5>
+                <section class="instructions-section collapsed" style="position: relative;">
+                    @if (string.IsNullOrWhiteSpace(exercise.Instructions))
+                    {
+                        <p class="text-muted">No instructions available.</p>
+                    }
+                    else if (exercise.Instructions.Length <= 70)
+                    {
+                        <p>@exercise.Instructions</p>
+                    }
+                    else
+                    {
+                        <p class="instructions-text" style="margin-bottom: 8px;">
+                            @exercise.Instructions
+                        </p>
+                        <a href="#" class="toggle-instructions-link">More</a>
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+}
