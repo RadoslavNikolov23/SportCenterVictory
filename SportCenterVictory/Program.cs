@@ -43,8 +43,10 @@ namespace SportCenterVictory
                 .AddDefaultTokenProviders();
 
             builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
+            builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
 
             builder.Services.AddScoped<IExerciseService, ExerciseService>();
+            builder.Services.AddScoped<IMembershipService, MembershipService>();
 
             builder.Services
                         .AddControllersWithViews();

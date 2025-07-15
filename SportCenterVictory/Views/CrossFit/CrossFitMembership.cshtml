@@ -1,3 +1,108 @@
-﻿@{
-    ViewData["Title"] = "Crossfit Membership";
+﻿@using SCV.Web.ViewModels.FitnessVM
+@model IEnumerable<MembershipDetailViewModel>
+
+@{
+    ViewData["Title"] = "Crossfit Membership ";
 }
+
+
+<style>
+    .membership-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        padding: 40px;
+    }
+
+    .membership-card {
+        background-color: #f8f9fa;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        padding: 25px;
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+        .membership-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+    .membership-title {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    .membership-type-tier {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #007bff;
+        margin-bottom: 10px;
+    }
+
+    .membership-description {
+        font-size: 1rem;
+        color: #666;
+        margin-bottom: 20px;
+    }
+
+    .membership-price-duration {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    .membership-trainer {
+        font-size: 0.95rem;
+        color: #444;
+        margin-bottom: 15px;
+    }
+
+    .buy-button {
+        padding: 10px 20px;
+        background-color: #28a745;
+        border: none;
+        border-radius: 8px;
+        color: white;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .buy-button:hover {
+            background-color: #218838;
+        }
+</style>
+
+<h2 class="text-center">Our Memberships</h2>
+
+<div class="membership-container">
+    @foreach (var membership in Model)
+    {
+        <div class="membership-card">
+            <div class="membership-title">@membership.Name</div>
+            <div class="membership-type-tier">
+                @membership.MembershipType | @membership.MembershipTier
+            </div>
+
+            <div class="membership-description">@membership.Description</div>
+
+
+            @if (!string.IsNullOrEmpty(membership.TrainerName))
+            {
+                <div class="membership-trainer">Trainer: @membership.TrainerName</div>
+            }
+
+            <div class="membership-price-duration">
+                @membership.Price.ToString("C") - @membership.Duration
+            </div>
+
+            <button class="buy-button">Buy Membership</button>
+        </div>
+    }
+</div>
+
+

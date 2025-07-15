@@ -1,17 +1,19 @@
 ﻿namespace SportCenterVictory.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-    using SCV.Services.Core;
+    using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.FitnessVM;
 
     public class FitnessController : Controller
     {
         public readonly IExerciseService exerciseService;
+        public readonly IMembershipService membershipService;
 
-        public FitnessController(IExerciseService exerciseService)
+        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService)
         {
             this.exerciseService = exerciseService;
+            this.membershipService = membershipService;
         }
 
         public IActionResult FitnessCenter()
@@ -39,6 +41,15 @@
 
            // ViewData["Title"] = "Exercises";
             return View(exercises);
+        }
+
+        public async Task<IActionResult> FitnessMembership()
+        {
+            IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
+                                                .GetAllMembershipPerSport(SportType.Fitness);
+
+            return View(membershipsVM);
+
         }
     }
 }
