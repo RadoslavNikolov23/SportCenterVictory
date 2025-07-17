@@ -1,4 +1,4 @@
-﻿namespace SCV.Web.ViewModels.FitnessVM
+﻿namespace SCV.Web.ViewModels.CommonVM
 {
     using SCV.GlCommon.Enums;
 

@@ -12,4 +12,8 @@
     <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CrossfitVM\" />
+  </ItemGroup>
+
 </Project>

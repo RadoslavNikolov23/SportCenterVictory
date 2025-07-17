@@ -1,9 +1,10 @@
 namespace SportCenterVictory
 {
-    using SCV.Data;
-    using SCV.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
+
+    using SCV.Data;
+    using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Data.Repository;
     using SCV.Services.Core.Contracts;

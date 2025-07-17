@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.FitnessVM;
+    using SCV.Web.ViewModels.CommonVM;
 
     public class PowerliftingController : Controller
     {

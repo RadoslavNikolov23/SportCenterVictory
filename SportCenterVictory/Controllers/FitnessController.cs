@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.FitnessVM;
 
     public class FitnessController : Controller
