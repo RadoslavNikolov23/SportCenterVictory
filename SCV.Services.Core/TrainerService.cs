@@ -31,6 +31,7 @@
                                             PhoneNumber = tp.PhoneNumber ?? "n/a",
                                             Bio = tp.Bio,
                                             TrainerSpecialty = tp.TrainerSpecialty,
+                      //----------- ! Remove the "/" when reseed the DB ---- !!!
                                             ImageUrl = $"/{tp.ImageUrl}" ?? $"/noImage.jpg",
 
                                         })
