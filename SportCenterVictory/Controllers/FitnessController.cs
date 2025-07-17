@@ -11,12 +11,14 @@
         public readonly IExerciseService exerciseService;
         public readonly IMembershipService membershipService;
         public readonly ITrainerService trainerService;
+        public readonly IEventService eventService;
 
-        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService)
+        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService, IEventService eventService)
         {
             this.exerciseService = exerciseService;
             this.membershipService = membershipService;
             this.trainerService = trainerService;
+            this.eventService = eventService;
         }
 
         public IActionResult FitnessCenter()
@@ -62,6 +64,15 @@
             }
 
             return View(trainerViewModels);
+
+        }
+
+        public async Task<IActionResult> FitnessEvents()
+        {
+            IEnumerable<EventViewModel> eventViewModels = await this.eventService
+                                    .GetAllEventByEventType(SportType.Fitness);
+
+            return View(eventViewModels);
 
         }
     }

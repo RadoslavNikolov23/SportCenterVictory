@@ -9,11 +9,14 @@
     {
         public readonly IMembershipService membershipService;
         public readonly ITrainerService trainerService;
+        public readonly IEventService eventService;
 
-        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService)
+
+        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService)
         {
             this.membershipService = membershipService;
             this.trainerService = trainerService;
+            this.eventService = eventService;
         }
 
         public IActionResult CrossFitArena()
@@ -41,6 +44,15 @@
             }
 
             return View(trainerViewModels);
+
+        }
+
+        public async Task<IActionResult> CrossFitEvents()
+        {
+            IEnumerable<EventViewModel> eventViewModels = await this.eventService
+                                    .GetAllEventByEventType(SportType.CrossFit);
+
+            return View(eventViewModels);
 
         }
     }

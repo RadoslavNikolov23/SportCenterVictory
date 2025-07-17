@@ -8,16 +8,16 @@
 
     public class TrainerService : ITrainerService
     {
-        private readonly ITrainerRepository trainerRepository;
+        private readonly ITrainerRepository trainerRepo;
 
-        public TrainerService(ITrainerRepository trainerRepository)
+        public TrainerService(ITrainerRepository trainerRepo)
         {
-            this.trainerRepository = trainerRepository;
+            this.trainerRepo = trainerRepo;
         }
 
         public async Task<IEnumerable<TrainerViewModel>> GetAllTrainerBySpecialties(SportType trainerSpecialty)
         {
-            IEnumerable<TrainerViewModel> trainerVM = await this.trainerRepository
+            IEnumerable<TrainerViewModel> trainerVM = await this.trainerRepo
                                         .GetAllAttached()
                                         .Include(tp => tp.Memberships)
                                         .AsNoTracking()

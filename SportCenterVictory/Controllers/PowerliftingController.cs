@@ -9,11 +9,14 @@
     {
         public readonly IMembershipService membershipService;
         public readonly ITrainerService trainerService;
+        public readonly IEventService eventService;
 
-        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService)
+
+        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService)
         {
             this.membershipService = membershipService;
             this.trainerService = trainerService;
+            this.eventService = eventService;
         }
         public IActionResult PowerliftingZone()
         {
@@ -40,6 +43,15 @@
             }
 
             return View(trainerViewModels);
+
+        }
+
+        public async Task<IActionResult> PowerliftingEvents()
+        {
+            IEnumerable<EventViewModel> eventViewModels = await this.eventService
+                                    .GetAllEventByEventType(SportType.Powerlifting);
+
+            return View(eventViewModels);
 
         }
     }

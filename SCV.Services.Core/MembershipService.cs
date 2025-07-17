@@ -25,6 +25,7 @@
                         .Include(m=>m.Trainer)
                         .AsNoTracking()
                         .Where(m => (int)m.MembershipType == (int)MembershipType)
+                        .OrderBy(m=>m.Price)
                         .Select(m => new MembershipDetailViewModel()
                         {
                             Name = m.Name,
