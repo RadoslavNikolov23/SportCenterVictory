@@ -1,3 +1,143 @@
-﻿@{
-    ViewData["Title"] = "CrossFit Coaches";
+﻿@using SCV.Web.ViewModels.CommonVM
+@model IEnumerable<TrainerViewModel>
+
+@{
+    ViewData["Title"] = "CrossFit Coaches ";
 }
+
+<style>
+    body {
+        background-color: #f2f5f9;
+    }
+
+    .trainer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+        gap: 30px;
+        padding: 40px;
+    }
+
+    .trainer-card {
+        position: relative;
+        background: linear-gradient(135deg, #ffffff, #e8f0ff);
+        border-left: 6px solid #89048E;
+        border-radius: 16px;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        display: flex;
+        padding: 20px;
+        transition: transform 0.3s ease;
+    }
+
+        .trainer-card:hover {
+            transform: translateY(-5px);
+        }
+
+    .trainer-img {
+        flex: 0 0 100px;
+        margin-right: 20px;
+    }
+
+        .trainer-img img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #89048E;
+        }
+
+    .trainer-content {
+        flex: 1;
+    }
+
+    .trainer-name {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #1c1c1c;
+        margin-bottom: 5px;
+    }
+
+    .trainer-specialty {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #89048E;
+        margin-bottom: 10px;
+    }
+
+    .trainer-bio {
+        font-size: 0.95rem;
+        color: #444;
+        margin-bottom: 12px;
+    }
+
+    .trainer-contact {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 10px;
+    }
+
+    .membership-list {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #f7faff;
+        border-left: 4px solid #28a745;
+        border-radius: 8px;
+    }
+
+    .membership-item {
+        font-size: 0.9rem;
+        margin-bottom: 6px;
+        color: #333;
+    }
+
+        .membership-item strong {
+            color: #28a745;
+        }
+
+    .sport-icon {
+        position: absolute;
+        top: -10px;
+        right: -10px;
+        font-size: 4rem;
+        opacity: 0.1;
+    }
+</style>
+
+<h2 class="about_taital text-center pt-4">Meet Our CrossFit Coaches</h2>
+
+<div class="trainer-grid">
+    @foreach (var trainer in Model)
+    {
+        <div class="trainer-card">
+            <div class="sport-icon">🏋️‍♂️</div> @* Decorative only *@
+
+            <div class="trainer-img">
+                <img src="@trainer.ImageUrl" />
+            </div>
+
+            <div class="trainer-content">
+                <div class="trainer-name">@trainer.FirstName @trainer.LastName</div>
+                <div class="trainer-specialty">@trainer.TrainerSpecialty</div>
+                <div class="trainer-bio">@trainer.Bio</div>
+
+                <div class="trainer-contact">
+                    <div><strong>Email:</strong> @trainer.Email</div>
+                    <div><strong>Phone:</strong> @trainer.PhoneNumber</div>
+                </div>
+
+                @if (trainer.MembershipsByTrainer != null && trainer.MembershipsByTrainer.Any())
+                {
+                    <div class="membership-list">
+                        <strong>Memberships:</strong>
+                        @foreach (var m in trainer.MembershipsByTrainer)
+                        {
+                            <div class="membership-item">
+                                <strong>@m.Name</strong> – @m.MembershipType | @m.MembershipTier
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>

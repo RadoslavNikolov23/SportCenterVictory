@@ -23,10 +23,10 @@
         transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .membership-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    }
+        .membership-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
 
     .membership-title {
         font-size: 1.8rem;
@@ -72,12 +72,13 @@
         transition: background-color 0.3s ease;
     }
 
-    .buy-button:hover {
-        background-color: #218838;
-    }
+        .buy-button:hover {
+            background-color: #218838;
+        }
 </style>
 
-<h2 class="text-center">Our Memberships</h2>
+
+<h2 class="about_taital text-center pt-4">Our Fitness Memberships</h2>
 
 <div class="membership-container">
     @foreach (var membership in Model)
@@ -104,5 +105,6 @@
         </div>
     }
 </div>
+
 
 

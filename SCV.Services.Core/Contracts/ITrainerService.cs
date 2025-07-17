@@ -5,6 +5,6 @@
 
     public interface ITrainerService
     {
-        Task<IEnumerable<TrainerViewModel>> GetAllTrainerBySpecialties(SportType TrainerSpecialty); 
+        Task<IEnumerable<TrainerViewModel>> GetAllTrainerBySpecialties(SportType trainerSpecialty); 
     }
 }

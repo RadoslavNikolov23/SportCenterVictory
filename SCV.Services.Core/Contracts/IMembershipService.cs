@@ -7,6 +7,6 @@
     {
         public Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSport(SportType MembershipType);
 
-        public Task<IEnumerable<MembershipsTrainerViewModel>> GetAllMembershipForTrainer(Guid trainerId);
+        public Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainer(Guid trainerId);
     }
 }

@@ -1,7 +1,7 @@
 ﻿namespace SCV.Web.ViewModels.CommonVM
 {
-    using SCV.Data.Models;
     using SCV.GlCommon.Enums;
+    using System.ComponentModel.DataAnnotations;
 
     public class TrainerViewModel
     {
@@ -11,8 +11,10 @@
 
         public string LastName { get; set; } = null!;
 
+        [EmailAddress]
         public string Email { get; set; } = null!;
 
+        [Phone]
         public string? PhoneNumber { get; set; }
 
         public string Bio { get; set; } = null!;
@@ -21,7 +23,7 @@
 
         public string? ImageUrl { get; set; }
 
-        public virtual ICollection<Membership> Memberships { get; set; } = new HashSet<Membership>();
+        public virtual ICollection<MembershipsTrainerViewModel> MembershipsByTrainer { get; set; } = new HashSet<MembershipsTrainerViewModel>();
     }
 
     public class MembershipsTrainerViewModel
@@ -31,8 +33,6 @@
         public SportType MembershipType { get; set; }
 
         public MembershipTier MembershipTier { get; set; }
-
-
 
     }
 }

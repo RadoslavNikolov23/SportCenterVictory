@@ -10,11 +10,13 @@
     {
         public readonly IExerciseService exerciseService;
         public readonly IMembershipService membershipService;
+        public readonly ITrainerService trainerService;
 
-        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService)
+        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService)
         {
             this.exerciseService = exerciseService;
             this.membershipService = membershipService;
+            this.trainerService = trainerService;
         }
 
         public IActionResult FitnessCenter()
@@ -24,11 +26,6 @@
 
         public async Task<IActionResult> Exercises(int page = 1, int pageSize = 20, string? query = null)
         {
-            //IEnumerable<ExercisesIndexViewModel> exercisesVMs = await this.exerciseService
-            //                       .GetAllExercises();
-
-            //return View(exercisesVMs);
-
             IEnumerable<ExercisesIndexViewModel> exercises = await this.exerciseService
                                                     .GetExercisesPageAsync(page, pageSize, query);
 
@@ -37,7 +34,7 @@
 
             if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
             {
-                return PartialView("_ExercisePartial", exercises); // only return the cards
+                return PartialView("_ExercisePartial", exercises);
             }
 
            // ViewData["Title"] = "Exercises";
@@ -50,6 +47,21 @@
                                                 .GetAllMembershipPerSport(SportType.Fitness);
 
             return View(membershipsVM);
+
+        }
+
+        public async Task<IActionResult> FitnessTrainer()
+        {
+            IEnumerable<TrainerViewModel> trainerViewModels = await this.trainerService
+                                        .GetAllTrainerBySpecialties(SportType.Fitness);
+
+            foreach (TrainerViewModel trainer in trainerViewModels)
+            {
+                trainer.MembershipsByTrainer = await this.membershipService
+                                .GetAllMembershipForTrainer(trainer.Id);
+            }
+
+            return View(trainerViewModels);
 
         }
     }

@@ -8,10 +8,12 @@
     public class CrossFitController : Controller
     {
         public readonly IMembershipService membershipService;
+        public readonly ITrainerService trainerService;
 
-        public CrossFitController(IMembershipService membershipService)
+        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService)
         {
             this.membershipService = membershipService;
+            this.trainerService = trainerService;
         }
 
         public IActionResult CrossFitArena()
@@ -25,6 +27,21 @@
                                                 .GetAllMembershipPerSport(SportType.CrossFit);
 
             return View(membershipsVM);
+        }
+
+        public async Task<IActionResult> CrossFitCoaches()
+        {
+            IEnumerable<TrainerViewModel> trainerViewModels = await this.trainerService
+                                        .GetAllTrainerBySpecialties(SportType.CrossFit);
+
+            foreach (TrainerViewModel trainer in trainerViewModels)
+            {
+                trainer.MembershipsByTrainer = await this.membershipService
+                                .GetAllMembershipForTrainer(trainer.Id);
+            }
+
+            return View(trainerViewModels);
+
         }
     }
 }

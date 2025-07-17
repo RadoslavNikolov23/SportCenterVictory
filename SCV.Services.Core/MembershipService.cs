@@ -1,8 +1,8 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
-    using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
+    using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
 
@@ -28,7 +28,8 @@
                         .Select(m => new MembershipDetailViewModel()
                         {
                             Name = m.Name,
-                            MembershipTier = m.MembershipTier, //Check if this works if not TryParse it
+                            MembershipType = m.MembershipType,
+                            MembershipTier = m.MembershipTier,
                             Description = m.Description,
                             Price = m.Price,
                             Duration = m.Duration,
@@ -40,9 +41,9 @@
 
         }
 
-        public async Task<IEnumerable<MembershipsTrainerViewModel>> GetAllMembershipForTrainer(Guid trainerId)
+        public async Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainer(Guid trainerId)
         {
-            IEnumerable<MembershipsTrainerViewModel> membershipsTrainerVM = await this.membershipRepo
+            ICollection<MembershipsTrainerViewModel> membershipsTrainerVM = await this.membershipRepo
                                       .GetAllAttached()
                                       .Include(mt => mt.Trainer)
                                       .AsNoTracking()
@@ -50,8 +51,8 @@
                                       .Select(mt=> new MembershipsTrainerViewModel()
                                       {
                                           Name = mt.Name,
-                                          MembershipType = mt.MembershipType, //Check if this works if not TryParse it
-                                          MembershipTier = mt.MembershipTier, //Check if this works if not TryParse it
+                                          MembershipType = mt.MembershipType,
+                                          MembershipTier = mt.MembershipTier,
                                       })
                                       .ToListAsync();
 

@@ -8,22 +8,39 @@
     public class PowerliftingController : Controller
     {
         public readonly IMembershipService membershipService;
+        public readonly ITrainerService trainerService;
 
-        public PowerliftingController(IMembershipService membershipService)
+        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService)
         {
             this.membershipService = membershipService;
+            this.trainerService = trainerService;
         }
         public IActionResult PowerliftingZone()
         {
             return View();
         }
 
-        public async Task<IActionResult> CrossFitMembership()
+        public async Task<IActionResult> PowerliftingMembership()
         {
             IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
                                                 .GetAllMembershipPerSport(SportType.Powerlifting);
 
             return View(membershipsVM);
+        }
+
+        public async Task<IActionResult> PowerliftingCoaches()
+        {
+            IEnumerable<TrainerViewModel> trainerViewModels = await this.trainerService
+                                        .GetAllTrainerBySpecialties(SportType.Powerlifting);
+
+            foreach (TrainerViewModel trainer in trainerViewModels)
+            {
+                trainer.MembershipsByTrainer = await this.membershipService
+                                .GetAllMembershipForTrainer(trainer.Id);
+            }
+
+            return View(trainerViewModels);
+
         }
     }
 }

@@ -6,7 +6,7 @@
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
 
-    public class TrainerService:ITrainerService
+    public class TrainerService : ITrainerService
     {
         private readonly ITrainerRepository trainerRepository;
 
@@ -15,12 +15,13 @@
             this.trainerRepository = trainerRepository;
         }
 
-        public async Task<IEnumerable<TrainerViewModel>> GetAllTrainerBySpecialties(SportType TrainerSpecialty)
+        public async Task<IEnumerable<TrainerViewModel>> GetAllTrainerBySpecialties(SportType trainerSpecialty)
         {
             IEnumerable<TrainerViewModel> trainerVM = await this.trainerRepository
                                         .GetAllAttached()
                                         .Include(tp => tp.Memberships)
                                         .AsNoTracking()
+                                        .Where(tp=>tp.TrainerSpecialty == trainerSpecialty)
                                         .Select(tp => new TrainerViewModel()
                                         {
                                             Id = tp.Id,
@@ -29,7 +30,8 @@
                                             Email = tp.Email,
                                             PhoneNumber = tp.PhoneNumber ?? "n/a",
                                             Bio = tp.Bio,
-                                            ImageUrl = tp.ImageUrl ?? $"/noImage.jpg",
+                                            TrainerSpecialty = tp.TrainerSpecialty,
+                                            ImageUrl = $"/{tp.ImageUrl}" ?? $"/noImage.jpg",
 
                                         })
                                         .ToListAsync();
