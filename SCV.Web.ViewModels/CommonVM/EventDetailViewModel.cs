@@ -2,7 +2,7 @@
 {
     using SCV.GlCommon.Enums;
 
-    public class EventViewModel
+    public class EventDetailViewModel
     {
         public string Title { get; set; } = null!;
 

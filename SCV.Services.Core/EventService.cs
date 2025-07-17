@@ -16,13 +16,13 @@
             this.eventRepo = eventRepo;
         }
 
-        public async Task<IEnumerable<EventViewModel>> GetAllEventByEventType(SportType eventType)
+        public async Task<IEnumerable<EventDetailViewModel>> GetAllEventByEventType(SportType eventType)
         {
-            IEnumerable<EventViewModel> eventVM = await this.eventRepo
+            IEnumerable<EventDetailViewModel> eventVM = await this.eventRepo
                             .GetAllAttached()
                             .AsNoTracking()
                             .Where(e => e.EventType == eventType)
-                            .Select(e => new EventViewModel()
+                            .Select(e => new EventDetailViewModel()
                             {
                                 Title = e.Title,
                                 EventType = e.EventType,

@@ -12,13 +12,15 @@
         public readonly IMembershipService membershipService;
         public readonly ITrainerService trainerService;
         public readonly IEventService eventService;
+        public readonly IWorkoutPlanService workoutPlanService;
 
-        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService, IEventService eventService)
+        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IWorkoutPlanService workoutPlanService)
         {
             this.exerciseService = exerciseService;
             this.membershipService = membershipService;
             this.trainerService = trainerService;
             this.eventService = eventService;
+            this.workoutPlanService = workoutPlanService;
         }
 
         public IActionResult FitnessCenter()
@@ -54,10 +56,10 @@
 
         public async Task<IActionResult> FitnessTrainer()
         {
-            IEnumerable<TrainerViewModel> trainerViewModels = await this.trainerService
+            IEnumerable<TrainerDetailViewModel> trainerViewModels = await this.trainerService
                                         .GetAllTrainerBySpecialties(SportType.Fitness);
 
-            foreach (TrainerViewModel trainer in trainerViewModels)
+            foreach (TrainerDetailViewModel trainer in trainerViewModels)
             {
                 trainer.MembershipsByTrainer = await this.membershipService
                                 .GetAllMembershipForTrainer(trainer.Id);
@@ -69,10 +71,20 @@
 
         public async Task<IActionResult> FitnessEvents()
         {
-            IEnumerable<EventViewModel> eventViewModels = await this.eventService
+            IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
                                     .GetAllEventByEventType(SportType.Fitness);
 
             return View(eventViewModels);
+
+        }
+
+        public async Task<IActionResult> WorkoutPlans()
+        {
+            //Make a View
+            IEnumerable<WorkoutPlanDetailViewModel> workoutPlanDetailVM = await this.workoutPlanService
+                                    .GetAllWorkoutPlansBySportType(SportType.Fitness);
+
+            return View(workoutPlanDetailVM);
 
         }
     }

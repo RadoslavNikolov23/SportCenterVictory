@@ -15,14 +15,14 @@
             this.trainerRepo = trainerRepo;
         }
 
-        public async Task<IEnumerable<TrainerViewModel>> GetAllTrainerBySpecialties(SportType trainerSpecialty)
+        public async Task<IEnumerable<TrainerDetailViewModel>> GetAllTrainerBySpecialties(SportType trainerSpecialty)
         {
-            IEnumerable<TrainerViewModel> trainerVM = await this.trainerRepo
+            IEnumerable<TrainerDetailViewModel> trainerVM = await this.trainerRepo
                                         .GetAllAttached()
                                         .Include(tp => tp.Memberships)
                                         .AsNoTracking()
                                         .Where(tp=>tp.TrainerSpecialty == trainerSpecialty)
-                                        .Select(tp => new TrainerViewModel()
+                                        .Select(tp => new TrainerDetailViewModel()
                                         {
                                             Id = tp.Id,
                                             FirstName = tp.FirstName,

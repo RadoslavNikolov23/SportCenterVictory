@@ -3,7 +3,7 @@
     using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
 
-    public class TrainerViewModel
+    public class TrainerDetailViewModel
     {
         public Guid Id { get; set; } 
 

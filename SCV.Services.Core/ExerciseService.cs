@@ -3,6 +3,7 @@
     using Microsoft.EntityFrameworkCore;
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
+    using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.FitnessVM;
 
@@ -72,5 +73,6 @@
             return exercisesViewModels;
 
         }
+
     }
 }

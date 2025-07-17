@@ -5,6 +5,6 @@
 
     public interface IEventService
     {
-        Task<IEnumerable<EventViewModel>> GetAllEventByEventType(SportType eventType);
+        Task<IEnumerable<EventDetailViewModel>> GetAllEventByEventType(SportType eventType);
     }
 }

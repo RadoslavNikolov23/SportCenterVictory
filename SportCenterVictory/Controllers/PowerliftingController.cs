@@ -33,10 +33,10 @@
 
         public async Task<IActionResult> PowerliftingCoaches()
         {
-            IEnumerable<TrainerViewModel> trainerViewModels = await this.trainerService
+            IEnumerable<TrainerDetailViewModel> trainerViewModels = await this.trainerService
                                         .GetAllTrainerBySpecialties(SportType.Powerlifting);
 
-            foreach (TrainerViewModel trainer in trainerViewModels)
+            foreach (TrainerDetailViewModel trainer in trainerViewModels)
             {
                 trainer.MembershipsByTrainer = await this.membershipService
                                 .GetAllMembershipForTrainer(trainer.Id);
@@ -48,7 +48,7 @@
 
         public async Task<IActionResult> PowerliftingEvents()
         {
-            IEnumerable<EventViewModel> eventViewModels = await this.eventService
+            IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
                                     .GetAllEventByEventType(SportType.Powerlifting);
 
             return View(eventViewModels);
