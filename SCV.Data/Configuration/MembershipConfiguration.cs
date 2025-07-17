@@ -3,7 +3,7 @@
     using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using static SCV.Data.Common.EntityConstantsMembership;
+    using static SCV.GlCommon.ModelConstants.EntityConstantsMembership;
     using static SCV.GlCommon.ApplicationConstants;
 
     public class MembershipConfiguration : BaseConfiguration, IEntityTypeConfiguration<Membership>

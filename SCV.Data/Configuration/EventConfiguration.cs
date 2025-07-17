@@ -3,7 +3,7 @@
     using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using static SCV.Data.Common.EntityConstantsEvent;
+    using static SCV.GlCommon.ModelConstants.EntityConstantsEvent;
 
     public class EventConfiguration : BaseConfiguration, IEntityTypeConfiguration<Event>
     {

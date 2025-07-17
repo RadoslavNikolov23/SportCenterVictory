@@ -4,7 +4,7 @@
     using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using static SCV.Data.Common.EntityConstantsUserFeedback;
+    using static SCV.GlCommon.ModelConstants.EntityConstantsUserFeedback;
 
     public class UserFeedbackConfiguration : BaseConfiguration, IEntityTypeConfiguration<UserFeedback>
     {

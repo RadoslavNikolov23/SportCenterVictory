@@ -3,7 +3,7 @@
     using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using static SCV.Data.Common.EntityConstantsExercise;
+    using static SCV.GlCommon.ModelConstants.EntityConstantsExercise;
 
     public class ExerciseConfiguration : BaseConfiguration, IEntityTypeConfiguration<Exercise>
     {

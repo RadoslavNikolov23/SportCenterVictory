@@ -1,4 +1,4 @@
-﻿namespace SCV.Data.Common
+﻿namespace SCV.GlCommon.ModelConstants
 {
     public static class EntityConstantsEvent
     {

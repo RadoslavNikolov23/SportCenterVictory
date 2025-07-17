@@ -3,7 +3,7 @@
     using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using static SCV.Data.Common.EntityConstantsTrainerUser;
+    using static SCV.GlCommon.ModelConstants.EntityConstantsTrainerUser;
 
     public class TrainerUserConfiguration : IEntityTypeConfiguration<TrainerUser>
     {

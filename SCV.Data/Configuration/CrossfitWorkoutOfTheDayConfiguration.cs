@@ -3,7 +3,7 @@
     using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using static SCV.Data.Common.EntityConstantsCrossfit.CrossfitWorkoutOfTheDayConstraints;
+    using static SCV.GlCommon.ModelConstants.EntityConstantsCrossfit.CrossfitWorkoutOfTheDayConstraints;
 
     public class CrossfitWorkoutOfTheDayConfiguration : BaseConfiguration, IEntityTypeConfiguration<CrossfitWorkoutOfTheDay>
     {
