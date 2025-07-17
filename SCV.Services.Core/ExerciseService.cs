@@ -2,7 +2,6 @@
 {
     using Microsoft.EntityFrameworkCore;
     using SCV.Data.Models;
-    using SCV.Data.Repository;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.FitnessVM;
