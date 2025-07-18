@@ -38,7 +38,7 @@
             return result;
         }
 
-        public async Task<TEntity?>? GetByIdAsync(TKey id)
+        public async Task<TEntity?> GetByIdAsync(TKey id)
         {
             TEntity? entity = null;
 

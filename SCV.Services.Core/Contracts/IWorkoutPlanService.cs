@@ -5,7 +5,7 @@
 
     public interface IWorkoutPlanService
     {
-        Task<IEnumerable<WorkoutPlanDetailViewModel>> GetAllWorkoutPlansBySportType(SportType sportType);
+        Task<IEnumerable<WorkoutPlanDetailViewModel>> GetAllWorkoutPlansBySportTypeAsync(SportType sportType);
 
     }
 }

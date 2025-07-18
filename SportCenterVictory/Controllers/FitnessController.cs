@@ -23,14 +23,16 @@
             this.workoutPlanService = workoutPlanService;
         }
 
+        [HttpGet]
         public IActionResult FitnessCenter()
         {
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> Exercises(int page = 1, int pageSize = 20, string? query = null)
         {
-            IEnumerable<ExercisesIndexViewModel> exercises = await this.exerciseService
+            IEnumerable<ExercisesDetailViewModel> exercises = await this.exerciseService
                                                     .GetExercisesPageAsync(page, pageSize, query);
 
             ViewBag.CurrentPage = page;
@@ -45,47 +47,66 @@
             return View(exercises);
         }
 
+        [HttpGet]
         public async Task<IActionResult> FitnessMembership()
         {
             IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
-                                                .GetAllMembershipPerSport(SportType.Fitness);
+                                                .GetAllMembershipPerSportAsync(SportType.Fitness);
 
             return View(membershipsVM);
 
         }
 
+        [HttpGet]
         public async Task<IActionResult> FitnessTrainer()
         {
             IEnumerable<TrainerDetailViewModel> trainerViewModels = await this.trainerService
-                                        .GetAllTrainerBySpecialties(SportType.Fitness);
+                                        .GetAllTrainerBySpecialtiesAsync(SportType.Fitness);
 
             foreach (TrainerDetailViewModel trainer in trainerViewModels)
             {
                 trainer.MembershipsByTrainer = await this.membershipService
-                                .GetAllMembershipForTrainer(trainer.Id);
+                                .GetAllMembershipForTrainerAsync(trainer.Id);
             }
 
             return View(trainerViewModels);
 
         }
 
+        [HttpGet]
         public async Task<IActionResult> FitnessEvents()
         {
             IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
-                                    .GetAllEventByEventType(SportType.Fitness);
+                                    .GetAllEventByEventTypeAsync(SportType.Fitness);
 
             return View(eventViewModels);
 
         }
 
+        [HttpGet]
         public async Task<IActionResult> WorkoutPlans()
         {
             //Make a View
             IEnumerable<WorkoutPlanDetailViewModel> workoutPlanDetailVM = await this.workoutPlanService
-                                    .GetAllWorkoutPlansBySportType(SportType.Fitness);
+                                    .GetAllWorkoutPlansBySportTypeAsync(SportType.Fitness);
 
             return View(workoutPlanDetailVM);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ExerciseDetails(string id)
+        {
+            ExercisesDetailViewModel? exerciseVM = await exerciseService
+                                                    .GetExerciseByIdAsync(id);
+   
+            if (exerciseVM == null)
+            {
+                //TODO: Some other redirect
+                return NotFound();
+            }
+
+            return PartialView("_ExercisePopupPartial", exerciseVM);
         }
     }
 }

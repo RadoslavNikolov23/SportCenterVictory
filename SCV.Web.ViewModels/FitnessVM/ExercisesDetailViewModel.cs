@@ -2,7 +2,7 @@
 {
     using SCV.Data.Models;
 
-    public class ExercisesIndexViewModel
+    public class ExercisesDetailViewModel
     {
         public string Id { get; set; } = null!;
 
@@ -25,8 +25,6 @@
         public string? ImageUrlOne { get; set; }
 
         public string? ImageUrlTwo { get; set; }
-
-        public bool IsDeleted { get; set; }
 
         public virtual ICollection<WorkoutPlanExercise> WorkoutPlanExercises { get; set; } = new HashSet<WorkoutPlanExercise>();
 

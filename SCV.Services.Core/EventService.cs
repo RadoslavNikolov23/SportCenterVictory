@@ -16,7 +16,7 @@
             this.eventRepo = eventRepo;
         }
 
-        public async Task<IEnumerable<EventDetailViewModel>> GetAllEventByEventType(SportType eventType)
+        public async Task<IEnumerable<EventDetailViewModel>> GetAllEventByEventTypeAsync(SportType eventType)
         {
             IEnumerable<EventDetailViewModel> eventVM = await this.eventRepo
                             .GetAllAttached()

@@ -6,7 +6,7 @@
     {
         Task<int> CountAsync();
 
-        Task<TEntity?>? GetByIdAsync(TKey id);
+        Task<TEntity?> GetByIdAsync(TKey id);
 
         Task<IEnumerable<TEntity>> GetAllAsync();
 

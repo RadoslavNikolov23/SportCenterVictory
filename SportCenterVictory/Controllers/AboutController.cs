@@ -4,6 +4,7 @@
 
     public class AboutController : Controller
     {
+        [HttpGet]
         public IActionResult Index()
         {
             return View();

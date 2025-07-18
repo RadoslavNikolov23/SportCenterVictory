@@ -19,38 +19,42 @@
             this.eventService = eventService;
         }
 
+        [HttpGet]
         public IActionResult CrossFitArena()
         {
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> CrossFitMembership()
         {
             IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
-                                                .GetAllMembershipPerSport(SportType.CrossFit);
+                                                .GetAllMembershipPerSportAsync(SportType.CrossFit);
 
             return View(membershipsVM);
         }
 
+        [HttpGet]
         public async Task<IActionResult> CrossFitCoaches()
         {
             IEnumerable<TrainerDetailViewModel> trainerViewModels = await this.trainerService
-                                        .GetAllTrainerBySpecialties(SportType.CrossFit);
+                                        .GetAllTrainerBySpecialtiesAsync(SportType.CrossFit);
 
             foreach (TrainerDetailViewModel trainer in trainerViewModels)
             {
                 trainer.MembershipsByTrainer = await this.membershipService
-                                .GetAllMembershipForTrainer(trainer.Id);
+                                .GetAllMembershipForTrainerAsync(trainer.Id);
             }
 
             return View(trainerViewModels);
 
         }
 
+        [HttpGet]
         public async Task<IActionResult> CrossFitEvents()
         {
             IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
-                                    .GetAllEventByEventType(SportType.CrossFit);
+                                    .GetAllEventByEventTypeAsync(SportType.CrossFit);
 
             return View(eventViewModels);
 

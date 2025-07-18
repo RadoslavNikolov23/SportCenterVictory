@@ -16,7 +16,7 @@
             this.membershipRepo = membershipRepo;
         }
 
-        public async Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSport(SportType MembershipType)
+        public async Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSportAsync(SportType MembershipType)
         {
             IEnumerable<MembershipDetailViewModel> membershipsCollection = new List<MembershipDetailViewModel>();
 
@@ -24,7 +24,7 @@
                         .GetAllAttached()
                         .Include(m=>m.Trainer)
                         .AsNoTracking()
-                        .Where(m => (int)m.MembershipType == (int)MembershipType)
+                        .Where(m => m.MembershipType == MembershipType)
                         .OrderBy(m=>m.Price)
                         .Select(m => new MembershipDetailViewModel()
                         {
@@ -42,13 +42,13 @@
 
         }
 
-        public async Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainer(Guid trainerId)
+        public async Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(Guid trainerId)
         {
             ICollection<MembershipsTrainerViewModel> membershipsTrainerVM = await this.membershipRepo
                                       .GetAllAttached()
                                       .Include(mt => mt.Trainer)
                                       .AsNoTracking()
-                                      .Where(mt=>mt.Trainer!.Id==trainerId)
+                                      .Where(mt=>mt.Trainer!.Id.ToString().ToLower()==trainerId.ToString().ToLower())
                                       .Select(mt=> new MembershipsTrainerViewModel()
                                       {
                                           Name = mt.Name,

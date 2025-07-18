@@ -1,0 +1,107 @@
+﻿@using SCV.Web.ViewModels.FitnessVM
+@model ExercisesDetailViewModel
+
+<div class="card p-4 shadow-sm">
+    <div class="text-center mb-4">
+        <img src="@Model.ImageUrlOne"
+             data-first="@Model.ImageUrlOne"
+             data-second="@Model.ImageUrlTwo"
+             class="toggle-image"
+             alt="@Model.Name"
+             style="max-height: 250px; object-fit: contain; cursor: pointer;" />
+    </div>
+
+    <div class="content">
+        <h3 class="text-center mb-3">@Model.Name</h3>
+
+        <div class="row">
+            @if (!string.IsNullOrEmpty(Model.Force))
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>Force:</strong> @Model.Force
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>Force:</strong>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Mechanic))
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>Mechanic:</strong> @Model.Mechanic
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>Mechanic:</strong>
+                </div>
+            }
+
+            @if (!string.IsNullOrEmpty(Model.Equipment))
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>Equipment:</strong> @Model.Equipment
+                </div>
+            }
+            else
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>Equipment:</strong>
+                </div>
+            }
+
+            <div class="col-md-6 mb-2">
+                <strong>Category:</strong> @Model.Category
+            </div>
+            <div class="col-md-6 mb-2">
+                <strong>Primary Muscles:</strong> @Model.PrimaryMuscles
+            </div>
+            @if (!string.IsNullOrEmpty(Model.SecondaryMuscles))
+            {
+                <div class="col-md-6 mb-2">
+                    <strong>Secondary Muscles:</strong> @Model.SecondaryMuscles
+                </div>
+            }
+        </div>
+
+        <hr />
+
+        <div class="mb-2">
+            <strong>Instructions:</strong>
+            @if (!string.IsNullOrEmpty(Model.Instructions))
+            {
+                <p class="mt-1">@Model.Instructions"</p>
+
+            }
+            else
+            {
+                <p class="mt-1">For more information Contact us.</p>
+
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+<script>
+
+      // Toggle image logic
+    document.querySelectorAll('.toggle-image').forEach(img => {
+           if (!img.dataset.toggleAttached) {
+               let toggled = false;
+               img.dataset.toggleAttached = true;
+               img.addEventListener('click', () => {
+                   const first = img.getAttribute('data-first');
+                   const second = img.getAttribute('data-second');
+                   img.src = toggled ? first : second;
+                   toggled = !toggled;
+               });
+           }
+       });
+</script>
+}
+

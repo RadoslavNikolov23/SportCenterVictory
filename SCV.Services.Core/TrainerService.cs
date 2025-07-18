@@ -15,7 +15,7 @@
             this.trainerRepo = trainerRepo;
         }
 
-        public async Task<IEnumerable<TrainerDetailViewModel>> GetAllTrainerBySpecialties(SportType trainerSpecialty)
+        public async Task<IEnumerable<TrainerDetailViewModel>> GetAllTrainerBySpecialtiesAsync(SportType trainerSpecialty)
         {
             IEnumerable<TrainerDetailViewModel> trainerVM = await this.trainerRepo
                                         .GetAllAttached()

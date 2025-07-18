@@ -18,38 +18,43 @@
             this.trainerService = trainerService;
             this.eventService = eventService;
         }
+
+        [HttpGet]
         public IActionResult PowerliftingZone()
         {
             return View();
         }
 
+        [HttpGet]
         public async Task<IActionResult> PowerliftingMembership()
         {
             IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
-                                                .GetAllMembershipPerSport(SportType.Powerlifting);
+                                                .GetAllMembershipPerSportAsync(SportType.Powerlifting);
 
             return View(membershipsVM);
         }
 
+        [HttpGet]
         public async Task<IActionResult> PowerliftingCoaches()
         {
             IEnumerable<TrainerDetailViewModel> trainerViewModels = await this.trainerService
-                                        .GetAllTrainerBySpecialties(SportType.Powerlifting);
+                                        .GetAllTrainerBySpecialtiesAsync(SportType.Powerlifting);
 
             foreach (TrainerDetailViewModel trainer in trainerViewModels)
             {
                 trainer.MembershipsByTrainer = await this.membershipService
-                                .GetAllMembershipForTrainer(trainer.Id);
+                                .GetAllMembershipForTrainerAsync(trainer.Id);
             }
 
             return View(trainerViewModels);
 
         }
 
+        [HttpGet]
         public async Task<IActionResult> PowerliftingEvents()
         {
             IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
-                                    .GetAllEventByEventType(SportType.Powerlifting);
+                                    .GetAllEventByEventTypeAsync(SportType.Powerlifting);
 
             return View(eventViewModels);
 

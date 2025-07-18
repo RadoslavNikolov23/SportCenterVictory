@@ -2,9 +2,9 @@
 {
     using Microsoft.EntityFrameworkCore;
     using SCV.Data.Repository.Contracts;
-    using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.FitnessVM;
+    using SCV.GlCommon.Enums;
 
     public class WorkoutPlanService : IWorkoutPlanService
     {
@@ -15,7 +15,7 @@
             this.workoutPlanRepo = workoutPlanRepo;
         }
 
-        public async Task<IEnumerable<WorkoutPlanDetailViewModel>> GetAllWorkoutPlansBySportType(SportType sportType)
+        public async Task<IEnumerable<WorkoutPlanDetailViewModel>> GetAllWorkoutPlansBySportTypeAsync(SportType sportType)
         {
             IEnumerable<WorkoutPlanDetailViewModel> workoutPlanDetailVM = await this.workoutPlanRepo
                                     .GetAllAttached()

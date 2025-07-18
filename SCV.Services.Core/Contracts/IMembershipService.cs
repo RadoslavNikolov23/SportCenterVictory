@@ -5,8 +5,8 @@
 
     public interface IMembershipService
     {
-        public Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSport(SportType MembershipType);
+        public Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSportAsync(SportType MembershipType);
 
-        public Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainer(Guid trainerId);
+        public Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(Guid trainerId);
     }
 }

@@ -16,9 +16,9 @@ $(function () {
 	/* JQuery Menu
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 
-	$(document).ready(function () {
-		$('header nav').meanmenu();
-	});
+	//$(document).ready(function () {
+	//	$('header nav').meanmenu();
+	//});
 	
 	/* Tooltip
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -30,9 +30,9 @@ $(function () {
 	/* sticky
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 	
-	$(document).ready(function(){
-		$(".sticky-wrapper-header").sticky({topSpacing:0});
-	});
+	//$(document).ready(function(){
+	//	$(".sticky-wrapper-header").sticky({topSpacing:0});
+	//});
 	
 	/* Mouseover
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -150,11 +150,11 @@ $(function () {
 	
 	/* Contact-form
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
-	$.validator.setDefaults( {
-		submitHandler: function () {
-			alert( "submitted!" );
-		}
-	} );
+	//$.validator.setDefaults( {
+	//	submitHandler: function () {
+	//		alert( "submitted!" );
+	//	}
+	//} );
 	
 	$( document ).ready( function () {
 		$( "#contact-form" ).validate( {

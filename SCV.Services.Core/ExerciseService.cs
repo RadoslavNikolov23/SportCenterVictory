@@ -16,12 +16,43 @@
             this.exerciseRepo = exerciseRepo;
         }
 
-        public async Task<IEnumerable<ExercisesIndexViewModel>> GetAllExercises()
+        public async Task<ExercisesDetailViewModel?> GetExerciseByIdAsync(string id)
         {
-            IEnumerable<ExercisesIndexViewModel> exercisesViewModels = await this.exerciseRepo
+            ExercisesDetailViewModel? exercisesVM = null;
+
+            if (!String.IsNullOrEmpty(id))
+            {
+               Exercise? exerciseEntity = await this.exerciseRepo
+                                            .GetByIdAsync(id);
+
+                if(exerciseEntity != null)
+                {
+                    exercisesVM = new ExercisesDetailViewModel()
+                    {
+                        Name = exerciseEntity.Name,
+                        Force = exerciseEntity.Force,
+                        Mechanic = exerciseEntity.Mechanic,
+                        Equipment = exerciseEntity.Equipment,
+                        PrimaryMuscles = exerciseEntity.PrimaryMuscles,
+                        SecondaryMuscles = exerciseEntity.SecondaryMuscles,
+                        Instructions = exerciseEntity.Instructions,
+                        Category = exerciseEntity.Category,
+                        ImageUrlOne = exerciseEntity.ImageUrlOne ?? $"/imagesExercises/fallback.jpg",
+                        ImageUrlTwo = exerciseEntity.ImageUrlTwo ?? $"/imagesExercises/fallback.jpg"
+
+                    };
+                }
+            }
+
+            return exercisesVM;
+        }
+
+        public async Task<IEnumerable<ExercisesDetailViewModel>> GetAllExercisesAsync()
+        {
+            IEnumerable<ExercisesDetailViewModel> exercisesViewModels = await this.exerciseRepo
                             .GetAllAttached()
                             .AsNoTracking()
-                            .Select(ex => new ExercisesIndexViewModel
+                            .Select(ex => new ExercisesDetailViewModel
                             {
                                 Name = ex.Name,
                                 Force = ex.Force,
@@ -39,7 +70,7 @@
             return exercisesViewModels;
         }
 
-        public async Task<IEnumerable<ExercisesIndexViewModel>> GetExercisesPageAsync(int page, int pageSize, string? query)
+        public async Task<IEnumerable<ExercisesDetailViewModel>> GetExercisesPageAsync(int page, int pageSize, string? query)
         {
             IQueryable<Exercise> exercisesQuery = this.exerciseRepo.GetAllAttached().AsQueryable();
 
@@ -50,12 +81,12 @@
                                 .Contains(query.ToLower()));
             }
 
-            IEnumerable<ExercisesIndexViewModel> exercisesViewModels = await exercisesQuery
+            IEnumerable<ExercisesDetailViewModel> exercisesViewModels = await exercisesQuery
                             .AsNoTracking()
                             //.OrderBy(e => e.Id) // optional, but helps stable paging
                             .Skip((page - 1) * pageSize)
                             .Take(pageSize)
-                            .Select(ex => new ExercisesIndexViewModel
+                            .Select(ex => new ExercisesDetailViewModel
                             {
                                 Name = ex.Name,
                                 Force = ex.Force,
