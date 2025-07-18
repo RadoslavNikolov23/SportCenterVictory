@@ -1,8 +1,7 @@
 ﻿namespace SCV.Services.Core.Contracts
 {
     using SCV.GlCommon.Enums;
-    using SCV.Web.ViewModels.CommonVM;
-    using SVC.Web.ViewModels.Membership;
+    using SVC.Web.ViewModels.StoreVM;
 
     public interface IProductService
     {

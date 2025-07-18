@@ -4,7 +4,7 @@
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
-    using SVC.Web.ViewModels.Membership;
+    using SVC.Web.ViewModels.StoreVM;
 
     public class StoreController : Controller
     {

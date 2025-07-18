@@ -1,3 +1,58 @@
 ﻿@{
-    ViewData["Title"] = "Store";
+    ViewData["Title"] = "Store ";
 }
+
+<style>
+    .store-hero {
+        background: linear-gradient(to right, #a5b500, #6DBD14);
+        color: white;
+        padding: 60px 30px;
+        text-align: center;
+        border-radius: 12px;
+        margin-bottom: 40px;
+    }
+
+        .store-hero h1 {
+            font-size: 2.8rem;
+            color:white;
+            margin-bottom: 20px;
+        }
+
+        .store-hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+    .store-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 0 20px;
+    }
+</style>
+
+<div class="about_section layout_padding pt-2">
+    <div class="store-hero">
+        <h1>Welcome to the Sport Center Victory Store</h1>
+        <p>
+            Explore our premium selection of <strong>Equipment</strong>, top-quality <strong>Nutrition</strong> products, and exclusive <strong>Memberships</strong> for <em>Fitness</em>, <em>CrossFit</em>, and <em>Powerlifting</em>. Whether you're just getting started or you're a seasoned athlete — we have everything you need to reach your goals.
+        </p>
+    </div>
+
+    <div class="store-buttons text-center mb-5">
+        <a asp-controller="Store" asp-action="Equipment" class="btn btn-lg btn-primary px-4 shadow-sm">
+            🏋️ Equipment
+        </a>
+
+        <a asp-controller="Store" asp-action="Nutrition" class="btn btn-lg btn-primary px-4 shadow-sm">
+            🥗 Nutrition
+        </a>
+
+        <a asp-controller="Store" asp-action="Memberships" class="btn btn-lg btn-primary px-4 shadow-sm">
+            💪 Sport Memberships
+        </a>
+
+    </div>
+</div>

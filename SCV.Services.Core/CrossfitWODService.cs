@@ -1,6 +1,7 @@
 ﻿namespace SCV.Services.Core
 {
     using HtmlAgilityPack;
+    using Microsoft.EntityFrameworkCore;
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
@@ -17,6 +18,30 @@
         {
             this.crossfitWODRepository = crossfitWODRepository;
         }
+
+        public async Task<CrossfitWODViewModel?> GetCrossfitWODByIdAsync(int id)
+        {
+            CrossfitWODViewModel? crossfitWODViewModel = null;
+
+            CrossfitWorkoutOfTheDay? crossfitWODEntity = await this.crossfitWODRepository
+                                        .GetByIdAsync(id);
+
+            if(crossfitWODEntity != null)
+            {
+                crossfitWODViewModel = new CrossfitWODViewModel()
+                {
+                    Id = crossfitWODEntity.Id,
+                    Name = crossfitWODEntity.Name,
+                    DescriptionHTML = crossfitWODEntity.DescriptionHTML
+                };
+
+            }
+
+            return crossfitWODViewModel;
+
+        }
+
+
 
         public async Task<CrossfitWODViewModel?> GetLatestCrossfitWODAsync()
         {
@@ -41,14 +66,32 @@
 
             crossfitWODVieModel = new CrossfitWODViewModel()
             {
+                Id = entityCrossfitWOD.Id,
                 Name = entityCrossfitWOD.Name,
-                WorkoutDate = entityCrossfitWOD.WorkoutDate.ToString(DateOnlyFormatCrossfitWOD),
-                DescriptionPlain = entityCrossfitWOD.DescriptionPlain,
+                //WorkoutDate = entityCrossfitWOD.WorkoutDate.ToString(DateOnlyFormatCrossfitWOD),
+                //DescriptionPlain = entityCrossfitWOD.DescriptionPlain,
                 DescriptionHTML = entityCrossfitWOD.DescriptionHTML,
 
             };
 
             return crossfitWODVieModel;
+        }
+
+        public async Task<IEnumerable<CrossfitWODViewModel>> GetAllCrossfitWODAsync()
+        {
+            IEnumerable<CrossfitWODViewModel> allCrossfitWODViews = await this.crossfitWODRepository
+                                            .GetAllAttached()
+                                            .AsNoTracking()
+                                            .OrderBy(wod => wod.WorkoutDate)
+                                            .Select(wod => new CrossfitWODViewModel()
+                                            {
+                                                Id = wod.Id,
+                                                Name = wod.Name,
+                                                DescriptionHTML= wod.DescriptionHTML,
+                                            })
+                                            .ToListAsync();
+
+            return allCrossfitWODViews;
         }
 
 

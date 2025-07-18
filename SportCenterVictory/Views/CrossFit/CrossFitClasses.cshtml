@@ -1,3 +1,98 @@
-﻿@{
-    ViewData["Title"] = "CrossFit Classes";
+﻿@using SCV.Web.ViewModels.CrossfitVM
+@model IEnumerable<CrossfitClassDetailViewModel>
+@{
+    ViewData["Title"] = "CrossFit Classes ";
 }
+
+<style>
+    body {
+        background-color: #f7f9fc;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .classes-board {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        padding: 40px;
+    }
+
+    .class-card {
+        background: linear-gradient(135deg, #fff, #f0f0f0);
+        border: 2px dashed #590f9e;
+        border-radius: 16px;
+        padding: 25px;
+        position: relative;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            border-color: #89048E;
+        }
+
+    .class-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #590f9e;
+        margin-bottom: 10px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .class-description {
+        font-size: 0.9rem;
+        color: #333;
+        margin-bottom: 15px;
+        text-align: center;
+        padding: 10px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .class-info {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .join-btn {
+        background-color: #590f9e;
+        color: #fff;
+        padding: 10px 18px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 500;
+        display: block;
+        margin: 0 auto;
+        transition: background-color 0.3s ease;
+    }
+
+        .join-btn:hover {
+            background-color: #6b026c;
+        }
+
+</style>
+
+<h2 class="about_taital text-center pt-4">Join our CrossFit Classes</h2>
+
+<div class="classes-board">
+    @foreach (var crossfitClass in Model)
+    {
+        <div class="class-card">
+            <div class="class-title">@crossfitClass.Name</div>
+
+            <div class="class-info"><strong>Trainer:</strong> @crossfitClass.TrainerName</div>
+            <div class="class-info"><strong>Start Time:</strong> @crossfitClass.StartTime</div>
+
+            <div class="class-description">@crossfitClass.Description</div>
+
+            <button class="join-btn">Join Class</button>
+        </div>
+    }
+</div>
+

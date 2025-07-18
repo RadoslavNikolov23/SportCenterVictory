@@ -1,4 +1,4 @@
-﻿namespace SVC.Web.ViewModels.Membership
+﻿namespace SVC.Web.ViewModels.StoreVM
 {
     using SCV.GlCommon.Enums;
 

@@ -4,7 +4,7 @@
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
-    using SVC.Web.ViewModels.Membership;
+    using SVC.Web.ViewModels.StoreVM;
 
     public class ProductService: IProductService
     {
@@ -29,7 +29,8 @@
                                                 Quantity = p.Quantity,
                                                 Description = p.Description ?? "To be added.",
                                                 Price = p.Price,
-                                                ImageUrl = p.ImageUrl ?? $"/noImage.jpg"
+                      //----------- ! Remove the "/" when reseed the DB ---- !!!
+                                                ImageUrl = $"/{p.ImageUrl}" ?? $"/noImage.jpg",
                                             })
                                             .ToListAsync();
 

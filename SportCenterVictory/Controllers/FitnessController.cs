@@ -86,7 +86,6 @@
         [HttpGet]
         public async Task<IActionResult> WorkoutPlans()
         {
-            //Make a View
             IEnumerable<WorkoutPlanDetailViewModel> workoutPlanDetailVM = await this.workoutPlanService
                                     .GetAllWorkoutPlansBySportTypeAsync(SportType.Fitness);
 

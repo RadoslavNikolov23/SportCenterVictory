@@ -14,8 +14,6 @@
         private readonly ICrossfitClassService crossfitClassService;
         private readonly ICrossfitWODService crossfitWODService;
 
-
-
         public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, ICrossfitClassService crossfitClassService, ICrossfitWODService crossfitWODService)
         {
             this.membershipService = membershipService;
@@ -94,6 +92,32 @@
 
             return View(crossfitWODViewModel);
 
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CrossFitWODList()
+        {
+            IEnumerable<CrossfitWODViewModel> allCrossfitWODViewModels = await this.crossfitWODService
+                                            .GetAllCrossfitWODAsync();
+
+            return Json(allCrossfitWODViewModels);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CrossFitWODById(int id)
+        {
+            CrossfitWODViewModel? crossfitWODViewModel = await this.crossfitWODService
+                                .GetCrossfitWODByIdAsync(id);
+            if(crossfitWODViewModel == null)
+            {
+                return NotFound();
+            }
+
+            return Json(new
+            {
+                name = crossfitWODViewModel.Name,
+                descriptionHTML = crossfitWODViewModel.DescriptionHTML
+            });
         }
     }
 }
