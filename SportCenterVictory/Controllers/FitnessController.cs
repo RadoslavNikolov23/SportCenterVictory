@@ -8,11 +8,11 @@
 
     public class FitnessController : Controller
     {
-        public readonly IExerciseService exerciseService;
-        public readonly IMembershipService membershipService;
-        public readonly ITrainerService trainerService;
-        public readonly IEventService eventService;
-        public readonly IWorkoutPlanService workoutPlanService;
+        private readonly IExerciseService exerciseService;
+        private readonly IMembershipService membershipService;
+        private readonly ITrainerService trainerService;
+        private readonly IEventService eventService;
+        private readonly IWorkoutPlanService workoutPlanService;
 
         public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IWorkoutPlanService workoutPlanService)
         {

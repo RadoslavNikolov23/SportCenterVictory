@@ -7,9 +7,9 @@
 
     public class PowerliftingController : Controller
     {
-        public readonly IMembershipService membershipService;
-        public readonly ITrainerService trainerService;
-        public readonly IEventService eventService;
+        private readonly IMembershipService membershipService;
+        private readonly ITrainerService trainerService;
+        private readonly IEventService eventService;
 
 
         public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService)

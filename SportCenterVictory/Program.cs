@@ -48,12 +48,16 @@ namespace SportCenterVictory
             builder.Services.AddScoped<ITrainerRepository, TrainerRepository>();
             builder.Services.AddScoped<IEventRepository, EventRepository>();
             builder.Services.AddScoped<IWorkoutPlanRepository, WorkoutPlanRepository>();
+            builder.Services.AddScoped<ICrossfitClassRepository, CrossfitClassRepository>();
+            builder.Services.AddScoped<ICrossfitWODRepository, CrossfitWODRepository>();
 
             builder.Services.AddScoped<IExerciseService, ExerciseService>();
             builder.Services.AddScoped<IMembershipService, MembershipService>();
             builder.Services.AddScoped<ITrainerService, TrainerService>();
             builder.Services.AddScoped<IEventService, EventService>();
             builder.Services.AddScoped<IWorkoutPlanService, WorkoutPlanService>();
+            builder.Services.AddScoped<ICrossfitClassService, CrossfitClassService>();
+            builder.Services.AddScoped<ICrossfitWODService, CrossfitWODService>();
 
             builder.Services
                         .AddControllersWithViews();

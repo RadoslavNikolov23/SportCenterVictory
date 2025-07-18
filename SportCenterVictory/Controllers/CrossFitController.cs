@@ -4,19 +4,25 @@
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
+    using SCV.Web.ViewModels.CrossfitVM;
 
     public class CrossFitController : Controller
     {
-        public readonly IMembershipService membershipService;
-        public readonly ITrainerService trainerService;
-        public readonly IEventService eventService;
+        private readonly IMembershipService membershipService;
+        private readonly ITrainerService trainerService;
+        private readonly IEventService eventService;
+        private readonly ICrossfitClassService crossfitClassService;
+        private readonly ICrossfitWODService crossfitWODService;
 
 
-        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService)
+
+        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, ICrossfitClassService crossfitClassService, ICrossfitWODService crossfitWODService)
         {
             this.membershipService = membershipService;
             this.trainerService = trainerService;
             this.eventService = eventService;
+            this.crossfitClassService = crossfitClassService;
+            this.crossfitWODService = crossfitWODService;
         }
 
         [HttpGet]
@@ -57,6 +63,36 @@
                                     .GetAllEventByEventTypeAsync(SportType.CrossFit);
 
             return View(eventViewModels);
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CrossFitClasses()
+        {
+            //TODO: Make a View!!!
+
+            IEnumerable<CrossfitClassDetailViewModel> crossfitClassDetailVM = await this.crossfitClassService
+                                    .GetAllCrossfitClassesAsync();
+
+            return View(crossfitClassDetailVM);
+
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> CrossFitWOD()
+        {
+            //TODO: Make a View!!!
+
+            CrossfitWODViewModel? crossfitWODViewModel = await this.crossfitWODService
+                                        .GetLatestCrossfitWODAsync();
+
+            if(crossfitWODViewModel == null)
+            {
+                //TODO: Redirect this to a error page
+               return NotFound();
+            }
+
+            return View(crossfitWODViewModel);
 
         }
     }
