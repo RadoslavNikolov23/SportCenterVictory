@@ -30,10 +30,30 @@ namespace SportCenterVictory.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult Test403()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return StatusCode(403);
+        }
+
+        public IActionResult Test500()
+        {
+            return StatusCode(500);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error(int? statusCode)
+        {
+            switch (statusCode)
+            {
+                case 404:
+                    return this.View("Error404");
+                case 403:
+                    return this.View("Error403");
+                case 500:
+                    return this.View("Error500");
+                default:
+                    return this.View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            }
         }
     }
 }

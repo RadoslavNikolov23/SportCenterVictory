@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "Page Not Found";
+    Layout = "_Layout";
+}
+
+<style>
+    .error-page {
+        text-align: center;
+        padding: 60px 20px;
+        font-family: 'Segoe UI', sans-serif;
+        color: #444;
+    }
+
+    .error-code {
+        font-size: 5rem;
+        font-weight: 900;
+        color: #6DBD14;
+    }
+
+    .error-message {
+        font-size: 1.5rem;
+        margin-top: 10px;
+        color: #555;
+    }
+
+    .back-btn {
+        margin-top: 60px;
+        padding: 22px 60px;
+        font-size: 1.1rem;
+        background-color: #6DBD14;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+        .back-btn:hover {
+            background-color: #5aaa10;
+        }
+</style>
+
+
+<div class="error-page layout_padding">
+    <div class="error-code">404</div>
+    <div class="error-message pb-5">
+        Oops! The page you are looking for doesn't exist or has been moved.<br />
+        Please check the URL or return to the homepage.
+    </div>
+    <a asp-controller="Home" asp-action="Index" class="back-btn mt-5">🏠 Back to Home</a>
+</div>
