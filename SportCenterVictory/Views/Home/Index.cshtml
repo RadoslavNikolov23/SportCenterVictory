@@ -1,4 +1,5 @@
-﻿
+﻿@using SCV.Web.ViewModels.CommonVM
+@model IEnumerable<UserFeedbackDetailViewModel>
 
 
 <!-- banner section start -->
@@ -90,7 +91,7 @@
                     </div>
                     <h3 class="basketball_text">Fitness</h3>
                     <p class="lorem_text">Build Your Best Self. Step into our Fitness Center and take control of your transformation. With expert trainers, personalized programs, and top-tier equipment — your goals become your results.</p>
-                    <div class="readmore_bt"><a asp-controller="Fitness" asp-action="FitnessCenter">Read More</a></div>
+                    <div class="readmore_bt"><a asp-controller="Fitness" asp-action="FitnessMembership">Memberships</a></div>
                 </div>
                 <div class="col-lg-4">
                     <div class="hover01 column">
@@ -98,7 +99,7 @@
                     </div>
                     <h3 class="basketball_text">Crossfit</h3>
                     <p class="lorem_text">Train for the Unexpected. Challenge yourself with high-intensity CrossFit workouts, daily WODs, and a strong community. Every session is designed to build functional strength, endurance, and mental toughness.</p>
-                    <div class="readmore_bt"><a asp-controller="CrossFit" asp-action="CrossFitCenter">Read More</a></div>
+                    <div class="readmore_bt"><a asp-controller="CrossFit" asp-action="CrossFitMembership">Memberships</a></div>
                 </div>
                 <div class="col-lg-4">
                     <div class="hover01 column">
@@ -106,7 +107,7 @@
                     </div>
                     <h3 class="basketball_text">Powerlifting</h3>
                     <p class="lorem_text">Lift Heavy. Live Strong. Our Powerlifting Zone is built for strength athletes. From squats to deadlifts, train with precision under the guidance of expert coaches and hit your next PR.</p>
-                    <div class="readmore_bt"><a asp-controller="Powerlifting" asp-action="PowerliftingCenter">Read More</a></div>
+                    <div class="readmore_bt"><a asp-controller="Powerlifting" asp-action="PowerliftingMembership">Memberships</a></div>
                 
                 </div>
             </div>
@@ -143,8 +144,64 @@
     </div>
 </div> *@
 <!-- blog section end -->
+
 <!-- client section start -->
+
 <div class="client_section layout_padding pb-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="client_taital">What Do Some of Your Clients Say</h1>
+            </div>
+        </div>
+
+        <div id="main_slider" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @for (int i = 0; i < Model.Count(); i++)
+                {
+                    var feedback = Model.ElementAt(i);
+                    <div class="carousel-item @(i == 0 ? "active" : "")">
+                        <div class="customer_section_2">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="box_main">
+                                            <div class="customer_main">
+                                                <div class="customer_left">
+                                                    <div class="customer_img">
+                                                        <img src="@feedback.ImageUrl"/>
+                                                    </div>
+                                                </div>
+                                                <div class="customer_right">
+                                                    <h3 class="customer_name">@feedback.UserName</h3>
+                                                    <p class="enim_text">@feedback.Feedback</p>
+                                                    <div class="quick_icon">
+                                                        <img src="~/images/quick-icon.png" style="max-height: 30px;" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+                <i class="fa fa-angle-left"></i>
+            </a>
+            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+@* <div class="client_section layout_padding pb-5">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
@@ -228,7 +285,17 @@
             </a>
         </div>
     </div>
-</div>
+</div> *@
+
+
+
+
+
+
+
+
+
+
 <!-- client section end -->
 <!-- contact section start -->
 @* <div class="contact_section layout_padding">

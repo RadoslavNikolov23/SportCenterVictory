@@ -1,21 +1,28 @@
 namespace SportCenterVictory.Controllers
 {
-    using System.Diagnostics;
     using Microsoft.AspNetCore.Mvc;
+    using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.CommonVM;
     using SportCenterVictory.Web.Models;
+    using System.Diagnostics;
 
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserFeedbackService userFeedbackService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUserFeedbackService userFeedbackService)
         {
-            _logger = logger;
+            this._logger = logger;
+            this.userFeedbackService = userFeedbackService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            IEnumerable<UserFeedbackDetailViewModel> userFeedbackDetailVM = await this.userFeedbackService
+                                                        .GetAllUserFeedbacksAsync();
+
+            return View(userFeedbackDetailVM);
         }
 
         public IActionResult Privacy()
