@@ -16,16 +16,40 @@
             this.membershipRepo = membershipRepo;
         }
 
-        public async Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSportAsync(SportType MembershipType)
+        public async Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipAsync()
+        {
+            IEnumerable<MembershipDetailViewModel> allMembershipsViewModels = await this.membershipRepo
+                                    .GetAllAttached()
+                                    .Include(m => m.Trainer)
+                                    .AsNoTracking()
+                                    .OrderBy(m => m.MembershipType)
+                                    .ThenBy(m => m.Price)
+                                    .Select(m => new MembershipDetailViewModel()
+                                    {
+                                        Name = m.Name,
+                                        MembershipType = m.MembershipType,
+                                        MembershipTier = m.MembershipTier,
+                                        Description = m.Description,
+                                        Price = m.Price,
+                                        Duration = m.Duration,
+                                        TrainerName = m.Trainer == null ? $"{m.Trainer!.FirstName} {m.Trainer.LastName}" : null,
+                                    })
+                                    .ToListAsync();
+
+            return allMembershipsViewModels;
+
+        }
+
+        public async Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSportAsync(SportType membershipType)
         {
             IEnumerable<MembershipDetailViewModel> membershipsCollection = new List<MembershipDetailViewModel>();
 
             membershipsCollection = await this.membershipRepo
                         .GetAllAttached()
-                        .Include(m=>m.Trainer)
+                        .Include(m => m.Trainer)
                         .AsNoTracking()
-                        .Where(m => m.MembershipType == MembershipType)
-                        .OrderBy(m=>m.Price)
+                        .Where(m => m.MembershipType == membershipType)
+                        .OrderBy(m => m.Price)
                         .Select(m => new MembershipDetailViewModel()
                         {
                             Name = m.Name,
@@ -34,7 +58,7 @@
                             Description = m.Description,
                             Price = m.Price,
                             Duration = m.Duration,
-                            TrainerName = m.Trainer==null ? $"{m.Trainer!.FirstName} {m.Trainer.LastName}" : null ,
+                            TrainerName = m.Trainer == null ? $"{m.Trainer!.FirstName} {m.Trainer.LastName}" : null,
                         })
                         .ToListAsync();
 
@@ -48,8 +72,8 @@
                                       .GetAllAttached()
                                       .Include(mt => mt.Trainer)
                                       .AsNoTracking()
-                                      .Where(mt=>mt.Trainer!.Id.ToString().ToLower()==trainerId.ToString().ToLower())
-                                      .Select(mt=> new MembershipsTrainerViewModel()
+                                      .Where(mt => mt.Trainer!.Id.ToString().ToLower() == trainerId.ToString().ToLower())
+                                      .Select(mt => new MembershipsTrainerViewModel()
                                       {
                                           Name = mt.Name,
                                           MembershipType = mt.MembershipType,

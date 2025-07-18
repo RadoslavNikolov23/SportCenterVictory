@@ -5,8 +5,10 @@
 
     public interface IMembershipService
     {
-        public Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSportAsync(SportType MembershipType);
+        Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipAsync();
 
-        public Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(Guid trainerId);
+        Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSportAsync(SportType membershipType);
+
+        Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(Guid trainerId);
     }
 }

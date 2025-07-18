@@ -50,6 +50,7 @@ namespace SportCenterVictory
             builder.Services.AddScoped<IWorkoutPlanRepository, WorkoutPlanRepository>();
             builder.Services.AddScoped<ICrossfitClassRepository, CrossfitClassRepository>();
             builder.Services.AddScoped<ICrossfitWODRepository, CrossfitWODRepository>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
             builder.Services.AddScoped<IExerciseService, ExerciseService>();
             builder.Services.AddScoped<IMembershipService, MembershipService>();
@@ -58,6 +59,7 @@ namespace SportCenterVictory
             builder.Services.AddScoped<IWorkoutPlanService, WorkoutPlanService>();
             builder.Services.AddScoped<ICrossfitClassService, CrossfitClassService>();
             builder.Services.AddScoped<ICrossfitWODService, CrossfitWODService>();
+            builder.Services.AddScoped<IProductService, ProductService>();
 
             builder.Services
                         .AddControllersWithViews();
