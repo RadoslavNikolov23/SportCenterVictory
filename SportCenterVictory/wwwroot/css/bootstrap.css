@@ -3213,6 +3213,23 @@ input[type="button"].btn-block {
     margin-bottom: 0.125rem;
 }
 
+.dropdown-submenu {
+    position: relative;
+}
+
+    .dropdown-submenu > .dropdown-menu {
+        top: 0;
+        left: 100%;
+        margin-top: -1px;
+        display: none;
+        position: absolute;
+        z-index: 1000;
+    }
+
+    .dropdown-submenu:hover > .dropdown-menu {
+        display: block;
+    }
+
 .dropup .dropdown-toggle::after {
     display: inline-block;
     width: 0;
@@ -3319,7 +3336,7 @@ input[type="button"].btn-block {
     clear: both;
     font-weight: 400;
     color: #060606;
-    text-align: inherit;
+    text-align:inherit;
     white-space: nowrap;
     background-color: transparent;
     border: 0;

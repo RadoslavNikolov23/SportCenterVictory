@@ -69,6 +69,8 @@
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
 
+                            @await Html.PartialAsync("_AdministrativeMenuPartial")
+
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="fitnessDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Fitness
@@ -231,7 +233,7 @@
     <!-- Javascript files-->
     <script src="~/js/jquery.min.js"></script>
     @* <script src="~/js/jquery-3.5.1.min.js"></script> *@
-    <script src="~/js/popper.min.js""></script>
+    <script src="~/js/popper.min.js"></script>
     <script src="~/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/plugin.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
@@ -240,6 +242,7 @@
     <!-- sidebar -->
     <script src="~/js/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="~/js/custom.js"></script>
+
 
 
     @await RenderSectionAsync("Scripts", required: false)

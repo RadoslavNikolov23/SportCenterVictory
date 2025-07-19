@@ -1,0 +1,124 @@
+﻿@functions {
+    public string UserArea()
+    {
+        if (User.IsInRole("Admin")) return "Admin";
+        if (User.IsInRole("Manager")) return "Manager";
+        if (User.IsInRole("Trainer")) return "Trainer";
+        return "";
+    }
+}
+
+@if (User.Identity.IsAuthenticated &&
+    (User.IsInRole("Admin") || User.IsInRole("Manager") || User.IsInRole("Trainer")))
+{
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Administrative
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+
+            <!-- Fitness Section -->
+            <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">Fitness</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Fitness" asp-action="AddExercise">Add Exercise</a></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Fitness" asp-action="EditExercise">Edit Exercise</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Fitness" asp-action="DeleteExercise">Delete Exercise</a></li>
+                    }
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Fitness" asp-action="AddWorkoutPlan">Add Workout Plan</a></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Fitness" asp-action="EditWorkoutPlan">Edit Workout Plan</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Fitness" asp-action="DeleteWorkoutPlan">Delete Workout Plan</a></li>
+                    }
+                </ul>
+            </li>
+
+            <!-- CrossFit Section -->
+            <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">CrossFit</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Crossfit" asp-action="AddClass">Add Class</a></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Crossfit" asp-action="EditClass">Edit Class</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Crossfit" asp-action="DeleteClass">Delete Class</a></li>
+                    }
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Crossfit" asp-action="AddEvent">Add Event</a></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Crossfit" asp-action="EditEvent">Edit Event</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Crossfit" asp-action="DeleteEvent">Delete Event</a></li>
+                    }
+                </ul>
+            </li>
+
+            <!-- Powerlifting Section -->
+            <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">Powerlifting</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Powerlifting" asp-action="AddEvent">Add Event</a></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Powerlifting" asp-action="EditEvent">Edit Event</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Powerlifting" asp-action="DeleteEvent">Delete Event</a></li>
+                    }
+                </ul>
+            </li>
+
+            <!-- Store Section -->
+            <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">Store</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Store" asp-action="AddProduct">Add Product</a></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Store" asp-action="EditProduct">Edit Product</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Store" asp-action="DeleteProduct">Delete Product</a></li>
+                    }
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Store" asp-action="AddMembership">Add Membership</a></li>
+                    <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Store" asp-action="EditMembership">Edit Membership</a></li>
+                    @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+                    {
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Store" asp-action="DeleteMembership">Delete Membership</a></li>
+                    }
+                </ul>
+            </li>
+
+            <!-- User Feedback (Admin and Manager) -->
+            @if (User.IsInRole("Admin") || User.IsInRole("Manager"))
+            {
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" asp-area="Admin" asp-controller="UserPanel" asp-action="UserFeedback">User Feedback</a></li>
+
+                <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" href="#">Trainer Bio</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Trainer" asp-action="AddTrainerRole">Add Trainer</a></li>
+                        <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Trainer" asp-action="AddTrainerBio">Add Trainer Bio</a></li>
+                        <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Fitness" asp-action="EditTrainerBio">Edit Trainer Bio</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Fitness" asp-action="DeleteTrainerRole">Delete Trainer</a></li>
+                        <li><a class="dropdown-item" asp-area="@UserArea()" asp-controller="Fitness" asp-action="DeleteTTrainerBio">Delete Trainer Bio</a></li>
+                    </ul>
+                </li>
+            }
+
+            <!-- Roles (Admin only) -->
+            @if (User.IsInRole("Admin"))
+            {
+                <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" href="#">Roles</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="UserPanel" asp-action="EditUserRole">Edit User Role</a></li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    </li>
+}
