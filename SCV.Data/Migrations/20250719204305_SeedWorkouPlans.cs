@@ -7,7 +7,7 @@ namespace SCV.Data.Migrations
     using Microsoft.EntityFrameworkCore.Migrations;
 
     /// <inheritdoc />
-    public partial class SeedWorkoutPlans : Migration
+    public partial class SeedWorkouPlans : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,12 +1,10 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-#nullable disable
-
-#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+﻿#nullable disable
 
 namespace SCV.Data.Migrations
 {
+    using System;
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     /// <inheritdoc />
     public partial class InitialCreateDB : Migration
     {
@@ -61,10 +59,10 @@ namespace SCV.Data.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false, comment: "Primary key for the workout of the day")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: false, comment: "Name of the workout of the day - will contain part of the WorkoutDate"),
+                    Name = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false, comment: "Name of the workout of the day - will contain part of the WorkoutDate"),
                     WorkoutDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Date when the workout of the day is scheduled"),
-                    DescriptionPlain = table.Column<string>(type: "nvarchar(max)", maxLength: 4025, nullable: false, comment: "Plain text description of the workout of the day"),
-                    DescriptionHTML = table.Column<string>(type: "nvarchar(max)", maxLength: 5025, nullable: false, comment: "HTML formatted description of the workout of the day")
+                    DescriptionPlain = table.Column<string>(type: "nvarchar(max)", maxLength: 6025, nullable: false, comment: "Plain text description of the workout of the day"),
+                    DescriptionHTML = table.Column<string>(type: "nvarchar(max)", maxLength: 7025, nullable: false, comment: "HTML formatted description of the workout of the day")
                 },
                 constraints: table =>
                 {
@@ -98,13 +96,13 @@ namespace SCV.Data.Migrations
                 {
                     Id = table.Column<string>(type: "nvarchar(136)", maxLength: 136, nullable: false, comment: "Unique identifier for the exercise - the name in snake case will be the Id."),
                     Name = table.Column<string>(type: "nvarchar(160)", maxLength: 160, nullable: false, comment: "Name of the exercise"),
-                    Force = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true, comment: "Type of force applied in the exercise - push, pull, etc."),
-                    Mechanic = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true, comment: "Mechanic of the exercise - compound, isolation, etc."),
-                    Equipment = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: true, comment: "Equipment used for the exercise - barbell, dumbbell, bodyweight, etc."),
+                    Force = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true, comment: "Type of force applied in the exercise - push, pull, etc."),
+                    Mechanic = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: true, comment: "Mechanic of the exercise - compound, isolation, etc."),
+                    Equipment = table.Column<string>(type: "nvarchar(140)", maxLength: 140, nullable: true, comment: "Equipment used for the exercise - barbell, dumbbell, bodyweight, etc."),
                     PrimaryMuscles = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false, comment: "Primary muscles targeted by the exercise."),
                     SecondaryMuscles = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: true, comment: "Secondary muscles targeted by the exercise, if any."),
                     Instructions = table.Column<string>(type: "nvarchar(max)", maxLength: 5025, nullable: true, comment: "Instructions on how to perform the exercise."),
-                    Category = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, comment: "Category of the exercise - strength, cardio, flexibility, etc."),
+                    Category = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false, comment: "Category of the exercise - strength, cardio, flexibility, etc."),
                     ImageUrlOne = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true, comment: "URL of the first image representing the exercise, if available.."),
                     ImageUrlTwo = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true, comment: "URL of the second image representing the exercise, if available."),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicates whether the exercise is deleted or not - soft deletion.")
@@ -548,17 +546,6 @@ namespace SCV.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 },
                 comment: "Represents a user who has purchased a membership.");
-
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[,]
-                {
-                    { new Guid("761adbdb-1d7f-4dbb-8ec1-4d62fd0acde9"), null, "User", "USER" },
-                    { new Guid("8add11c7-0c60-4776-9ad2-b598fa0f05ae"), null, "Admin", "ADMIN" },
-                    { new Guid("8d28163a-03ae-4e27-bc00-31d529cd6b52"), null, "Manager", "MANAGER" },
-                    { new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62"), null, "Trainer", "TRAINER" }
-                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

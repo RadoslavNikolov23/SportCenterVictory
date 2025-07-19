@@ -1,6 +1,4 @@
-﻿
-
-#nullable disable
+﻿#nullable disable
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
@@ -37,21 +35,21 @@ namespace SCV.Data.Migrations
                 columns: new[] { "Id", "Description", "ImageUrl", "Price", "ProductCategory", "Quantity", "Title" },
                 values: new object[,]
                 {
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0001"), "Brown hoodie for CrossFit training.", "images/Store/Eqiupment/crossfitHoodie01.jpg", 49.99m, 0, 25, "CrossFit Hoodie" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0002"), "Black hoodie for CrossFit sessions.", "images/Store/Eqiupment/crossfitHoodie02.jpg", 52.99m, 0, 30, "CrossFit Hoodie" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0003"), "Black t-shirt, CrossFit edition.", "images/Store/Eqiupment/crossfitShirt01.jpg", 24.99m, 0, 40, "CrossFit Shirt" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0004"), "Dark green CrossFit t-shirt.", "images/Store/Eqiupment/crossfitShirt02.jpg", 24.99m, 0, 40, "Crossfit Shirt" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0005"), "Pink CrossFit t-shirt for women.", "images/Store/Eqiupment/crossfitShirt03.jpg", 24.99m, 0, 35, "CrossFit Shirt" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0006"), "Recovery muscle roller for athletes.", "images/Store/Eqiupment/muscleRoller.jpg", 29.99m, 0, 20, "Muscle Roller" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0007"), "Shaker bottle with Spider-Man face.", "images/Store/Eqiupment/shaker01.jpg", 14.99m, 0, 50, "Shaker" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0008"), "Shaker bottle with Captain America shield.", "images/Store/Eqiupment/shaker02.jpg", 14.99m, 0, 50, "Shaker" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0009"), "Sturdy wrist wraps for weightlifting.", "images/Store/Eqiupment/wristWraps.jpg", 9.99m, 0, 60, "Wrist Wraps" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0010"), "BCAA supplement for muscle recovery - 0.500 grams, mango flavor.", "images/Store/Nutrition/bcaa.jpg", 14.99m, 1, 40, "BCAA" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0011"), "Creatine monohydrate powder - 0.500grams, unflavour.", "images/Store/Nutrition/creatine.jpg", 29.99m, 1, 40, "Creatine" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0012"), "Multivitamin tablets for daily wellness - 240 tabblets.", "images/Store/Nutrition/multivatamins.jpg", 19.99m, 1, 40, "Multivatamins" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0013"), "Pre-workout supplement for energy and focus - 0.400 grams, cola flavor.", "images/Store/Nutrition/preworkout.jpg", 32.99m, 1, 40, "Preworkout" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0014"), "Omega-3 softgels for heart and joint support - 250 soft gel tables.", "images/Store/Nutrition/omega.jpg", 22.99m, 1, 40, "Essential Omega" },
-                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0015"), "Whey protein powder for muscle growth - 1 kg, chocolate flavor.", "images/Store/Nutrition/wheyProtein.jpg", 49.99m, 1, 40, "Whey Protein" }
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0001"), "Brown hoodie for CrossFit training.", "/images/Store/Eqiupment/crossfitHoodie01.jpg", 49.99m, 0, 25, "CrossFit Hoodie" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0002"), "Black hoodie for CrossFit sessions.", "/images/Store/Eqiupment/crossfitHoodie02.jpg", 52.99m, 0, 30, "CrossFit Hoodie" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0003"), "Black t-shirt, CrossFit edition.", "/images/Store/Eqiupment/crossfitShirt01.jpg", 24.99m, 0, 40, "CrossFit Shirt" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0004"), "Dark green CrossFit t-shirt.", "/images/Store/Eqiupment/crossfitShirt02.jpg", 24.99m, 0, 40, "Crossfit Shirt" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0005"), "Pink CrossFit t-shirt for women.", "/images/Store/Eqiupment/crossfitShirt03.jpg", 24.99m, 0, 35, "CrossFit Shirt" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0006"), "Recovery muscle roller for athletes.", "/images/Store/Eqiupment/muscleRoller.jpg", 29.99m, 0, 20, "Muscle Roller" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0007"), "Shaker bottle with Spider-Man face.", "/images/Store/Eqiupment/shaker01.jpg", 14.99m, 0, 50, "Shaker" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0008"), "Shaker bottle with Captain America shield.", "/images/Store/Eqiupment/shaker02.jpg", 14.99m, 0, 50, "Shaker" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0009"), "Sturdy wrist wraps for weightlifting.", "/images/Store/Eqiupment/wristWraps.jpg", 9.99m, 0, 60, "Wrist Wraps" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0010"), "BCAA supplement for muscle recovery - 0.500 grams, mango flavor.", "/images/Store/Nutrition/bcaa.jpg", 14.99m, 1, 40, "BCAA" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0011"), "Creatine monohydrate powder - 0.500grams, unflavour.", "/images/Store/Nutrition/creatine.jpg", 29.99m, 1, 40, "Creatine" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0012"), "Multivitamin tablets for daily wellness - 240 tabblets.", "/images/Store/Nutrition/multivatamins.jpg", 19.99m, 1, 40, "Multivatamins" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0013"), "Pre-workout supplement for energy and focus - 0.400 grams, cola flavor.", "/images/Store/Nutrition/preworkout.jpg", 32.99m, 1, 40, "Preworkout" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0014"), "Omega-3 softgels for heart and joint support - 250 soft gel tables.", "/images/Store/Nutrition/omega.jpg", 22.99m, 1, 40, "Essential Omega" },
+                    { new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0015"), "Whey protein powder for muscle growth - 1 kg, chocolate flavor.", "/images/Store/Nutrition/wheyProtein.jpg", 49.99m, 1, 40, "Whey Protein" }
                 });
         }
 

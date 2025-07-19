@@ -12,8 +12,8 @@ using SCV.Data;
 namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
-    [Migration("20250710153318_SeedTrainerEntity")]
-    partial class SeedTrainerEntity
+    [Migration("20250719204148_SeedExercises")]
+    partial class SeedExercises
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,73 +107,6 @@ namespace SCV.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = new Guid("28fe258e-8826-4721-abea-f93ce8d1931a"),
-                            RoleId = new Guid("8add11c7-0c60-4776-9ad2-b598fa0f05ae")
-                        },
-                        new
-                        {
-                            UserId = new Guid("1293b05f-fc49-49d4-8677-9f01f1274b83"),
-                            RoleId = new Guid("8d28163a-03ae-4e27-bc00-31d529cd6b52")
-                        },
-                        new
-                        {
-                            UserId = new Guid("ba5666bf-9f1f-4513-92d3-23974d9f687f"),
-                            RoleId = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62")
-                        },
-                        new
-                        {
-                            UserId = new Guid("bc4d02a0-44d0-459a-a7e6-04831e417e42"),
-                            RoleId = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62")
-                        },
-                        new
-                        {
-                            UserId = new Guid("a42e9995-8da2-4a1a-95a0-653809d0feb3"),
-                            RoleId = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62")
-                        },
-                        new
-                        {
-                            UserId = new Guid("c3867b78-36a0-44b5-9800-f359a28d2965"),
-                            RoleId = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62")
-                        },
-                        new
-                        {
-                            UserId = new Guid("6bdd6544-e5bb-4490-b980-022aad36802a"),
-                            RoleId = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62")
-                        },
-                        new
-                        {
-                            UserId = new Guid("bd8a4bc5-c170-4eb8-92b6-fb84bfcd26bd"),
-                            RoleId = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62")
-                        },
-                        new
-                        {
-                            UserId = new Guid("bc52f7d1-319c-4e02-bc81-9a2b1afdd438"),
-                            RoleId = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62")
-                        },
-                        new
-                        {
-                            UserId = new Guid("4a4193c1-2fb3-441e-b8e1-74f9b04e0d2c"),
-                            RoleId = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62")
-                        },
-                        new
-                        {
-                            UserId = new Guid("16eaaf0f-2efc-4509-8cbe-c8792d187455"),
-                            RoleId = new Guid("761adbdb-1d7f-4dbb-8ec1-4d62fd0acde9")
-                        },
-                        new
-                        {
-                            UserId = new Guid("c3777e33-e646-48a2-8e00-03058aa6e054"),
-                            RoleId = new Guid("761adbdb-1d7f-4dbb-8ec1-4d62fd0acde9")
-                        },
-                        new
-                        {
-                            UserId = new Guid("d4fd993d-23fd-4832-9d51-d85a16efa5a8"),
-                            RoleId = new Guid("761adbdb-1d7f-4dbb-8ec1-4d62fd0acde9")
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<System.Guid>", b =>
@@ -221,32 +154,6 @@ namespace SCV.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8add11c7-0c60-4776-9ad2-b598fa0f05ae"),
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("8d28163a-03ae-4e27-bc00-31d529cd6b52"),
-                            Name = "Manager",
-                            NormalizedName = "MANAGER"
-                        },
-                        new
-                        {
-                            Id = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62"),
-                            Name = "Trainer",
-                            NormalizedName = "TRAINER"
-                        },
-                        new
-                        {
-                            Id = new Guid("761adbdb-1d7f-4dbb-8ec1-4d62fd0acde9"),
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.ApplicationUser", b =>
@@ -325,242 +232,6 @@ namespace SCV.Data.Migrations
                     b.ToTable("AspNetUsers", null, t =>
                         {
                             t.HasComment("Application user model that extends IdentityUser");
-                        });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("28fe258e-8826-4721-abea-f93ce8d1931a"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "793e9550-35d4-4c1f-a7e2-5386fde9cd9b",
-                            Email = "admin@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Admin User - Rado",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "ADMIN@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKYjKdqy3xfCZSH94a2HQgTRqIYc4S+NruhAkasqMlyXrGI7HadFzZxXC4F5QDcC8g==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "6c6ac2d1-f800-4b53-b77e-ec4a88fbc542",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("1293b05f-fc49-49d4-8677-9f01f1274b83"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c0140855-ab42-433a-b784-eef8d41a4fe6",
-                            Email = "manager@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Manager Rado",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MANAGER@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "MANAGER@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOiHnmZM8ohlMUc403i8qZ121p/fOdxhObMIue4EWOp+fQvS6Ce1ynQSbLOXUKtTGg==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "26fb60d2-474f-491e-a016-db57104c0da9",
-                            TwoFactorEnabled = false,
-                            UserName = "manager@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("ba5666bf-9f1f-4513-92d3-23974d9f687f"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "38c84579-ff63-4027-bde4-eaaecd9a79f7",
-                            Email = "viktornachev@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Viktor Nachev",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "VIKTORNACHEV@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "VIKTORNACHEV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMcuh2TqopsgK3j8nhYyXxuytK/sJauxF/ykS7gn6PidyOfOygKWJAZTptQGGjbzzQ==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "0863f9d7-be3c-4244-9a11-b9c375e6d3e0",
-                            TwoFactorEnabled = false,
-                            UserName = "viktornachev@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("bc4d02a0-44d0-459a-a7e6-04831e417e42"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "41f76fd6-05ea-4593-aa09-d48e2e3c9602",
-                            Email = "sofiazlateva@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Sofia Zlateva",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "SOFIAZLATEVA@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "SOFIAZLATEVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAnyCdyStLG4xcalpghgEZ3hNsf1n5Xwf9Tuxwqn1/36fHz0Dz79IaOWsImY8cA5EQ==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "249a445d-20fc-4965-a48e-006e084f7e0f",
-                            TwoFactorEnabled = false,
-                            UserName = "sofiazlateva@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("a42e9995-8da2-4a1a-95a0-653809d0feb3"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "03ab194a-22be-42ea-905c-d6dc9fc3f659",
-                            Email = "desislaviliev@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Desislav Iliev",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "DESISLAVILIEV@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "DESISLAVILIEV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEP/WuANJhMucx7hyveNyPXz3CyftqypItxebUAvnQ87Yqjx/UZRUoqZGcMD4nqWTiQ==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "b2852055-100e-47bf-9f3b-f40c11e6a741",
-                            TwoFactorEnabled = false,
-                            UserName = "desislaviliev@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("c3867b78-36a0-44b5-9800-f359a28d2965"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "25697d20-7f74-4e17-82d1-9bbd391086e2",
-                            Email = "ivandimitrov@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Ivan Dimitrov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "IVANDIMITROV@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "IVANDIMITROV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHl2c4jvbvs530245hwV6olY7W49dWwxFqlmXV4H5e+/so9MU1YXrQGEeKjmuxiDrQ==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "ac7c537b-053b-4901-bda6-d578af83583c",
-                            TwoFactorEnabled = false,
-                            UserName = "ivandimitrov@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("6bdd6544-e5bb-4490-b980-022aad36802a"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7fd6146a-df11-46c6-bbdd-59575aac07b2",
-                            Email = "mayaivanova@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Maya Ivanova",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MAYAIVANOVA@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "MAYAIVANOVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOnQZZ0jJdOZlg4KoT3iLvKJCSGS3T3FX2c88mq6AF3KU5yvJArjPFuHQcPzhLqknw==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "24ad0107-5be7-4b58-bbaf-43d7a4898a49",
-                            TwoFactorEnabled = false,
-                            UserName = "mayaivanova@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("bd8a4bc5-c170-4eb8-92b6-fb84bfcd26bd"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "e7dab461-dd5b-449b-9db9-bb31ac0f2b85",
-                            Email = "georgikolev@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Georgi Kolev",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "GEORGIKOLEV@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "GEORGIKOLEV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIMyiJ3dS+1XedYKJLfaUo7r75nwUX8sgiWa0y+OG+kQkt6YK2080sbU5bw3WHtSFg==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "88010d3d-7973-4446-ba8e-f23494df566b",
-                            TwoFactorEnabled = false,
-                            UserName = "georgikolev@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("bc52f7d1-319c-4e02-bc81-9a2b1afdd438"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "c522d013-284a-47be-9a26-9344d917e161",
-                            Email = "kristinadimitrova@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Kristina Dimitrova",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "KRISTINADIMITROVA@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "KRISTINADIMITROVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC+sNtp9A8nlHrVMz35vy2TGKmwGj9+qNwWVedXdu/7AtqYkN+g56swwjBREUAyEbA==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "f6d16d4e-3701-4c86-bf4f-5d6ac7cc188e",
-                            TwoFactorEnabled = false,
-                            UserName = "kristinadimitrova@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("4a4193c1-2fb3-441e-b8e1-74f9b04e0d2c"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "da032f69-728e-48a1-a022-bd467c2adcfe",
-                            Email = "stefantodorov@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Stefan Todorov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "STEFANTODOROV@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "STEFANTODOROV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEG0uzi5C76IWbg5mmc7E3sAT8qRuS2CUdUCTiszQNZ9Y4ayiimQmYL09MWtli7XPSA==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "3ee6be35-2fda-4d9a-9785-be7e324b4d0e",
-                            TwoFactorEnabled = false,
-                            UserName = "stefantodorov@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("16eaaf0f-2efc-4509-8cbe-c8792d187455"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "98eaedfc-3bd3-4578-8978-0f692077db1e",
-                            Email = "victoriadimitrova@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Victoria Dimitrova",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "VICTORIADIMITROVA@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "VICTORIADIMITROVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEJvw10dwUk3KH58mndd44BUxtem7I98WEvuxpWC1KIb031ixiprQN+1YPuOz9x3b8w==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "8f92542a-09f4-4efd-8647-9a6f1a07347e",
-                            TwoFactorEnabled = false,
-                            UserName = "victoriadimitrova@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("c3777e33-e646-48a2-8e00-03058aa6e054"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "5c77bd64-2e8c-4b34-803d-03ab92ae0245",
-                            Email = "ivanpetrov@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Ivan Petrov",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "IVANPETROV@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "IVANPETROV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEC3dc1I/mBKP/BhAfi0TaxSmDVL1ylX5MPYFsM7D1lL7CIsbrpIQRF0WbgyvVUkpew==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "ec55ea75-4110-4a20-80f1-836d2169d064",
-                            TwoFactorEnabled = false,
-                            UserName = "ivanpetrov@sportcentervictory.com"
-                        },
-                        new
-                        {
-                            Id = new Guid("d4fd993d-23fd-4832-9d51-d85a16efa5a8"),
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f1a9bf4-0005-4c40-934a-2f7d1173114a",
-                            Email = "mariastefanova@sportcentervictory.com",
-                            EmailConfirmed = true,
-                            FullName = "Maria Stefanova",
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MARIASTEFANOVA@SPORTCENTERVICTORY.COM",
-                            NormalizedUserName = "MARIASTEFANOVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOaM6SI5iQodgowlHb8iYbYUug5VitDioURb1B+HLpX/ugurqlmPqGcUoxA4ngnwsA==",
-                            PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "ce61d7c3-9c1b-4c23-96c4-2605fa08a7c5",
-                            TwoFactorEnabled = false,
-                            UserName = "mariastefanova@sportcentervictory.com"
                         });
                 });
 
@@ -725,20 +396,20 @@ namespace SCV.Data.Migrations
 
                     b.Property<string>("DescriptionHTML")
                         .IsRequired()
-                        .HasMaxLength(5025)
+                        .HasMaxLength(7025)
                         .HasColumnType("nvarchar(max)")
                         .HasComment("HTML formatted description of the workout of the day");
 
                     b.Property<string>("DescriptionPlain")
                         .IsRequired()
-                        .HasMaxLength(4025)
+                        .HasMaxLength(6025)
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Plain text description of the workout of the day");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)")
                         .HasComment("Name of the workout of the day - will contain part of the WorkoutDate");
 
                     b.Property<DateTime>("WorkoutDate")
@@ -756,26 +427,26 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DescriptionHTML = "<p><strong>Triple Deuce</strong></p><p>As many rounds and reps as possible in 20 minutes of:<br>22 burpees<br>22 air squats<br>22 pull-ups<br>22 sandbag ground-to-over-the-shoulders<br>722-meter run</p>...",
-                            DescriptionPlain = "Triple Deuce\n\nAs many rounds and reps as possible in 20 minutes of:\n22 burpees\n22 air squats\n22 pull-ups\n22 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 40-lb sandbag\n♂ 60-lb sandbag\n\nPost rounds and reps to comments.\n\nArmy Sgt. 1st Class Jamie Nicholas...",
-                            Name = "Friday/250704",
-                            WorkoutDate = new DateTime(2025, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DescriptionHTML = "<p>For time:<br>\n21 GHD sit-ups<br>\n7 rope climbs to 15 feet<br>\n21 GHD sit-ups<br>\n21-meter double-kettlebell front-rack walking lunge<br>\n15 GHD sit-ups<br>\n5 rope climbs to 15 feet<br>\n15 GHD sit-ups<br>\n15-meter double-kettlebell front-rack walking lunge<br>\n9 GHD sit-ups<br>\n3 rope climbs to 15 feet<br>\n9 GHD sit-ups<br>\n9-meter double-kettlebell front-rack walking lunge</p>\n\n<p>♀ 35-lb kettlebells<br>\n♂ 53-lb kettlebells</p>\n\n<p>Post time to comments.</p>\n\n<p><strong>Stimulus and Strategy:</strong><br>\nExpect this conditioning workout to challenge the trunk and legs, as well as the skill of the rope climb. The GHD sit-up volume is reasonable, but expect this movement to increase the difficulty of the knee raise component of the rope climbs, as well as the core demands of the kettlebell front-rack walking lunges. The load of the kettlebells is intended to be moderate, where the initial round can be completed unbroken or with one break.</p>\n\n<p><strong>Scaling:</strong><br>\nReduce the loading of the kettlebells. Reduce the reps of the GHD sit-ups and rope climbs.</p>\n\n<p>To reduce the complexity of the GHD sit-ups, reduce the range of motion. For the rope climbs, reduce the height of the climb. For the kettlebell front-rack lunges, perform the lunges with a single kettlebell or hold the two kettlebells in the farmers carry position.</p>\n\n<p>In case of injury or limitation, perform sit-ups or V-ups in place of the GHD sit-ups. For the rope climbs, perform pull-to-stands. For the kettlebell front-rack lunges, eliminate the loading or consider step-ups to a low box.</p>\n\n<p><strong>Intermediate option:</strong><br>\nFor time:<br>\n<strong>15</strong> GHD sit-ups<br>\n7 rope climbs to <strong>12</strong> feet<br>\n<strong>15</strong> GHD sit-ups<br>\n<strong>15</strong>-meter double-kettlebell front-rack walking lunge<br>\n<strong>12</strong> GHD sit-ups<br>\n5 rope climbs to <strong>12</strong> feet<br>\n<strong>12</strong> GHD sit-ups<br>\n<strong>12</strong>-meter double-kettlebell front-rack walking lunge<br>\n9 GHD sit-ups<br>\n3 rope climbs to <strong>12</strong> feet<br>\n9 GHD sit-ups<br>\n9-meter double-kettlebell front-rack walking lunge</p>\n\n<p>♀ <strong>26</strong>-lb kettlebells<br>\n♂ <strong>36</strong>-lb kettlebells</p>\n\n<p><strong>Beginner option:</strong><br>\nFor time:<br>\n<strong>15 AbMat</strong> sit-ups<br>\n<strong>5 pull-to-stands</strong><br>\n<strong>15 AbMat</strong> sit-ups<br>\n<strong>15</strong>-meter <strong>walking lunge</strong><br>\n<strong>12 AbMat</strong> sit-ups<br>\n<strong>4 pull-to-stands</strong><br>\n<strong>12 AbMat</strong> sit-ups<br>\n<strong>12</strong>-meter <strong>walking lunge</strong><br>\n9 <strong>AbMat</strong> sit-ups<br>\n3 <strong>pull-to-stands</strong><br>\n9 <strong>AbMat</strong> sit-ups<br>\n9-meter <strong>walking lunge</strong></p>\n\n<p><strong>Coaching cues:</strong><br>\nTreat the rope climb as a stand or squat after securing the wrap instead of pulling with the arms. In the warm-up, practice establishing a secure foot hook before standing up and reaching for the next pull. This will reduce the risk of unnecessary foot sliding as you are climbing.</p>\n",
+                            DescriptionPlain = "For time:\n21 GHD sit-ups\n7 rope climbs to 15 feet\n21 GHD sit-ups\n21-meter double-kettlebell front-rack walking lunge\n15 GHD sit-ups\n5 rope climbs to 15 feet\n15 GHD sit-ups\n15-meter double-kettlebell front-rack walking lunge\n9 GHD sit-ups\n3 rope climbs to 15 feet\n9 GHD sit-ups\n9-meter double-kettlebell front-rack walking lunge\n\n♀ 35-lb kettlebells\n♂ 53-lb kettlebells\n\nPost time to comments.\n\nStimulus and Strategy:\nExpect this conditioning workout to challenge the trunk and legs, as well as the skill of the rope climb. The GHD sit-up volume is reasonable, but expect this movement to increase the difficulty of the knee raise component of the rope climbs, as well as the core demands of the kettlebell front-rack walking lunges. The load of the kettlebells is intended to be moderate, where the initial round can be completed unbroken or with one break.\n\nScaling:\nReduce the loading of the kettlebells. Reduce the reps of the GHD sit-ups and rope climbs.\n\nTo reduce the complexity of the GHD sit-ups, reduce the range of motion. For the rope climbs, reduce the height of the climb. For the kettlebell front-rack lunges, perform the lunges with a single kettlebell or hold the two kettlebells in the farmers carry position.\n\nIn case of injury or limitation, perform sit-ups or V-ups in place of the GHD sit-ups. For the rope climbs, perform pull-to-stands. For the kettlebell front-rack lunges, eliminate the loading or consider step-ups to a low box.\n\nIntermediate option:\nFor time:\n15 GHD sit-ups\n7 rope climbs to 12 feet\n15 GHD sit-ups\n15-meter double-kettlebell front-rack walking lunge\n12 GHD sit-ups\n5 rope climbs to 12 feet\n12 GHD sit-ups\n12-meter double-kettlebell front-rack walking lunge\n9 GHD sit-ups\n3 rope climbs to 12 feet\n9 GHD sit-ups\n9-meter double-kettlebell front-rack walking lunge\n\n♀ 26-lb kettlebells\n♂ 36-lb kettlebells\n\nBeginner option:\nFor time:\n15 AbMat sit-ups\n5 pull-to-stands\n15 AbMat sit-ups\n15-meter walking lunge\n12 AbMat sit-ups\n4 pull-to-stands\n12 AbMat sit-ups\n12-meter walking lunge\n9 AbMat sit-ups\n3 pull-to-stands\n9 AbMat sit-ups\n9-meter walking lunge\n\nCoaching cues:\nTreat the rope climb as a stand or squat after securing the wrap instead of pulling with the arms. In the warm-up, practice establishing a secure foot hook before standing up and reaching for the next pull. This will reduce the risk of unnecessary foot sliding as you are climbing.\n",
+                            Name = "Tuesday/250702",
+                            WorkoutDate = new DateTime(2025, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            DescriptionHTML = "<p>5 rounds, each for time, of:<br>500-meter row</p><p>Rest 3 minutes between efforts.</p><p>Post times to the comments.</p>...",
-                            DescriptionPlain = "5 rounds, each for time, of:\n500-meter row\n\nRest 3 minutes between efforts.\n\nPost times to the comments.\n\nStimulus and Strategy:\nToday’s workout consists of 5 all-out sprints on the rower...",
-                            Name = "Saturday/250705",
-                            WorkoutDate = new DateTime(2025, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DescriptionHTML = "<p><strong>Part 1</strong><br>\nIn 10 minutes:<br>\nEstablish a 2-rep-max shoulder press</p>\n\n<p>3 minutes rest</p>\n\n<p><strong>Part 2</strong><br>\nAs many calories as possible in 10 minutes of:<br>\nEcho bike</p>\n\n<p>Post to comments:<br>\n1. Max weight lifted on the shoulder press in pounds<br>\n2. Total calories completed on the bike<br>\n3. Total weight + calories</p>\n\n<p><strong>Stimulus and Strategy:</strong><br>\nThis two-part workout will test upper-body pressing strength, as well as general conditioning. Start at a light load in the shoulder press and build up quickly to establish a 2-rep max for the day with sound mechanics. New athletes can focus on mechanics and keep the loads sub-maximal. Ten minutes on the bike will feel like a LONG TIME where you are at your threshold for a large portion of the workout. Set a goal cadence to maintain and treat the last minute as a final sprint to the finish.</p>\n\n<p><strong>Scaling:</strong><br>\nReduce the time on the Echo bike in Part 2.</p>\n\n<p>To reduce the complexity of the shoulder presses, consider using a pair of dumbbells. This will eliminate the need to navigate the head and reduce the complexity of the rack position.</p>\n\n<p>In case of injury or limitation, perform bench presses or floor presses in place of the shoulder presses. If necessary, consider single-dumbbell shoulder presses. For the max calories in Part 2, use any machine available.</p>\n\n<p><strong>Intermediate option:</strong><br>\nSame as Rx’d.</p>\n\n<p><strong>Beginner option:</strong><br>\nSame as Rx’d.</p>\n\n<p><strong>Coaching cues:</strong><br>\nKeep your abdominals, glutes, and quadriceps tight throughout the shoulder press to reduce issues of overextending the trunk.</p>",
+                            DescriptionPlain = "Part 1\nIn 10 minutes:\nEstablish a 2-rep-max shoulder press\n\n3 minutes rest\n\nPart 2\nAs many calories as possible in 10 minutes of:\nEcho bike\n\nPost to comments:\n1. Max weight lifted on the shoulder press in pounds\n2. Total calories completed on the bike\n3. Total weight + calories\n\nStimulus and Strategy:\nThis two-part workout will test upper-body pressing strength, as well as general conditioning. Start at a light load in the shoulder press and build up quickly to establish a 2-rep max for the day with sound mechanics. New athletes can focus on mechanics and keep the loads sub-maximal. Ten minutes on the bike will feel like a LONG TIME where you are at your threshold for a large portion of the workout. Set a goal cadence to maintain and treat the last minute as a final sprint to the finish.\n\nScaling:\nReduce the time on the Echo bike in Part 2.\n\nTo reduce the complexity of the shoulder presses, consider using a pair of dumbbells. This will eliminate the need to navigate the head and reduce the complexity of the rack position.\n\nIn case of injury or limitation, perform bench presses or floor presses in place of the shoulder presses. If necessary, consider single-dumbbell shoulder presses. For the max calories in Part 2, use any machine available.\n\nIntermediate option:\nSame as Rx’d.\n\nBeginner option:\nSame as Rx’d.\n\nCoaching cues:\nKeep your abdominals, glutes, and quadriceps tight throughout the shoulder press to reduce issues of overextending the trunk.",
+                            Name = "Wednesday/250703",
+                            WorkoutDate = new DateTime(2025, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            DescriptionHTML = "<p><strong>Rest Day</strong></p><p><a href=\"https://youtu.be/aqHQ6hpiXdk\">Why We Plateau and How to Overcome It</a></p>...",
-                            DescriptionPlain = "Rest Day\n\nWhy We Plateau and How to Overcome It\n\nJoin CrossFit coaches Eric O'Connor and Pat Barber as they break down the real reasons athletes hit plateaus and the proven strategies to push past them...",
-                            Name = "Sunday/250706",
-                            WorkoutDate = new DateTime(2025, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DescriptionHTML = "<p><strong>Triple Deuce</strong></p><p>As many rounds and reps as possible in 20 minutes of:<br>22 burpees<br>22 air squats<br>22 pull-ups<br>22 sandbag ground-to-over-the-shoulders<br>722-meter run</p><p>♀ 40-lb sandbag<br>♂ 60-lb sandbag</p><p>Post rounds and reps to comments.</p><p>Army Sgt. 1st Class Jamie Nicholas, Army Sgt. 1st Class Gary Vasquez, and Army Capt. Richard Cliff, Jr., assigned to the 1st Battalion, 7th Special Forces Group in Fort Bragg, North Carolina, died Sept. 29, 2008, in Yakhchal, Afghanistan, from wounds sustained when their vehicle encountered an improvised explosive device during mounted operations.</p><p><strong>Stimulus and Strategy:</strong><br>This Hero workout will test cardiorespiratory endurance and stamina, where completing 3 or more rounds is a general guideline to follow. Since this is a Hero workout, feel free to attempt it as prescribed, even if 3 rounds may not be within reach. The air squats can be performed quickly, while the burpees and pull-ups may need some pacing to be able to complete them at a consistent pace. The sandbag is intended to be light so 22 reps can be completed with minimal rest between each.</p><p><strong>Scaling:</strong><br>Reduce the loading of the sandbag. Reduce the reps of the movements. Reduce the distance of the run.</p><p>To reduce the complexity of the burpees, perform up-downs. For the pull-ups, consider performing jumping pull-ups or ring rows. For the sandbag ground-to-over-the-shoulders, perform dumbbell power cleans, hang power cleans, or even light medicine-ball cleans over the shoulder</p><p>In case of injury or limitation, perform a 1,750/2,500-meter Echo bike or 800/1,000-meter row in place of the 722-meter run. For the air squats, consider squatting to a target that allows for a pain-free range of motion.</p><p><strong>Intermediate option:</strong><br>As many rounds and reps as possible in 20 minutes of:<br><strong>15</strong> burpees<br><strong>15</strong> air squats<br><strong>15 jumping</strong> pull-ups<br><strong>15</strong> sandbag ground-to-over-the-shoulders<br>722-meter run</p><p>♀ <strong>30</strong>-lb sandbag<br>♂ <strong>45</strong>-lb sandbag</p><p><strong>Beginner option:</strong><br>As many rounds and reps as possible in <strong>15</strong> minutes of:<br><strong>12</strong> burpees<br><strong>12</strong> air squats<br><strong>12 ring rows</strong><br><strong>12</strong> sandbag ground-to-over-the-shoulders<br><strong>400</strong>-meter run</p><p>♀ <strong>20</strong>-lb sandbag<br>♂ <strong>30</strong>-lb sandbag</p><p><strong>Coaching cues:</strong><br>Focus on using your hips and legs to launch the sandbag over your shoulders instead of solely pulling with your arms.</p>",
+                            DescriptionPlain = "Triple Deuce\n\nAs many rounds and reps as possible in 20 minutes of:\n22 burpees\n22 air squats\n22 pull-ups\n22 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 40-lb sandbag\n♂ 60-lb sandbag\n\nPost rounds and reps to comments.\n\nArmy Sgt. 1st Class Jamie Nicholas, Army Sgt. 1st Class Gary Vasquez, and Army Capt. Richard Cliff, Jr., assigned to the 1st Battalion, 7th Special Forces Group in Fort Bragg, North Carolina, died Sept. 29, 2008, in Yakhchal, Afghanistan, from wounds sustained when their vehicle encountered an improvised explosive device during mounted operations.\n\nStimulus and Strategy:\nThis Hero workout will test cardiorespiratory endurance and stamina, where completing 3 or more rounds is a general guideline to follow. Since this is a Hero workout, feel free to attempt it as prescribed, even if 3 rounds may not be within reach. The air squats can be performed quickly, while the burpees and pull-ups may need some pacing to be able to complete them at a consistent pace. The sandbag is intended to be light so 22 reps can be completed with minimal rest between each.\n\nScaling:\nReduce the loading of the sandbag. Reduce the reps of the movements. Reduce the distance of the run.\n\nTo reduce the complexity of the burpees, perform up-downs. For the pull-ups, consider performing jumping pull-ups or ring rows. For the sandbag ground-to-over-the-shoulders, perform dumbbell power cleans, hang power cleans, or even light medicine-ball cleans over the shoulder\n\nIn case of injury or limitation, perform a 1,750/2,500-meter Echo bike or 800/1,000-meter row in place of the 722-meter run. For the air squats, consider squatting to a target that allows for a pain-free range of motion.\n\nIntermediate option:\nAs many rounds and reps as possible in 20 minutes of:\n15 burpees\n15 air squats\n15 jumping pull-ups\n15 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 30-lb sandbag\n♂ 45-lb sandbag\n\nBeginner option:\nAs many rounds and reps as possible in 15 minutes of:\n12 burpees\n12 air squats\n12 ring rows\n12 sandbag ground-to-over-the-shoulders\n400-meter run\n\n♀ 20-lb sandbag\n♂ 30-lb sandbag\n\nCoaching cues:\nFocus on using your hips and legs to launch the sandbag over your shoulders instead of solely pulling with your arms.",
+                            Name = "Friday/250704",
+                            WorkoutDate = new DateTime(2025, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -13948,7 +13619,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0001"),
                             Description = "Brown hoodie for CrossFit training.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitHoodie01.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitHoodie01.jpg",
                             IsDeleted = false,
                             Price = 49.99m,
                             ProductCategory = 0,
@@ -13959,7 +13630,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0002"),
                             Description = "Black hoodie for CrossFit sessions.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitHoodie02.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitHoodie02.jpg",
                             IsDeleted = false,
                             Price = 52.99m,
                             ProductCategory = 0,
@@ -13970,7 +13641,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0003"),
                             Description = "Black t-shirt, CrossFit edition.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitShirt01.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitShirt01.jpg",
                             IsDeleted = false,
                             Price = 24.99m,
                             ProductCategory = 0,
@@ -13981,7 +13652,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0004"),
                             Description = "Dark green CrossFit t-shirt.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitShirt02.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitShirt02.jpg",
                             IsDeleted = false,
                             Price = 24.99m,
                             ProductCategory = 0,
@@ -13992,7 +13663,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0005"),
                             Description = "Pink CrossFit t-shirt for women.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitShirt03.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitShirt03.jpg",
                             IsDeleted = false,
                             Price = 24.99m,
                             ProductCategory = 0,
@@ -14003,7 +13674,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0006"),
                             Description = "Recovery muscle roller for athletes.",
-                            ImageUrl = "images/Store/Eqiupment/muscleRoller.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/muscleRoller.jpg",
                             IsDeleted = false,
                             Price = 29.99m,
                             ProductCategory = 0,
@@ -14014,7 +13685,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0007"),
                             Description = "Shaker bottle with Spider-Man face.",
-                            ImageUrl = "images/Store/Eqiupment/shaker01.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/shaker01.jpg",
                             IsDeleted = false,
                             Price = 14.99m,
                             ProductCategory = 0,
@@ -14025,7 +13696,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0008"),
                             Description = "Shaker bottle with Captain America shield.",
-                            ImageUrl = "images/Store/Eqiupment/shaker02.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/shaker02.jpg",
                             IsDeleted = false,
                             Price = 14.99m,
                             ProductCategory = 0,
@@ -14036,7 +13707,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0009"),
                             Description = "Sturdy wrist wraps for weightlifting.",
-                            ImageUrl = "images/Store/Eqiupment/wristWraps.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/wristWraps.jpg",
                             IsDeleted = false,
                             Price = 9.99m,
                             ProductCategory = 0,
@@ -14047,7 +13718,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0010"),
                             Description = "BCAA supplement for muscle recovery - 0.500 grams, mango flavor.",
-                            ImageUrl = "images/Store/Nutrition/bcaa.jpg",
+                            ImageUrl = "/images/Store/Nutrition/bcaa.jpg",
                             IsDeleted = false,
                             Price = 14.99m,
                             ProductCategory = 1,
@@ -14058,7 +13729,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0011"),
                             Description = "Creatine monohydrate powder - 0.500grams, unflavour.",
-                            ImageUrl = "images/Store/Nutrition/creatine.jpg",
+                            ImageUrl = "/images/Store/Nutrition/creatine.jpg",
                             IsDeleted = false,
                             Price = 29.99m,
                             ProductCategory = 1,
@@ -14069,7 +13740,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0012"),
                             Description = "Multivitamin tablets for daily wellness - 240 tabblets.",
-                            ImageUrl = "images/Store/Nutrition/multivatamins.jpg",
+                            ImageUrl = "/images/Store/Nutrition/multivatamins.jpg",
                             IsDeleted = false,
                             Price = 19.99m,
                             ProductCategory = 1,
@@ -14080,7 +13751,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0013"),
                             Description = "Pre-workout supplement for energy and focus - 0.400 grams, cola flavor.",
-                            ImageUrl = "images/Store/Nutrition/preworkout.jpg",
+                            ImageUrl = "/images/Store/Nutrition/preworkout.jpg",
                             IsDeleted = false,
                             Price = 32.99m,
                             ProductCategory = 1,
@@ -14091,7 +13762,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0014"),
                             Description = "Omega-3 softgels for heart and joint support - 250 soft gel tables.",
-                            ImageUrl = "images/Store/Nutrition/omega.jpg",
+                            ImageUrl = "/images/Store/Nutrition/omega.jpg",
                             IsDeleted = false,
                             Price = 22.99m,
                             ProductCategory = 1,
@@ -14102,7 +13773,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0015"),
                             Description = "Whey protein powder for muscle growth - 1 kg, chocolate flavor.",
-                            ImageUrl = "images/Store/Nutrition/wheyProtein.jpg",
+                            ImageUrl = "/images/Store/Nutrition/wheyProtein.jpg",
                             IsDeleted = false,
                             Price = 49.99m,
                             ProductCategory = 1,
@@ -14173,103 +13844,6 @@ namespace SCV.Data.Migrations
                     b.ToTable("Trainers", t =>
                         {
                             t.HasComment("Represents a personal trainer in the web application. Can be a fitness, crossfit or powerlifting trainer/coach.");
-                        });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("948af76c-23f3-4487-a245-c011e58a73db"),
-                            Bio = "Certified fitness instructor and personal coach with a focus on fat loss and cardio endurance.",
-                            Email = "viktor.nachev@sportvictory.bg",
-                            FirstName = "Viktor",
-                            ImageUrl = "images/Trainers/Fitness/viktorNachev.jpg",
-                            IsDeleted = false,
-                            LastName = "Nachev",
-                            TrainerSpecialty = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("e2a0a45f-bbe7-468e-b697-17dbcd793c79"),
-                            Bio = "Creative Fitness coach with a love for community building and mental resilience.",
-                            Email = "sofia.zlateva@sportvictory.bg",
-                            FirstName = "Sofia",
-                            ImageUrl = "images/Trainers/Fitness/sofiaZlateva.jpg",
-                            IsDeleted = false,
-                            LastName = "Zlateva",
-                            PhoneNumber = "+359888765432",
-                            TrainerSpecialty = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("d270b6ba-60d3-4aee-8ebf-1f2591ebe17b"),
-                            Bio = "Enthusiastic trainer offering tailored programs for male and female fitness and weight training.",
-                            Email = "desislav.iliev@sportvictory.bg",
-                            FirstName = "Desislav",
-                            ImageUrl = "images/Trainers/Fitness/desislavIliev.jpg",
-                            IsDeleted = false,
-                            LastName = "Iliev",
-                            PhoneNumber = "+359883456789",
-                            TrainerSpecialty = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("b59e1fd1-f514-4f18-93f0-1d8b7992ce41"),
-                            Bio = "Certified CrossFit Level 2 coach with 7 years of experience in functional training.",
-                            Email = "ivan.dimitrov@svc.bg",
-                            FirstName = "Ivan",
-                            ImageUrl = "images/Trainers/Crossfit/ivanDimitrov.jpg",
-                            IsDeleted = false,
-                            LastName = "Dimitrov",
-                            PhoneNumber = "+359888123456",
-                            TrainerSpecialty = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("ec83a001-55df-45e5-b8c4-91f4d76f9fd0"),
-                            Bio = "Fitness and bodybuilding expert with over 10 years of personal training experience.",
-                            Email = "maya.ivanova@svc.bg",
-                            FirstName = "Maya",
-                            ImageUrl = "images/Trainers/Crossfit/mayaIvanova.jpg",
-                            IsDeleted = false,
-                            LastName = "Ivanova",
-                            PhoneNumber = "+359885987654",
-                            TrainerSpecialty = 1
-                        },
-                        new
-                        {
-                            Id = new Guid("1ee19866-6828-412c-80f7-4572630f2a89"),
-                            Bio = "Focused on mobility, recovery, and competitive CrossFit coaching.",
-                            Email = "georgi.kolev@sportvictory.bg",
-                            FirstName = "Georgi",
-                            ImageUrl = "images/Trainers/Crossfit/georgiKolev.jpg",
-                            IsDeleted = false,
-                            LastName = "Kolev",
-                            PhoneNumber = "+359886998877",
-                            TrainerSpecialty = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("59015526-c85d-41f8-9550-e8822a1ee4b4"),
-                            Bio = "Female powerlifting coach with a passion for strength training and mental toughness.",
-                            Email = "kristina.dimitrova@sportvictory.bg",
-                            FirstName = "Kristina",
-                            ImageUrl = "images/Trainers/Powerlifting/kristinaDimitrova.jpg",
-                            IsDeleted = false,
-                            LastName = "Dimitrova",
-                            PhoneNumber = "+359889332211",
-                            TrainerSpecialty = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("0920b615-dd7d-46f5-b238-3ba891569b44"),
-                            Bio = "Advanced strength trainer focused on Olympic lifts and powerlifting competition prep.",
-                            Email = "stefan.todorov@sportvictory.bg",
-                            FirstName = "Stefan",
-                            ImageUrl = "images/Trainers/Powerlifting/stefanTodorov.jpg",
-                            IsDeleted = false,
-                            LastName = "Todorov",
-                            PhoneNumber = "+359887123321",
-                            TrainerSpecialty = 0
                         });
                 });
 
@@ -14391,48 +13965,6 @@ namespace SCV.Data.Migrations
                         {
                             t.HasComment("Workout Plan entity for a structured workout plan for fitness, crossFit or powerlifting");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "Day 1 – Upper Body\n- Push-Ups: 3 sets x 10 reps\n- Dumbbell Shoulder Press: 3 x 12\n- Bent Over Rows: 3 x 12\n- Plank: 3 x 30 sec\n\nDay 2 – Lower Body\n- Bodyweight Squats: 4 x 15\n- Glute Bridges: 3 x 20\n- Walking Lunges: 3 x 12 each leg\n- Standing Calf Raises: 3 x 20\n\nDay 3 – Core & Cardio\n- Russian Twists: 3 x 20\n- Bicycle Crunches: 3 x 15\n- Burpees: 3 x 10",
-                            IsDeleted = false,
-                            Title = "Full Body Burn – Beginner Fitness",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Day 1 – Chest & Triceps\n- Bench Press: 4 x 10\n- Incline Dumbbell Press: 4 x 12\n- Triceps Dips: 3 x 15\n\nDay 2 – Back & Biceps\n- Deadlifts: 4 x 6\n- Lat Pulldowns: 4 x 12\n- Dumbbell Curls: 3 x 15\n\nDay 3 – Legs & Abs\n- Squats: 4 x 8\n- Romanian Deadlifts: 4 x 10\n- Hanging Leg Raises: 3 x 12",
-                            IsDeleted = false,
-                            Title = "Muscle Sculpt – Intermediate Fitness",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "4 Rounds for Time:\n- 30 sec Jump Squats\n- 20 Push-Ups\n- 40 Mountain Climbers\n- 20 Kettlebell Thrusters\n- 60 sec Rest between rounds\n\nFinish with 3 sets:\n- Crunches: 20 reps\n- Plank Hold: 60 sec",
-                            IsDeleted = false,
-                            Title = "Fat Blast HIIT – Fitness",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "AMRAP in 20 min:\n- 5 Pull-Ups\n- 10 Box Jumps (24”/20”)\n- 15 One-Arm Kettlebell Swings (10kg/16kg)\n- 200m Run\n\nCool Down:\n- Foam roll + Stretch 10 min\n- Deep Breathing 3 min",
-                            IsDeleted = false,
-                            Title = "CrossFit WOD – 'Grinder'",
-                            Type = 1
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Day 1 – Squat Focus\n- Back Squat: 5 x 5 @ 80%\n- Front Squat: 3 x 5\n- Walking Lunges: 3 x 12 each leg\n\nDay 2 – Bench Focus\n- Bench Press: 5 x 5 @ 80%\n- Incline Press: 3 x 10\n- Triceps Pushdown: 3 x 15\n\nDay 3 – Deadlift Focus\n- Deadlift: 5 x 5 @ 80%\n- Barbell Rows: 3 x 10\n- Plank: 3 x 45 sec",
-                            IsDeleted = false,
-                            Title = "Powerlifting Split – Strength Phase",
-                            Type = 2
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.WorkoutPlanExercise", b =>
@@ -14452,183 +13984,6 @@ namespace SCV.Data.Migrations
                     b.ToTable("WorkoutPlanExercises", t =>
                         {
                             t.HasComment("Workout Plan Exercise entity representing an exercise within a workout plan");
-                        });
-
-                    b.HasData(
-                        new
-                        {
-                            ExerciseId = "Pushups",
-                            WorkoutPlanId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = "Dumbbell_Shoulder_Press",
-                            WorkoutPlanId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = "Bent_Over_Barbell_Row",
-                            WorkoutPlanId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = "Plank",
-                            WorkoutPlanId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = "Bodyweight_Squat",
-                            WorkoutPlanId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Glute_Bridge",
-                            WorkoutPlanId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = "Bodyweight_Walking_Lunge",
-                            WorkoutPlanId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = "Cable_Russian_Twists",
-                            WorkoutPlanId = 1
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Bench_Press_-_Medium_Grip",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Incline_Dumbbell_Press",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Dips_-_Triceps_Version",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Deadlift",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Full_Range-Of-Motion_Lat_Pulldown",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Flexor_Incline_Dumbbell_Curls",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Full_Squat",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Romanian_Deadlift",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Hanging_Leg_Raise",
-                            WorkoutPlanId = 2
-                        },
-                        new
-                        {
-                            ExerciseId = "Freehand_Jump_Squat",
-                            WorkoutPlanId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = "Pushups",
-                            WorkoutPlanId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = "Mountain_Climbers",
-                            WorkoutPlanId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = "Kettlebell_Thruster",
-                            WorkoutPlanId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = "Crunches",
-                            WorkoutPlanId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = "Plank",
-                            WorkoutPlanId = 3
-                        },
-                        new
-                        {
-                            ExerciseId = "Pullups",
-                            WorkoutPlanId = 4
-                        },
-                        new
-                        {
-                            ExerciseId = "Front_Box_Jump",
-                            WorkoutPlanId = 4
-                        },
-                        new
-                        {
-                            ExerciseId = "One-Arm_Kettlebell_Swings",
-                            WorkoutPlanId = 4
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Full_Squat",
-                            WorkoutPlanId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = "Front_Squat_Clean_Grip",
-                            WorkoutPlanId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = "Bodyweight_Walking_Lunge",
-                            WorkoutPlanId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = "Bench_Press_-_Powerlifting",
-                            WorkoutPlanId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Shoulder_Press",
-                            WorkoutPlanId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = "Triceps_Pushdown",
-                            WorkoutPlanId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Deadlift",
-                            WorkoutPlanId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = "Bent_Over_Barbell_Row",
-                            WorkoutPlanId = 5
-                        },
-                        new
-                        {
-                            ExerciseId = "Plank",
-                            WorkoutPlanId = 5
                         });
                 });
 

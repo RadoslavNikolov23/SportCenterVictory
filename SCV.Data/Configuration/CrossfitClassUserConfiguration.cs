@@ -27,9 +27,6 @@
             entity
                 .HasQueryFilter(ccu => ccu.CrossfitClass.IsActive == true);
 
-            //entity
-            //    .HasQueryFilter(ccu => ccu.CrossfitClass.IsActive == true);
-
         }
     }
 }

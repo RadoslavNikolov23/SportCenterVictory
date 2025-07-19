@@ -29,8 +29,7 @@
                                                 Quantity = p.Quantity,
                                                 Description = p.Description ?? "To be added.",
                                                 Price = p.Price,
-                      //----------- ! Remove the "/" when reseed the DB ---- !!!
-                                                ImageUrl = $"/{p.ImageUrl}" ?? $"/noImage.jpg",
+                                                ImageUrl = p.ImageUrl ?? $"/noImage.jpg",
                                             })
                                             .ToListAsync();
 

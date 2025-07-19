@@ -12,8 +12,8 @@ using SCV.Data;
 namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
-    [Migration("20250710145125_SeedEvents")]
-    partial class SeedEvents
+    [Migration("20250719203844_InitialCreateDB")]
+    partial class InitialCreateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -154,32 +154,6 @@ namespace SCV.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("8add11c7-0c60-4776-9ad2-b598fa0f05ae"),
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = new Guid("8d28163a-03ae-4e27-bc00-31d529cd6b52"),
-                            Name = "Manager",
-                            NormalizedName = "MANAGER"
-                        },
-                        new
-                        {
-                            Id = new Guid("e850a970-b0cd-40a1-ad09-4903d92d4d62"),
-                            Name = "Trainer",
-                            NormalizedName = "TRAINER"
-                        },
-                        new
-                        {
-                            Id = new Guid("761adbdb-1d7f-4dbb-8ec1-4d62fd0acde9"),
-                            Name = "User",
-                            NormalizedName = "USER"
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.ApplicationUser", b =>
@@ -311,80 +285,6 @@ namespace SCV.Data.Migrations
                         {
                             t.HasComment("CrossFit Class Model");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "A high-intensity Hero WOD designed to test endurance and mental toughness.",
-                            IsActive = false,
-                            Name = "WOD: Hero Workout",
-                            StartTime = "Monday at 17:00",
-                            TrainerName = "Ivan Dimitrov"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "Focus on building strength with heavy lifts and compound movements.",
-                            IsActive = false,
-                            Name = "CrossFit Strength",
-                            StartTime = "Monday at 19:00",
-                            TrainerName = "Georgi Kolev"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "Enhance flexibility and mobility to improve overall performance.",
-                            IsActive = false,
-                            Name = "CrossFit Mobility",
-                            StartTime = "Tuesday at 18:00",
-                            TrainerName = "Maya Ivanova"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Team-based workout to build camaraderie and competitive spirit.",
-                            IsActive = false,
-                            Name = "CrossFit Team Challenge",
-                            StartTime = "Wednesday at 17:00",
-                            TrainerName = "Georgi Kolev"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Cardio-focused CrossFit session to build stamina and VO2 max.",
-                            IsActive = false,
-                            Name = "CrossFit Endurance",
-                            StartTime = "Thuesday at 19:00",
-                            TrainerName = "Ivan Dimitrov"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Introduction to CrossFit movements and techniques for beginners.",
-                            IsActive = false,
-                            Name = "CrossFit Basics",
-                            StartTime = "Friday at 18:00",
-                            TrainerName = "Maya Ivanova"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            Description = "Specialized training session to prepare for the CrossFit Open competition.",
-                            IsActive = false,
-                            Name = "CrossFit Open Prep",
-                            StartTime = "Saturday at 10:00",
-                            TrainerName = "Guest Coach: Stoyan Dimitrov"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            Description = "Classes teaching technique and power development in snatch and clean and jerk.",
-                            IsActive = false,
-                            Name = "CrossFit Olympic Lifting",
-                            StartTime = "Saturday at 17:00",
-                            TrainerName = "Guest Coach: Tsvetan Nikolov"
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.CrossfitClassUser", b =>
@@ -422,20 +322,20 @@ namespace SCV.Data.Migrations
 
                     b.Property<string>("DescriptionHTML")
                         .IsRequired()
-                        .HasMaxLength(5025)
+                        .HasMaxLength(7025)
                         .HasColumnType("nvarchar(max)")
                         .HasComment("HTML formatted description of the workout of the day");
 
                     b.Property<string>("DescriptionPlain")
                         .IsRequired()
-                        .HasMaxLength(4025)
+                        .HasMaxLength(6025)
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Plain text description of the workout of the day");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)")
                         .HasComment("Name of the workout of the day - will contain part of the WorkoutDate");
 
                     b.Property<DateTime>("WorkoutDate")
@@ -447,32 +347,6 @@ namespace SCV.Data.Migrations
                     b.ToTable("CrossfitWorkoutOfTheDays", t =>
                         {
                             t.HasComment("Represents a Crossfit Workout of the Day (WOD)");
-                        });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            DescriptionHTML = "<p><strong>Triple Deuce</strong></p><p>As many rounds and reps as possible in 20 minutes of:<br>22 burpees<br>22 air squats<br>22 pull-ups<br>22 sandbag ground-to-over-the-shoulders<br>722-meter run</p>...",
-                            DescriptionPlain = "Triple Deuce\n\nAs many rounds and reps as possible in 20 minutes of:\n22 burpees\n22 air squats\n22 pull-ups\n22 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 40-lb sandbag\n♂ 60-lb sandbag\n\nPost rounds and reps to comments.\n\nArmy Sgt. 1st Class Jamie Nicholas...",
-                            Name = "Friday/250704",
-                            WorkoutDate = new DateTime(2025, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 2,
-                            DescriptionHTML = "<p>5 rounds, each for time, of:<br>500-meter row</p><p>Rest 3 minutes between efforts.</p><p>Post times to the comments.</p>...",
-                            DescriptionPlain = "5 rounds, each for time, of:\n500-meter row\n\nRest 3 minutes between efforts.\n\nPost times to the comments.\n\nStimulus and Strategy:\nToday’s workout consists of 5 all-out sprints on the rower...",
-                            Name = "Saturday/250705",
-                            WorkoutDate = new DateTime(2025, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = 3,
-                            DescriptionHTML = "<p><strong>Rest Day</strong></p><p><a href=\"https://youtu.be/aqHQ6hpiXdk\">Why We Plateau and How to Overcome It</a></p>...",
-                            DescriptionPlain = "Rest Day\n\nWhy We Plateau and How to Overcome It\n\nJoin CrossFit coaches Eric O'Connor and Pat Barber as they break down the real reasons athletes hit plateaus and the proven strategies to push past them...",
-                            Name = "Sunday/250706",
-                            WorkoutDate = new DateTime(2025, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -527,74 +401,6 @@ namespace SCV.Data.Migrations
                         {
                             t.HasComment("Represents an event in the web application, such as a fitness, crossfit or powerlifting competition or training session.");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Description = "6-week transformation bootcamp with professional trainers and nutritionists.",
-                            EventType = 0,
-                            ImageUrl = "/events/fitnessTransformation.jpg",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Fitness Transformation Bootcamp"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Description = "A weekend retreat focusing on yoga, meditation, and wellness on the beach.",
-                            EventType = 0,
-                            ImageUrl = "/events/fitnessYoga.jpg",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Yoga Retreat Weekend"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Description = "A local competition for intermediate-level CrossFitters.",
-                            EventType = 1,
-                            ImageUrl = "/events/crossFitRegional.jpg",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "CrossFit Regional Challenge"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Description = "Try a real CrossFit Open WOD with the community and judges.",
-                            EventType = 1,
-                            ImageUrl = "/events/crossFitOpenNight.jpg",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "CrossFit Open Night"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Description = "Open bench press meet-up for all strength levels.",
-                            EventType = 2,
-                            ImageUrl = "/events/powerliftingBenchpress.png",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Bench Press Meet-Up"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Description = "Hands-on technique workshop on snatch and clean & jerk.",
-                            EventType = 2,
-                            ImageUrl = "/events/powerliftingOlympicLifting.jpg",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Olympic Lifting Workshop"
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.EventUser", b =>
@@ -626,18 +432,18 @@ namespace SCV.Data.Migrations
 
                     b.Property<string>("Category")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
                         .HasComment("Category of the exercise - strength, cardio, flexibility, etc.");
 
                     b.Property<string>("Equipment")
-                        .HasMaxLength(120)
-                        .HasColumnType("nvarchar(120)")
+                        .HasMaxLength(140)
+                        .HasColumnType("nvarchar(140)")
                         .HasComment("Equipment used for the exercise - barbell, dumbbell, bodyweight, etc.");
 
                     b.Property<string>("Force")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
                         .HasComment("Type of force applied in the exercise - push, pull, etc.");
 
                     b.Property<string>("ImageUrlOne")
@@ -662,8 +468,8 @@ namespace SCV.Data.Migrations
                         .HasComment("Indicates whether the exercise is deleted or not - soft deletion.");
 
                     b.Property<string>("Mechanic")
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)")
                         .HasComment("Mechanic of the exercise - compound, isolation, etc.");
 
                     b.Property<string>("Name")

@@ -12,8 +12,8 @@ using SCV.Data;
 namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
-    [Migration("20250710152822_SeedApplicationUserRoles")]
-    partial class SeedApplicationUserRoles
+    [Migration("20250719204715_SeedTrainerEntity")]
+    partial class SeedTrainerEntity
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -332,17 +332,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("28fe258e-8826-4721-abea-f93ce8d1931a"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b9d9ad3-f8ee-4d71-ab21-519faab5f951",
+                            ConcurrencyStamp = "e2c49fdc-e904-4f27-977a-fdc8ad941aec",
                             Email = "admin@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Admin User - Rado",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "ADMIN@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAENAel1E59yM42pZEY2Fq4t0aD4QILrKETa0WY4iLwpeUxp7yLauPq5KQyBnWuvTttg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECHU/+tTKN52hR9MfIxd4KOl+JoGh8TdX6y4yCkNSFLL8+cVZ0YpsDpTFDCNSUW6DQ==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "7d7f6208-f6c7-440d-9549-944918d0f013",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "926ba49b-26e4-4e03-8b69-4cceced76400",
                             TwoFactorEnabled = false,
                             UserName = "admin@sportcentervictory.com"
                         },
@@ -350,17 +350,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("1293b05f-fc49-49d4-8677-9f01f1274b83"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cbdd9b06-d882-4003-ae58-b3c785193b78",
+                            ConcurrencyStamp = "631e4cb3-ea15-4ee5-b655-a285a70356e0",
                             Email = "manager@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Manager Rado",
                             LockoutEnabled = false,
                             NormalizedEmail = "MANAGER@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "MANAGER@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEE+OX7vgzozzVNHhM8RQkD1KbsUYRaxzR0uwQ22ZoiIrHdt79ASv5JYgFKK3l947tA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENSUzuCC8dnhl4k8dnOKhzz7A6Zqh1+r+eJxB7bNWXElZBYzErO/yfT9U7WpfNZbyA==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "4ac353ce-0ed4-48ad-bdfc-11e32272cb67",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "dd664ccf-85c3-498d-b291-6ac959be138b",
                             TwoFactorEnabled = false,
                             UserName = "manager@sportcentervictory.com"
                         },
@@ -368,17 +368,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("ba5666bf-9f1f-4513-92d3-23974d9f687f"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "feb76afb-1681-48d4-a468-505cddb92ece",
+                            ConcurrencyStamp = "aa632a87-5cfc-43cd-8057-216722bb7309",
                             Email = "viktornachev@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Viktor Nachev",
                             LockoutEnabled = false,
                             NormalizedEmail = "VIKTORNACHEV@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "VIKTORNACHEV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEKrE05L9ibHywhWAHV/+xn8bcNQcaGqpxu6BmryK9ZQbXlgO4D9OecRHGDVPYqzkcQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEKSf4WZ/f4snRRxQSksSAl1ED47qHAZGaP3r4Akqu+VgRBrUWJJH8R2nePlzHJfNcw==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "c601dbca-51e7-4333-ae96-5f96e0747349",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "e8e2fd1c-b572-468a-873c-e451c1369288",
                             TwoFactorEnabled = false,
                             UserName = "viktornachev@sportcentervictory.com"
                         },
@@ -386,17 +386,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("bc4d02a0-44d0-459a-a7e6-04831e417e42"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9f542044-6d02-411c-9b14-7e1a49806921",
+                            ConcurrencyStamp = "4f8ae29e-af13-45de-95cc-7193dbdc15b5",
                             Email = "sofiazlateva@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Sofia Zlateva",
                             LockoutEnabled = false,
                             NormalizedEmail = "SOFIAZLATEVA@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "SOFIAZLATEVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEL1xgfVBT+m3XepwZJPNGGCx+nQo55RkZA5+QG0xmhymTu7yNk6JN7WtqUEovq1ffA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAZ8Ca+Nb+v0umq7mCal8acw3c1LzF3eTAFjp+VBN9mS078MwEm8vSjyK8A5rRHCbw==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "bac6f131-69cc-4027-b53b-e5d7582e8236",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "7da51fd2-6e51-4bb3-9e45-afa8341f1b58",
                             TwoFactorEnabled = false,
                             UserName = "sofiazlateva@sportcentervictory.com"
                         },
@@ -404,17 +404,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("a42e9995-8da2-4a1a-95a0-653809d0feb3"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "31279923-60b9-47e1-9477-a82ad8b3ed2d",
+                            ConcurrencyStamp = "bcd95cc4-a6fc-4a75-b09a-a2e78ede4145",
                             Email = "desislaviliev@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Desislav Iliev",
                             LockoutEnabled = false,
                             NormalizedEmail = "DESISLAVILIEV@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "DESISLAVILIEV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEHFKi+5ChwyuhknFm6fCW+vjk4N5JXjWb4wRGybtGYyh0zEX6FP6bQmxzpGwQOZXaA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENnm7fvDbX0JjRZ+G6Z2gVshfmC5yWL1kxn8eNRbpezYFVKTMs1v6OQH/KjUZVgVbA==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "56e1d4f6-c363-4024-8f96-fc1a096ee8a6",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "19c499df-fe86-4c8e-b2ad-c30f94e50467",
                             TwoFactorEnabled = false,
                             UserName = "desislaviliev@sportcentervictory.com"
                         },
@@ -422,17 +422,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("c3867b78-36a0-44b5-9800-f359a28d2965"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "3d262fb2-8a0b-4866-b113-32bd82ce1892",
+                            ConcurrencyStamp = "b502a2b1-d49c-41b3-9119-9b41d3fff3b5",
                             Email = "ivandimitrov@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Ivan Dimitrov",
                             LockoutEnabled = false,
                             NormalizedEmail = "IVANDIMITROV@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "IVANDIMITROV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBEwZuqMvzsBrhd+kboNSh1LkF39a8VG4UpY6SioU0354gBhmvg1XzZQDYB55pg55Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAED3p88apWD8OagNLF+9XY/6cT1wmysj6bwAV8u80aHhKO/XNupoLdHNQV+AHyqjL4w==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "ee0a95a6-de34-4178-b6e4-59c936560b11",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "646d74b1-b686-45d5-978d-3dfc3a4df853",
                             TwoFactorEnabled = false,
                             UserName = "ivandimitrov@sportcentervictory.com"
                         },
@@ -440,17 +440,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("6bdd6544-e5bb-4490-b980-022aad36802a"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8a32e1d2-41a9-4bab-b69e-ab863474dffa",
+                            ConcurrencyStamp = "86ca9756-0f32-4e57-b7f4-a47fdc1b0e70",
                             Email = "mayaivanova@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Maya Ivanova",
                             LockoutEnabled = false,
                             NormalizedEmail = "MAYAIVANOVA@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "MAYAIVANOVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPLRqkhdkkk72jnJUqgPtJ+aDus0FZd2+3I/3TVmM3XOH8uXz+i3/D5GsbzgLP2T/Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJXRegLzcuwu0rShNDcUIWL93xwURpG2Scfx2LdPPoslJTBUi37KC+O8tEl7J8KxEw==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "78af1101-6ef9-41b8-a716-926d45fd9ab8",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "6b228e75-7dce-493f-aeee-e2cd07f0de49",
                             TwoFactorEnabled = false,
                             UserName = "mayaivanova@sportcentervictory.com"
                         },
@@ -458,17 +458,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("bd8a4bc5-c170-4eb8-92b6-fb84bfcd26bd"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ef375bb3-6004-48c5-85b0-ed04d788779c",
+                            ConcurrencyStamp = "5525a37a-c376-4786-8363-8b7c2933bfe1",
                             Email = "georgikolev@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Georgi Kolev",
                             LockoutEnabled = false,
                             NormalizedEmail = "GEORGIKOLEV@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "GEORGIKOLEV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEAos5kFKrJVFXACGtVo/uCwD1yKastQOUieQL7iObl36416RddtmgRfndqdfsjo25A==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOTLVzMjXElDmCSV0bOGKoTyrVTEWsk7BdxqbD5WnbSY7lJM9m4nCv8mIeoZqF14yQ==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "9d3831b0-0749-464d-82b5-820ad4c5af06",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "da3f34e4-f99f-4190-b11e-becede394039",
                             TwoFactorEnabled = false,
                             UserName = "georgikolev@sportcentervictory.com"
                         },
@@ -476,17 +476,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("bc52f7d1-319c-4e02-bc81-9a2b1afdd438"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "1a122e70-96d3-4761-aa54-51bacf311688",
+                            ConcurrencyStamp = "55fd6a2a-b04a-4832-ba50-a4f2e260c5d5",
                             Email = "kristinadimitrova@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Kristina Dimitrova",
                             LockoutEnabled = false,
                             NormalizedEmail = "KRISTINADIMITROVA@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "KRISTINADIMITROVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEBSU14iuH53+D8i72Zmdp6Zaww0clKZguaeeo7jEGYLbOx5CdEiCZXMCsY8DpopFlw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAED+2zaiC9wwWI/91oUkqpdMx2HlV13fLbDNfGwI2nzv1ecYiuSUHNYyJUi1v9Ba3jA==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "bb094fb2-c41e-4809-9a7e-e622957661de",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "41457766-38cf-40a0-a56a-d65b25c2e488",
                             TwoFactorEnabled = false,
                             UserName = "kristinadimitrova@sportcentervictory.com"
                         },
@@ -494,17 +494,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("4a4193c1-2fb3-441e-b8e1-74f9b04e0d2c"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "45d87d01-bb9c-4a32-aac1-0ff59986db6d",
+                            ConcurrencyStamp = "30db2d59-3ec4-48d4-aeaf-90943cdea93a",
                             Email = "stefantodorov@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Stefan Todorov",
                             LockoutEnabled = false,
                             NormalizedEmail = "STEFANTODOROV@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "STEFANTODOROV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEClMDUmLaNqPqCu8sC1t091RUuSaRApyzZfY88cboTy6Cl/NwcHDuAbmkTzlX2786w==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEElA6egX0l+5V+I1j6sPWWFw9CStq/hgxdytYiVLrLw5v9/6aMsN/0ZjTYzBQyCEqA==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "2fbeb82d-20fe-4a43-a770-26af64f159ca",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "d94d67ce-eac6-4fe9-9c00-951967b56483",
                             TwoFactorEnabled = false,
                             UserName = "stefantodorov@sportcentervictory.com"
                         },
@@ -512,17 +512,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("16eaaf0f-2efc-4509-8cbe-c8792d187455"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "da5a6a95-5f89-4c86-ab2b-965a17f75da7",
+                            ConcurrencyStamp = "194e4c78-7033-476c-80cd-14b3127f40f0",
                             Email = "victoriadimitrova@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Victoria Dimitrova",
                             LockoutEnabled = false,
                             NormalizedEmail = "VICTORIADIMITROVA@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "VICTORIADIMITROVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEDbnG2rh1qPrSlsT3vAmhBmOt5s1rloNo+Ex0WlDJz9wHVnTKPzGNmVjGJHru2zgAA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEF32Y31w6wYBJsGauM5IqmYOW9ocQgWLc4DruaCD4wwh1+KvEL5vhJRBpCdQsD43nA==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "98b6ba3d-6ba6-4fca-a057-0f91d4d85156",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "1ea23019-7815-4009-bd5a-ea0544d2d990",
                             TwoFactorEnabled = false,
                             UserName = "victoriadimitrova@sportcentervictory.com"
                         },
@@ -530,17 +530,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("c3777e33-e646-48a2-8e00-03058aa6e054"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b5bf317e-6bc6-4f4f-b8ad-9e398a492df4",
+                            ConcurrencyStamp = "6dd2d08f-8698-4961-8578-9a8fea9dd279",
                             Email = "ivanpetrov@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Ivan Petrov",
                             LockoutEnabled = false,
                             NormalizedEmail = "IVANPETROV@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "IVANPETROV@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEIIL9tQPxnfEbWZQE2+nKa/gZ3E/GcJZkOFLdvgJXVkexxKmbCUlRoLUqVn1qrujXQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEB6m/UT/VddEXyTC9ZXaBEACI8pycwv4bLjddiO7Pe6kDY5oc/usHGbz2YbbugtyxQ==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "c70c3106-9086-4aad-a3b7-57d2947784b9",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "a2dac493-4619-4e39-8dff-1cd2886e9f03",
                             TwoFactorEnabled = false,
                             UserName = "ivanpetrov@sportcentervictory.com"
                         },
@@ -548,17 +548,17 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("d4fd993d-23fd-4832-9d51-d85a16efa5a8"),
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7b20eebd-d7c7-4834-9fdf-aa5c2d6950fc",
+                            ConcurrencyStamp = "39b02ab5-d17c-4725-9ce6-f1ba0948df98",
                             Email = "mariastefanova@sportcentervictory.com",
                             EmailConfirmed = true,
                             FullName = "Maria Stefanova",
                             LockoutEnabled = false,
                             NormalizedEmail = "MARIASTEFANOVA@SPORTCENTERVICTORY.COM",
                             NormalizedUserName = "MARIASTEFANOVA@SPORTCENTERVICTORY.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEFZewZFF/7Z6Iyzg+rusIFUc6zHh1tQ2nKh1zD9PqZnhGigdm8oBt2aoARq8crBSyQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEC5RM92QsbKAt981AVd41Uzx/nN4hwtrsYnyfNvOfrIsMk+jUn8Zkv6E51MWJwQsWg==",
                             PhoneNumberConfirmed = false,
-                            RegisteredOn = new DateTime(2025, 7, 10, 0, 0, 0, 0, DateTimeKind.Utc),
-                            SecurityStamp = "69531add-7af4-40b3-8db7-59d6c48b8f58",
+                            RegisteredOn = new DateTime(2025, 7, 19, 0, 0, 0, 0, DateTimeKind.Utc),
+                            SecurityStamp = "a0804e3b-ea7f-4a18-bcd5-97a9d33c6b76",
                             TwoFactorEnabled = false,
                             UserName = "mariastefanova@sportcentervictory.com"
                         });
@@ -725,20 +725,20 @@ namespace SCV.Data.Migrations
 
                     b.Property<string>("DescriptionHTML")
                         .IsRequired()
-                        .HasMaxLength(5025)
+                        .HasMaxLength(7025)
                         .HasColumnType("nvarchar(max)")
                         .HasComment("HTML formatted description of the workout of the day");
 
                     b.Property<string>("DescriptionPlain")
                         .IsRequired()
-                        .HasMaxLength(4025)
+                        .HasMaxLength(6025)
                         .HasColumnType("nvarchar(max)")
                         .HasComment("Plain text description of the workout of the day");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)")
+                        .HasMaxLength(18)
+                        .HasColumnType("nvarchar(18)")
                         .HasComment("Name of the workout of the day - will contain part of the WorkoutDate");
 
                     b.Property<DateTime>("WorkoutDate")
@@ -756,26 +756,26 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = 1,
-                            DescriptionHTML = "<p><strong>Triple Deuce</strong></p><p>As many rounds and reps as possible in 20 minutes of:<br>22 burpees<br>22 air squats<br>22 pull-ups<br>22 sandbag ground-to-over-the-shoulders<br>722-meter run</p>...",
-                            DescriptionPlain = "Triple Deuce\n\nAs many rounds and reps as possible in 20 minutes of:\n22 burpees\n22 air squats\n22 pull-ups\n22 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 40-lb sandbag\n♂ 60-lb sandbag\n\nPost rounds and reps to comments.\n\nArmy Sgt. 1st Class Jamie Nicholas...",
-                            Name = "Friday/250704",
-                            WorkoutDate = new DateTime(2025, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DescriptionHTML = "<p>For time:<br>\n21 GHD sit-ups<br>\n7 rope climbs to 15 feet<br>\n21 GHD sit-ups<br>\n21-meter double-kettlebell front-rack walking lunge<br>\n15 GHD sit-ups<br>\n5 rope climbs to 15 feet<br>\n15 GHD sit-ups<br>\n15-meter double-kettlebell front-rack walking lunge<br>\n9 GHD sit-ups<br>\n3 rope climbs to 15 feet<br>\n9 GHD sit-ups<br>\n9-meter double-kettlebell front-rack walking lunge</p>\n\n<p>♀ 35-lb kettlebells<br>\n♂ 53-lb kettlebells</p>\n\n<p>Post time to comments.</p>\n\n<p><strong>Stimulus and Strategy:</strong><br>\nExpect this conditioning workout to challenge the trunk and legs, as well as the skill of the rope climb. The GHD sit-up volume is reasonable, but expect this movement to increase the difficulty of the knee raise component of the rope climbs, as well as the core demands of the kettlebell front-rack walking lunges. The load of the kettlebells is intended to be moderate, where the initial round can be completed unbroken or with one break.</p>\n\n<p><strong>Scaling:</strong><br>\nReduce the loading of the kettlebells. Reduce the reps of the GHD sit-ups and rope climbs.</p>\n\n<p>To reduce the complexity of the GHD sit-ups, reduce the range of motion. For the rope climbs, reduce the height of the climb. For the kettlebell front-rack lunges, perform the lunges with a single kettlebell or hold the two kettlebells in the farmers carry position.</p>\n\n<p>In case of injury or limitation, perform sit-ups or V-ups in place of the GHD sit-ups. For the rope climbs, perform pull-to-stands. For the kettlebell front-rack lunges, eliminate the loading or consider step-ups to a low box.</p>\n\n<p><strong>Intermediate option:</strong><br>\nFor time:<br>\n<strong>15</strong> GHD sit-ups<br>\n7 rope climbs to <strong>12</strong> feet<br>\n<strong>15</strong> GHD sit-ups<br>\n<strong>15</strong>-meter double-kettlebell front-rack walking lunge<br>\n<strong>12</strong> GHD sit-ups<br>\n5 rope climbs to <strong>12</strong> feet<br>\n<strong>12</strong> GHD sit-ups<br>\n<strong>12</strong>-meter double-kettlebell front-rack walking lunge<br>\n9 GHD sit-ups<br>\n3 rope climbs to <strong>12</strong> feet<br>\n9 GHD sit-ups<br>\n9-meter double-kettlebell front-rack walking lunge</p>\n\n<p>♀ <strong>26</strong>-lb kettlebells<br>\n♂ <strong>36</strong>-lb kettlebells</p>\n\n<p><strong>Beginner option:</strong><br>\nFor time:<br>\n<strong>15 AbMat</strong> sit-ups<br>\n<strong>5 pull-to-stands</strong><br>\n<strong>15 AbMat</strong> sit-ups<br>\n<strong>15</strong>-meter <strong>walking lunge</strong><br>\n<strong>12 AbMat</strong> sit-ups<br>\n<strong>4 pull-to-stands</strong><br>\n<strong>12 AbMat</strong> sit-ups<br>\n<strong>12</strong>-meter <strong>walking lunge</strong><br>\n9 <strong>AbMat</strong> sit-ups<br>\n3 <strong>pull-to-stands</strong><br>\n9 <strong>AbMat</strong> sit-ups<br>\n9-meter <strong>walking lunge</strong></p>\n\n<p><strong>Coaching cues:</strong><br>\nTreat the rope climb as a stand or squat after securing the wrap instead of pulling with the arms. In the warm-up, practice establishing a secure foot hook before standing up and reaching for the next pull. This will reduce the risk of unnecessary foot sliding as you are climbing.</p>\n",
+                            DescriptionPlain = "For time:\n21 GHD sit-ups\n7 rope climbs to 15 feet\n21 GHD sit-ups\n21-meter double-kettlebell front-rack walking lunge\n15 GHD sit-ups\n5 rope climbs to 15 feet\n15 GHD sit-ups\n15-meter double-kettlebell front-rack walking lunge\n9 GHD sit-ups\n3 rope climbs to 15 feet\n9 GHD sit-ups\n9-meter double-kettlebell front-rack walking lunge\n\n♀ 35-lb kettlebells\n♂ 53-lb kettlebells\n\nPost time to comments.\n\nStimulus and Strategy:\nExpect this conditioning workout to challenge the trunk and legs, as well as the skill of the rope climb. The GHD sit-up volume is reasonable, but expect this movement to increase the difficulty of the knee raise component of the rope climbs, as well as the core demands of the kettlebell front-rack walking lunges. The load of the kettlebells is intended to be moderate, where the initial round can be completed unbroken or with one break.\n\nScaling:\nReduce the loading of the kettlebells. Reduce the reps of the GHD sit-ups and rope climbs.\n\nTo reduce the complexity of the GHD sit-ups, reduce the range of motion. For the rope climbs, reduce the height of the climb. For the kettlebell front-rack lunges, perform the lunges with a single kettlebell or hold the two kettlebells in the farmers carry position.\n\nIn case of injury or limitation, perform sit-ups or V-ups in place of the GHD sit-ups. For the rope climbs, perform pull-to-stands. For the kettlebell front-rack lunges, eliminate the loading or consider step-ups to a low box.\n\nIntermediate option:\nFor time:\n15 GHD sit-ups\n7 rope climbs to 12 feet\n15 GHD sit-ups\n15-meter double-kettlebell front-rack walking lunge\n12 GHD sit-ups\n5 rope climbs to 12 feet\n12 GHD sit-ups\n12-meter double-kettlebell front-rack walking lunge\n9 GHD sit-ups\n3 rope climbs to 12 feet\n9 GHD sit-ups\n9-meter double-kettlebell front-rack walking lunge\n\n♀ 26-lb kettlebells\n♂ 36-lb kettlebells\n\nBeginner option:\nFor time:\n15 AbMat sit-ups\n5 pull-to-stands\n15 AbMat sit-ups\n15-meter walking lunge\n12 AbMat sit-ups\n4 pull-to-stands\n12 AbMat sit-ups\n12-meter walking lunge\n9 AbMat sit-ups\n3 pull-to-stands\n9 AbMat sit-ups\n9-meter walking lunge\n\nCoaching cues:\nTreat the rope climb as a stand or squat after securing the wrap instead of pulling with the arms. In the warm-up, practice establishing a secure foot hook before standing up and reaching for the next pull. This will reduce the risk of unnecessary foot sliding as you are climbing.\n",
+                            Name = "Tuesday/250702",
+                            WorkoutDate = new DateTime(2025, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
-                            DescriptionHTML = "<p>5 rounds, each for time, of:<br>500-meter row</p><p>Rest 3 minutes between efforts.</p><p>Post times to the comments.</p>...",
-                            DescriptionPlain = "5 rounds, each for time, of:\n500-meter row\n\nRest 3 minutes between efforts.\n\nPost times to the comments.\n\nStimulus and Strategy:\nToday’s workout consists of 5 all-out sprints on the rower...",
-                            Name = "Saturday/250705",
-                            WorkoutDate = new DateTime(2025, 7, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DescriptionHTML = "<p><strong>Part 1</strong><br>\nIn 10 minutes:<br>\nEstablish a 2-rep-max shoulder press</p>\n\n<p>3 minutes rest</p>\n\n<p><strong>Part 2</strong><br>\nAs many calories as possible in 10 minutes of:<br>\nEcho bike</p>\n\n<p>Post to comments:<br>\n1. Max weight lifted on the shoulder press in pounds<br>\n2. Total calories completed on the bike<br>\n3. Total weight + calories</p>\n\n<p><strong>Stimulus and Strategy:</strong><br>\nThis two-part workout will test upper-body pressing strength, as well as general conditioning. Start at a light load in the shoulder press and build up quickly to establish a 2-rep max for the day with sound mechanics. New athletes can focus on mechanics and keep the loads sub-maximal. Ten minutes on the bike will feel like a LONG TIME where you are at your threshold for a large portion of the workout. Set a goal cadence to maintain and treat the last minute as a final sprint to the finish.</p>\n\n<p><strong>Scaling:</strong><br>\nReduce the time on the Echo bike in Part 2.</p>\n\n<p>To reduce the complexity of the shoulder presses, consider using a pair of dumbbells. This will eliminate the need to navigate the head and reduce the complexity of the rack position.</p>\n\n<p>In case of injury or limitation, perform bench presses or floor presses in place of the shoulder presses. If necessary, consider single-dumbbell shoulder presses. For the max calories in Part 2, use any machine available.</p>\n\n<p><strong>Intermediate option:</strong><br>\nSame as Rx’d.</p>\n\n<p><strong>Beginner option:</strong><br>\nSame as Rx’d.</p>\n\n<p><strong>Coaching cues:</strong><br>\nKeep your abdominals, glutes, and quadriceps tight throughout the shoulder press to reduce issues of overextending the trunk.</p>",
+                            DescriptionPlain = "Part 1\nIn 10 minutes:\nEstablish a 2-rep-max shoulder press\n\n3 minutes rest\n\nPart 2\nAs many calories as possible in 10 minutes of:\nEcho bike\n\nPost to comments:\n1. Max weight lifted on the shoulder press in pounds\n2. Total calories completed on the bike\n3. Total weight + calories\n\nStimulus and Strategy:\nThis two-part workout will test upper-body pressing strength, as well as general conditioning. Start at a light load in the shoulder press and build up quickly to establish a 2-rep max for the day with sound mechanics. New athletes can focus on mechanics and keep the loads sub-maximal. Ten minutes on the bike will feel like a LONG TIME where you are at your threshold for a large portion of the workout. Set a goal cadence to maintain and treat the last minute as a final sprint to the finish.\n\nScaling:\nReduce the time on the Echo bike in Part 2.\n\nTo reduce the complexity of the shoulder presses, consider using a pair of dumbbells. This will eliminate the need to navigate the head and reduce the complexity of the rack position.\n\nIn case of injury or limitation, perform bench presses or floor presses in place of the shoulder presses. If necessary, consider single-dumbbell shoulder presses. For the max calories in Part 2, use any machine available.\n\nIntermediate option:\nSame as Rx’d.\n\nBeginner option:\nSame as Rx’d.\n\nCoaching cues:\nKeep your abdominals, glutes, and quadriceps tight throughout the shoulder press to reduce issues of overextending the trunk.",
+                            Name = "Wednesday/250703",
+                            WorkoutDate = new DateTime(2025, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 3,
-                            DescriptionHTML = "<p><strong>Rest Day</strong></p><p><a href=\"https://youtu.be/aqHQ6hpiXdk\">Why We Plateau and How to Overcome It</a></p>...",
-                            DescriptionPlain = "Rest Day\n\nWhy We Plateau and How to Overcome It\n\nJoin CrossFit coaches Eric O'Connor and Pat Barber as they break down the real reasons athletes hit plateaus and the proven strategies to push past them...",
-                            Name = "Sunday/250706",
-                            WorkoutDate = new DateTime(2025, 7, 6, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            DescriptionHTML = "<p><strong>Triple Deuce</strong></p><p>As many rounds and reps as possible in 20 minutes of:<br>22 burpees<br>22 air squats<br>22 pull-ups<br>22 sandbag ground-to-over-the-shoulders<br>722-meter run</p><p>♀ 40-lb sandbag<br>♂ 60-lb sandbag</p><p>Post rounds and reps to comments.</p><p>Army Sgt. 1st Class Jamie Nicholas, Army Sgt. 1st Class Gary Vasquez, and Army Capt. Richard Cliff, Jr., assigned to the 1st Battalion, 7th Special Forces Group in Fort Bragg, North Carolina, died Sept. 29, 2008, in Yakhchal, Afghanistan, from wounds sustained when their vehicle encountered an improvised explosive device during mounted operations.</p><p><strong>Stimulus and Strategy:</strong><br>This Hero workout will test cardiorespiratory endurance and stamina, where completing 3 or more rounds is a general guideline to follow. Since this is a Hero workout, feel free to attempt it as prescribed, even if 3 rounds may not be within reach. The air squats can be performed quickly, while the burpees and pull-ups may need some pacing to be able to complete them at a consistent pace. The sandbag is intended to be light so 22 reps can be completed with minimal rest between each.</p><p><strong>Scaling:</strong><br>Reduce the loading of the sandbag. Reduce the reps of the movements. Reduce the distance of the run.</p><p>To reduce the complexity of the burpees, perform up-downs. For the pull-ups, consider performing jumping pull-ups or ring rows. For the sandbag ground-to-over-the-shoulders, perform dumbbell power cleans, hang power cleans, or even light medicine-ball cleans over the shoulder</p><p>In case of injury or limitation, perform a 1,750/2,500-meter Echo bike or 800/1,000-meter row in place of the 722-meter run. For the air squats, consider squatting to a target that allows for a pain-free range of motion.</p><p><strong>Intermediate option:</strong><br>As many rounds and reps as possible in 20 minutes of:<br><strong>15</strong> burpees<br><strong>15</strong> air squats<br><strong>15 jumping</strong> pull-ups<br><strong>15</strong> sandbag ground-to-over-the-shoulders<br>722-meter run</p><p>♀ <strong>30</strong>-lb sandbag<br>♂ <strong>45</strong>-lb sandbag</p><p><strong>Beginner option:</strong><br>As many rounds and reps as possible in <strong>15</strong> minutes of:<br><strong>12</strong> burpees<br><strong>12</strong> air squats<br><strong>12 ring rows</strong><br><strong>12</strong> sandbag ground-to-over-the-shoulders<br><strong>400</strong>-meter run</p><p>♀ <strong>20</strong>-lb sandbag<br>♂ <strong>30</strong>-lb sandbag</p><p><strong>Coaching cues:</strong><br>Focus on using your hips and legs to launch the sandbag over your shoulders instead of solely pulling with your arms.</p>",
+                            DescriptionPlain = "Triple Deuce\n\nAs many rounds and reps as possible in 20 minutes of:\n22 burpees\n22 air squats\n22 pull-ups\n22 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 40-lb sandbag\n♂ 60-lb sandbag\n\nPost rounds and reps to comments.\n\nArmy Sgt. 1st Class Jamie Nicholas, Army Sgt. 1st Class Gary Vasquez, and Army Capt. Richard Cliff, Jr., assigned to the 1st Battalion, 7th Special Forces Group in Fort Bragg, North Carolina, died Sept. 29, 2008, in Yakhchal, Afghanistan, from wounds sustained when their vehicle encountered an improvised explosive device during mounted operations.\n\nStimulus and Strategy:\nThis Hero workout will test cardiorespiratory endurance and stamina, where completing 3 or more rounds is a general guideline to follow. Since this is a Hero workout, feel free to attempt it as prescribed, even if 3 rounds may not be within reach. The air squats can be performed quickly, while the burpees and pull-ups may need some pacing to be able to complete them at a consistent pace. The sandbag is intended to be light so 22 reps can be completed with minimal rest between each.\n\nScaling:\nReduce the loading of the sandbag. Reduce the reps of the movements. Reduce the distance of the run.\n\nTo reduce the complexity of the burpees, perform up-downs. For the pull-ups, consider performing jumping pull-ups or ring rows. For the sandbag ground-to-over-the-shoulders, perform dumbbell power cleans, hang power cleans, or even light medicine-ball cleans over the shoulder\n\nIn case of injury or limitation, perform a 1,750/2,500-meter Echo bike or 800/1,000-meter row in place of the 722-meter run. For the air squats, consider squatting to a target that allows for a pain-free range of motion.\n\nIntermediate option:\nAs many rounds and reps as possible in 20 minutes of:\n15 burpees\n15 air squats\n15 jumping pull-ups\n15 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 30-lb sandbag\n♂ 45-lb sandbag\n\nBeginner option:\nAs many rounds and reps as possible in 15 minutes of:\n12 burpees\n12 air squats\n12 ring rows\n12 sandbag ground-to-over-the-shoulders\n400-meter run\n\n♀ 20-lb sandbag\n♂ 30-lb sandbag\n\nCoaching cues:\nFocus on using your hips and legs to launch the sandbag over your shoulders instead of solely pulling with your arms.",
+                            Name = "Friday/250704",
+                            WorkoutDate = new DateTime(2025, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -13948,7 +13948,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0001"),
                             Description = "Brown hoodie for CrossFit training.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitHoodie01.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitHoodie01.jpg",
                             IsDeleted = false,
                             Price = 49.99m,
                             ProductCategory = 0,
@@ -13959,7 +13959,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0002"),
                             Description = "Black hoodie for CrossFit sessions.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitHoodie02.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitHoodie02.jpg",
                             IsDeleted = false,
                             Price = 52.99m,
                             ProductCategory = 0,
@@ -13970,7 +13970,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0003"),
                             Description = "Black t-shirt, CrossFit edition.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitShirt01.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitShirt01.jpg",
                             IsDeleted = false,
                             Price = 24.99m,
                             ProductCategory = 0,
@@ -13981,7 +13981,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0004"),
                             Description = "Dark green CrossFit t-shirt.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitShirt02.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitShirt02.jpg",
                             IsDeleted = false,
                             Price = 24.99m,
                             ProductCategory = 0,
@@ -13992,7 +13992,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0005"),
                             Description = "Pink CrossFit t-shirt for women.",
-                            ImageUrl = "images/Store/Eqiupment/crossfitShirt03.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/crossfitShirt03.jpg",
                             IsDeleted = false,
                             Price = 24.99m,
                             ProductCategory = 0,
@@ -14003,7 +14003,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0006"),
                             Description = "Recovery muscle roller for athletes.",
-                            ImageUrl = "images/Store/Eqiupment/muscleRoller.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/muscleRoller.jpg",
                             IsDeleted = false,
                             Price = 29.99m,
                             ProductCategory = 0,
@@ -14014,7 +14014,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0007"),
                             Description = "Shaker bottle with Spider-Man face.",
-                            ImageUrl = "images/Store/Eqiupment/shaker01.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/shaker01.jpg",
                             IsDeleted = false,
                             Price = 14.99m,
                             ProductCategory = 0,
@@ -14025,7 +14025,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0008"),
                             Description = "Shaker bottle with Captain America shield.",
-                            ImageUrl = "images/Store/Eqiupment/shaker02.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/shaker02.jpg",
                             IsDeleted = false,
                             Price = 14.99m,
                             ProductCategory = 0,
@@ -14036,7 +14036,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0009"),
                             Description = "Sturdy wrist wraps for weightlifting.",
-                            ImageUrl = "images/Store/Eqiupment/wristWraps.jpg",
+                            ImageUrl = "/images/Store/Eqiupment/wristWraps.jpg",
                             IsDeleted = false,
                             Price = 9.99m,
                             ProductCategory = 0,
@@ -14047,7 +14047,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0010"),
                             Description = "BCAA supplement for muscle recovery - 0.500 grams, mango flavor.",
-                            ImageUrl = "images/Store/Nutrition/bcaa.jpg",
+                            ImageUrl = "/images/Store/Nutrition/bcaa.jpg",
                             IsDeleted = false,
                             Price = 14.99m,
                             ProductCategory = 1,
@@ -14058,7 +14058,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0011"),
                             Description = "Creatine monohydrate powder - 0.500grams, unflavour.",
-                            ImageUrl = "images/Store/Nutrition/creatine.jpg",
+                            ImageUrl = "/images/Store/Nutrition/creatine.jpg",
                             IsDeleted = false,
                             Price = 29.99m,
                             ProductCategory = 1,
@@ -14069,7 +14069,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0012"),
                             Description = "Multivitamin tablets for daily wellness - 240 tabblets.",
-                            ImageUrl = "images/Store/Nutrition/multivatamins.jpg",
+                            ImageUrl = "/images/Store/Nutrition/multivatamins.jpg",
                             IsDeleted = false,
                             Price = 19.99m,
                             ProductCategory = 1,
@@ -14080,7 +14080,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0013"),
                             Description = "Pre-workout supplement for energy and focus - 0.400 grams, cola flavor.",
-                            ImageUrl = "images/Store/Nutrition/preworkout.jpg",
+                            ImageUrl = "/images/Store/Nutrition/preworkout.jpg",
                             IsDeleted = false,
                             Price = 32.99m,
                             ProductCategory = 1,
@@ -14091,7 +14091,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0014"),
                             Description = "Omega-3 softgels for heart and joint support - 250 soft gel tables.",
-                            ImageUrl = "images/Store/Nutrition/omega.jpg",
+                            ImageUrl = "/images/Store/Nutrition/omega.jpg",
                             IsDeleted = false,
                             Price = 22.99m,
                             ProductCategory = 1,
@@ -14102,7 +14102,7 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0015"),
                             Description = "Whey protein powder for muscle growth - 1 kg, chocolate flavor.",
-                            ImageUrl = "images/Store/Nutrition/wheyProtein.jpg",
+                            ImageUrl = "/images/Store/Nutrition/wheyProtein.jpg",
                             IsDeleted = false,
                             Price = 49.99m,
                             ProductCategory = 1,
@@ -14173,6 +14173,103 @@ namespace SCV.Data.Migrations
                     b.ToTable("Trainers", t =>
                         {
                             t.HasComment("Represents a personal trainer in the web application. Can be a fitness, crossfit or powerlifting trainer/coach.");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("948af76c-23f3-4487-a245-c011e58a73db"),
+                            Bio = "Certified fitness instructor and personal coach with a focus on fat loss and cardio endurance.",
+                            Email = "viktor.nachev@sportvictory.bg",
+                            FirstName = "Viktor",
+                            ImageUrl = "/images/Trainers/Fitness/viktorNachev.jpg",
+                            IsDeleted = false,
+                            LastName = "Nachev",
+                            TrainerSpecialty = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("e2a0a45f-bbe7-468e-b697-17dbcd793c79"),
+                            Bio = "Creative Fitness coach with a love for community building and mental resilience.",
+                            Email = "sofia.zlateva@sportvictory.bg",
+                            FirstName = "Sofia",
+                            ImageUrl = "/images/Trainers/Fitness/sofiaZlateva.jpg",
+                            IsDeleted = false,
+                            LastName = "Zlateva",
+                            PhoneNumber = "+359888765432",
+                            TrainerSpecialty = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("d270b6ba-60d3-4aee-8ebf-1f2591ebe17b"),
+                            Bio = "Enthusiastic trainer offering tailored programs for male and female fitness and weight training.",
+                            Email = "desislav.iliev@sportvictory.bg",
+                            FirstName = "Desislav",
+                            ImageUrl = "/images/Trainers/Fitness/desislavIliev.jpg",
+                            IsDeleted = false,
+                            LastName = "Iliev",
+                            PhoneNumber = "+359883456789",
+                            TrainerSpecialty = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("b59e1fd1-f514-4f18-93f0-1d8b7992ce41"),
+                            Bio = "Certified CrossFit Level 2 coach with 7 years of experience in functional training.",
+                            Email = "ivan.dimitrov@svc.bg",
+                            FirstName = "Ivan",
+                            ImageUrl = "/images/Trainers/Crossfit/ivanDimitrov.jpg",
+                            IsDeleted = false,
+                            LastName = "Dimitrov",
+                            PhoneNumber = "+359888123456",
+                            TrainerSpecialty = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("ec83a001-55df-45e5-b8c4-91f4d76f9fd0"),
+                            Bio = "CrossFit expert with over 10 years of personal training experience.",
+                            Email = "maya.ivanova@svc.bg",
+                            FirstName = "Maya",
+                            ImageUrl = "/images/Trainers/Crossfit/mayaIvanova.jpg",
+                            IsDeleted = false,
+                            LastName = "Ivanova",
+                            PhoneNumber = "+359885987654",
+                            TrainerSpecialty = 1
+                        },
+                        new
+                        {
+                            Id = new Guid("1ee19866-6828-412c-80f7-4572630f2a89"),
+                            Bio = "Focused on mobility, recovery, and competitive CrossFit coaching.",
+                            Email = "georgi.kolev@sportvictory.bg",
+                            FirstName = "Georgi",
+                            ImageUrl = "/images/Trainers/Crossfit/georgiKolev.jpg",
+                            IsDeleted = false,
+                            LastName = "Kolev",
+                            PhoneNumber = "+359886998877",
+                            TrainerSpecialty = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("59015526-c85d-41f8-9550-e8822a1ee4b4"),
+                            Bio = "Female powerlifting coach with a passion for strength training and mental toughness.",
+                            Email = "kristina.dimitrova@sportvictory.bg",
+                            FirstName = "Kristina",
+                            ImageUrl = "/images/Trainers/Powerlifting/kristinaDimitrova.jpg",
+                            IsDeleted = false,
+                            LastName = "Dimitrova",
+                            PhoneNumber = "+359889332211",
+                            TrainerSpecialty = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("0920b615-dd7d-46f5-b238-3ba891569b44"),
+                            Bio = "Advanced strength trainer focused on Olympic lifts and powerlifting competition prep.",
+                            Email = "stefan.todorov@sportvictory.bg",
+                            FirstName = "Stefan",
+                            ImageUrl = "/images/Trainers/Powerlifting/stefanTodorov.jpg",
+                            IsDeleted = false,
+                            LastName = "Todorov",
+                            PhoneNumber = "+359887123321",
+                            TrainerSpecialty = 0
                         });
                 });
 

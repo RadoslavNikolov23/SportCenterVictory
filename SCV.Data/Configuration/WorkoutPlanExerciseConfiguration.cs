@@ -24,7 +24,6 @@
             entity
                 .HasQueryFilter(wpe => wpe.WorkoutPlan.IsDeleted == false);
 
-            //----! Seed after the WorkoutPlan and Exercise entities are configured !----
 
             entity.HasData(SeedFromJson<WorkoutPlanExercise>(Path.Combine("..", "SCV.Data", "SeedFiles", "WorkoutPlanExercises", "workoutPlanExerciseSeed.json")));
         }
