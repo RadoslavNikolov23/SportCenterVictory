@@ -1,12 +1,14 @@
 ﻿namespace SportCenterVictory.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SCV.GlCommon;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.CrossfitVM;
 
-    public class CrossFitController : Controller
+    public class CrossFitController : BaseController
     {
         private readonly IMembershipService membershipService;
         private readonly ITrainerService trainerService;
@@ -24,6 +26,7 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult CrossFitArena()
         {
             return View();
@@ -35,14 +38,27 @@
             IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
                                                 .GetAllMembershipPerSportAsync(SportType.CrossFit);
 
+            if (membershipsVM == null || !membershipsVM.Any())
+            {
+                return NotFoundWithMessage(string.Format(ErrorMessages.MembershipsNotFound, "CrossFit"));
+
+            }
+
             return View(membershipsVM);
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CrossFitCoaches()
         {
             IEnumerable<TrainerDetailViewModel> trainerViewModels = await this.trainerService
                                         .GetAllTrainerBySpecialtiesAsync(SportType.CrossFit);
+
+            if (trainerViewModels == null || !trainerViewModels.Any())
+            {
+                return NotFoundWithMessage(string.Format(ErrorMessages.TrainersNotFound, "CrossFit"));
+
+            }
 
             foreach (TrainerDetailViewModel trainer in trainerViewModels)
             {
@@ -55,46 +71,54 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CrossFitEvents()
         {
             IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
                                     .GetAllEventByEventTypeAsync(SportType.CrossFit);
+
+            if (eventViewModels == null || !eventViewModels.Any())
+            {
+                return NotFoundWithMessage(string.Format(ErrorMessages.EventsNotFound, "CrossFit"));
+            }
 
             return View(eventViewModels);
 
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CrossFitClasses()
         {
-            //TODO: Make a View!!!
-
             IEnumerable<CrossfitClassDetailViewModel> crossfitClassDetailVM = await this.crossfitClassService
                                     .GetAllCrossfitClassesAsync();
+
+            if(crossfitClassDetailVM == null || !crossfitClassDetailVM.Any())
+            {
+                return NotFoundWithMessage(ErrorMessages.CrossfitClassesNotFound);
+            }
 
             return View(crossfitClassDetailVM);
 
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CrossFitWOD()
         {
-            //TODO: Make a View!!!
-
             CrossfitWODViewModel? crossfitWODViewModel = await this.crossfitWODService
                                         .GetLatestCrossfitWODAsync();
 
-            if(crossfitWODViewModel == null)
+            if (crossfitWODViewModel == null)
             {
-                //TODO: Redirect this to a error page
-               return NotFound();
+                return NotFoundWithMessage(ErrorMessages.CrossfitWODNotFound);
             }
 
             return View(crossfitWODViewModel);
 
         }
 
-        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CrossFitWODList()
         {
             IEnumerable<CrossfitWODViewModel> allCrossfitWODViewModels = await this.crossfitWODService
@@ -103,12 +127,12 @@
             return Json(allCrossfitWODViewModels);
         }
 
-        [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> CrossFitWODById(int id)
         {
             CrossfitWODViewModel? crossfitWODViewModel = await this.crossfitWODService
                                 .GetCrossfitWODByIdAsync(id);
-            if(crossfitWODViewModel == null)
+            if (crossfitWODViewModel == null)
             {
                 return NotFound();
             }

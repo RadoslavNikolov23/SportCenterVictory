@@ -2,7 +2,7 @@
 @model IEnumerable<UserFeedbackDetailViewModel>
 
 
-<!-- banner section start -->
+<!-- Banner section start -->
 <div class="banner_section layout_padding">
     <div class="container">
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" data-interval="3000">
@@ -37,7 +37,7 @@
 
                             </div>
                         </div>
-                    </div> 
+                    </div>
                 </div>
                 <div class="carousel-item">
                     <div class="row">
@@ -56,9 +56,8 @@
         </div>
     </div>
 </div>
-<!-- banner section end -->
 
-<!-- about section start -->
+<!-- About section start -->
 <div class="container py-5 d-flex justify-content-center">
     <div class="bg-white rounded-4 shadow-lg p-5 text-center">
         <h1 class="display-5 fw-bold text-success mb-3">
@@ -72,9 +71,8 @@
         </a>
     </div>
 </div>
-<!-- about section end -->
 
-<!-- games section start -->
+<!-- Membership section start -->
 <div class="games_section">
     <div class="container">
         <div class="row">
@@ -108,13 +106,13 @@
                     <h3 class="basketball_text">Powerlifting</h3>
                     <p class="lorem_text">Lift Heavy. Live Strong. Our Powerlifting Zone is built for strength athletes. From squats to deadlifts, train with precision under the guidance of expert coaches and hit your next PR.</p>
                     <div class="readmore_bt"><a asp-controller="Powerlifting" asp-action="PowerliftingMembership">Memberships</a></div>
-                
+
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- games section end -->
+
 <!-- blog section start -->
 @* <div class="blog_section layout_padding">
     <div class="container">
@@ -145,179 +143,64 @@
 </div> *@
 <!-- blog section end -->
 
-<!-- client section start -->
-
-<div class="client_section layout_padding pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="client_taital">What Do Some of Your Clients Say</h1>
+<!-- User feedback slider start -->
+@if (Model != null && Model.Any())
+{
+    <div class="client_section layout_padding pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="client_taital">What Do Some of Your Clients Say</h1>
+                </div>
             </div>
-        </div>
 
-        <div id="main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                @for (int i = 0; i < Model.Count(); i++)
-                {
-                    var feedback = Model.ElementAt(i);
-                    <div class="carousel-item @(i == 0 ? "active" : "")">
-                        <div class="customer_section_2">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="box_main">
-                                            <div class="customer_main">
-                                                <div class="customer_left">
-                                                    <div class="customer_img">
-                                                        <img src="@feedback.ImageUrl"/>
+            <div id="main_slider" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner">
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var feedback = Model.ElementAt(i);
+                        <div class="carousel-item @(i == 0 ? "active" : "")">
+                            <div class="customer_section_2">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="box_main">
+                                                <div class="customer_main">
+                                                    <div class="customer_left">
+                                                        <div class="customer_img">
+                                                            <img src="@feedback.ImageUrl" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="customer_right">
+                                                        <h3 class="customer_name">@feedback.UserName</h3>
+                                                        <p class="enim_text">@feedback.Feedback</p>
+                                                        <div class="quick_icon">
+                                                            <img src="~/images/quick-icon.png" style="max-height: 30px;" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="customer_right">
-                                                    <h3 class="customer_name">@feedback.UserName</h3>
-                                                    <p class="enim_text">@feedback.Feedback</p>
-                                                    <div class="quick_icon">
-                                                        <img src="~/images/quick-icon.png" style="max-height: 30px;" />
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
-            </div>
-
-            <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        </div>
-    </div>
-</div>
-
-
-
-@* <div class="client_section layout_padding pb-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <h1 class="client_taital">What Do Some of Your Clients Say</h1>
-            </div>
-        </div>
-        <div id="main_slider" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="customer_section_2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="box_main">
-                                        <div class="customer_main">
-                                            <div class="customer_left">
-                                                <div class="customer_img"><img src="~/images/Users/ivanPetrov.jpg"></div>
-                                            </div>
-                                            <div class="customer_right">
-                                                <h3 class="customer_name">Ivan Petrov</h3>
-                                                <p class="enim_text">I really enjoy the new powerlifting area. More squat racks would be a great addition! </p>
-                                                <div class="quick_icon"><img src="~/images/quick-icon.png" style="max-height: 30px"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    }
                 </div>
-                <div class="carousel-item">
-                    <div class="customer_section_2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="box_main">
-                                        <div class="customer_main">
-                                            <div class="customer_left">
-                                                <div class="customer_img"><img src="~/images/Users/mariaStefanova.jpg"></div>
-                                            </div>
-                                            <div class="customer_right">
-                                                <h3 class="customer_name">Maria Stefanova</h3>
-                                                <p class="enim_text">Excellent gym with a motivating atmosphere. Love the group workouts and the clean facilities.</p>
-                                                <div class="quick_icon"><img src="~/images/quick-icon.png" style="max-height: 30px"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="customer_section_2">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="box_main">
-                                        <div class="customer_main">
-                                            <div class="customer_left">
-                                                <div class="customer_img"><img src="~/images/Users/victoriaDimitrova.jpg"></div>
-                                            </div>
-                                            <div class="customer_right">
-                                                <h3 class="customer_name">Victoria Dimitrova</h3>
-                                                <p class="enim_text">The trainers are amazing and the CrossFit classes push me beyond my limits. Great vibe overall! </p>
-                                                <div class="quick_icon"><img src="~/images/quick-icon.png" style="max-height: 30px"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
-                <i class="fa fa-angle-left"></i>
-            </a>
-            <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        </div>
-    </div>
-</div> *@
 
-
-
-
-
-
-
-
-
-
-<!-- client section end -->
-<!-- contact section start -->
-@* <div class="contact_section layout_padding">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mail_section_1">
-                    <h1 class="contact_taital">Get In Touch</h1>
-                    <div class="form">
-                        <input type="text" class="mail_text" placeholder="Name" name="Name">
-                        <input type="text" class="mail_text" placeholder="Email" name="Email">
-                        <input type="text" class="mail_text" placeholder="Phone Number" name="Phone Number">
-                        <textarea class="massage-bt" placeholder="Massage" rows="5" id="comment" name="Massage"></textarea>
-                        <div class="send_bt"><a href="#">Send</a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 padding_right_0">
-                <div class="contact_img"><img src="~/images/Main/getInTouch.jpg"></div>
+                <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+                    <i class="fa fa-angle-right"></i>
+                </a>
             </div>
         </div>
     </div>
-</div> *@
-<!-- contact section end -->
-
+}
+else
+{
+    <div class="alert alert-info mt-5 text-center">
+        No client feedbacks available at the moment.
+    </div>
+}

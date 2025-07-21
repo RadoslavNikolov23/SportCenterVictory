@@ -1,4 +1,6 @@
-﻿@{
+﻿@model string
+
+@{
     ViewData["Title"] = "Page Not Found";
     Layout = "_Layout";
 }
@@ -43,9 +45,21 @@
 
 <div class="error-page layout_padding">
     <div class="error-code">404</div>
-    <div class="error-message pb-5">
-        Oops! The page you are looking for doesn't exist or has been moved.<br />
-        Please check the URL or return to the homepage.
-    </div>
+
+    @if (!string.IsNullOrEmpty(Model))
+    {
+        <div class="error-message pb-5">
+            @Model
+        </div>
+      
+    }
+    else
+    {
+        <div class="error-message pb-5">
+            Oops! The page you are looking for doesn't exist or has been moved.<br />
+            Please check the URL or return to the homepage.
+        </div>
+    }
+
     <a asp-controller="Home" asp-action="Index" class="back-btn mt-5">🏠 Back to Home</a>
 </div>

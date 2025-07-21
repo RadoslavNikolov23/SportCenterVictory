@@ -65,21 +65,30 @@
 
 </style>
 
-
-<div class="row text-center layout_padding">
-    <h1 class="about_taital text-center">Exercise Library</h1>
-    <input type="text" id="search" placeholder="Search exercises..." class="form-control mb-3" />
-
-    <!-- Exercises container -->
-    <div class="row mb-4" id="exercise-list">
-        @await Html.PartialAsync("_ExercisePartial", Model)
+@if (!Model.Any())
+{
+    <div class="alert alert-info text-center">
+        @ViewBag.Message ?? "No exercises available on this page."
     </div>
+}
+else
+{
+    <div class="row text-center layout_padding">
+        <h1 class="about_taital text-center">Exercise Library</h1>
+        <input type="text" id="search" placeholder="Search exercises..." class="form-control mb-3" />
 
-    <!-- Load More button placed outside the row to avoid layout break -->
-    <div class="about_taital text-center mt-1 pt-2">
-        <button id="load-more-btn" class="btn btn-primary" style="width: 250px; height: 50px;">Load More</button>
+        <!-- Exercises container -->
+        <div class="row mb-4" id="exercise-list">
+            @await Html.PartialAsync("_ExercisePartial", Model)
+        </div>
+
+        <!-- Load More button placed outside the row to avoid layout break -->
+        <div class="about_taital text-center mt-1 pt-2">
+            <button id="load-more-btn" class="btn btn-primary" style="width: 250px; height: 50px;">Load More</button>
+        </div>
     </div>
-</div>
+}
+
 
 
 @section Scripts {

@@ -1,12 +1,14 @@
 ﻿namespace SportCenterVictory.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
+    using SCV.GlCommon;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
     using SVC.Web.ViewModels.StoreVM;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
 
-    public class StoreController : Controller
+    public class StoreController : BaseController
     {
         private readonly IProductService productService;
         private readonly IMembershipService membershipService;
@@ -19,18 +21,22 @@
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Index()
         {
-            //TODO make a View
             return View();
         }
 
         [HttpGet]
         public async Task<IActionResult> Equipment()
         {
-            //TODO make a View
             IEnumerable<StoreProductViewModel> productEquipmentViewModels = await this.productService
                                                 .GetAllProductsByProductCategoryAsync(ProductCategory.Equipment);
+
+            if (productEquipmentViewModels == null || !productEquipmentViewModels.Any())
+            {
+                return NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "equipment products"));
+            }
 
             return View(productEquipmentViewModels);
 
@@ -39,9 +45,14 @@
         [HttpGet]
         public async Task<IActionResult> Nutrition()
         {
-            //TODO make a View
             IEnumerable<StoreProductViewModel> productNutritionViewModels = await this.productService
                                                 .GetAllProductsByProductCategoryAsync(ProductCategory.Nutrition);
+
+            if (productNutritionViewModels == null || !productNutritionViewModels.Any())
+            {
+                return NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "nutrition products"));
+
+            }
 
             return View(productNutritionViewModels);
 
@@ -50,9 +61,14 @@
         [HttpGet]
         public async Task<IActionResult> Memberships()
         {
-            //TODO make a View
             IEnumerable<MembershipDetailViewModel> allMembershipsViewModels = await this.membershipService
                                                         .GetAllMembershipAsync();
+
+            if (allMembershipsViewModels == null || !allMembershipsViewModels.Any())
+            {
+                return NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "memberships"));
+
+            }
 
             return View(allMembershipsViewModels);
 

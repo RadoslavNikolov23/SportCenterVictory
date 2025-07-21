@@ -1,13 +1,13 @@
 namespace SportCenterVictory
 {
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
     using SCV.Data;
     using SCV.Data.Models;
     using SCV.Data.Repository;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core;
     using SCV.Services.Core.Contracts;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
 
     public class Program
     {
@@ -15,32 +15,31 @@ namespace SportCenterVictory
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
             string connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
                 ?? 
                 throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 
             builder.Services
-                .AddDbContext<SportCenterDbContext>(options=>
-                    {
-                     options.UseSqlServer(connectionString);
+                    .AddDbContext<SportCenterDbContext>(options=>
+                        {
+                         options.UseSqlServer(connectionString);
 
-                    });
+                        });
 
             builder.Services
                     .AddDatabaseDeveloperPageExceptionFilter();
 
             builder.Services
-                .AddIdentity<ApplicationUser, ApplicationRole>(options =>
-                {
-                    options.SignIn.RequireConfirmedAccount = false;
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireLowercase = false;
-                })
-                .AddEntityFrameworkStores<SportCenterDbContext>()
-                .AddDefaultTokenProviders();
+                    .AddIdentity<ApplicationUser, ApplicationRole>(options =>
+                        {
+                            options.SignIn.RequireConfirmedAccount = false;
+                            options.Password.RequireDigit = false;
+                            options.Password.RequireNonAlphanumeric = false;
+                            options.Password.RequireUppercase = false;
+                            options.Password.RequireLowercase = false;
+                        })
+                    .AddEntityFrameworkStores<SportCenterDbContext>()
+                    .AddDefaultTokenProviders();
 
             builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
             builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
@@ -63,10 +62,19 @@ namespace SportCenterVictory
             builder.Services.AddScoped<IUserFeedbackService, UserFeedbackService>();
 
             builder.Services
-                        .AddControllersWithViews();
+                    .ConfigureApplicationCookie(options =>
+                        {
+                            options.LoginPath = "/Identity/Account/Login";
+                            options.AccessDeniedPath = "/Home/Error?statusCode=403";
+                            options.SlidingExpiration = true;
+                            options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                        });
 
             builder.Services
-                        .AddRazorPages();
+                     .AddControllersWithViews();
+
+            builder.Services
+                     .AddRazorPages();
 
             WebApplication app = builder.Build();
 
@@ -77,12 +85,12 @@ namespace SportCenterVictory
             }
             else
             {
-                app.UseExceptionHandler("/Home/HandleError");
+                app.UseExceptionHandler("/Home/Error?statusCode=500");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
-            app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
+            app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
