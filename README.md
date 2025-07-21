@@ -3,13 +3,13 @@
 This is a university project for managing a sports center (Fitness, CrossFit, Powerlifting), including user memberships, programs, store, and events.
 
 ## 📸 Screenshot (Main page)
-
-<img src="https://dl.dropboxusercontent.com/scl/fi/iuxb282v8781apljgrrxv/MainPage01.png?rlkey=lw2uxesdhbuhvv5vv7quwyw0u&st=0qow1wg3" width="750"/>
-<img src="https://dl.dropboxusercontent.com/scl/fi/zjdpr3stbckldxya48440/MainPaige02.png?rlkey=da66jaxm1eexsijudoyvqil0l&st=alqxyu7g" width="750"/>
-<img src="https://dl.dropboxusercontent.com/scl/fi/pr12kf07ersblnud0ai6v/MainPaige03.png?rlkey=9sgkmdrdt752e2ff924pyw35f&st=pgyx2j5r" width="750"/>
-<img src="https://dl.dropboxusercontent.com/scl/fi/y6j737mb8kd4z0ij92czv/MainPaige04.png?rlkey=8a614rw4m3q38ej5tbfvkovd6&st=63x1c5jq" width="750"/>
-<img src="https://dl.dropboxusercontent.com/scl/fi/4pv03oet9ryv1944mc3yn/MainPaige05.png?rlkey=n90njo6hfar8rjtnfmtwq395x&st=fko5aqt8" width="750"/>
-
+<div style="line-height: 0;">
+   <img src="https://dl.dropboxusercontent.com/scl/fi/iuxb282v8781apljgrrxv/MainPage01.png?rlkey=lw2uxesdhbuhvv5vv7quwyw0u&st=0qow1wg3" width="750"/>
+   <img src="https://dl.dropboxusercontent.com/scl/fi/zjdpr3stbckldxya48440/MainPaige02.png?rlkey=da66jaxm1eexsijudoyvqil0l&st=alqxyu7g" width="750"/>
+   <img src="https://dl.dropboxusercontent.com/scl/fi/pr12kf07ersblnud0ai6v/MainPaige03.png?rlkey=9sgkmdrdt752e2ff924pyw35f&st=pgyx2j5r" width="750"/>
+   <img src="https://dl.dropboxusercontent.com/scl/fi/y6j737mb8kd4z0ij92czv/MainPaige04.png?rlkey=8a614rw4m3q38ej5tbfvkovd6&st=63x1c5jq" width="750"/>
+   <img src="https://dl.dropboxusercontent.com/scl/fi/4pv03oet9ryv1944mc3yn/MainPaige05.png?rlkey=n90njo6hfar8rjtnfmtwq395x&st=fko5aqt8" width="750"/>
+</div>
 
 ## 🚀 How to Run
 
