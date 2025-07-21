@@ -2,11 +2,11 @@ namespace SportCenterVictory
 {
     using SCV.Data;
     using SCV.Data.Models;
-    using SCV.Data.Repository;
     using SCV.Data.Repository.Contracts;
-    using SCV.Services.Core;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.Infrastructure;
     using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
 
     public class Program
@@ -22,8 +22,7 @@ namespace SportCenterVictory
             builder.Services
                     .AddDbContext<SportCenterDbContext>(options=>
                         {
-                         options.UseSqlServer(connectionString);
-
+                            options.UseSqlServer(connectionString);
                         });
 
             builder.Services
@@ -41,25 +40,8 @@ namespace SportCenterVictory
                     .AddEntityFrameworkStores<SportCenterDbContext>()
                     .AddDefaultTokenProviders();
 
-            builder.Services.AddScoped<IExerciseRepository, ExerciseRepository>();
-            builder.Services.AddScoped<IMembershipRepository, MembershipRepository>();
-            builder.Services.AddScoped<ITrainerRepository, TrainerRepository>();
-            builder.Services.AddScoped<IEventRepository, EventRepository>();
-            builder.Services.AddScoped<IWorkoutPlanRepository, WorkoutPlanRepository>();
-            builder.Services.AddScoped<ICrossfitClassRepository, CrossfitClassRepository>();
-            builder.Services.AddScoped<ICrossfitWODRepository, CrossfitWODRepository>();
-            builder.Services.AddScoped<IProductRepository, ProductRepository>();
-            builder.Services.AddScoped<IUserFeedbackRepository, UserFeedbackRepository>();
-
-            builder.Services.AddScoped<IExerciseService, ExerciseService>();
-            builder.Services.AddScoped<IMembershipService, MembershipService>();
-            builder.Services.AddScoped<ITrainerService, TrainerService>();
-            builder.Services.AddScoped<IEventService, EventService>();
-            builder.Services.AddScoped<IWorkoutPlanService, WorkoutPlanService>();
-            builder.Services.AddScoped<ICrossfitClassService, CrossfitClassService>();
-            builder.Services.AddScoped<ICrossfitWODService, CrossfitWODService>();
-            builder.Services.AddScoped<IProductService, ProductService>();
-            builder.Services.AddScoped<IUserFeedbackService, UserFeedbackService>();
+            builder.Services.AddProjectRepositories(typeof(IExerciseRepository).Assembly);
+            builder.Services.AddProjectServices(typeof(IExerciseService).Assembly);
 
             builder.Services
                     .ConfigureApplicationCookie(options =>
@@ -71,7 +53,10 @@ namespace SportCenterVictory
                         });
 
             builder.Services
-                     .AddControllersWithViews();
+                     .AddControllersWithViews(options =>
+                        {
+                            options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                         });
 
             builder.Services
                      .AddRazorPages();

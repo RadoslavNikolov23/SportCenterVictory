@@ -21,6 +21,7 @@
     <ProjectReference Include="..\SCV.Data\SCV.Data.csproj" />
     <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
     <ProjectReference Include="..\SCV.Services.Core\SCV.Services.Core.csproj" />
+    <ProjectReference Include="..\SCV.Web.Infrastructure\SCV.Web.Infrastructure.csproj" />
     <ProjectReference Include="..\SCV.Web.ViewModels\SCV.Web.ViewModels.csproj" />
   </ItemGroup>
 
