@@ -1,6 +1,6 @@
 # Sport Center Victory (ASP.NET Core MVC Project)
 
-This is a university project for managing a sports center (Fitness, CrossFit, Powerlifting), including user memberships, programs, store, and events.
+This is a university project for managing a sports center (Fitness, CrossFit, Powerlifting), including user memberships, programs, store, and events. Still under development. Some of the features are not implemented.
 
 ## 📸 Screenshot (Main page)
 <div style="line-height: 0;">
@@ -58,7 +58,7 @@ This is a university project for managing a sports center (Fitness, CrossFit, Po
 
 ## 📦 Project Structure
 
-- `SportCenterVictory` – Main ASP.NET Core MVC app (UI, controllers, views)
+- `SportCenterVictory` – Main ASP.NET Core MVC app (UI, controllers, views, areas)
 - `SVC.Services` – Business logic and service interfaces
 - `SCV.Data` – Entity models, DbContext, seeding logic
 - `SCV.GlCommon` – Shared utilities
