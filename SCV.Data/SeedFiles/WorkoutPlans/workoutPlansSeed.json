@@ -1,16 +1,15 @@
 [
   {
     "Id": 1,
-    "Title": "Full Body Burn – Beginner Fitness",
-    "Description": "Day 1 – Upper Body\n- Push-Ups: 3 sets x 10 reps\n- Dumbbell Shoulder Press: 3 x 12\n- Bent Over Rows: 3 x 12\n- Plank: 3 x 30 sec\n\nDay 2 – Lower Body\n- Bodyweight Squats: 4 x 15\n- Glute Bridges: 3 x 20\n- Walking Lunges: 3 x 12 each leg\n- Standing Calf Raises: 3 x 20\n\nDay 3 – Core & Cardio\n- Russian Twists: 3 x 20\n- Bicycle Crunches: 3 x 15\n- Burpees: 3 x 10",
-    "Type": "Fitness",
+    "Title": "Full Body – Beginner Fitness",
+	"Description": "Day 1 – Upper Body\n- Lat Pulldown: 3 sets x 8-10 reps\n- Bent Over Rows: 3 x 8-10 reps \n- Barbell Bench Press: 3 sets x 8-10 reps\n- Dumbbell Shoulder Press: 3 x 8-10 reps \n- Bicep Curl with dumbbells: 3 x 8-10 reps \n- Triceps Pushdown: 3 x 8-10 reps\n\nDay 2 – Lower Body\n- Squats: 3 x 8-10\n- Bodyweight Walking Lunges: 3 x 8-10 each leg\n- Lying Leg Curls: 3 x 8-10\n- Standing Calf Raises: 3 x 10\n- Plank: 3 x 30 sec\n- Crunches: 3 x 12-15 \n\nDay 3 – Optional Cardio or Rest day\n- For warm up: Burpees: 3 x 10\n- 20 minutes of walking on the Treadmill\nOr 20 minutes on the  Exercise bikes",    
+	"Type": "Fitness",
     "ImageUrl": null
   },
   {
     "Id": 2,
     "Title": "Muscle Sculpt – Intermediate Fitness",
-    "Description": "Day 1 – Chest & Triceps\n- Bench Press: 4 x 10\n- Incline Dumbbell Press: 4 x 12\n- Triceps Dips: 3 x 15\n\nDay 2 – Back & Biceps\n- Deadlifts: 4 x 6\n- Lat Pulldowns: 4 x 12\n- Dumbbell Curls: 3 x 15\n\nDay 3 – Legs & Abs\n- Squats: 4 x 8\n- Romanian Deadlifts: 4 x 10\n- Hanging Leg Raises: 3 x 12",
-    "Type": "Fitness",
+    "Description": "Day 1 – Chest & Triceps\n- Bench Press: 4 x 6-8\n- Incline Dumbbell Press: 4 x 8-10\n- Cable Crossover: 4 x 10-12\n- EZ-Bar Skullcrusher: 3 x 8-10\n- Triceps Dips: 3 x 10-12\n\nDay 2 – Back & Biceps\n- Barbell Deadlift: 4 x 6\n- Lat Pulldowns: 4 x 10-12\n- Seated Cable Rows: 4 x 10-12- Dumbbell Curls: 3 x 8-10\n- Hammer Curls: 3 x 10-12\n\nDay 3 – Legs & Abs\n- Squats: 4 x 6\n- Romanian Deadlifts: 4 x 8-10\n- Leg Extensions: 4 x 10-12\n- Lying Leg Curls: 3 x 10-12\n- Ab Roller: 3 x 12\n- Hanging Leg Raises: 3 x 12",    "Type": "Fitness",
     "ImageUrl": null
   },
   {
@@ -22,13 +21,6 @@
   },
   {
     "Id": 4,
-    "Title": "CrossFit WOD – 'Grinder'",
-    "Description": "AMRAP in 20 min:\n- 5 Pull-Ups\n- 10 Box Jumps (24”/20”)\n- 15 One-Arm Kettlebell Swings (10kg/16kg)\n- 200m Run\n\nCool Down:\n- Foam roll + Stretch 10 min\n- Deep Breathing 3 min",
-    "Type": "Crossfit",
-    "ImageUrl": null
-  },
-  {
-    "Id": 5,
     "Title": "Powerlifting Split – Strength Phase",
     "Description": "Day 1 – Squat Focus\n- Back Squat: 5 x 5 @ 80%\n- Front Squat: 3 x 5\n- Walking Lunges: 3 x 12 each leg\n\nDay 2 – Bench Focus\n- Bench Press: 5 x 5 @ 80%\n- Incline Press: 3 x 10\n- Triceps Pushdown: 3 x 15\n\nDay 3 – Deadlift Focus\n- Deadlift: 5 x 5 @ 80%\n- Barbell Rows: 3 x 10\n- Plank: 3 x 45 sec",
     "Type": "Powerlifting",
