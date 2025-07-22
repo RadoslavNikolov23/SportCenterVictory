@@ -3,6 +3,8 @@ namespace SportCenterVictory
     using SCV.Data;
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
+    using SCV.Data.Seeding;
+    using SCV.Data.Seeding.Contracts;
     using SCV.Services.Core.Contracts;
     using SCV.Web.Infrastructure;
     using Microsoft.AspNetCore.Identity;
@@ -11,7 +13,7 @@ namespace SportCenterVictory
 
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -40,8 +42,11 @@ namespace SportCenterVictory
                     .AddEntityFrameworkStores<SportCenterDbContext>()
                     .AddDefaultTokenProviders();
 
+            builder.Services.AddScoped<IApplicationDbInitializer, ApplicationDbInitializer>();
+
             builder.Services.AddProjectRepositories(typeof(IExerciseRepository).Assembly);
             builder.Services.AddProjectServices(typeof(IExerciseService).Assembly);
+
 
             builder.Services
                     .ConfigureApplicationCookie(options =>
@@ -82,6 +87,8 @@ namespace SportCenterVictory
 
             app.UseRouting();
 
+            await app.SeedDatabaseAsync();
+
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -96,7 +103,7 @@ namespace SportCenterVictory
 
             app.MapRazorPages();
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

@@ -19,8 +19,8 @@
                 .Property(au => au.RegisteredOn)
                 .IsRequired();
 
-            entity
-                 .HasData(this.SeedDefaultUser());
+            //entity
+            //     .HasData(this.SeedDefaultUser());
         }
 
         private ICollection<ApplicationUser> SeedDefaultUser()
