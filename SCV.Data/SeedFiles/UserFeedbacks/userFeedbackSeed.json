@@ -3,21 +3,18 @@
     "Id": 1,
     "UserName": "Victoria Dimitrova",
     "Feedback": "The trainers are amazing and the CrossFit classes push me beyond my limits. Great vibe overall!",
-    "ImageUrl": "/images/Users/victoriaDimitrova.jpg",
-    "UserId": "16eaaf0f-2efc-4509-8cbe-c8792d187455"
+    "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/ts9jhmb8aipulleoklss6/victoriaDimitrova.jpg?rlkey=k8jlir2bltax9twhn7ft4hfae&st=qti82d9b"
   },
   {
     "Id": 2,
     "UserName": "Ivan Petrov",
     "Feedback": "I really enjoy the new powerlifting area. More squat racks would be a great addition!",
-    "ImageUrl": "/images/Users/ivanPetrov.jpg",
-    "UserId": "c3777e33-e646-48a2-8e00-03058aa6e054"
+    "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/d2my2dsc6fe4tihtelrij/ivanPetrov.jpg?rlkey=o5f41b0ap6p1z4hirztoons5l&st=s4slv3g1"
   },
   {
     "Id": 3,
     "UserName": "Maria Stefanova",
     "Feedback": "Excellent gym with a motivating atmosphere. Love the group workouts and the clean facilities.",
-    "ImageUrl": "/images/Users/mariaStefanova.jpg",
-    "UserId": "d4fd993d-23fd-4832-9d51-d85a16efa5a8"
+    "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/96ek1jy085stzc60mz9jk/mariaStefanova.jpg?rlkey=6invn5ok3r8fnty4azb8jdt0f&st=uxdynytd"
   }
 ]

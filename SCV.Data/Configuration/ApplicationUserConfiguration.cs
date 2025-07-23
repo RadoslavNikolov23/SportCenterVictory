@@ -19,6 +19,7 @@
                 .Property(au => au.RegisteredOn)
                 .IsRequired();
 
+            //For deletion, because their are seeded dynamically to the database
             //entity
             //     .HasData(this.SeedDefaultUser());
         }

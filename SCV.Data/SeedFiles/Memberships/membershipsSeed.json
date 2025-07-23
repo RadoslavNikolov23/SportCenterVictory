@@ -26,7 +26,7 @@
     "Name": "Fitness Individual",
     "MembershipType": 0,
     "MembershipTier": 2,
-    "Description": "Personalized fitness plan tailored by a dedicated trainer. Includes unlimited sessions and full access.",
+    "Description": "Personalized fitness plan tailored by a personal trainer. Includes unlimited sessions and full access.",
     "Price": 99.99,
     "Duration": "1 Month",
     "TrainerId": null,
@@ -73,7 +73,7 @@
     "Description": "Introductory strength program, includes 2 trainer sessions/month.",
     "Price": 29.99,
     "Duration": "1 Month",
-    "TrainerId": null,
+    "TrainerId": "59015526-c85d-41f8-9550-e8822a1ee4b4",
     "IsDeleted": false
   },
   {
@@ -84,7 +84,7 @@
     "Description": "Intermediate training plan with weekly progress check-ins.",
     "Price": 49.99,
     "Duration": "1 Month",
-    "TrainerId": null,
+    "TrainerId": "59015526-c85d-41f8-9550-e8822a1ee4b4",
     "IsDeleted": false
   },
   {
@@ -95,7 +95,7 @@
     "Description": "Advanced programming with detailed analytics and 24/7 coaching.",
     "Price": 69.99,
     "Duration": "1 Month",
-    "TrainerId": null,
+    "TrainerId": "0920b615-dd7d-46f5-b238-3ba891569b44",
     "IsDeleted": false
   },
   {
@@ -106,7 +106,7 @@
     "Description": "Elite-level coaching and competition prep for professional lifters.",
     "Price": 99.99,
     "Duration": "1 Month",
-    "TrainerId": null,
+    "TrainerId": "0920b615-dd7d-46f5-b238-3ba891569b44",
     "IsDeleted": false
   }
 ]

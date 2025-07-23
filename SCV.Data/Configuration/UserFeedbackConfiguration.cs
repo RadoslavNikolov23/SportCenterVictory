@@ -37,7 +37,8 @@
                 .WithMany()
                 .HasForeignKey(uf => uf.UserId);
 
-            entity.HasData(SeedFromJson<UserFeedback>(Path.Combine("..", "SCV.Data", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
+            //For deletion, because their are seeded dynamically to the database
+            //entity.HasData(SeedFromJson<UserFeedback>(Path.Combine("..", "SCV.Data", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
         }
     }
 }

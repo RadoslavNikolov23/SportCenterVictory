@@ -9,6 +9,8 @@
     {
         public void Configure(EntityTypeBuilder<ApplicationRole> entity)
         {
+            //For deletion, because their are seeded dynamically to the database
+
             //entity.HasData(
             //    new ApplicationRole
             //    {

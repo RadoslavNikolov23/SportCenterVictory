@@ -6,7 +6,7 @@
       "Description": "6-week transformation bootcamp with professional trainers and nutritionists.",
       "StartDate": "2025-08-15",
       "Location": "Sport Center Victory - Ruse",
-      "ImageUrl": "/events/fitnessTransformation.jpg"
+      "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/us2z7n8g4hmye4xa5qqxl/fitnessTransformation.jpg?rlkey=i87hkjeici7r8bg1qjr8xfb37&st=z6a6rgb4"
       
     },
     {
@@ -16,7 +16,7 @@
       "Description": "A weekend retreat focusing on yoga, meditation, and wellness on the beach.",
       "StartDate": "2025-08-20",
       "Location": "Sport Center Victory - Ruse",
-      "ImageUrl": "/events/fitnessYoga.jpg"
+      "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/jb1xkthdmdc9vcx4mlitd/fitnessYoga.jpg?rlkey=92dq14uikhvk8gorimortf2g1&st=2uwlwv0h"
     },
     {
       "Id": 3,
@@ -25,7 +25,7 @@
       "Description": "A local competition for intermediate-level CrossFitters.",
       "StartDate": "2025-08-10",
       "Location": "Sport Center Victory - Ruse",
-      "ImageUrl": "/events/crossFitRegional.jpg"
+      "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/hld3j69y20yj27jw4dawv/crossFitRegional.jpg?rlkey=k0lbgmtwlngh1th2d6ivbxsk0&st=kncc2ohd"
     },
     {
       "Id": 4,
@@ -34,7 +34,7 @@
       "Description": "Try a real CrossFit Open WOD with the community and judges.",
       "StartDate": "2025-09-10",
       "Location": "Sport Center Victory - Ruse",
-      "ImageUrl": "/events/crossFitOpenNight.jpg"
+      "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/oqj3jwvapkztafoohivtt/crossFitOpenNight.jpg?rlkey=urnmnhteku1nhhytsxadwepxu&st=r7ft453r"
     },
     {
       "Id": 5,
@@ -43,7 +43,7 @@
       "Description": "Open bench press meet-up for all strength levels.",
       "StartDate": "2025-08-25",
       "Location": "Sport Center Victory - Ruse",
-      "ImageUrl": "/events/powerliftingBenchpress.png"
+      "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/m49eajd8f9ub0x4261v3p/powerliftingBenchpress.png?rlkey=d53a1zlt6m4roq5kltglj30ev&st=9e8qzhd2"
     },
     {
       "Id": 6,
@@ -52,6 +52,6 @@
       "Description": "Hands-on technique workshop on snatch and clean & jerk.",
       "StartDate": "2025-09-05",
       "Location": "Sport Center Victory - Ruse",
-      "ImageUrl": "/events/powerliftingOlympicLifting.jpg"
+      "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/0vbiwjvllt1ym52m42chh/powerliftingOlympicLifting.jpg?rlkey=ox8cp80m4mck06tpl3i8drsar&st=8tzm76fl"
     }
   ]

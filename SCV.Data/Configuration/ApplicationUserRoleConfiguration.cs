@@ -8,6 +8,8 @@
     {
         public void Configure(EntityTypeBuilder<IdentityUserRole<Guid>> entity)
         {
+            //For deletion, because their are seeded dynamically to the database
+
             //entity.HasData(
 
             //          // Admin
