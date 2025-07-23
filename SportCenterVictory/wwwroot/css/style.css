@@ -287,7 +287,7 @@ button {
 .banner_section {
     width: 100%;
     float: left;
-    background-image: url(../images/Main/SVC-Front01.jpg);
+    background-image: url(https://dl.dropboxusercontent.com/scl/fi/iw8cnvn6il4lp52wbzbus/SVC-Front01.jpg?rlkey=8wythjgetf1mua88mtipqmy8r&st=owe8t9vo);
     background-size: cover;
     background-repeat: no-repeat;
     height: auto;
@@ -300,19 +300,19 @@ button {
 
 @keyframes backgroundRotation {
     0% {
-        background-image: url(../images/Main/SVC-Front01.jpg);
+        background-image: url(https://dl.dropboxusercontent.com/scl/fi/iw8cnvn6il4lp52wbzbus/SVC-Front01.jpg?rlkey=8wythjgetf1mua88mtipqmy8r&st=owe8t9vo);
     }
 
     33% {
-        background-image: url(../images/Main/SVC-Front02.jpg);
+        background-image: url(https://dl.dropboxusercontent.com/scl/fi/3yq0m4bx7mdjp9ql6aumr/SVC-Front02.jpg?rlkey=d0kijej2klponv0f7d92aqdeo&st=satt5ajq);
     }
 
     66% {
-        background-image: url(../images/Main/SVC-Front03.jpg);
+        background-image: url(https://dl.dropboxusercontent.com/scl/fi/m5z6nyh6jwy5txdwcm9ul/SVC-Front03.jpg?rlkey=3k964u1rvck0t0aeuxlgkrlvo&st=pgdh5xeq);
     }
 
     100% {
-        background-image: url(../images/Main/SVC-Front01.jpg);
+        background-image: url(https://dl.dropboxusercontent.com/scl/fi/iw8cnvn6il4lp52wbzbus/SVC-Front01.jpg?rlkey=8wythjgetf1mua88mtipqmy8r&st=owe8t9vo);
     }
 }
 
