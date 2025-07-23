@@ -40,11 +40,13 @@
 
         private readonly UserManager<ApplicationUser> userManager;
         private readonly RoleManager<ApplicationRole> roleManager;
+        private readonly SportCenterDbContext dbContext;
 
-        public ApplicationDbInitializer(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRole> roleManager)
+        public ApplicationDbInitializer(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRole> roleManager, SportCenterDbContext dbContext)
         {
             this.userManager = userManager;
             this.roleManager = roleManager;
+            this.dbContext = dbContext;
         }
 
         public async Task SeedUsersAndRolesAsync()
@@ -84,7 +86,63 @@
                         throw new Exception($"Failed to create user {email}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
                     }
                 }
+
+                  await SeedUserFeedbackAsync();
             }
+
+            
         }
+
+        private async Task SeedUserFeedbackAsync()
+        {
+            if (await dbContext.UserFeedbacks.AnyAsync())
+                return;
+
+            //string jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "SCV.Data", "SeedFiles", "UserFeedbacks", "userfeedback.json");
+            string jsonPath = Path.Combine(Path.Combine("..", "SCV.Data", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
+
+            if (!File.Exists(jsonPath))
+                return;
+
+            string jsonFile = await File.ReadAllTextAsync(jsonPath);
+            var feedbacks = JsonSerializer.Deserialize<List<UserFeedbackJsonModel>>(jsonFile);
+
+            //For the feedbacks, change to this code
+             //  T[] genericListEntities = JsonConvert
+            //                                 .DeserializeObject<T[]>(jsonFile)!;
+
+            if (feedbacks == null || feedbacks.Count == 0)
+                return;
+
+            foreach (var feedbackModel in feedbacks)
+            {
+                var user = await dbContext.Users.FirstOrDefaultAsync(u => u.FullName == feedbackModel.UserName);
+
+                if (user != null)
+                {
+                    var feedback = new UserFeedback
+                    {
+                        UserName = feedbackModel.UserName,
+                        Feedback = feedbackModel.Feedback,
+                        ImageUrl = feedbackModel.ImageUrl,
+                        UserId = user.Id
+                    };
+
+                    dbContext.UserFeedbacks.Add(feedback);
+                }
+            }
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        //Move to folder DTOs and a sepperated class
+        private class UserFeedbackJsonModel
+        {
+            public int Id { get; set; }
+            public string UserName { get; set; } = null!;
+            public string Feedback { get; set; } = null!;
+            public string ImageUrl { get; set; } = null!;
+        }
+    
     }
 }
