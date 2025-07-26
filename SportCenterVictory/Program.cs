@@ -1,5 +1,9 @@
 namespace SportCenterVictory
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+
     using SCV.Data;
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
@@ -7,9 +11,6 @@ namespace SportCenterVictory
     using SCV.Data.Seeding.Contracts;
     using SCV.Services.Core.Contracts;
     using SCV.Web.Infrastructure;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
 
     public class Program
     {
@@ -57,11 +58,13 @@ namespace SportCenterVictory
                             options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                         });
 
+
             builder.Services
-                     .AddControllersWithViews(options =>
+                     .AddControllersWithViews()
+                     .AddMvcOptions(options =>
                         {
-                            options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                         });
+                            options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                        });
 
             builder.Services
                      .AddRazorPages();
@@ -92,10 +95,9 @@ namespace SportCenterVictory
             app.UseAuthentication();
             app.UseAuthorization();
 
-            //For the area routing, uncomment the following lines and adjust as needed
-            //app.MapControllerRoute(
-            //  name: "MyArea",
-            //  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+            app.MapControllerRoute(
+              name: "Administration",
+              pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
 
             app.MapControllerRoute(
                 name: "default",
