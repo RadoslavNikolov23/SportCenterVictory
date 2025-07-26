@@ -23,10 +23,6 @@
                 .IsRequired();
 
             entity
-                .Property(m => m.MembershipTier)
-                .IsRequired();
-
-            entity
                 .Property(m => m.Description)
                 .IsRequired()
                 .HasMaxLength(DescriptionMaxLength);

@@ -4,7 +4,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
 
-    public class CrossfitWODRepository : BaseRepository<CrossfitWorkoutOfTheDay, int>, ICrossfitWODRepository
+    public class CrossfitWODRepository : BaseRepository<CrossfitWorkoutOfTheDay, Guid>, ICrossfitWODRepository
     {
         public CrossfitWODRepository(SportCenterDbContext DbContext) : base(DbContext)
         {

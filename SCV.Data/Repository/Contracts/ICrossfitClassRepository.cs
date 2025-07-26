@@ -2,7 +2,7 @@
 {
     using SCV.Data.Models;
 
-    public interface ICrossfitClassRepository : IAsyncRepository<CrossfitClass, int>, IRepository<CrossfitClass, int>
+    public interface ICrossfitClassRepository : IAsyncRepository<CrossfitClass, Guid>, IRepository<CrossfitClass, Guid>
     {
     }
 }

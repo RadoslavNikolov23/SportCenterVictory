@@ -1,58 +1,66 @@
 [
     {
-      "Id": 1,
+      "Id": "7aa86503-08e5-4d0f-a76e-331652c9235b",
       "Name": "WOD: Hero Workout",
       "Description": "A high-intensity Hero WOD designed to test endurance and mental toughness.",
       "StartTime": "Monday at 17:00",
+      "DayOfWeek": "Monday",	
       "TrainerName": "Ivan Dimitrov"
     },
     {
-      "Id": 2,
+      "Id": "621d28e0-4142-4ba6-a754-a0f3537548e3",
       "Name": "CrossFit Strength",
       "Description": "Focus on building strength with heavy lifts and compound movements.",
       "StartTime": "Monday at 19:00",
+      "DayOfWeek": "Monday",
       "TrainerName": "Georgi Kolev"
     },
     {
-      "Id": 3,
+      "Id": "43c892c1-6fd9-409e-82e8-4b38eedcbed5",
       "Name": "CrossFit Mobility",
       "Description": "Enhance flexibility and mobility to improve overall performance.",
       "StartTime": "Tuesday at 18:00",
+      "DayOfWeek": "Tuesday",
       "TrainerName": "Maya Ivanova"
     },
     {
-      "Id": 4,
+      "Id": "7724554f-7f07-49f5-a7e2-5cc81e77a81a",
       "Name": "CrossFit Team Challenge",
       "Description": "Team-based workout to build camaraderie and competitive spirit.",
       "StartTime": "Wednesday at 17:00",
+      "DayOfWeek": "Wednesday",
       "TrainerName": "Georgi Kolev"
     },
     {
-      "Id": 5,
+      "Id": "55ea312a-2607-432a-beaa-88cdae84261d",
       "Name": "CrossFit Endurance",
       "Description": "Cardio-focused CrossFit session to build stamina and VO2 max.",
-      "StartTime": "Thuesday at 19:00",
+      "StartTime": "Tuesday at 19:00",
+      "DayOfWeek": "Tuesday",
       "TrainerName": "Ivan Dimitrov"
     },
     {
-      "Id": 6,
+      "Id": "a67e482d-ede8-491b-8f71-eeb4b3ecefbc",
       "Name": "CrossFit Basics",
       "Description": "Introduction to CrossFit movements and techniques for beginners.",
       "StartTime": "Friday at 18:00",
+      "DayOfWeek": "Friday",
       "TrainerName": "Maya Ivanova"
     },
     {
-      "Id": 7,
+      "Id": "c33e1e9d-1a72-47d5-8e53-8ed00d668785",
       "Name": "CrossFit Open Prep",
       "Description": "Specialized training session to prepare for the CrossFit Open competition.",
       "StartTime": "Saturday at 10:00",
+      "DayOfWeek": "Saturday",
       "TrainerName": "Guest Coach: Stoyan Dimitrov"
     },
     {
-      "Id": 8,
+      "Id": "6b0d85a4-6707-4c9b-8759-132ec7512afe",
       "Name": "CrossFit Olympic Lifting",
       "Description": "Classes teaching technique and power development in snatch and clean and jerk.",
       "StartTime": "Saturday at 17:00",
+      "DayOfWeek": "Saturday",
       "TrainerName": "Guest Coach: Tsvetan Nikolov"
     }
   ]

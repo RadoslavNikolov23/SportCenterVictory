@@ -7,7 +7,7 @@
     public class Event
     {
         [Comment("Primary Key for the event")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Comment("Title of the event, e.g., 'CrossFit Regional Challenge'")]
         public string Title { get; set; } = null!;

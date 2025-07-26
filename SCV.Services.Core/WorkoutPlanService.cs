@@ -24,10 +24,11 @@
                                     .Where(wp=>wp.Type == sportType)
                                     .Select(wp => new WorkoutPlanDetailViewModel()
                                     {
-                                        Id = wp.Id,
+                                        Id = wp.Id.ToString(),
                                         Title = wp.Title,
                                         Description = wp.Description,
                                         Type = wp.Type,
+                                        //TODO:Check why this goes to fallback.jpg
                                         ImageUrl = wp.ImageUrl ?? $"/imagesExercises/fallback.jpg",
                                         WorkoutPlanExercisesVM = wp.WorkoutPlanExercises
                                                                     .Where(wpe=> wpe.WorkoutPlanId == wp.Id)

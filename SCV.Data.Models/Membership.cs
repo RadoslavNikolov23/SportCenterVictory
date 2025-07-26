@@ -7,16 +7,13 @@
     public class Membership
     {
         [Comment("Primary Key for the membership.")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Comment("Name of the membership")]
         public string Name { get; set; } = null!;
 
         [Comment("Type of the membership - Fitness, CrossFit, Powerlifting.")]
         public SportType MembershipType { get; set; }
-
-        [Comment("Tier of the membership - FitnessStandard, CrossFitUnlimited, PowerliftingBeginners and et.")]
-        public MembershipTier MembershipTier { get; set; }
 
         [Comment("Description of the membership.")]
         public string Description { get; set; } = null!;

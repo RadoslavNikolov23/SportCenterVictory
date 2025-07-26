@@ -6,7 +6,7 @@
     public class CrossfitWorkoutOfTheDay
     {
         [Comment("Primary key for the workout of the day")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Comment("Name of the workout of the day - will contain part of the WorkoutDate")]
         public string Name { get; set; } = null!;

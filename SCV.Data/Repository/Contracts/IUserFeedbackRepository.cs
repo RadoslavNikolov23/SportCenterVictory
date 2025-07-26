@@ -2,7 +2,7 @@
 {
     using SCV.Data.Models;
 
-    public interface IUserFeedbackRepository : IAsyncRepository<UserFeedback, int>, IRepository<UserFeedback, int>
+    public interface IUserFeedbackRepository : IAsyncRepository<UserFeedback, Guid>, IRepository<UserFeedback, Guid>
     {
     }
 }

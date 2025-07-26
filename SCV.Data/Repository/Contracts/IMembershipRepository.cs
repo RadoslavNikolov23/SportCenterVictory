@@ -2,7 +2,7 @@
 {
     using SCV.Data.Models;
 
-    public interface IMembershipRepository : IAsyncRepository<Membership, int>, IRepository<Membership, int>
+    public interface IMembershipRepository : IAsyncRepository<Membership, Guid>, IRepository<Membership, Guid>
     {
 
     }

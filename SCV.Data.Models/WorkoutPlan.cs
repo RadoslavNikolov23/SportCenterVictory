@@ -7,7 +7,7 @@
     public class WorkoutPlan
     {
         [Comment("Primary key for the workout plan")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Comment("Title of the workout plan, e.g., 'Push/Pull/Legs'")]
         public string Title { get; set; } = null!;

@@ -3,7 +3,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
 
-    public class MembershipRepository : BaseRepository<Membership, int>, IMembershipRepository
+    public class MembershipRepository : BaseRepository<Membership, Guid>, IMembershipRepository
     {
         public MembershipRepository(SportCenterDbContext DbContext) : base(DbContext)
         {

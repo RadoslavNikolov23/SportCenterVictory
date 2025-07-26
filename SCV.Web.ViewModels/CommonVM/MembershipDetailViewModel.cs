@@ -4,13 +4,11 @@
 
     public class MembershipDetailViewModel
     {
-        public int Id { get; set; }
+        public string Id { get; set; } = null!;
 
         public string Name { get; set; } = null!;
 
         public SportType MembershipType { get; set; }
-
-        public MembershipTier MembershipTier { get; set; }
 
         public string Description { get; set; } = null!;
 

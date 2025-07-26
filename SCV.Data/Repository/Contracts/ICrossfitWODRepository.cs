@@ -2,7 +2,7 @@
 {
     using SCV.Data.Models;
 
-    public interface ICrossfitWODRepository : IAsyncRepository<CrossfitWorkoutOfTheDay, int>, IRepository<CrossfitWorkoutOfTheDay, int>
+    public interface ICrossfitWODRepository : IAsyncRepository<CrossfitWorkoutOfTheDay, Guid>, IRepository<CrossfitWorkoutOfTheDay, Guid>
     {
         Task<CrossfitWorkoutOfTheDay?> GetTodayWOD();
     }

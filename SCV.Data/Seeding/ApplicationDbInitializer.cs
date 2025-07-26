@@ -97,10 +97,10 @@
 
         private async Task SeedUserFeedbackAsync()
         {
-            if (await dbContext.UserFeedbacks.AnyAsync())
-            {
-                return;
-            }
+            //if (await dbContext.UserFeedbacks.AnyAsync())
+            //{
+            //    return;
+            //}
 
             //string jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "SCV.Data", "SeedFiles", "UserFeedbacks", "userfeedback.json");
             string jsonPath = Path.Combine(Path.Combine("..", "SCV.Data", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json"));
@@ -129,13 +129,18 @@
             {
                 ApplicationUser? user = await dbContext
                                                 .Users
-                                                .FirstOrDefaultAsync(u => u.FullName == userFeedback.UserName);
+                                                .FirstOrDefaultAsync(u => u.UserName == userFeedback.UserName);
 
-                if (user != null)
+                bool alreadySeeded = await dbContext
+                                                .UserFeedbacks
+                                                .AnyAsync(f => f.UserName == userFeedback.UserName);
+
+                if (user != null && !alreadySeeded)
                 {
                     UserFeedback feedback = new UserFeedback
                     {
                         UserName = userFeedback.UserName,
+                        FullName = userFeedback.FullName,
                         Feedback = userFeedback.Feedback,
                         ImageUrl = userFeedback.ImageUrl,
                         UserId = user.Id

@@ -8,6 +8,8 @@
 
         public string StartTime { get; set; } = null!;
 
+        public DayOfWeek DayOfWeek { get; set; }
+
         public string TrainerName { get; set; } = null!;
     }
 }

@@ -2,7 +2,7 @@
 {
     using SCV.Data.Models;
 
-    public interface IEventRepository: IAsyncRepository<Event, int>, IRepository<Event, int>
+    public interface IEventRepository: IAsyncRepository<Event, Guid>, IRepository<Event, Guid>
     {
     }
 }

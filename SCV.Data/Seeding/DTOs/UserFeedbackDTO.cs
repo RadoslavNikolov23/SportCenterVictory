@@ -12,6 +12,10 @@
         public string UserName { get; set; } = null!;
 
         [Required]
+        [StringLength(UserFullNameMinLength, MinimumLength = UserFullNameMaxLength)]
+        public string FullName { get; set; } = null!;
+
+        [Required]
         [StringLength(FeedbackMaxLength, MinimumLength = FeedbackMinLength)]
         public string Feedback { get; set; } = null!;
 

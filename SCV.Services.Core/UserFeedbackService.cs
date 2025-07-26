@@ -22,6 +22,7 @@
                                                 .Select (uf => new UserFeedbackDetailViewModel()
                                                 {
                                                     UserName = uf.UserName,
+                                                    FullName = uf.FullName,
                                                     Feedback = uf.Feedback,
                                                     ImageUrl = uf.ImageUrl ?? $"/noImage.jpg",
                                                 })

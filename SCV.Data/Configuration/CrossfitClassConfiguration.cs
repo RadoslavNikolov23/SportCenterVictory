@@ -28,6 +28,10 @@
                 .HasMaxLength(ClassStartTimeMaxLength);
 
             entity
+                .Property(cc => cc.DayOfWeek)
+                .IsRequired();
+
+            entity
                 .Property(cc => cc.TrainerName)
                 .IsRequired()
                 .HasMaxLength(TrainerNameMaxLength);
@@ -38,7 +42,7 @@
                 .HasDefaultValue(true);
 
             entity
-                .HasQueryFilter(cc => cc.IsActive==true);
+                .HasQueryFilter(cc => cc.IsActive == true);
 
 
             entity.HasData(SeedFromJson<CrossfitClass>(Path.Combine("..", "SCV.Data", "SeedFiles", "CrossFitClasses", "crossfitClassesSeed.json")));

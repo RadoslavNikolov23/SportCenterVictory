@@ -24,7 +24,7 @@
                                         .Where(tp=>tp.TrainerSpecialty == trainerSpecialty)
                                         .Select(tp => new TrainerDetailViewModel()
                                         {
-                                            Id = tp.Id,
+                                            Id = tp.Id.ToString(),
                                             FirstName = tp.FirstName,
                                             LastName = tp.LastName,
                                             Email = tp.Email,

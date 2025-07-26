@@ -13,7 +13,7 @@
 
         [Comment("Foreign key to the referenced WorkoutPlan. Part of the entity composite PK.")]
 
-        public int WorkoutPlanId { get; set; } 
+        public Guid WorkoutPlanId { get; set; }
 
         public virtual WorkoutPlan WorkoutPlan { get; set; } = null!;
 

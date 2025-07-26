@@ -5,7 +5,7 @@
 
     public class TrainerDetailViewModel
     {
-        public Guid Id { get; set; } 
+        public string Id { get; set; } = null!;
 
         public string FirstName { get; set; } = null!;
 
@@ -31,8 +31,6 @@
         public string Name { get; set; } = null!;
 
         public SportType MembershipType { get; set; }
-
-        public MembershipTier MembershipTier { get; set; }
 
     }
 }

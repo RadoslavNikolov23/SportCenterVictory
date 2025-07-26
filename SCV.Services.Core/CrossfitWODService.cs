@@ -19,18 +19,18 @@
             this.crossfitWODRepository = crossfitWODRepository;
         }
 
-        public async Task<CrossfitWODViewModel?> GetCrossfitWODByIdAsync(int id)
+        public async Task<CrossfitWODViewModel?> GetCrossfitWODByIdAsync(string id)
         {
             CrossfitWODViewModel? crossfitWODViewModel = null;
 
             CrossfitWorkoutOfTheDay? crossfitWODEntity = await this.crossfitWODRepository
-                                        .GetByIdAsync(id);
+                                        .GetByIdAsync(Guid.Parse(id));
 
             if(crossfitWODEntity != null)
             {
                 crossfitWODViewModel = new CrossfitWODViewModel()
                 {
-                    Id = crossfitWODEntity.Id,
+                    Id = crossfitWODEntity.Id.ToString(),
                     Name = crossfitWODEntity.Name,
                     DescriptionHTML = crossfitWODEntity.DescriptionHTML
                 };
@@ -66,7 +66,7 @@
 
             crossfitWODVieModel = new CrossfitWODViewModel()
             {
-                Id = entityCrossfitWOD.Id,
+                Id = entityCrossfitWOD.Id.ToString(),
                 Name = entityCrossfitWOD.Name,
                 //WorkoutDate = entityCrossfitWOD.WorkoutDate.ToString(DateOnlyFormatCrossfitWOD),
                 //DescriptionPlain = entityCrossfitWOD.DescriptionPlain,
@@ -85,7 +85,7 @@
                                             .OrderBy(wod => wod.WorkoutDate)
                                             .Select(wod => new CrossfitWODViewModel()
                                             {
-                                                Id = wod.Id,
+                                                Id = wod.Id.ToString(),
                                                 Name = wod.Name,
                                                 DescriptionHTML= wod.DescriptionHTML,
                                             })

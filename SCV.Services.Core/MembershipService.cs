@@ -28,7 +28,6 @@
                                     {
                                         Name = m.Name,
                                         MembershipType = m.MembershipType,
-                                        MembershipTier = m.MembershipTier,
                                         Description = m.Description,
                                         Price = m.Price,
                                         Duration = m.Duration,
@@ -54,7 +53,6 @@
                         {
                             Name = m.Name,
                             MembershipType = m.MembershipType,
-                            MembershipTier = m.MembershipTier,
                             Description = m.Description,
                             Price = m.Price,
                             Duration = m.Duration,
@@ -66,7 +64,7 @@
 
         }
 
-        public async Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(Guid trainerId)
+        public async Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(string trainerId)
         {
             ICollection<MembershipsTrainerViewModel> membershipsTrainerVM = await this.membershipRepo
                                       .GetAllAttached()
@@ -77,7 +75,6 @@
                                       {
                                           Name = mt.Name,
                                           MembershipType = mt.MembershipType,
-                                          MembershipTier = mt.MembershipTier,
                                       })
                                       .ToListAsync();
 

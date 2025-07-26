@@ -1,20 +1,23 @@
 [
   {
     "Id": 1,
-    "UserName": "Victoria Dimitrova",
-    "Feedback": "The trainers are amazing and the CrossFit classes push me beyond my limits. Great vibe overall!",
+    "UserName": "victoriadimitrova@sportcentervictory.com",
+    "FullName": "Victoria Dimitrova",
+    "Feedback": "The trainers are amazing and the CrossFit classes push me beyond my limits. Great vibe overall, highly recommend!",
     "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/ts9jhmb8aipulleoklss6/victoriaDimitrova.jpg?rlkey=k8jlir2bltax9twhn7ft4hfae&st=qti82d9b"
   },
   {
     "Id": 2,
-    "UserName": "Ivan Petrov",
-    "Feedback": "I really enjoy the new powerlifting area. More squat racks would be a great addition!",
+    "UserName": "ivanpetrov@sportcentervictory.com",
+    "FullName": "Ivan Petrov",
+    "Feedback": "I really enjoy the new powerlifting area. Lots of squat racks that are a great addition, love the vide of the sport center!",
     "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/d2my2dsc6fe4tihtelrij/ivanPetrov.jpg?rlkey=o5f41b0ap6p1z4hirztoons5l&st=s4slv3g1"
   },
   {
     "Id": 3,
-    "UserName": "Maria Stefanova",
-    "Feedback": "Excellent gym with a motivating atmosphere. Love the group workouts and the clean facilities.",
+    "UserName": "mariastefanova@sportcentervictory.com",
+    "FullName": "Maria Stefanova",
+    "Feedback": "Excellent gym with a motivating atmosphere. Love the group workouts and the clean facilities. Always a great experience!",
     "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/96ek1jy085stzc60mz9jk/mariaStefanova.jpg?rlkey=6invn5ok3r8fnty4azb8jdt0f&st=uxdynytd"
   }
 ]

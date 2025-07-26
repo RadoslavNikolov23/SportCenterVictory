@@ -23,7 +23,7 @@
                                             .Where(p=>p.ProductCategory == productCategory)
                                             .Select(p=> new StoreProductViewModel()
                                             {
-                                                Id = p.Id,
+                                                Id = p.Id.ToString(),
                                                 Title = p.Title,
                                                 ProductCategory = p.ProductCategory,
                                                 Quantity = p.Quantity,

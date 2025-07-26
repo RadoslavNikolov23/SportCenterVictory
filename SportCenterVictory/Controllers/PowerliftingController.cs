@@ -58,7 +58,7 @@
             foreach (TrainerDetailViewModel trainer in trainerViewModels)
             {
                 trainer.MembershipsByTrainer = await this.membershipService
-                                .GetAllMembershipForTrainerAsync(trainer.Id);
+                                .GetAllMembershipForTrainerAsync(trainer.Id.ToString());
             }
 
             return View(trainerViewModels);

@@ -6,7 +6,7 @@
     public class CrossfitClass
     {
         [Comment("CrossFit Class Id")]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
 
         [Comment("CrossFit Class Name")]
         public string Name { get; set; } = null!;
@@ -16,6 +16,9 @@
 
         [Comment("CrossFit Class starting date and time - a string, because it will say in which day of the week will there be classes, ex. Monday 17:00")]
         public string StartTime { get; set; } = null!;
+
+        [Comment("CrossFit Class day of the week, for ordering purpose.")]
+        public DayOfWeek DayOfWeek { get; set; }
 
         [Comment("CrossFit Class Trainer name - can be a Trainer in the Sport Center or a guest Trainer")]
         public string TrainerName { get; set; } = null!;

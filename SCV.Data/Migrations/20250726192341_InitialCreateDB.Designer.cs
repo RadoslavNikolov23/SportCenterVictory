@@ -12,7 +12,7 @@ using SCV.Data;
 namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
-    [Migration("20250719203844_InitialCreateDB")]
+    [Migration("20250726192341_InitialCreateDB")]
     partial class InitialCreateDB
     {
         /// <inheritdoc />
@@ -237,15 +237,17 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.CrossfitClass", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("CrossFit Class Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<Guid?>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("DayOfWeek")
+                        .HasColumnType("int")
+                        .HasComment("CrossFit Class day of the week, for ordering purpose.");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -289,8 +291,8 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.CrossfitClassUser", b =>
                 {
-                    b.Property<int>("CrossfitClassId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("CrossfitClassId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced CrossfitClass. Part of the entity composite PK.");
 
                     b.Property<Guid>("ApplicationUserId")
@@ -313,12 +315,10 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.CrossfitWorkoutOfTheDay", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Primary key for the workout of the day");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("DescriptionHTML")
                         .IsRequired()
@@ -352,12 +352,10 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.Event", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Primary Key for the event");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasMaxLength(525)
@@ -409,8 +407,8 @@ namespace SCV.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced ApplicationUser. Part of the entity composite PK.");
 
-                    b.Property<int>("EventId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("EventId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced Event. Part of the entity composite PK.");
 
                     b.HasKey("ApplicationUserId", "EventId");
@@ -499,12 +497,10 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.Membership", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Primary Key for the membership.");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -523,10 +519,6 @@ namespace SCV.Data.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(false)
                         .HasComment("Indicates whether the membership is deleted.");
-
-                    b.Property<int>("MembershipTier")
-                        .HasColumnType("int")
-                        .HasComment("Tier of the membership - FitnessStandard, CrossFitUnlimited, PowerliftingBeginners and et.");
 
                     b.Property<int>("MembershipType")
                         .HasColumnType("int")
@@ -562,8 +554,8 @@ namespace SCV.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced ApplicationUser. Part of the entity composite PK.");
 
-                    b.Property<int>("MembershipId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("MembershipId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced Membership. Part of the entity composite PK.");
 
                     b.Property<bool>("IsDeleted")
@@ -800,12 +792,10 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.UserFeedback", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Primary key for the UserFeedback Table.");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<Guid?>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
@@ -815,6 +805,12 @@ namespace SCV.Data.Migrations
                         .HasMaxLength(2024)
                         .HasColumnType("nvarchar(2024)")
                         .HasComment("The context of the feedback.");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)")
+                        .HasComment("The Username Full Name for Display in the UI.");
 
                     b.Property<string>("ImageUrl")
                         .HasMaxLength(2048)
@@ -835,7 +831,7 @@ namespace SCV.Data.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)")
-                        .HasComment("The name of the user who provided the feedback.");
+                        .HasComment("The Username (the email from AspNetUser) of the user who provided the feedback.");
 
                     b.HasKey("Id");
 
@@ -851,12 +847,10 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.WorkoutPlan", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Primary key for the workout plan");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -899,8 +893,8 @@ namespace SCV.Data.Migrations
                         .HasColumnType("nvarchar(136)")
                         .HasComment("Foreign key to the referenced Exercise. Part of the entity composite PK.");
 
-                    b.Property<int>("WorkoutPlanId")
-                        .HasColumnType("int")
+                    b.Property<Guid>("WorkoutPlanId")
+                        .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced WorkoutPlan. Part of the entity composite PK.");
 
                     b.HasKey("ExerciseId", "WorkoutPlanId");

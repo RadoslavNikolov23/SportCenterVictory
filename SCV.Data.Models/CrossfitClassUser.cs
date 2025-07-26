@@ -11,7 +11,7 @@
         public virtual ApplicationUser ApplicationUser { get; set; } = null!;
 
         [Comment("Foreign key to the referenced CrossfitClass. Part of the entity composite PK.")]
-        public int CrossfitClassId { get; set; }
+        public Guid CrossfitClassId { get; set; }
 
         public virtual CrossfitClass CrossfitClass { get; set; } = null!;
 

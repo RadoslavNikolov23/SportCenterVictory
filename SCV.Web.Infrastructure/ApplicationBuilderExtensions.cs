@@ -9,7 +9,9 @@
         public static async Task SeedDatabaseAsync(this IApplicationBuilder app)
         {
             using IServiceScope scope = app.ApplicationServices.CreateScope();
+
             IApplicationDbInitializer initializer = scope.ServiceProvider.GetRequiredService<IApplicationDbInitializer>();
+
             await initializer.SeedUsersAndRolesAsync();
         }
     }

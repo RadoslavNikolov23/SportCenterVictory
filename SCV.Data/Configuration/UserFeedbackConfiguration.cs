@@ -19,6 +19,11 @@
                 .HasMaxLength(UserNameMaxLength);
 
             entity
+                .Property(uf => uf.FullName)
+                .IsRequired()
+                .HasMaxLength(UserFullNameMaxLength);
+
+            entity
                 .Property(uf => uf.Feedback)
                 .IsRequired()
                 .HasMaxLength(FeedbackMaxLength);

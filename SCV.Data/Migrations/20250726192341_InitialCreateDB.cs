@@ -57,8 +57,7 @@ namespace SCV.Data.Migrations
                 name: "CrossfitWorkoutOfTheDays",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Primary key for the workout of the day")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Primary key for the workout of the day"),
                     Name = table.Column<string>(type: "nvarchar(18)", maxLength: 18, nullable: false, comment: "Name of the workout of the day - will contain part of the WorkoutDate"),
                     WorkoutDate = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "Date when the workout of the day is scheduled"),
                     DescriptionPlain = table.Column<string>(type: "nvarchar(max)", maxLength: 6025, nullable: false, comment: "Plain text description of the workout of the day"),
@@ -74,8 +73,7 @@ namespace SCV.Data.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Primary Key for the event")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Primary Key for the event"),
                     Title = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false, comment: "Title of the event, e.g., 'CrossFit Regional Challenge'"),
                     EventType = table.Column<int>(type: "int", nullable: false, comment: "Type of the event - Fitness, CrossFit, Powerlifting"),
                     Description = table.Column<string>(type: "nvarchar(525)", maxLength: 525, nullable: true, comment: "Detailed description of the event, e.g., 'A local competition for intermediate-level CrossFitters.'"),
@@ -136,8 +134,7 @@ namespace SCV.Data.Migrations
                 name: "WorkoutPlans",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Primary key for the workout plan")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Primary key for the workout plan"),
                     Title = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false, comment: "Title of the workout plan, e.g., 'Push/Pull/Legs'"),
                     Description = table.Column<string>(type: "nvarchar(2025)", maxLength: 2025, nullable: false, comment: "Description of the workout plan"),
                     Type = table.Column<int>(type: "int", nullable: false, comment: "Type of the workout plan - 'CrossFit', 'Powerlifting', 'Bodybuilding'"),
@@ -260,11 +257,11 @@ namespace SCV.Data.Migrations
                 name: "CrossfitClasses",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "CrossFit Class Id")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "CrossFit Class Id"),
                     Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false, comment: "CrossFit Class Name"),
                     Description = table.Column<string>(type: "nvarchar(2025)", maxLength: 2025, nullable: false, comment: "CrossFit Class Description for details"),
                     StartTime = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false, comment: "CrossFit Class starting date and time - a string, because it will say in which day of the week will there be classes, ex. Monday 17:00"),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false, comment: "CrossFit Class day of the week, for ordering purpose."),
                     TrainerName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false, comment: "CrossFit Class Trainer name - can be a Trainer in the Sport Center or a guest Trainer"),
                     IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true, comment: "Indicates if the class is active or not"),
                     ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
@@ -339,9 +336,9 @@ namespace SCV.Data.Migrations
                 name: "UserFeedbacks",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Primary key for the UserFeedback Table.")
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    UserName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The name of the user who provided the feedback."),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Primary key for the UserFeedback Table."),
+                    UserName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The Username (the email from AspNetUser) of the user who provided the feedback."),
+                    FullName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "The Username Full Name for Display in the UI."),
                     Feedback = table.Column<string>(type: "nvarchar(2024)", maxLength: 2024, nullable: false, comment: "The context of the feedback."),
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true, comment: "The URL of the image associated with the feedback, if any."),
                     Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0, comment: "The status of the feedback, indicating whether it is pending, publish, or removed. The default will be pending."),
@@ -370,7 +367,7 @@ namespace SCV.Data.Migrations
                 columns: table => new
                 {
                     ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
-                    EventId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key to the referenced Event. Part of the entity composite PK.")
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced Event. Part of the entity composite PK.")
                 },
                 constraints: table =>
                 {
@@ -395,7 +392,7 @@ namespace SCV.Data.Migrations
                 columns: table => new
                 {
                     ExerciseId = table.Column<string>(type: "nvarchar(136)", nullable: false, comment: "Foreign key to the referenced Exercise. Part of the entity composite PK."),
-                    WorkoutPlanId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key to the referenced WorkoutPlan. Part of the entity composite PK.")
+                    WorkoutPlanId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced WorkoutPlan. Part of the entity composite PK.")
                 },
                 constraints: table =>
                 {
@@ -420,7 +417,7 @@ namespace SCV.Data.Migrations
                 columns: table => new
                 {
                     ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
-                    CrossfitClassId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key to the referenced CrossfitClass. Part of the entity composite PK."),
+                    CrossfitClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced CrossfitClass. Part of the entity composite PK."),
                     JoinedAt = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date and time when the user joined the class")
                 },
                 constraints: table =>
@@ -472,11 +469,9 @@ namespace SCV.Data.Migrations
                 name: "Memberships",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false, comment: "Primary Key for the membership.")
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Primary Key for the membership."),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Name of the membership"),
                     MembershipType = table.Column<int>(type: "int", nullable: false, comment: "Type of the membership - Fitness, CrossFit, Powerlifting."),
-                    MembershipTier = table.Column<int>(type: "int", nullable: false, comment: "Tier of the membership - FitnessStandard, CrossFitUnlimited, PowerliftingBeginners and et."),
                     Description = table.Column<string>(type: "nvarchar(525)", maxLength: 525, nullable: false, comment: "Description of the membership."),
                     Price = table.Column<decimal>(type: "decimal(18,6)", nullable: false, comment: "Price of the membership."),
                     Duration = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false, comment: "Duration of the membership - '1 month', '3 months', '1 year'."),
@@ -525,7 +520,7 @@ namespace SCV.Data.Migrations
                 columns: table => new
                 {
                     ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
-                    MembershipId = table.Column<int>(type: "int", nullable: false, comment: "Foreign key to the referenced Membership. Part of the entity composite PK."),
+                    MembershipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced Membership. Part of the entity composite PK."),
                     PurchasedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date and time when the membership was purchased."),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicates whether the membership user is deleted. Used for soft deletion.")
                 },
