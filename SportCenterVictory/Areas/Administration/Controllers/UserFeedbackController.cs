@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class UserFeedbackController : Controller
+    public class UserFeedbackController : BaseAdminController
     {
         public IActionResult Index()
         {

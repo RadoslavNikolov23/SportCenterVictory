@@ -5,7 +5,9 @@
 
     using System.Security.Claims;
 
-    [Area("Administration")]
+    using static SCV.GlCommon.ApplicationConstants;
+
+    [Area(AreaName)]
     [Authorize]
     public abstract class BaseAdminController : Controller
     {

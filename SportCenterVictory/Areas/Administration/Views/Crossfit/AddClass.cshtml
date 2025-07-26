@@ -1,0 +1,67 @@
+﻿@using SCV.Web.ViewModels.Administration.CrossfitClassesVM
+@model CrossfitClassAddViewModel
+
+@{
+    ViewData["Title"] = "Add CrossFit Class ";
+}
+
+
+    <h1 class="about_taital text-center pd-5">Add CrossFit Class</h1>
+
+
+
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        <form asp-action="AddClass" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label asp-for="Name" class="form-label-add-edit">Class Name</label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                    <label asp-for="TrainerName" class="form-label-add-edit">Trainer Name</label>
+                    <input asp-for="TrainerName" class="form-control" />
+                    <span asp-validation-for="TrainerName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label asp-for="StartTime" class="form-label-add-edit">Start Time</label>
+                    <input asp-for="StartTime" class="form-control" placeholder="e.g., Monday at 18:00" />
+                    <span asp-validation-for="StartTime" class="text-danger"></span>
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                    <label asp-for="DayOfWeek" class="form-label-add-edit">Day of the Week</label>
+                    <select asp-for="DayOfWeek" class="form-control"
+                            asp-items="Html.GetEnumSelectList<SCV.GlCommon.Enums.DayOfWeek>()">
+                        <option value="">Select a day</option>
+                    </select>
+                    <span asp-validation-for="DayOfWeek" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="Description" class="form-label-add-edit">Description</label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-2">
+                <button class="btn btn-warning btn-dark-text w-100 py-2 fw-bold rounded" type="submit">
+                    Create Class
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

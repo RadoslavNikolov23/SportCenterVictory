@@ -7,7 +7,7 @@
         public const string DateOnlyFormatCrossfitWOD = "yyMMdd";
         public const string DateOnlyFormat = "dd/MM/yyyy";
 
-        public const string AdminAreaName = "Administration";
+        public const string AreaName = "Administration";
 
     }
 }

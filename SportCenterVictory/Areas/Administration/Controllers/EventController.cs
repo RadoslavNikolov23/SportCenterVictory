@@ -2,7 +2,7 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class EventController : Controller
+    public class EventController : BaseAdminController
     {
         public IActionResult Index()
         {
