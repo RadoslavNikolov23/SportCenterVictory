@@ -4,9 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
     using SCV.Web.ViewModels.Administration.EventVM;
 
     using static SCV.GlCommon.ApplicationConstants;
@@ -154,10 +152,10 @@
         {
             try
             {
-                IEnumerable<EventAdminDetailViewModel> eventAdminDetailVM = await this.eventService
-                                                        .GetAllEventForAdminAsync();
+                IEnumerable<EventDeleteViewModel> eventDeleteDetailVM = await this.eventService
+                                                        .GetAllEventForDeletingAsync();
 
-                return this.View(eventAdminDetailVM);
+                return this.View(eventDeleteDetailVM);
             }
             catch (Exception e)
             {
@@ -173,7 +171,6 @@
         {
             try
             {
-
                 (bool isSuccess, bool isRestored) opResult = await this.eventService
                                         .DeleteOrRestoreEventAsync(id);
 

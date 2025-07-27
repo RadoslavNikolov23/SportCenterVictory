@@ -1,5 +1,5 @@
 ﻿@using SCV.Web.ViewModels.Administration.EventVM
-@model IEnumerable<EventAdminDetailViewModel>
+@model IEnumerable<EventDeleteViewModel>
 
 @{
     ViewData["Title"] = "Manage Events (Delete/Restore) ";
@@ -11,6 +11,7 @@
     <thead class="table-dark">
         <tr>
             <th>Title</th>
+            <th>Event Type</th>
             <th>Action</th>
             <th>Option</th>
         </tr>
@@ -20,6 +21,7 @@
         {
             <tr class="@(!classVm.IsDeleted ? "" : "table-warning")">
                 <td>@classVm.Title</td>
+                <td>@classVm.EventType</td>
                 <td>
                     @if (!classVm.IsDeleted)
                     {

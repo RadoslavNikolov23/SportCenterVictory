@@ -1,6 +1,11 @@
 ﻿namespace SCV.Web.ViewModels.Administration.EventVM
 {
-    public class EventDeleteViewModel : EventAdminDetailViewModel
+    using SCV.GlCommon.Enums;
+
+    public class EventDeleteViewModel : BaseEventViewModel
     {
+        public SportType EventType { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

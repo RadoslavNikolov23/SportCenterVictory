@@ -46,7 +46,6 @@
                                                         {
                                                             Id = cc.Id.ToString(),
                                                             Name = cc.Name,
-                                                            IsActive = cc.IsActive
                                                         })
                                                         .ToListAsync();
 
@@ -127,6 +126,24 @@
             }
 
             return isEdited;
+        }
+
+        public async Task<IEnumerable<CrossfitClassDeleteVIewModel>> GetAllCrossfitClassesForDeletingAsync()
+        {
+            IEnumerable<CrossfitClassDeleteVIewModel> crossfitClassAdminDetailVM =
+                                await this.crossfitClassRepo
+                                                        .GetAllAttached()
+                                                        .AsNoTracking()
+                                                        .IgnoreQueryFilters()
+                                                        .Select(cc => new CrossfitClassDeleteVIewModel()
+                                                        {
+                                                            Id = cc.Id.ToString(),
+                                                            Name = cc.Name,
+                                                            IsActive = cc.IsActive
+                                                        })
+                                                        .ToListAsync();
+
+            return crossfitClassAdminDetailVM;
         }
 
         public async Task<(bool, bool)> DeleteOrRestoreCrossfitClassAsync(string? id)

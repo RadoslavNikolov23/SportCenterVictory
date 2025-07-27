@@ -15,6 +15,8 @@
 
         Task<bool> EditCrossfitClassAsync(CrossfitClassEditViewModel crossfitClassEditVM);
 
+        Task<IEnumerable<CrossfitClassDeleteVIewModel>> GetAllCrossfitClassesForDeletingAsync();
+
         Task<(bool, bool)> DeleteOrRestoreCrossfitClassAsync(string? id);
 
     }

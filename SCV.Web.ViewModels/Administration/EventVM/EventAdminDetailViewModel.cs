@@ -1,11 +1,11 @@
 ﻿namespace SCV.Web.ViewModels.Administration.EventVM
 {
-    public class EventAdminDetailViewModel
+    public class EventAdminDetailViewModel : BaseEventViewModel
     {
-        public string Id { get; set; } = null!;
+        //public string Id { get; set; } = null!;
 
-        public string Title { get; set; } = null!;
+        //public string Title { get; set; } = null!;
 
-        public bool IsDeleted { get; set; }
+        //public bool IsDeleted { get; set; }
     }
 }

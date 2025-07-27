@@ -6,7 +6,6 @@
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
     using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.CommonVM;
 
@@ -43,7 +42,7 @@
 
         public async Task<IEnumerable<EventAdminDetailViewModel>> GetAllEventForAdminAsync()
         {
-            IEnumerable<EventAdminDetailViewModel> eventAdminDetailVM = await this.eventRepo
+            IEnumerable<EventAdminDetailViewModel> eventsAdminDetailVM = await this.eventRepo
                                                     .GetAllAttached()
                                                     .AsNoTracking()
                                                     .IgnoreQueryFilters()
@@ -51,11 +50,10 @@
                                                     {
                                                         Id = e.Id.ToString(),
                                                         Title = e.Title,
-                                                        IsDeleted = e.IsDeleted
                                                     })
                                                     .ToListAsync();
 
-            return eventAdminDetailVM;
+            return eventsAdminDetailVM;
 
         }
 
@@ -135,7 +133,24 @@
 
             return isEdited;
         }
+        public async Task<IEnumerable<EventDeleteViewModel>> GetAllEventForDeletingAsync()
+        {
+            IEnumerable<EventDeleteViewModel> listEventsDeleteVM = await this.eventRepo
+                                                    .GetAllAttached()
+                                                    .AsNoTracking()
+                                                    .IgnoreQueryFilters()
+                                                    .Select(e => new EventDeleteViewModel()
+                                                    {
+                                                        Id = e.Id.ToString(),
+                                                        Title = e.Title,
+                                                        EventType = e.EventType,
+                                                        IsDeleted = e.IsDeleted
+                                                    })
+                                                    .ToListAsync();
 
+            return listEventsDeleteVM;
+
+        }
         public async Task<(bool, bool)> DeleteOrRestoreEventAsync(string? id)
         {
             bool result = false;

@@ -131,8 +131,8 @@
         {
             try
             {
-                IEnumerable<CrossfitClassAdminDetailViewModel> crossfitClassesAdminDetailVM = await this.crossfitClassService
-                                         .GetAllCrossfitClassesForAdminAsync();
+                IEnumerable<CrossfitClassDeleteVIewModel> crossfitClassesAdminDetailVM = await this.crossfitClassService
+                                         .GetAllCrossfitClassesForDeletingAsync();
 
                 return this.View(crossfitClassesAdminDetailVM);
             }

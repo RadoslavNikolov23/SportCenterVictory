@@ -16,6 +16,8 @@
 
         Task<bool> EditEventAsync(EventEditViewModel eventEditVM);
 
+        Task<IEnumerable<EventDeleteViewModel>> GetAllEventForDeletingAsync();
+
         Task<(bool, bool)> DeleteOrRestoreEventAsync(string? id);
 
     }
