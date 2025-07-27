@@ -2,6 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
 
+    using SCV.GlCommon.Enums;
+
     [Comment("CrossFit Class Model")]
     public class CrossfitClass
     {

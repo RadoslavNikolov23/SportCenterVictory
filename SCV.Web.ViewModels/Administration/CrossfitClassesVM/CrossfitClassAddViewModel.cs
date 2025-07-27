@@ -1,6 +1,7 @@
 ﻿namespace SCV.Web.ViewModels.Administration.CrossfitClassesVM
 {
     using System.ComponentModel.DataAnnotations;
+    using SCV.GlCommon.Enums;
     using static SCV.GlCommon.ModelConstants.EntityConstantsCrossfit.CrossfitClassConstraints;
     using static SCV.GlCommon.ValidationMessages.CrossfitClass;
 

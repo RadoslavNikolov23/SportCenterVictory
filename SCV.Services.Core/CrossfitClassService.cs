@@ -1,6 +1,7 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
@@ -21,7 +22,7 @@
             IEnumerable<CrossfitClassDetailViewModel> crossfitClassDetailVM = await this.crossfitClassRepo
                                             .GetAllAttached()
                                             .AsNoTracking()
-                                            .OrderBy(cc=>(int)cc.DayOfWeek)
+                                            .OrderBy(cc => (int)cc.DayOfWeek)
                                             .Select(cc => new CrossfitClassDetailViewModel()
                                             {
                                                 Name = cc.Name,
@@ -32,6 +33,23 @@
                                             .ToListAsync();
 
             return crossfitClassDetailVM;
+        }
+
+        public async Task<IEnumerable<CrossfitClassNameIdOnlyViewModel>> GetAllCrossfitClassesNameAndIdOnlyAsync()
+        {
+            IEnumerable<CrossfitClassNameIdOnlyViewModel> crossfitClassNameIdOnlyVM = 
+                                await this.crossfitClassRepo
+                                                        .GetAllAttached()
+                                                        .AsNoTracking()
+                                                        .IgnoreQueryFilters()
+                                                        .Select(cc => new CrossfitClassNameIdOnlyViewModel()
+                                                        {
+                                                            Id = cc.Id.ToString().ToLower(),
+                                                            Name = cc.Name
+                                                        })
+                                                        .ToListAsync();
+
+            return crossfitClassNameIdOnlyVM;
         }
 
         public async Task<bool> AddCrossfitClassAsync(CrossfitClassAddViewModel crossfitClassAddVM)
@@ -56,6 +74,58 @@
 
             return isAdded;
 
+        }
+
+        public async Task<CrossfitClassEditViewModel?> GetCrossfitClassByIdAsync(string? id)
+        {
+            CrossfitClassEditViewModel? crossfitClassEditVM = null;
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                CrossfitClass? crossfitClass = await this.crossfitClassRepo
+                                        .GetAllAttached()
+                                        .IgnoreQueryFilters()
+                                        .FirstOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
+                
+                if (crossfitClass != null)
+                {
+                    crossfitClassEditVM = new CrossfitClassEditViewModel()
+                    {
+                        Id = crossfitClass.Id,
+                        Name = crossfitClass.Name,
+                        Description = crossfitClass.Description,
+                        StartTime = crossfitClass.StartTime,
+                        DayOfWeek = crossfitClass.DayOfWeek,
+                        TrainerName = crossfitClass.TrainerName
+                    };
+                }
+            }
+
+            return crossfitClassEditVM;
+        }
+
+        public async Task<bool> EditCrossfitClassAsync(CrossfitClassEditViewModel crossfitClassEditVM)
+        {
+            bool isEdited = false;
+
+            CrossfitClass? crossfitClass = await this.crossfitClassRepo
+                                        .GetAllAttached()
+                                        .IgnoreQueryFilters()
+                                        .FirstOrDefaultAsync(cc => cc.Id == crossfitClassEditVM.Id);
+
+            if (crossfitClass != null)
+            {
+                crossfitClass.Name = crossfitClassEditVM.Name;
+                crossfitClass.Description = crossfitClassEditVM.Description;
+                crossfitClass.StartTime = crossfitClassEditVM.StartTime;
+                crossfitClass.DayOfWeek = crossfitClassEditVM.DayOfWeek;
+                crossfitClass.TrainerName = crossfitClassEditVM.TrainerName;
+
+                isEdited = await this.crossfitClassRepo
+                                        .UpdateAsync(crossfitClass);
+            }
+
+            return isEdited;
         }
     }
 }

@@ -31,13 +31,4 @@
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Areas\Administration\Views\Fitness\" />
-    <Folder Include="Areas\Administration\Views\Event\" />
-    <Folder Include="Areas\Administration\Views\UserManagement\" />
-    <Folder Include="Areas\Administration\Views\UserFeedback\" />
-    <Folder Include="Areas\Administration\Views\Trainer\" />
-    <Folder Include="Areas\Administration\Views\Store\" />
-  </ItemGroup>
-
 </Project>

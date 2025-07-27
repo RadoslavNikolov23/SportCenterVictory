@@ -17,11 +17,9 @@
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddClass()
+        public IActionResult AddClass()
         {
-
             return this.View();
-
         }
 
         [HttpPost]
@@ -42,7 +40,7 @@
                 if (!isAddedSuccessfully)
                 {
                     TempData[ErrorMessageKey] = "CrossFit Class could not be created. Please try again.";
-                    
+
                     return View(crossfitClassAddVM);
                 }
 
@@ -54,9 +52,72 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the cinema! Please contact developer team! The error is {e.Message}";
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the CrossFit class! Please contact developer team! The error is {e.Message}";
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> EditClass()
+        {
+            try
+            {
+                IEnumerable<CrossfitClassNameIdOnlyViewModel> crossfitClassesNameIdVM = await this.crossfitClassService
+                                         .GetAllCrossfitClassesNameAndIdOnlyAsync();
+                return this.View(crossfitClassesNameIdVM);
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the CrossFit class! Please contact developer team! The error is {e.Message}";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetClass(string? id)
+        {
+            try
+            {
+                CrossfitClassEditViewModel? crossfitClassEditVM = await this.crossfitClassService
+                                 .GetCrossfitClassByIdAsync(id);
+
+                if (crossfitClassEditVM == null)
+                {
+                    return NotFound();
+                }
+
+                return Json(new
+                {
+                    id = crossfitClassEditVM.Id,
+                    name = crossfitClassEditVM.Name,
+                    trainerName = crossfitClassEditVM.TrainerName,
+                    startTime = crossfitClassEditVM.StartTime,
+                    dayOfWeek = (int)crossfitClassEditVM.DayOfWeek,
+                    description = crossfitClassEditVM.Description
+                });
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the CrossFit class! Please contact developer team! The error is {e.Message}";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditClass(CrossfitClassEditViewModel crossfitClassEditVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(crossfitClassEditVM);
+            }
+
+            await crossfitClassService.EditCrossfitClassAsync(crossfitClassEditVM);
+
+            TempData["Success"] = $"CrossFit Class {crossfitClassEditVM.Name} updated successfully!";
+
+            return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
+
         }
     }
 }

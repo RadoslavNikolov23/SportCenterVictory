@@ -1,0 +1,114 @@
+﻿@using SCV.Web.ViewModels.Administration.CrossfitClassesVM
+@model IEnumerable<CrossfitClassNameIdOnlyViewModel>
+
+@{
+    ViewData["Title"] = "Edit CrossFit Class ";
+}
+
+<h1 class="about_taital text-center">Edit CrossFit Class</h1>
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+
+        <label for="classSelect">Search & Select a Class</label>
+        <input class="form-control mb-2" list="classOptions" id="classSearchInput" placeholder="Type class name..." />
+        <datalist id="classOptions">
+            @foreach (var cls in Model)
+            {
+                <option value="@cls.Name" data-id="@cls.Id"></option>
+            }
+        </datalist>
+
+        <button class="btn btn-primary mb-4" id="loadClassBtn">Load Class</button>
+
+        <form id="editClassForm" asp-action="EditClass" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="Id" name="Id" />
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="Name">Class Name</label>
+                    <input class="form-control" id="Name" name="Name" />
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                    <label for="TrainerName">Trainer Name</label>
+                    <input class="form-control" id="TrainerName" name="TrainerName" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="StartTime">Start Time</label>
+                    <input class="form-control" id="StartTime" name="StartTime" />
+                </div>
+
+
+                <div class="col-sm-6 mb-2">
+                    <label for="DayOfWeek" class="form-label-add-edit">Day of the Week</label>
+                    <select id="DayOfWeek" name="DayOfWeek" class="form-control">
+                        <option value="">Select a day</option>
+                        @foreach (var day in Html.GetEnumSelectList<SCV.GlCommon.Enums.DayOfWeek>())
+                        {
+                            var dayValue = (int)Enum.Parse(typeof(SCV.GlCommon.Enums.DayOfWeek), day.Value.ToString());
+                            <option value="@dayValue">@day.Text</option>
+                        }
+                    </select>
+                    <span class="text-danger" data-valmsg-for="DayOfWeek" data-valmsg-replace="true"></span>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="Description">Description</label>
+                <textarea class="form-control" id="Description" name="Description" rows="3"></textarea>
+            </div>
+
+            <div class="mb-2">
+                <button type="submit" class="btn btn-warning w-100">Update Class</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("Id").value = "";
+            document.getElementById("Name").value = "";
+            document.getElementById("TrainerName").value = "";
+            document.getElementById("StartTime").value = "";
+            document.getElementById("DayOfWeek").value = "";
+            document.getElementById("Description").value = "";
+
+            const classes = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+            document.getElementById("loadClassBtn").addEventListener("click", function () {
+                const input = document.getElementById("classSearchInput").value;
+                const selected = classes.find(c => c.Name === input);
+
+                if (!selected) {
+                    alert("Please select a valid class name.");
+                    return;
+                }
+
+                fetch(`/Administration/Crossfit/GetClass?id=${selected.Id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById("Id").value = data.id;
+                        document.getElementById("Name").value = data.name;
+                        document.getElementById("TrainerName").value = data.trainerName;
+                        document.getElementById("StartTime").value = data.startTime;
+                        document.getElementById("DayOfWeek").value = data.dayOfWeek.toString();
+                        document.getElementById("Description").value = data.description;
+
+                        document.getElementById("editClassForm").style.display = "block";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Could not load class data.");
+                    });
+            });
+        });
+    </script>
+}

@@ -7,7 +7,15 @@
     {
         Task<IEnumerable<CrossfitClassDetailViewModel>> GetAllCrossfitClassesAsync();
 
+        Task<IEnumerable<CrossfitClassNameIdOnlyViewModel>> GetAllCrossfitClassesNameAndIdOnlyAsync();
+
         Task<bool> AddCrossfitClassAsync(CrossfitClassAddViewModel crossfitClassAddVM);
+
+        Task<CrossfitClassEditViewModel?> GetCrossfitClassByIdAsync(string? id);
+
+        Task<bool> EditCrossfitClassAsync(CrossfitClassEditViewModel crossfitClassEditVM);
+
+
 
     }
 }
