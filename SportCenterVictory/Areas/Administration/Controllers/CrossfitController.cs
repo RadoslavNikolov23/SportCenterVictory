@@ -1,8 +1,11 @@
 ﻿namespace SportCenterVictory.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
+
+    using static SCV.GlCommon.ApplicationConstants;
 
     public class CrossfitController : BaseAdminController
     {
@@ -38,18 +41,20 @@
 
                 if (!isAddedSuccessfully)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Crossfit Class could not be created. Please try again.");
+                    TempData[ErrorMessageKey] = "CrossFit Class could not be created. Please try again.";
+                    
                     return View(crossfitClassAddVM);
-
                 }
 
+
+                TempData[SuccessMessageKey] = "CrossFit Classes added successfully!";
                 return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
 
 
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the cinema! Please contact developer team! The error is {e.Message}";
                 return RedirectToAction("Index", "Home");
             }
         }
