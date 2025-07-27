@@ -35,17 +35,18 @@
             return crossfitClassDetailVM;
         }
 
-        public async Task<IEnumerable<CrossfitClassNameIdOnlyViewModel>> GetAllCrossfitClassesNameAndIdOnlyAsync()
+        public async Task<IEnumerable<CrossfitClassAdminDetailViewModel>> GetAllCrossfitClassesForAdminAsync()
         {
-            IEnumerable<CrossfitClassNameIdOnlyViewModel> crossfitClassNameIdOnlyVM = 
+            IEnumerable<CrossfitClassAdminDetailViewModel> crossfitClassNameIdOnlyVM = 
                                 await this.crossfitClassRepo
                                                         .GetAllAttached()
                                                         .AsNoTracking()
                                                         .IgnoreQueryFilters()
-                                                        .Select(cc => new CrossfitClassNameIdOnlyViewModel()
+                                                        .Select(cc => new CrossfitClassAdminDetailViewModel()
                                                         {
                                                             Id = cc.Id.ToString().ToLower(),
-                                                            Name = cc.Name
+                                                            Name = cc.Name,
+                                                            IsActive = cc.IsActive
                                                         })
                                                         .ToListAsync();
 
@@ -126,6 +127,36 @@
             }
 
             return isEdited;
+        }
+
+        public async Task<(bool, bool)> DeleteOrRestoreCrossfitClassAsync(string? id)
+        {
+            bool result = false;
+            bool isRestored = false;
+
+            if (!String.IsNullOrWhiteSpace(id))
+            {
+                CrossfitClass? crossfitClass = await this.crossfitClassRepo
+                                    .GetAllAttached()
+                                    .IgnoreQueryFilters()
+                                    .SingleOrDefaultAsync(c => c.Id.ToString().ToLower() == id.ToLower());
+                
+                if (crossfitClass != null)
+                {
+                    if (!crossfitClass.IsActive)
+                    {
+                        isRestored = true;
+                    }
+
+                    crossfitClass.IsActive = !crossfitClass.IsActive;
+
+                    result = await this.crossfitClassRepo
+                                    .UpdateAsync(crossfitClass);
+                }
+            }
+
+            return (result, isRestored);
+
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿namespace SportCenterVictory.Areas.Administration.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
 
     using static SCV.GlCommon.ApplicationConstants;
+    using static SCV.GlCommon.RoleConstants;
 
     public class CrossfitController : BaseAdminController
     {
@@ -17,12 +19,14 @@
         }
 
         [HttpGet]
+        [Authorize(Roles = AdminOrManager)]
         public IActionResult AddClass()
         {
             return this.View();
         }
 
         [HttpPost]
+        [Authorize(Roles = AdminOrManager)]
         public async Task<IActionResult> AddClass(CrossfitClassAddViewModel crossfitClassAddVM)
         {
             try
@@ -52,7 +56,7 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the CrossFit class! Please contact developer team! The error is {e.Message}";
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the CrossFit Class! Please contact developer team! The error is {e.Message}";
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -63,13 +67,14 @@
         {
             try
             {
-                IEnumerable<CrossfitClassNameIdOnlyViewModel> crossfitClassesNameIdVM = await this.crossfitClassService
-                                         .GetAllCrossfitClassesNameAndIdOnlyAsync();
-                return this.View(crossfitClassesNameIdVM);
+                IEnumerable<CrossfitClassAdminDetailViewModel> crossfitClassesAdminDetailVM = await this.crossfitClassService
+                                         .GetAllCrossfitClassesForAdminAsync();
+                
+                return this.View(crossfitClassesAdminDetailVM);
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the CrossFit class! Please contact developer team! The error is {e.Message}";
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the CrossFit Class! Please contact developer team! The error is {e.Message}";
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -118,6 +123,56 @@
 
             return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
 
+        }
+
+        [HttpGet]
+        [Authorize(Roles = AdminOrManager)]
+        public async Task<IActionResult> DeleteClass()
+        {
+            try
+            {
+                IEnumerable<CrossfitClassAdminDetailViewModel> crossfitClassesAdminDetailVM = await this.crossfitClassService
+                                         .GetAllCrossfitClassesForAdminAsync();
+
+                return this.View(crossfitClassesAdminDetailVM);
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the CrossFit class! Please contact developer team! The error is {e.Message}";
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = AdminOrManager)]
+        public async Task<IActionResult> ToggleDelete(string? id)
+        {
+            try
+            {
+
+                (bool isSuccess, bool isRestored) opResult = await this.crossfitClassService
+                                        .DeleteOrRestoreCrossfitClassAsync(id);
+
+                if (!opResult.isSuccess)
+                {
+                    TempData[ErrorMessageKey] = "CrossFit Class could not be found and deleted!";
+                }
+                else
+                {
+                    string operation = opResult.isRestored ? "Active" : "Inactive";
+
+                    TempData[SuccessMessageKey] = $"CrossFit Class {operation} successfully!";
+                }
+
+                return this.RedirectToAction(nameof(DeleteClass));
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the CrossFit class! Please contact developer team! The error is {e.Message}";
+
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

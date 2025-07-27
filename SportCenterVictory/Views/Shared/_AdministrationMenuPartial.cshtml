@@ -43,10 +43,10 @@
             <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#">CrossFit</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="AddClass">Add Class</a></li>
                     <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="EditClass">Edit Class</a></li>
                     @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
                     {
+                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="AddClass">Add Class</a></li>
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="DeleteClass">Delete Class</a></li>
                     }
                 </ul>
@@ -56,34 +56,32 @@
             <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#">Event</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="AddEvent">Add Event</a></li>
                     <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="EditEvent">Edit Event</a></li>
                     @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
                     {
+                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="AddEvent">Add Event</a></li>
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="DeleteEvent">Delete Event</a></li>
                     }
                 </ul>
             </li>
 
             <!-- Store Section -->
-            <li class="dropdown-submenu">
-                <a class="dropdown-item dropdown-toggle" href="#">Store</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="AddProduct">Add Product</a></li>
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="EditProduct">Edit Product</a></li>
-                    @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
-                    {
+            @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
+            {
+                <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" href="#">Store</a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="AddProduct">Add Product</a></li>
+                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="EditProduct">Edit Product</a></li>
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="DeleteProduct">Delete Product</a></li>
-                    }
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="AddMembership">Add Membership</a></li>
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="EditMembership">Edit Membership</a></li>
-                    @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
-                    {
+
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="AddMembership">Add Membership</a></li>
+                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="EditMembership">Edit Membership</a></li>
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="DeleteMembership">Delete Membership</a></li>
-                    }
-                </ul>
-            </li>
+                    </ul>
+                </li>
+            }
 
             <!-- User Feedback (Admin and Manager) -->
             @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
