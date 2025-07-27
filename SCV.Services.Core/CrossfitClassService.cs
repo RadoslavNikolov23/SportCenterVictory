@@ -37,20 +37,20 @@
 
         public async Task<IEnumerable<CrossfitClassAdminDetailViewModel>> GetAllCrossfitClassesForAdminAsync()
         {
-            IEnumerable<CrossfitClassAdminDetailViewModel> crossfitClassNameIdOnlyVM = 
+            IEnumerable<CrossfitClassAdminDetailViewModel> crossfitClassAdminDetailVM = 
                                 await this.crossfitClassRepo
                                                         .GetAllAttached()
                                                         .AsNoTracking()
                                                         .IgnoreQueryFilters()
                                                         .Select(cc => new CrossfitClassAdminDetailViewModel()
                                                         {
-                                                            Id = cc.Id.ToString().ToLower(),
+                                                            Id = cc.Id.ToString(),
                                                             Name = cc.Name,
                                                             IsActive = cc.IsActive
                                                         })
                                                         .ToListAsync();
 
-            return crossfitClassNameIdOnlyVM;
+            return crossfitClassAdminDetailVM;
         }
 
         public async Task<bool> AddCrossfitClassAsync(CrossfitClassAddViewModel crossfitClassAddVM)
@@ -83,21 +83,21 @@
 
             if (!string.IsNullOrEmpty(id))
             {
-                CrossfitClass? crossfitClass = await this.crossfitClassRepo
-                                        .GetAllAttached()
-                                        .IgnoreQueryFilters()
-                                        .FirstOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
+                CrossfitClass? crossfitClassEntity = await this.crossfitClassRepo
+                                    .GetAllAttached()
+                                    .IgnoreQueryFilters()
+                                    .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
                 
-                if (crossfitClass != null)
+                if (crossfitClassEntity != null)
                 {
                     crossfitClassEditVM = new CrossfitClassEditViewModel()
                     {
-                        Id = crossfitClass.Id,
-                        Name = crossfitClass.Name,
-                        Description = crossfitClass.Description,
-                        StartTime = crossfitClass.StartTime,
-                        DayOfWeek = crossfitClass.DayOfWeek,
-                        TrainerName = crossfitClass.TrainerName
+                        Id = crossfitClassEntity.Id.ToString(),
+                        Name = crossfitClassEntity.Name,
+                        Description = crossfitClassEntity.Description,
+                        StartTime = crossfitClassEntity.StartTime,
+                        DayOfWeek = crossfitClassEntity.DayOfWeek,
+                        TrainerName = crossfitClassEntity.TrainerName
                     };
                 }
             }
@@ -112,7 +112,7 @@
             CrossfitClass? crossfitClass = await this.crossfitClassRepo
                                         .GetAllAttached()
                                         .IgnoreQueryFilters()
-                                        .FirstOrDefaultAsync(cc => cc.Id == crossfitClassEditVM.Id);
+                                        .FirstOrDefaultAsync(cc => cc.Id.ToString().ToLower() == crossfitClassEditVM.Id.ToLower());
 
             if (crossfitClass != null)
             {

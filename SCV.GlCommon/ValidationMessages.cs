@@ -18,5 +18,21 @@
             public const string TrainerNameRequired = "CrossFit Class Trainer Name is required.";
             public const string TrainerNameLength = "CrossFit Class Trainer Name must be between {2} and {1} characters long.";
         }
+
+        public static class Event
+        {
+            public const string TitleRequired = "Event Title is required.";
+            public const string TitleLength = "Event Title must be between {2} and {1} characters long.";
+
+            public const string TypeRequired = "Event Type is required.";
+
+            public const string DescriptionLength = "Event Description must be between {2} and {1} characters long.";
+            public const string StartDateRequired = "Event Start Date is required.";
+
+            public const string LocationRequired = "Event Location is required.";
+            public const string LocationLength = "Event Location must be between {2} and {1} characters long.";
+
+            public const string ImageUrlInvalid = "Event Image URL is invalid.";
+        }
     }
 }

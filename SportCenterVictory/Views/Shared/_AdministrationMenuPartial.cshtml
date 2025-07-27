@@ -43,10 +43,13 @@
             <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#">CrossFit</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="EditClass">Edit Class</a></li>
                     @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
                     {
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="AddClass">Add Class</a></li>
+                    }
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="EditClass">Edit Class</a></li>
+                    @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
+                    {
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="DeleteClass">Delete Class</a></li>
                     }
                 </ul>
@@ -56,10 +59,13 @@
             <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#">Event</a>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="EditEvent">Edit Event</a></li>
                     @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
                     {
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="AddEvent">Add Event</a></li>
+                    }
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="EditEvent">Edit Event</a></li>
+                    @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
+                    {
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="DeleteEvent">Delete Event</a></li>
                     }
                 </ul>

@@ -1,5 +1,119 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.Administration.EventVM
+@model IEnumerable<EventAdminDetailViewModel>
+
 @{
+    ViewData["Title"] = "Edit Event ";
+}
+
+<h1 class="about_taital text-center">Edit Event</h1>
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+
+        <label for="eventSelect">Search & Select an Event</label>
+        <input class="form-control mb-2" list="eventOptions" id="eventSearchInput" placeholder="Type event title..." />
+        <datalist id="eventOptions">
+            @foreach (var ev in Model)
+            {
+                <option value="@ev.Title" data-id="@ev.Id"></option>
+            }
+        </datalist>
+
+        <button class="btn btn-primary mb-4" id="loadEventBtn">Load Event</button>
+
+        <form id="editEventForm" asp-action="EditEvent" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="Id" name="Id" />
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="Title">Event Title</label>
+                    <input class="form-control" id="Title" name="Title" />
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                    <label for="Location">Location</label>
+                    <input class="form-control" id="Location" name="Location" />
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="Description">Description</label>
+                <textarea class="form-control" id="Description" name="Description" rows="3"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="StartDate">Start Date</label>
+                    <input type="datetime-local" class="form-control" id="StartDate" name="StartDate" />
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                    <label for="EventType">Event Type</label>
+                    <select id="EventType" name="EventType" class="form-control">
+                        <option value="">Select an event type</option>
+                        @foreach (var type in Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>())
+                        {
+                            var value = (int)Enum.Parse(typeof(SCV.GlCommon.Enums.SportType), type.Value.ToString());
+                            <option value="@value">@type.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="ImageUrl">Image URL</label>
+                <input class="form-control" id="ImageUrl" name="ImageUrl" />
+            </div>
+
+            <div class="mb-2">
+                <button type="submit" class="btn btn-warning w-100">Update Event</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("Id").value = "";
+            document.getElementById("Title").value = "";
+            document.getElementById("EventType").value = "";
+            document.getElementById("Description").value = "";
+            document.getElementById("StartDate").value = "";
+            document.getElementById("Location").value = "";
+            document.getElementById("ImageUrl").value = "";
+
+            const events = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+            document.getElementById("loadEventBtn").addEventListener("click", function () {
+                const input = document.getElementById("eventSearchInput").value;
+                const selected = events.find(e => e.Title === input);
+
+                if (!selected) {
+                    alert("Please select a valid event title.");
+                    return;
+                }
+
+                fetch(`/Administration/Event/GetEvent?id=${selected.Id}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        document.getElementById("Id").value = data.id;
+                        document.getElementById("Title").value = data.title;
+                        document.getElementById("EventType").value = data.eventType.toString();
+                        document.getElementById("Location").value = data.location;
+                        document.getElementById("StartDate").value = data.startDate;
+                        document.getElementById("Description").value = data.description;
+                        document.getElementById("ImageUrl").value = data.imageUrl;
+
+                        document.getElementById("editEventForm").style.display = "block";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        alert("Could not load event data.");
+                    });
+            });
+        });
+    </script>
 }
