@@ -113,6 +113,11 @@
         {
             bool isEdited = false;
 
+            if (eventEditVM == null)
+            {
+                return isEdited;
+            }
+
             Event? eventEntity = await this.eventRepo
                                         .GetAllAttached()
                                         .IgnoreQueryFilters()

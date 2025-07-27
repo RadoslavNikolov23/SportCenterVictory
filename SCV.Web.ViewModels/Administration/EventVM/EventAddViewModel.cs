@@ -8,7 +8,7 @@
 
     public class EventAddViewModel
     {
-        [Required(ErrorMessage =TitleRequired)]
+        [Required(ErrorMessage = TitleRequired)]
         [StringLength(TitleMaxLength,MinimumLength = TitleMinLength,ErrorMessage = TitleLength)]
         public string Title { get; set; } = null!;
 

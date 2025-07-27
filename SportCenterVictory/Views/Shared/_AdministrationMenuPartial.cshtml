@@ -90,21 +90,25 @@
             }
 
             <!-- User Feedback (Admin and Manager) -->
-            @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
-            {
-                <li><hr class="dropdown-divider" /></li>
-                <li><a class="dropdown-item" asp-area="Administration" asp-controller="UserPanel" asp-action="UserFeedback">User Feedback</a></li>
 
-                <li class="dropdown-submenu">
-                    <a class="dropdown-item dropdown-toggle" href="#">Trainer Bio</a>
-                    <ul class="dropdown-menu">
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" asp-area="Administration" asp-controller="UserPanel" asp-action="UserFeedback">User Feedback</a></li>
+
+            <li class="dropdown-submenu">
+                <a class="dropdown-item dropdown-toggle" href="#">Trainer Bio</a>
+                <ul class="dropdown-menu">
+                    @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
+                    {
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Trainer" asp-action="AddTrainerBio">Add Trainer Bio</a></li>
-                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Trainer" asp-action="EditTrainerBio">Edit Trainer Bio</a></li>
-                        <li><hr class="dropdown-divider" /></li>
+                    }
+                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Trainer" asp-action="EditTrainerBio">Edit Trainer Bio</a></li>
+                    @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
+                    {
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Trainer" asp-action="DeleteTrainerBio">Delete Trainer Bio</a></li>
-                    </ul>
-                </li>
-            }
+                    }
+                </ul>
+            </li>
+
 
             <!-- Roles (Admin only) -->
             @if (User.IsInRole(@Admin))

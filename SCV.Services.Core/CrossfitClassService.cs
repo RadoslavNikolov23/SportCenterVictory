@@ -108,6 +108,11 @@
         {
             bool isEdited = false;
 
+            if (crossfitClassEditVM == null)
+            {
+                return isEdited;
+            }
+
             CrossfitClass? crossfitClass = await this.crossfitClassRepo
                                         .GetAllAttached()
                                         .IgnoreQueryFilters()
