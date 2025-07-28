@@ -67,14 +67,17 @@ This is a university project for managing a sports center (Fitness, CrossFit, Po
 
 ## 📝 GitHub Project Notes (Updated)
 
-- `Configure database connection in appsettings.json (DefaultConnection)`  
-  > Ensure your local database connection string is properly set in `appsettings.json` under `"ConnectionStrings": { "DefaultConnection": "..." }`.
-  
-- `Initialize EF Core Migrations and apply base database schema`  
-  > Run `Update-Database` in the **Package Manager Console** to apply all EF Core migrations in order. The database will be created and all migration steps executed based on their creation order.
+- **Configure the database connection in `appsettings.json`**  
+  > Make sure your local database connection string is correctly set under:  
+  > `"ConnectionStrings": { "DefaultConnection": "your-local-connection-string" }`.
 
-- `When running Update-Database all of the Seeds will be applied in the oreder that the migrations are created!`  
-  > Roles like **Admin**, **Manager**, and **Trainer** are seeded directly in code using the `ApplicationUserConfiguration.cs`, `ApplicationRoleConfiguration.cs` and `ApplicationUserRoleConfiguration.cs` classes during the migrations.
-  > All domain-specific data such as **Trainers**, **Products**, **Memberships**, **WorkoutPlans**, etc., are seeded through JSON files.
-  > This ensures all relevant data is populated automatically upon database creation.
+- **Initialize EF Core Migrations and create the database**  
+  > Run `Update-Database` in the **Package Manager Console** to apply all EF Core migrations.  
+  > This will create the database and apply all migration steps in the correct order.
+
+- **Seed data during migration and runtime checks**  
+  > The Identity roles **Admin**, **Manager**, and **Trainer**, along with the default users (ApplicationUser and ApplicationUserRole), are seeded dynamically at runtime via an extension method called during application startup (`Program.cs`).  
+  > All other domain data such as **Trainers**, **Products**, **Memberships**, **WorkoutPlans**, etc., are seeded from JSON files during the migration `Update-Database`.  
+  > Only the **UserFeedback** data is managed dynamically—on every web app startup, it checks for existing feedback entries and ensures the entity is kept up-to-date automatically.
+
 
