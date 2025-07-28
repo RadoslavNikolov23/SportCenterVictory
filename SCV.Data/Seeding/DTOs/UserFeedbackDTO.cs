@@ -4,8 +4,6 @@
     using static SCV.GlCommon.ModelConstants.EntityConstantsUserFeedback;
     public class UserFeedbackDTO
     {
-        public int Id { get; set; }
-
         [Required]
         [StringLength(UserNameMaxLength, MinimumLength = UserNameMinLength)]
 

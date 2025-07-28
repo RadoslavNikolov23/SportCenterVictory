@@ -88,13 +88,19 @@
                 const selected = classes.find(c => c.Name === input);
 
                 if (!selected) {
-                    alert("Please select a valid class name.");
+                    toastr.error("Please select a valid class name.");
                     return;
                 }
 
                 fetch(`/Administration/Crossfit/GetClass?id=${selected.Id}`)
                     .then(res => res.json())
-                    .then(data => {
+                    .then(result => {
+                            if (!result.success) {
+                                toastr.error(result.message); // Show server error
+                                return;
+                            }
+
+                        const data = result.data;
                         document.getElementById("Id").value = data.id;
                         document.getElementById("Name").value = data.name;
                         document.getElementById("TrainerName").value = data.trainerName;
@@ -106,7 +112,7 @@
                     })
                     .catch(error => {
                         console.error(error);
-                        alert("Could not load class data.");
+                        toastr.error("An unexpected error occurred while loading crossfit class info.");
                     });
             });
         });

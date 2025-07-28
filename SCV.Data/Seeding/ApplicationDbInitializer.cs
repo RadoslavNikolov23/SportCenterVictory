@@ -1,15 +1,17 @@
 ﻿namespace SCV.Data.Seeding
 {
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Newtonsoft.Json;
+
     using System;
     using System.Data;
     using System.Threading.Tasks;
+
     using SCV.GlCommon;
     using SCV.Data.Models;
     using SCV.Data.Seeding.Contracts;
     using SCV.Data.Seeding.DTOs;
-    using Newtonsoft.Json;
-    using Microsoft.AspNetCore.Identity;
-    using Microsoft.EntityFrameworkCore;
 
     public class ApplicationDbInitializer : IApplicationDbInitializer
     {
@@ -92,6 +94,8 @@
                 }
 
                   await SeedUserFeedbackAsync();
+
+                  await SeedTrainerAsync();
             }
         }
 
@@ -102,7 +106,6 @@
             //    return;
             //}
 
-            //string jsonPath = Path.Combine(Directory.GetCurrentDirectory(), "SCV.Data", "SeedFiles", "UserFeedbacks", "userfeedback.json");
             string jsonPath = Path.Combine(Path.Combine("..", "SCV.Data", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json"));
 
             if (!File.Exists(jsonPath))
@@ -115,10 +118,6 @@
 
             UserFeedbackDTO[]? userFeedbacksDTO = JsonConvert
                                         .DeserializeObject<UserFeedbackDTO[]>(jsonFile);
-
-            //For the feedbacks, change to this code
-             //  T[] genericListEntities = JsonConvert
-            //                                 .DeserializeObject<T[]>(jsonFile)!;
 
             if (userFeedbacksDTO == null || userFeedbacksDTO.Length == 0)
             {
@@ -147,6 +146,62 @@
                     };
 
                     await dbContext.UserFeedbacks.AddAsync(feedback);
+                }
+            }
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        private async Task SeedTrainerAsync()
+        {
+            //if (await dbContext.UserFeedbacks.AnyAsync())
+            //{
+            //    return;
+            //}
+
+            string jsonPath = Path.Combine(Path.Combine("..", "SCV.Data", "SeedFiles", "Trainers", "trainersSeed.json"));
+
+            if (!File.Exists(jsonPath))
+            {
+                return;
+            }
+
+            string jsonFile = await File
+                                .ReadAllTextAsync(jsonPath);
+
+            TrainerDTO[]? trainersDTO = JsonConvert
+                                        .DeserializeObject<TrainerDTO[]>(jsonFile);
+
+            if (trainersDTO == null || trainersDTO.Length == 0)
+            {
+                return;
+            }
+
+            foreach (TrainerDTO trainer in trainersDTO)
+            {
+                ApplicationUser? user = await dbContext
+                                                .Users
+                                                .FirstOrDefaultAsync(u => u.Email == trainer.Email);
+
+                bool alreadySeeded = await dbContext
+                                                .Trainers
+                                                .AnyAsync(f => f.Email == trainer.Email);
+
+                if (user != null && !alreadySeeded)
+                {
+                    Trainer trainerEntity = new Trainer
+                    {
+                        FirstName = trainer.FirstName,
+                        LastName = trainer.LastName,
+                        Email = trainer.Email,
+                        PhoneNumber = trainer.PhoneNumber,
+                        Bio = trainer.Bio,
+                        TrainerSpecialty = trainer.TrainerSpecialty,
+                        ImageUrl = trainer.ImageUrl,
+                        ApplicationUserId = user.Id
+                    };
+
+                    await dbContext.Trainers.AddAsync(trainerEntity);
                 }
             }
 

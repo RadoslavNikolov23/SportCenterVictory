@@ -1,5 +1,48 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.Administration.TrainerBioVM
+@model IEnumerable<TrainerBioDeleteViewModel>
+
 @{
+    ViewData["Title"] = "Manage Trainer Bio (Delete/Restore) ";
 }
+
+<h3 class="about_taital text-center pb-4">Manage All Trainer Bio</h3>
+
+<table class="table table-hover text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Full Name</th>
+            <th>Email</th>
+            <th>Trainer Specialty</th>
+            <th>Action</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var classVm in Model)
+        {
+            <tr class="@(!classVm.IsDeleted ? "" : "table-warning")">
+                <td>@classVm.FirstName @classVm.LastName</td>
+                <td>@classVm.Email</td>
+                <td>@classVm.TrainerSpecialty</td>
+                <td>
+                    @if (!classVm.IsDeleted)
+                    {
+                        <span class="badge bg-success text-white">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary text-white">Deleted</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="ToggleDelete"
+                       asp-route-id="@classVm.Id"
+                       class="btn @(classVm.IsDeleted ? "btn-danger" : "btn-warning") btn-sm fw-bold">
+                        <i class="bi @(!classVm.IsDeleted ? "bi-trash" : "bi-arrow-clockwise")"></i>
+                        @(!classVm.IsDeleted ? "Delete" : "Restore")
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

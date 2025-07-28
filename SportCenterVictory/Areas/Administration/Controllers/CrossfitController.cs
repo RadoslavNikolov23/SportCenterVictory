@@ -89,22 +89,32 @@
 
                 if (crossfitClassEditVM == null)
                 {
-                    return NotFound();
+                   // return NotFound();
+
+                    return Json(new
+                    {
+                        success = false,
+                        message = "CrossFit Class could not be found. Please try again."
+                    });
                 }
 
                 return Json(new
                 {
-                    id = crossfitClassEditVM.Id,
-                    name = crossfitClassEditVM.Name,
-                    trainerName = crossfitClassEditVM.TrainerName,
-                    startTime = crossfitClassEditVM.StartTime,
-                    dayOfWeek = (int)crossfitClassEditVM.DayOfWeek,
-                    description = crossfitClassEditVM.Description
+                    success = true,
+                    data = new
+                    {
+                        id = crossfitClassEditVM.Id,
+                        name = crossfitClassEditVM.Name,
+                        trainerName = crossfitClassEditVM.TrainerName,
+                        startTime = crossfitClassEditVM.StartTime,
+                        dayOfWeek = (int)crossfitClassEditVM.DayOfWeek,
+                        description = crossfitClassEditVM.Description
+                    }
                 });
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the CrossFit class! Please contact developer team! The error is {e.Message}";
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the CrossFit Class! Please contact developer team! The error is {e.Message}";
                 return RedirectToAction("Index", "Home");
             }
         }

@@ -1,0 +1,116 @@
+﻿@using SCV.Web.ViewModels.Administration.TrainerBioVM
+@model IEnumerable<TrainerAdminDetailViewModel>
+
+@{
+    ViewData["Title"] = "Edit Trainer Bio ";
+}
+
+<h2 class="about_taital text-center">Edit Trainer Bio</h2>
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-md-2 col-md-8">
+
+        <label for="trainerSearchInput">Search & Select a Trainer</label>
+        <input class="form-control mb-2" list="trainerOptions" id="trainerSearchInput" placeholder="Type trainer email..." />
+        <datalist id="trainerOptions">
+            @foreach (var trainer in Model)
+            {
+                <option value="@trainer.Email" data-id="@trainer.Id"></option>
+            }
+        </datalist>
+
+        <button class="btn btn-primary mb-4" id="loadTrainerBtn">Load Trainer</button>
+
+        <form id="editTrainerForm" asp-action="EditTrainerBio" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" id="Id" name="Id" />
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>First Name</label>
+                    <input class="form-control" id="FirstName" name="FirstName" />
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label>Last Name</label>
+                    <input class="form-control" id="LastName" name="LastName" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>Email</label>
+                    <input class="form-control" id="Email" name="Email" />
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label>Phone</label>
+                    <input class="form-control" id="PhoneNumber" name="PhoneNumber" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>Specialty</label>
+                    <select id="TrainerSpecialty" name="TrainerSpecialty" class="form-control">
+                        @foreach (var type in Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>())
+                        {
+                            <option value="@type.Value">@type.Text</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label>Image URL</label>
+                    <input class="form-control" id="ImageUrl" name="ImageUrl" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Trainer Bio</label>
+                <textarea class="form-control" id="Bio" name="Bio" rows="4"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Update Trainer</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        const trainers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+        document.getElementById("loadTrainerBtn").addEventListener("click", function () {
+            const input = document.getElementById("trainerSearchInput").value;
+            const selected = trainers.find(t => t.Email === input);
+
+            if (!selected) {
+                toastr.error("Please select a valid trainer email.");
+                return;
+            }
+
+            fetch(`/Administration/Trainer/GetTrainer?id=${selected.Id}`)
+                .then(res => res.json())
+                  .then(result => {
+                    if (!result.success) {
+                        toastr.error(result.message); // Show server error
+                        return;
+                    }
+
+                    const data = result.data;
+
+                    document.getElementById("Id").value = data.id;
+                    document.getElementById("FirstName").value = data.firstName;
+                    document.getElementById("LastName").value = data.lastName;
+                    document.getElementById("Email").value = data.email;
+                    document.getElementById("PhoneNumber").value = data.phoneNumber;
+                    document.getElementById("TrainerSpecialty").value = data.trainerSpecialty;
+                    document.getElementById("ImageUrl").value = data.imageUrl;
+                    document.getElementById("Bio").value = data.bio;
+
+                    document.getElementById("editTrainerForm").style.display = "block";
+                })
+                .catch(err => {
+                     console.error(error);
+                    toastr.error("An unexpected error occurred while loading trainer info.");
+                });
+        });
+    </script>
+}

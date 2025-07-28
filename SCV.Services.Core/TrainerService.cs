@@ -7,7 +7,7 @@
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.Administration.TrainerBio;
+    using SCV.Web.ViewModels.Administration.TrainerBioVM;
     using SCV.Web.ViewModels.CommonVM;
 
     using static SCV.GlCommon.RoleConstants;
@@ -47,6 +47,21 @@
             return trainerVM;
 
         }
+
+        public async Task<IEnumerable<TrainerAdminDetailViewModel>> GetAllTrainersForAdminAsync()
+        {
+            IEnumerable<TrainerAdminDetailViewModel> trainersAdminDetailVM = await this.userManager
+                                                                .Users
+                                                                .AsNoTracking()
+                                                                .Select(u => new TrainerAdminDetailViewModel
+                                                                {
+                                                                    Id = u.Id.ToString(),
+                                                                    Email = u.Email!
+                                                                })
+                                                                .ToListAsync();
+            return trainersAdminDetailVM;
+        }
+
         public async Task<bool> AddTrainerBioAsync(TrainerBioAddViewModel trainerBioToAddVM)
         {
             bool isAdded = false;
@@ -80,9 +95,10 @@
             {
                 Trainer? trainerEntity = await this.trainerRepo
                     .GetAllAttached()
+                    .Include(t => t.ApplicationUser)
                     .AsNoTracking()
                     .IgnoreQueryFilters()
-                    .SingleOrDefaultAsync(t => t.Id.ToString().ToLower() == id.ToLower());
+                    .SingleOrDefaultAsync(t => t.ApplicationUserId.ToString()!.ToLower()==id.ToLower());
 
                 if (trainerEntity != null)
                 {
@@ -96,6 +112,7 @@
                         Bio = trainerEntity.Bio,
                         TrainerSpecialty = trainerEntity.TrainerSpecialty,
                         ImageUrl = trainerEntity.ImageUrl,
+                        ApplicationUserId = trainerEntity.ApplicationUserId?.ToString() ?? string.Empty
                     };
                 }
             }

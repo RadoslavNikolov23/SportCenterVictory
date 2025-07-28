@@ -1,0 +1,64 @@
+﻿@using SCV.Web.ViewModels.Administration.TrainerBioVM
+@model TrainerBioEditViewModel
+
+@{
+    ViewData["Title"] = "Edit Your Trainer Bio";
+}
+
+<h2 class="about_taital text-center">Edit Your Trainer Bio</h2>
+
+<div class="row pt-3">
+    <div class="col-md-8 offset-md-2">
+        <form asp-action="EditTrainerBio" method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>First Name</label>
+                    <input class="form-control" name="FirstName" value="@Model.FirstName" />
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label>Last Name</label>
+                    <input class="form-control" name="LastName" value="@Model.LastName" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>Email</label>
+                    <input class="form-control" name="Email" value="@Model.Email" />
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label>Phone</label>
+                    <input class="form-control" name="PhoneNumber" value="@Model.PhoneNumber" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label>Specialty</label>
+                    <select name="TrainerSpecialty" class="form-control">
+                        @foreach (var type in Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>())
+                        {
+                            <option value="@type.Value" selected="@(Model.TrainerSpecialty.ToString() == type.Value)">
+                                @type.Text
+                            </option>
+                        }
+                    </select>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label>Image URL</label>
+                    <input class="form-control" name="ImageUrl" value="@Model.ImageUrl" />
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label>Bio</label>
+                <textarea class="form-control" name="Bio" rows="4">@Model.Bio</textarea>
+            </div>
+
+            <button type="submit" class="btn btn-success w-100">Update</button>
+        </form>
+    </div>
+</div>

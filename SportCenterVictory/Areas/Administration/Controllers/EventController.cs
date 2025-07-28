@@ -99,18 +99,25 @@
 
                 if (eventEditVM == null)
                 {
-                    return NotFound();
+                    return Json(new
+                    {
+                        success = false,
+                        message = "Event could not be found. Please try again."
+                    });
                 }
 
                 return Json(new
                 {
-                    id = eventEditVM.Id,
-                    title = eventEditVM.Title,
-                    eventType = (int)eventEditVM.EventType,
-                    description = eventEditVM.Description,
-                    startDate = eventEditVM.StartDate,
-                    location = eventEditVM.Location,
-                    imageUrl = eventEditVM.ImageUrl
+                    success = true,
+                    data = new {
+                                    id = eventEditVM.Id,
+                                    title = eventEditVM.Title,
+                                    eventType = (int)eventEditVM.EventType,
+                                    description = eventEditVM.Description,
+                                    startDate = eventEditVM.StartDate,
+                                    location = eventEditVM.Location,
+                                    imageUrl = eventEditVM.ImageUrl
+                                }
                 });
             }
             catch (Exception e)

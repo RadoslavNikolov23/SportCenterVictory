@@ -1,7 +1,8 @@
 ﻿namespace SCV.Data.Models
 {
-    using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
+
+    using SCV.GlCommon.Enums;
 
     [Comment("Represents a membership in the web application, for the fitness, crossfit and powerlifting.")]
     public class Membership
@@ -26,6 +27,8 @@
 
         [Comment("Indicates whether the membership is deleted.")]
         public bool IsDeleted { get; set; }
+
+        //TODO: Remove This property in the future
 
         [Comment("Foreign Key to the Trainer, who coaches in the membership. If null the membership is a class.")]
         public Guid? TrainerId { get; set; }

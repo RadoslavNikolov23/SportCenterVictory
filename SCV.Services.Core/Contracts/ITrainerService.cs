@@ -1,12 +1,14 @@
 ﻿namespace SCV.Services.Core.Contracts
 {
     using SCV.GlCommon.Enums;
-    using SCV.Web.ViewModels.Administration.TrainerBio;
+    using SCV.Web.ViewModels.Administration.TrainerBioVM;
     using SCV.Web.ViewModels.CommonVM;
 
     public interface ITrainerService
     {
-        Task<IEnumerable<TrainerDetailViewModel>> GetAllTrainerBySpecialtiesAsync(SportType trainerSpecialty); 
+        Task<IEnumerable<TrainerDetailViewModel>> GetAllTrainerBySpecialtiesAsync(SportType trainerSpecialty);
+
+        Task<IEnumerable<TrainerAdminDetailViewModel>> GetAllTrainersForAdminAsync();
 
         Task<bool> AddTrainerBioAsync(TrainerBioAddViewModel trainerBioToAddVM);
 

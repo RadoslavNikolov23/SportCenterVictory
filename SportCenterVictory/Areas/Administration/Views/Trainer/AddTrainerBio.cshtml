@@ -1,5 +1,86 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.GlCommon.Enums
+@using SCV.Web.ViewModels.Administration.TrainerBioVM
+@model TrainerBioAddViewModel
+
 @{
+    ViewData["Title"] = "Add Trainer Bio ";
+}
+
+<h1 class="about_taital text-center pd-5">Add Trainer Bio</h1>
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <form asp-action="AddTrainerBio" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="FirstName" class="form-label-add-edit">First Name</label>
+                    <input asp-for="FirstName" class="form-control" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label asp-for="LastName" class="form-label-add-edit">Last Name</label>
+                    <input asp-for="LastName" class="form-control" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="Email" class="form-label-add-edit">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label asp-for="PhoneNumber" class="form-label-add-edit">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="TrainerSpecialty" class="form-label-add-edit">Trainer Specialty</label>
+                    <select asp-for="TrainerSpecialty" class="form-control"
+                            asp-items="Html.GetEnumSelectList<SportType>()">
+                        <option value="">Select Specialty</option>
+                    </select>
+                    <span asp-validation-for="TrainerSpecialty" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label asp-for="ApplicationUserId" class="form-label-add-edit">Trainer User (Email)</label>
+                    <select asp-for="ApplicationUserId" class="form-control"
+                            asp-items="ViewBag.Trainers">
+                        <option value="">Select User</option>
+                    </select>
+                    <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="ImageUrl" class="form-label-add-edit">Image URL</label>
+                <input asp-for="ImageUrl" class="form-control" />
+                <span asp-validation-for="ImageUrl" class="text-danger"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="Bio" class="form-label-add-edit">Trainer Bio</label>
+                <textarea asp-for="Bio" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Bio" class="text-danger"></span>
+            </div>
+
+            <div class="mb-2">
+                <button class="btn btn-warning btn-dark-text w-100 py-2 fw-bold rounded" type="submit">
+                    Save Trainer Bio
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

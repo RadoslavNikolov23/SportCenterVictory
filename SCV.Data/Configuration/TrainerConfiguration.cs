@@ -1,8 +1,10 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SCV.Data.Models;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsTrainer;
 
     public class TrainerConfiguration : BaseConfiguration, IEntityTypeConfiguration<Trainer>
@@ -58,7 +60,8 @@
                 .WithMany(au=>au.Trainers)
                 .HasForeignKey(t => t.ApplicationUserId);
 
-            entity.HasData(SeedFromJson<Trainer>(Path.Combine("..", "SCV.Data", "SeedFiles", "Trainers", "trainersSeed.json")));
+            //TODO: Remove this method in the future
+            //entity.HasData(SeedFromJson<Trainer>(Path.Combine("..", "SCV.Data", "SeedFiles", "Trainers", "trainersSeed.json")));
         }
     }
 }

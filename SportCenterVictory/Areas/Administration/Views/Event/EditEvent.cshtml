@@ -92,13 +92,19 @@
                 const selected = events.find(e => e.Title === input);
 
                 if (!selected) {
-                    alert("Please select a valid event title.");
+                    toastr.error("Please select a valid event title.");
                     return;
                 }
 
                 fetch(`/Administration/Event/GetEvent?id=${selected.Id}`)
                     .then(res => res.json())
-                    .then(data => {
+                    .then( result => {
+                            if (!result.success) {
+                                toastr.error(result.message); // Show server error
+                                return;
+                            }
+
+                        const data = result.data;
                         document.getElementById("Id").value = data.id;
                         document.getElementById("Title").value = data.title;
                         document.getElementById("EventType").value = data.eventType.toString();
@@ -111,7 +117,7 @@
                     })
                     .catch(error => {
                         console.error(error);
-                        alert("Could not load event data.");
+                        toastr.error("An unexpected error occurred while loading event info.");
                     });
             });
         });
