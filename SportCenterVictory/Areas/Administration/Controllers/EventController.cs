@@ -61,7 +61,7 @@
                     case SportType.Powerlifting:
                         return RedirectToAction("PowerliftingEvents", "Powerlifting", new { area = "" });
                     default:
-                        return RedirectToAction("Memberships", "Store", new { area = "" });
+                        return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
             }

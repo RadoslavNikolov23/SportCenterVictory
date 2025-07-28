@@ -5,6 +5,8 @@
         public const int TitleMaxLength = 200;
         public const int TitleMinLength = 3;
 
+        public const int QuantityMaxValue = int.MaxValue;
+        public const int QuantityMinValue = 0;
 
         public const int DescriptionMaxLength = 525;
         public const int DescriptionMinLength = 10;

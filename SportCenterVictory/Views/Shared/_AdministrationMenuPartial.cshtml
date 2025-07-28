@@ -90,9 +90,13 @@
             }
 
             <!-- User Feedback (Admin and Manager) -->
+            @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
+            {
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" asp-area="Administration" asp-controller="UserPanel" asp-action="UserFeedback">User Feedback</a></li>
+            }
 
-            <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" asp-area="Administration" asp-controller="UserPanel" asp-action="UserFeedback">User Feedback</a></li>
+            <!-- Trainer Bio -->
 
             <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#">Trainer Bio</a>

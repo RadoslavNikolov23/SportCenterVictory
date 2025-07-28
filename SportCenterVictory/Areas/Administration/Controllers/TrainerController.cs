@@ -8,7 +8,6 @@
     using SCV.Data.Models;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.Administration.TrainerBioVM;
 
     using static SCV.GlCommon.ApplicationConstants;

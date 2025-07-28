@@ -1,9 +1,12 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
-    using SCV.Data.Repository.Contracts;
+
     using SCV.GlCommon.Enums;
+    using SCV.Data.Models;
+    using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM;
     using SVC.Web.ViewModels.StoreVM;
 
     public class ProductService: IProductService
@@ -35,6 +38,137 @@
 
             return storeProductVM;
 
+        }
+
+        public async Task<bool> AddProductAsync(ProductAddViewModel productAddVM)
+        {
+            bool isAdded = false;
+
+            if (productAddVM != null)
+            {
+                Product productToAdd = new Product
+                {
+                    Title = productAddVM.Title,
+                    ProductCategory = productAddVM.ProductCategory,
+                    Quantity = productAddVM.Quantity,
+                    Description = productAddVM.Description,
+                    Price = productAddVM.Price,
+                    ImageUrl = productAddVM.ImageUrl,
+
+
+                };
+
+                await this.productRepository.AddAsync(productToAdd);
+                isAdded = true;
+            }
+
+            return isAdded;
+        }
+
+        public async Task<ProductEditViewModel?> GetProductByIdAsync(string? id)
+        {
+            ProductEditViewModel? productEditVM = null;
+
+            if (!string.IsNullOrEmpty(id))
+            {
+                Product? productEntity = await this.productRepository
+                                    .GetAllAttached()
+                                    .IgnoreQueryFilters()
+                                    .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
+
+                if (productEntity != null)
+                {
+                    productEditVM = new ProductEditViewModel()
+                    {
+                        Title = productEntity.Title,
+                        ProductCategory = productEntity.ProductCategory,
+                        Quantity = productEntity.Quantity,
+                        Description = productEntity.Description,
+                        Price = productEntity.Price,
+                        ImageUrl = productEntity.ImageUrl,
+                    };
+                }
+            }
+
+            return productEditVM;
+        }
+
+        public async Task<bool> EditProductAsync(ProductEditViewModel productEditVM)
+        {
+            bool isEdited = false;
+
+            if (productEditVM == null)
+            {
+                return isEdited;
+            }
+
+            Product? productEntity = await this.productRepository
+                                        .GetAllAttached()
+                                        .IgnoreQueryFilters()
+                                        .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == productEditVM.Id.ToLower());
+
+            if (productEntity != null)
+            {
+               productEntity.Title = productEditVM.Title;
+                productEntity.ProductCategory = productEditVM.ProductCategory;
+                productEntity.Quantity = productEditVM.Quantity;
+                productEntity.Description = productEditVM.Description;
+                productEntity.Price = productEditVM.Price;
+                productEntity.ImageUrl = productEditVM.ImageUrl;
+
+
+                isEdited = await this.productRepository
+                                        .UpdateAsync(productEntity);
+            }
+
+            return isEdited;
+        }
+
+        public async Task<IEnumerable<ProductDeleteViewModel>> GetAllProductsForDeletingAsync()
+        {
+            IEnumerable<ProductDeleteViewModel> listProductsDeleteVM = await this.productRepository
+                                                    .GetAllAttached()
+                                                    .AsNoTracking()
+                                                    .IgnoreQueryFilters()
+                                                    .Select(e => new ProductDeleteViewModel()
+                                                    {
+                                                        Id = e.Id.ToString(),
+                                                        Title = e.Title,
+                                                        ProductCategory = e.ProductCategory,
+                                                        IsDeleted = e.IsDeleted
+                                                    })
+                                                    .ToListAsync();
+
+            return listProductsDeleteVM;
+        }
+
+        public async Task<(bool, bool)> DeleteOrRestoreProductAsync(string? id)
+        {
+            bool result = false;
+            bool isRestored = false;
+
+            if (!String.IsNullOrWhiteSpace(id))
+            {
+                Product? productEntity = await this.productRepository
+                                    .GetAllAttached()
+                                    .IgnoreQueryFilters()
+                                    .SingleOrDefaultAsync(c => c.Id.ToString().ToLower() == id.ToLower());
+
+                if (productEntity != null)
+                {
+                    if (!productEntity.IsDeleted)
+                    {
+                        isRestored = true;
+                    }
+
+                    productEntity.IsDeleted = !productEntity.IsDeleted;
+
+                    result = await this.productRepository
+                                    .UpdateAsync(productEntity);
+                }
+            }
+
+            return (result, isRestored);
         }
     }
 }

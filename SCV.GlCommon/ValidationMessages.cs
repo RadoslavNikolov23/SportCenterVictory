@@ -57,5 +57,43 @@
 
             public const string ImageUrlInvalid = "Trainer Image URL is invalid.";
         }
+
+        public static class Membership
+        {
+            public const string NameRequired = "Membership Name is required.";
+            public const string NameLength = "Membership Name must be between {2} and {1} characters long.";
+
+            public const string MembershipTypeRequired = "Membership Type is required.";
+
+            public const string DescriptionRequired = "Membership Description is required.";
+            public const string DescriptionLength = "Membership Description must be between {2} and {1} characters long.";
+
+            public const string PriceRequired = "Membership Price is required.";
+            public const string PriceInvalid = "Membership Price must be a positive number.";
+            public const string PriceRange = "Membership Price must be between {2} and {1}.";
+
+            public const string DurationRequired = "Membership Duration is required.";
+            public const string DurationLength = "Membership Duration must be between {2} and {1} characters long.";
+        }
+
+        public static class Product
+        {
+            public const string TitleRequired = "Product Title is required.";
+            public const string TitleLength = "Product Title must be between {2} and {1} characters long.";
+            
+            public const string ProductCategoryRequired = "Product Category is required.";
+
+            public const string QuantityRequired = "Product Quantity is required.";
+            public const string QuantityInvalid = "Product Quantity must be a non-negative integer.";
+            public const string QuantityRange = "Product Quantity must be between {2} and {1}.";
+
+            public const string DescriptionLength = "Product Description must be between {2} and {1} characters long.";
+
+            public const string PriceRequired = "Product Price is required.";
+            public const string PriceInvalid = "Product Price must be a positive number.";
+            public const string PriceRange = "Membership Price must be between {2} and {1}.";
+
+            public const string ImageUrlInvalid = "Product Image URL is invalid.";
+        }
     }
 }
