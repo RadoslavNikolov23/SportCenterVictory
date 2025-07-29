@@ -9,6 +9,8 @@
     {
         Task<IEnumerable<StoreProductViewModel>> GetAllProductsByProductCategoryAsync(ProductCategory productCategory);
 
+        Task<IEnumerable<ProductAdminDetailViewModel>> GetAllProductsForAdminAsync();
+
         Task<bool> AddProductAsync(ProductAddViewModel productAddVM);
 
         Task<ProductEditViewModel?> GetProductByIdAsync(string? id);

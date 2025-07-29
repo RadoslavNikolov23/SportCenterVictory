@@ -77,10 +77,10 @@
         {
             try
             {
-                IEnumerable<EventAdminDetailViewModel> evenrAdminDetailVM = await this.eventService
+                IEnumerable<EventAdminDetailViewModel> eventAdminDetailVM = await this.eventService
                                                         .GetAllEventForAdminAsync();
 
-                return this.View(evenrAdminDetailVM);
+                return this.View(eventAdminDetailVM);
             }
             catch (Exception e)
             {

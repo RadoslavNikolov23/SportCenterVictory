@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM
+@model IEnumerable<ProductDeleteViewModel>
+
 @{
+    ViewData["Title"] = "Manage Product (Delete/Restore) ";
 }
+
+<h3 class="about_taital text-center pb-4">Manage All Memberships</h3>
+
+<table class="table table-hover text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Title</th>
+            <th>Product Category</th>
+            <th>Action</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (ProductDeleteViewModel productVm in Model)
+        {
+            <tr class="@(!productVm.IsDeleted ? "" : "table-warning")">
+                <td>@productVm.Title</td>
+                <td>@productVm.ProductCategory</td>
+                <td>
+                    @if (!productVm.IsDeleted)
+                    {
+                        <span class="badge bg-success text-white">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary text-white">Deleted</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="ToggleDeleteProduct"
+                       asp-route-id="@productVm.Id"
+                       class="btn @(productVm.IsDeleted ? "btn-danger" : "btn-warning") btn-sm fw-bold">
+                        <i class="bi @(!productVm.IsDeleted ? "bi-trash" : "bi-arrow-clockwise")"></i>
+                        @(!productVm.IsDeleted ? "Delete" : "Restore")
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

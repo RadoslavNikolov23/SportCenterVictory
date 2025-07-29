@@ -1,21 +1,20 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
-
-    using SCV.GlCommon.Enums;
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
+    using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM;
     using SVC.Web.ViewModels.StoreVM;
 
-    public class ProductService: IProductService
+    public class ProductService : IProductService
     {
         private readonly IProductRepository productRepository;
 
         public ProductService(IProductRepository productRepository)
         {
-           this.productRepository = productRepository;  
+            this.productRepository = productRepository;
         }
 
         public async Task<IEnumerable<StoreProductViewModel>> GetAllProductsByProductCategoryAsync(ProductCategory productCategory)
@@ -23,8 +22,8 @@
             IEnumerable<StoreProductViewModel> storeProductVM = await this.productRepository
                                             .GetAllAttached()
                                             .AsNoTracking()
-                                            .Where(p=>p.ProductCategory == productCategory)
-                                            .Select(p=> new StoreProductViewModel()
+                                            .Where(p => p.ProductCategory == productCategory)
+                                            .Select(p => new StoreProductViewModel()
                                             {
                                                 Id = p.Id.ToString(),
                                                 Title = p.Title,
@@ -37,6 +36,24 @@
                                             .ToListAsync();
 
             return storeProductVM;
+
+        }
+
+        public async Task<IEnumerable<ProductAdminDetailViewModel>> GetAllProductsForAdminAsync()
+        {
+            IEnumerable<ProductAdminDetailViewModel> productsAdminDetailVM = await
+                                                    this.productRepository
+                                                    .GetAllAttached()
+                                                    .AsNoTracking()
+                                                    .IgnoreQueryFilters()
+                                                    .Select(e => new ProductAdminDetailViewModel()
+                                                    {
+                                                        Id = e.Id.ToString(),
+                                                        Title = e.Title,
+                                                    })
+                                                    .ToListAsync();
+
+            return productsAdminDetailVM;
 
         }
 
@@ -80,6 +97,7 @@
                 {
                     productEditVM = new ProductEditViewModel()
                     {
+                        Id = productEntity.Id.ToString(),
                         Title = productEntity.Title,
                         ProductCategory = productEntity.ProductCategory,
                         Quantity = productEntity.Quantity,
@@ -109,7 +127,7 @@
 
             if (productEntity != null)
             {
-               productEntity.Title = productEditVM.Title;
+                productEntity.Title = productEditVM.Title;
                 productEntity.ProductCategory = productEditVM.ProductCategory;
                 productEntity.Quantity = productEditVM.Quantity;
                 productEntity.Description = productEditVM.Description;

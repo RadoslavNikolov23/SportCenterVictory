@@ -1,5 +1,118 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.Administration.StoreVM.MembershipsVM
+@model IEnumerable<MembershipAdminDetailViewModel>
+
 @{
+    ViewData["Title"] = "Edit Membership ";
+}
+
+<h1 class="about_taital text-center">Edit Membership</h1>
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+
+        <label for="membershipSelect">Search & Select an Membership</label>
+        <input class="form-control mb-2" list="membershipOptions" id="membershipSearchInput" placeholder="Type membership name..." />
+        <datalist id="membershipOptions">
+            @foreach (MembershipAdminDetailViewModel membership in Model)
+            {
+                <option value="@membership.Name" data-id="@membership.Id"></option>
+            }
+        </datalist>
+
+        <button class="btn btn-primary mb-4" id="loadMembershipBtn">Load Membership</button>
+
+        <form id="editMembershipForm" asp-action="EditMembership" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="Id" name="Id" />
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="Name">Membership Name</label>
+                    <input class="form-control" id="Name" name="Name" />
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                    <label for="MembershipType">Membership Type</label>
+                    <select id="MembershipType" name="MembershipType" class="form-control">
+                        <option value="">Select an membership type</option>
+                        @foreach (var type in Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>())
+                        {
+                            var value = (int)Enum.Parse(typeof(SCV.GlCommon.Enums.SportType), type.Value.ToString());
+                            <option value="@value">@type.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="Description">Description</label>
+                <textarea class="form-control" id="Description" name="Description" rows="3"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="Price">Price</label>
+                    <input type="number" step="0.01" min="0" class="form-control" id="Price" name="Price" />
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                    <label for="Duration">Duration</label>
+                    <input class="form-control" id="Duration" name="Duration" />
+                </div>         
+            </div>
+
+            <div class="mb-2">
+                <button type="submit" class="btn btn-warning w-100">Update Membership</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("Id").value = "";
+            document.getElementById("Name").value = "";
+            document.getElementById("MembershipType").value = "";
+            document.getElementById("Description").value = "";
+            document.getElementById("Price").value = "";
+            document.getElementById("Duration").value = "";
+
+            const memberships = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+            document.getElementById("loadMembershipBtn").addEventListener("click", function () {
+                const input = document.getElementById("membershipSearchInput").value;
+                const selected = memberships.find(e => e.Name === input);
+
+                if (!selected) {
+                    toastr.error("Please select a valid membership name.");
+                    return;
+                }
+
+                fetch(`/Administration/Store/GetMembership?id=${selected.Id}`)
+                    .then(res => res.json())
+                    .then( result => {
+                            if (!result.success) {
+                                toastr.error(result.message); // Show server error
+                                return;
+                            }
+
+                        const data = result.data;
+                        document.getElementById("Id").value = data.id;
+                        document.getElementById("Name").value = data.name;
+                        document.getElementById("MembershipType").value = data.membershipType.toString();
+                        document.getElementById("Description").value = data.description;
+                        document.getElementById("Price").value = data.price;
+                        document.getElementById("Duration").value = data.duration;
+
+                        document.getElementById("editMembershipForm").style.display = "block";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        toastr.error("An unexpected error occurred while loading membership info.");
+                    });
+            });
+        });
+    </script>
 }

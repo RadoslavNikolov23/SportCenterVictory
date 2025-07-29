@@ -1,11 +1,11 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
-
-    using SCV.GlCommon.Enums;
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
+    using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.Administration.StoreVM.MembershipsVM;
     using SCV.Web.ViewModels.CommonVM;
 
@@ -67,6 +67,7 @@
 
         }
 
+        //TODO: Delete this method when you Remove the Trainer from Membership
         public async Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(string trainerId)
         {
             ICollection<MembershipsTrainerViewModel> membershipsTrainerVM = await this.membershipRepo
@@ -82,6 +83,24 @@
                                       .ToListAsync();
 
             return membershipsTrainerVM;
+
+        }
+
+        public async Task<IEnumerable<MembershipAdminDetailViewModel>> GetAllMembershipsForAdminAsync()
+        {
+            IEnumerable<MembershipAdminDetailViewModel> membershipAdminDetailVM = await 
+                                                    this.membershipRepo
+                                                    .GetAllAttached()
+                                                    .AsNoTracking()
+                                                    .IgnoreQueryFilters()
+                                                    .Select(e => new MembershipAdminDetailViewModel()
+                                                    {
+                                                        Id = e.Id.ToString(),
+                                                        Name = e.Name,
+                                                    })
+                                                    .ToListAsync();
+
+            return membershipAdminDetailVM;
 
         }
 
@@ -123,6 +142,7 @@
                 {
                     membershipEditVM = new MembershipEditViewModel()
                     {
+                        Id = membershipEntity.Id.ToString(),
                         Name = membershipEntity.Name,
                         MembershipType = membershipEntity.MembershipType,
                         Description = membershipEntity.Description,

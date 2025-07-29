@@ -17,13 +17,13 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var classVm in Model)
+        @foreach (EventDeleteViewModel eventVm in Model)
         {
-            <tr class="@(!classVm.IsDeleted ? "" : "table-warning")">
-                <td>@classVm.Title</td>
-                <td>@classVm.EventType</td>
+            <tr class="@(!eventVm.IsDeleted ? "" : "table-warning")">
+                <td>@eventVm.Title</td>
+                <td>@eventVm.EventType</td>
                 <td>
-                    @if (!classVm.IsDeleted)
+                    @if (!eventVm.IsDeleted)
                     {
                         <span class="badge bg-success text-white">Active</span>
                     }
@@ -34,10 +34,10 @@
                 </td>
                 <td>
                     <a asp-action="ToggleDelete"
-                       asp-route-id="@classVm.Id"
-                       class="btn @(classVm.IsDeleted ? "btn-danger" : "btn-warning") btn-sm fw-bold">
-                        <i class="bi @(!classVm.IsDeleted ? "bi-trash" : "bi-arrow-clockwise")"></i>
-                        @(!classVm.IsDeleted ? "Delete" : "Restore")
+                       asp-route-id="@eventVm.Id"
+                       class="btn @(eventVm.IsDeleted ? "btn-danger" : "btn-warning") btn-sm fw-bold">
+                        <i class="bi @(!eventVm.IsDeleted ? "bi-trash" : "bi-arrow-clockwise")"></i>
+                        @(!eventVm.IsDeleted ? "Delete" : "Restore")
                     </a>
                 </td>
             </tr>

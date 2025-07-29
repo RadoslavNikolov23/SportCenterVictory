@@ -11,7 +11,10 @@
 
         Task<IEnumerable<MembershipDetailViewModel>> GetAllMembershipPerSportAsync(SportType membershipType);
 
+        //TODO: Remove this method when trainer is removed from the Membership
         Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(string trainerId);
+
+        Task<IEnumerable<MembershipAdminDetailViewModel>> GetAllMembershipsForAdminAsync();
 
         Task<bool> AddMembershipAsync(MembershipAddViewModel membershipAddVM);
 

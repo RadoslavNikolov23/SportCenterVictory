@@ -95,6 +95,7 @@
                 {
                     eventEditVM = new EventEditViewModel()
                     {
+                        Id = eventEntity.Id.ToString(),
                         Title = eventEntity.Title,
                         EventType = eventEntity.EventType,
                         Description = eventEntity.Description,

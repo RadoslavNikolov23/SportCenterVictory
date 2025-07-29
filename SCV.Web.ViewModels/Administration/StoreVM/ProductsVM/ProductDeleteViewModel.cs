@@ -2,12 +2,8 @@
 {
     using SCV.GlCommon.Enums;
 
-    public class ProductDeleteViewModel
+    public class ProductDeleteViewModel : BaseProductViewModel
     {
-        public string Id { get; set; } = null!;
-
-        public string Title { get; set; } = null!;
-
         public ProductCategory ProductCategory { get; set; }
 
         public bool IsDeleted { get; set; }
