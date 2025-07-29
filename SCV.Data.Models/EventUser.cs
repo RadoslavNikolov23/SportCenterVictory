@@ -15,5 +15,8 @@
 
         public virtual Event Event { get; set; } = null!;
 
+        [Comment("Shows if EventUser entry is deleted")]
+        public bool IsDeleted { get; set; }
+
     }
 }

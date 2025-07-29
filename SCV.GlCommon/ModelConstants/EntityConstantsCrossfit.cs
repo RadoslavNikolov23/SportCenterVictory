@@ -17,7 +17,7 @@
             public const int TrainerNameMinLength = 2;
         }
 
-        public static class CrossfitWorkoutOfTheDayConstraints
+        public static class CrossfitWODConstraints
         {
             public const int WODNameMaxLength = 18;
             public const int WODNameMinLength = 3;

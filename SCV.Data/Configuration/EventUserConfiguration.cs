@@ -1,8 +1,9 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SCV.Data.Models;
 
     public class EventUserConfiguration : IEntityTypeConfiguration<EventUser>
     {
@@ -12,8 +13,12 @@
                 .HasKey(eu => new { eu.ApplicationUserId, eu.EventId });
 
             entity
+                 .Property(eu => eu.IsDeleted)
+                 .HasDefaultValue(false);
+
+            entity
                 .HasOne(eu => eu.ApplicationUser)
-                .WithMany(au=>au.EventUsers)
+                .WithMany(au => au.EventUsers)
                 .HasForeignKey(eu => eu.ApplicationUserId);
 
             entity
@@ -22,7 +27,8 @@
                 .HasForeignKey(eu => eu.EventId);
 
             entity
-                .HasQueryFilter(eu =>eu.Event.IsDeleted == false);
+                .HasQueryFilter(eu => eu.IsDeleted == false
+                                   && eu.Event.IsDeleted == false);
 
         }
     }

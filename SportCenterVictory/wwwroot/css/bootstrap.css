@@ -3183,7 +3183,8 @@ input[type="button"].btn-block {
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: auto;
+    right:0;
     z-index: 1000;
     display: none;
     float: left;
@@ -3199,6 +3200,11 @@ input[type="button"].btn-block {
     background-clip: padding-box;
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 0.25rem;
+}
+
+.dropdown-menu-end {
+    right: 0;
+    left: auto;
 }
 
 .dropdown-menu-right {

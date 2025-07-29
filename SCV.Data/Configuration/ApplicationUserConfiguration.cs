@@ -1,9 +1,11 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SCV.Data.Models;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsApplicationUser;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
@@ -20,7 +22,6 @@
                 .IsRequired();
 
             //For deletion, because their are seeded dynamically to the database
-            //entity
             //     .HasData(this.SeedDefaultUser());
         }
 

@@ -2,8 +2,8 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     using SCV.Data.Models;
-    using SCV.GlCommon;
 
     public class ApplicationRoleConfiguration : IEntityTypeConfiguration<ApplicationRole>
     {

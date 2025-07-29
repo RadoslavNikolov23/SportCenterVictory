@@ -22,15 +22,5 @@
         public SportType TrainerSpecialty { get; set; }
 
         public string? ImageUrl { get; set; }
-
-        public virtual ICollection<MembershipsTrainerViewModel> MembershipsByTrainer { get; set; } = new HashSet<MembershipsTrainerViewModel>();
-    }
-
-    public class MembershipsTrainerViewModel
-    {
-        public string Name { get; set; } = null!;
-
-        public SportType MembershipType { get; set; }
-
     }
 }

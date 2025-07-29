@@ -1,9 +1,11 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
-    using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SCV.Data.Models;
+    using SCV.GlCommon.Enums;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsUserFeedback;
 
     public class UserFeedbackConfiguration : BaseConfiguration, IEntityTypeConfiguration<UserFeedback>
@@ -39,11 +41,8 @@
 
             entity
                 .HasOne(uf => uf.User)
-                .WithMany()
+                .WithMany(au=>au.UserFeedbacks)
                 .HasForeignKey(uf => uf.UserId);
-
-            //For deletion, because their are seeded dynamically to the database
-            //entity.HasData(SeedFromJson<UserFeedback>(Path.Combine("..", "SCV.Data", "SeedFiles", "UserFeedbacks", "userFeedbackSeed.json")));
         }
     }
 }

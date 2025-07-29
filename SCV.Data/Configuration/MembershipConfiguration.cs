@@ -1,8 +1,10 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SCV.Data.Models;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsMembership;
     using static SCV.GlCommon.ApplicationConstants;
 
@@ -43,11 +45,6 @@
 
             entity
                 .HasQueryFilter(e => e.IsDeleted == false);
-
-            entity
-                .HasOne(m => m.Trainer)
-                .WithMany(t => t.Memberships)
-                .HasForeignKey(m => m.TrainerId);
 
             entity.HasData(SeedFromJson<Membership>(Path.Combine("..", "SCV.Data", "SeedFiles", "Memberships", "membershipsSeed.json")));
 

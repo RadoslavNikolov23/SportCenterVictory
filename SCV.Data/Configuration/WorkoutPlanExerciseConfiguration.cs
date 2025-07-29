@@ -1,8 +1,9 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SCV.Data.Models;
 
     public class WorkoutPlanExerciseConfiguration : BaseConfiguration, IEntityTypeConfiguration<WorkoutPlanExercise>
     {

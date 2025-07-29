@@ -54,6 +54,24 @@ namespace SCV.Data.Migrations
                 comment: "Application user model that extends IdentityUser");
 
             migrationBuilder.CreateTable(
+                name: "CrossfitClasses",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "CrossFit Class Id"),
+                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false, comment: "CrossFit Class Name"),
+                    Description = table.Column<string>(type: "nvarchar(2025)", maxLength: 2025, nullable: false, comment: "CrossFit Class Description for details"),
+                    StartTime = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false, comment: "CrossFit Class starting date and time - a string, because it will say in which day of the week will there be classes, ex. Monday 17:00"),
+                    DayOfWeek = table.Column<int>(type: "int", nullable: false, comment: "CrossFit Class day of the week, for ordering purpose."),
+                    TrainerName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false, comment: "CrossFit Class Trainer name - can be a Trainer in the Sport Center or a guest Trainer"),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true, comment: "Indicates if the class is active or not")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CrossfitClasses", x => x.Id);
+                },
+                comment: "CrossFit Class Model");
+
+            migrationBuilder.CreateTable(
                 name: "CrossfitWorkoutOfTheDays",
                 columns: table => new
                 {
@@ -254,30 +272,6 @@ namespace SCV.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CrossfitClasses",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "CrossFit Class Id"),
-                    Name = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false, comment: "CrossFit Class Name"),
-                    Description = table.Column<string>(type: "nvarchar(2025)", maxLength: 2025, nullable: false, comment: "CrossFit Class Description for details"),
-                    StartTime = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false, comment: "CrossFit Class starting date and time - a string, because it will say in which day of the week will there be classes, ex. Monday 17:00"),
-                    DayOfWeek = table.Column<int>(type: "int", nullable: false, comment: "CrossFit Class day of the week, for ordering purpose."),
-                    TrainerName = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false, comment: "CrossFit Class Trainer name - can be a Trainer in the Sport Center or a guest Trainer"),
-                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true, comment: "Indicates if the class is active or not"),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CrossfitClasses", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_CrossfitClasses_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                },
-                comment: "CrossFit Class Model");
-
-            migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
@@ -287,17 +281,11 @@ namespace SCV.Data.Migrations
                     OrderStatus = table.Column<int>(type: "int", nullable: false, comment: "Shows what is the status of the order - "),
                     PaymentMethod = table.Column<int>(type: "int", nullable: false, comment: "Shows the method of payment"),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Flag which is used for soft deletion"),
-                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Identifier of the customer who made the order"),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Identifier of the customer who made the order")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Orders_AspNetUsers_CustomerId",
                         column: x => x.CustomerId,
@@ -342,17 +330,11 @@ namespace SCV.Data.Migrations
                     Feedback = table.Column<string>(type: "nvarchar(2024)", maxLength: 2024, nullable: false, comment: "The context of the feedback."),
                     ImageUrl = table.Column<string>(type: "nvarchar(2048)", maxLength: 2048, nullable: true, comment: "The URL of the image associated with the feedback, if any."),
                     Status = table.Column<int>(type: "int", nullable: false, defaultValue: 0, comment: "The status of the feedback, indicating whether it is pending, publish, or removed. The default will be pending."),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "The Foreign key to the User how added the feedback"),
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "The Foreign key to the User how added the feedback")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_UserFeedbacks", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_UserFeedbacks_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_UserFeedbacks_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -363,11 +345,39 @@ namespace SCV.Data.Migrations
                 comment: "Represents user feedback in the system.");
 
             migrationBuilder.CreateTable(
+                name: "CrossfitClassUsers",
+                columns: table => new
+                {
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
+                    CrossfitClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced CrossfitClass. Part of the entity composite PK."),
+                    JoinedAt = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date and time when the user joined the class"),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false, defaultValue: true, comment: "Shows if CrossfitClassUser entry is active")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CrossfitClassUsers", x => new { x.CrossfitClassId, x.ApplicationUserId });
+                    table.ForeignKey(
+                        name: "FK_CrossfitClassUsers_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CrossfitClassUsers_CrossfitClasses_CrossfitClassId",
+                        column: x => x.CrossfitClassId,
+                        principalTable: "CrossfitClasses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "Represents a many-to-many relationship between ApplicationUser and CrossfitClass.");
+
+            migrationBuilder.CreateTable(
                 name: "EventUsers",
                 columns: table => new
                 {
                     ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
-                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced Event. Part of the entity composite PK.")
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced Event. Part of the entity composite PK."),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Shows if EventUser entry is deleted")
                 },
                 constraints: table =>
                 {
@@ -413,32 +423,6 @@ namespace SCV.Data.Migrations
                 comment: "Workout Plan Exercise entity representing an exercise within a workout plan");
 
             migrationBuilder.CreateTable(
-                name: "CrossfitClassUsers",
-                columns: table => new
-                {
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
-                    CrossfitClassId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced CrossfitClass. Part of the entity composite PK."),
-                    JoinedAt = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date and time when the user joined the class")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_CrossfitClassUsers", x => new { x.CrossfitClassId, x.ApplicationUserId });
-                    table.ForeignKey(
-                        name: "FK_CrossfitClassUsers_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CrossfitClassUsers_CrossfitClasses_CrossfitClassId",
-                        column: x => x.CrossfitClassId,
-                        principalTable: "CrossfitClasses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                },
-                comment: "Represents a many-to-many relationship between ApplicationUser and CrossfitClass.");
-
-            migrationBuilder.CreateTable(
                 name: "OrderProducts",
                 columns: table => new
                 {
@@ -476,7 +460,7 @@ namespace SCV.Data.Migrations
                     Price = table.Column<decimal>(type: "decimal(18,6)", nullable: false, comment: "Price of the membership."),
                     Duration = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false, comment: "Duration of the membership - '1 month', '3 months', '1 year'."),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicates whether the membership is deleted."),
-                    TrainerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true, comment: "Foreign Key to the Trainer, who coaches in the membership. If null the membership is a class.")
+                    TrainerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -582,11 +566,6 @@ namespace SCV.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_CrossfitClasses_ApplicationUserId",
-                table: "CrossfitClasses",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CrossfitClassUsers_ApplicationUserId",
                 table: "CrossfitClassUsers",
                 column: "ApplicationUserId");
@@ -612,11 +591,6 @@ namespace SCV.Data.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ApplicationUserId",
-                table: "Orders",
-                column: "ApplicationUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Orders_CustomerId",
                 table: "Orders",
                 column: "CustomerId");
@@ -630,11 +604,6 @@ namespace SCV.Data.Migrations
                 name: "IX_TrainerUsers_TrainerId",
                 table: "TrainerUsers",
                 column: "TrainerId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserFeedbacks_ApplicationUserId",
-                table: "UserFeedbacks",
-                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserFeedbacks_UserId",

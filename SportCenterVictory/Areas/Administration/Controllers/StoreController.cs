@@ -25,7 +25,7 @@
 
         [HttpGet]
         [Authorize(Roles = AdminOrManager)]
-        public async Task<IActionResult> AddMembership()
+        public IActionResult AddMembership()
         {
             return View();
         }
@@ -209,7 +209,7 @@
 
         [HttpGet]
         [Authorize(Roles = AdminOrManager)]
-        public async Task<IActionResult> AddProduct()
+        public IActionResult AddProduct()
         {
             return View();
         }

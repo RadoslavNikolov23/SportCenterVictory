@@ -18,5 +18,8 @@
         [Comment("The date and time when the user joined the class")]
         public DateTime JoinedAt { get; set; }
 
+        [Comment("Shows if CrossfitClassUser entry is active")]
+        public bool IsActive { get; set; }
+
     }
 }

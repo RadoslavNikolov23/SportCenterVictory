@@ -124,19 +124,6 @@
                     <div><strong>Email:</strong> @trainer.Email</div>
                     <div><strong>Phone:</strong> @trainer.PhoneNumber</div>
                 </div>
-
-                @if (trainer.MembershipsByTrainer != null && trainer.MembershipsByTrainer.Any())
-                {
-                    <div class="membership-list">
-                        <strong>Memberships:</strong>
-                        @foreach (var m in trainer.MembershipsByTrainer)
-                        {
-                            <div class="membership-item">
-                                <strong>@m.Name</strong> – @m.MembershipType
-                            </div>
-                        }
-                    </div>
-                }
             </div>
         </div>
     }

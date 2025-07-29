@@ -1,8 +1,9 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SCV.Data.Models;
 
     public class CrossfitClassUserConfiguration : IEntityTypeConfiguration<CrossfitClassUser>
     {
@@ -15,8 +16,12 @@
                 .IsRequired();
 
             entity
+                .Property(ccu => ccu.IsActive)
+                .HasDefaultValue(true);
+
+            entity
                 .HasOne(ccu => ccu.ApplicationUser)
-                .WithMany()
+                .WithMany(au=>au.CrossfitClassesUsers)
                 .HasForeignKey(ccu => ccu.ApplicationUserId);
 
             entity
@@ -25,7 +30,8 @@
                 .HasForeignKey(ccu => ccu.CrossfitClassId);
 
             entity
-                .HasQueryFilter(ccu => ccu.CrossfitClass.IsActive == true);
+                .HasQueryFilter(ccu => ccu.IsActive == true 
+                                    && ccu.CrossfitClass.IsActive == true);
 
         }
     }

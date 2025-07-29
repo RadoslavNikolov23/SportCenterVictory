@@ -12,8 +12,8 @@ using SCV.Data;
 namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
-    [Migration("20250726194037_SeedWorkoutPlansExercises")]
-    partial class SeedWorkoutPlansExercises
+    [Migration("20250729213949_SeedExercises")]
+    partial class SeedExercises
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -242,9 +242,6 @@ namespace SCV.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("CrossFit Class Id");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("int")
                         .HasComment("CrossFit Class day of the week, for ordering purpose.");
@@ -281,8 +278,6 @@ namespace SCV.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId");
-
                     b.ToTable("CrossfitClasses", t =>
                         {
                             t.HasComment("CrossFit Class Model");
@@ -292,7 +287,7 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = new Guid("7aa86503-08e5-4d0f-a76e-331652c9235b"),
-                            DayOfWeek = 1,
+                            DayOfWeek = 0,
                             Description = "A high-intensity Hero WOD designed to test endurance and mental toughness.",
                             IsActive = false,
                             Name = "WOD: Hero Workout",
@@ -302,7 +297,7 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = new Guid("621d28e0-4142-4ba6-a754-a0f3537548e3"),
-                            DayOfWeek = 1,
+                            DayOfWeek = 0,
                             Description = "Focus on building strength with heavy lifts and compound movements.",
                             IsActive = false,
                             Name = "CrossFit Strength",
@@ -312,7 +307,7 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = new Guid("43c892c1-6fd9-409e-82e8-4b38eedcbed5"),
-                            DayOfWeek = 2,
+                            DayOfWeek = 1,
                             Description = "Enhance flexibility and mobility to improve overall performance.",
                             IsActive = false,
                             Name = "CrossFit Mobility",
@@ -322,7 +317,7 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = new Guid("7724554f-7f07-49f5-a7e2-5cc81e77a81a"),
-                            DayOfWeek = 3,
+                            DayOfWeek = 2,
                             Description = "Team-based workout to build camaraderie and competitive spirit.",
                             IsActive = false,
                             Name = "CrossFit Team Challenge",
@@ -332,7 +327,7 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = new Guid("55ea312a-2607-432a-beaa-88cdae84261d"),
-                            DayOfWeek = 2,
+                            DayOfWeek = 1,
                             Description = "Cardio-focused CrossFit session to build stamina and VO2 max.",
                             IsActive = false,
                             Name = "CrossFit Endurance",
@@ -342,7 +337,7 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = new Guid("a67e482d-ede8-491b-8f71-eeb4b3ecefbc"),
-                            DayOfWeek = 5,
+                            DayOfWeek = 4,
                             Description = "Introduction to CrossFit movements and techniques for beginners.",
                             IsActive = false,
                             Name = "CrossFit Basics",
@@ -352,7 +347,7 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = new Guid("c33e1e9d-1a72-47d5-8e53-8ed00d668785"),
-                            DayOfWeek = 6,
+                            DayOfWeek = 5,
                             Description = "Specialized training session to prepare for the CrossFit Open competition.",
                             IsActive = false,
                             Name = "CrossFit Open Prep",
@@ -362,7 +357,7 @@ namespace SCV.Data.Migrations
                         new
                         {
                             Id = new Guid("6b0d85a4-6707-4c9b-8759-132ec7512afe"),
-                            DayOfWeek = 6,
+                            DayOfWeek = 5,
                             Description = "Classes teaching technique and power development in snatch and clean and jerk.",
                             IsActive = false,
                             Name = "CrossFit Olympic Lifting",
@@ -380,6 +375,12 @@ namespace SCV.Data.Migrations
                     b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced ApplicationUser. Part of the entity composite PK.");
+
+                    b.Property<bool>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(true)
+                        .HasComment("Shows if CrossfitClassUser entry is active");
 
                     b.Property<DateTime>("JoinedAt")
                         .HasColumnType("datetime2")
@@ -437,24 +438,24 @@ namespace SCV.Data.Migrations
                             Id = new Guid("91a4bb71-3c90-46aa-8a66-a9ce3ca67907"),
                             DescriptionHTML = "<p>For time:<br>\n21 GHD sit-ups<br>\n7 rope climbs to 15 feet<br>\n21 GHD sit-ups<br>\n21-meter double-kettlebell front-rack walking lunge<br>\n15 GHD sit-ups<br>\n5 rope climbs to 15 feet<br>\n15 GHD sit-ups<br>\n15-meter double-kettlebell front-rack walking lunge<br>\n9 GHD sit-ups<br>\n3 rope climbs to 15 feet<br>\n9 GHD sit-ups<br>\n9-meter double-kettlebell front-rack walking lunge</p>\n\n<p>♀ 35-lb kettlebells<br>\n♂ 53-lb kettlebells</p>\n\n<p>Post time to comments.</p>\n\n<p><strong>Stimulus and Strategy:</strong><br>\nExpect this conditioning workout to challenge the trunk and legs, as well as the skill of the rope climb. The GHD sit-up volume is reasonable, but expect this movement to increase the difficulty of the knee raise component of the rope climbs, as well as the core demands of the kettlebell front-rack walking lunges. The load of the kettlebells is intended to be moderate, where the initial round can be completed unbroken or with one break.</p>\n\n<p><strong>Scaling:</strong><br>\nReduce the loading of the kettlebells. Reduce the reps of the GHD sit-ups and rope climbs.</p>\n\n<p>To reduce the complexity of the GHD sit-ups, reduce the range of motion. For the rope climbs, reduce the height of the climb. For the kettlebell front-rack lunges, perform the lunges with a single kettlebell or hold the two kettlebells in the farmers carry position.</p>\n\n<p>In case of injury or limitation, perform sit-ups or V-ups in place of the GHD sit-ups. For the rope climbs, perform pull-to-stands. For the kettlebell front-rack lunges, eliminate the loading or consider step-ups to a low box.</p>\n\n<p><strong>Intermediate option:</strong><br>\nFor time:<br>\n<strong>15</strong> GHD sit-ups<br>\n7 rope climbs to <strong>12</strong> feet<br>\n<strong>15</strong> GHD sit-ups<br>\n<strong>15</strong>-meter double-kettlebell front-rack walking lunge<br>\n<strong>12</strong> GHD sit-ups<br>\n5 rope climbs to <strong>12</strong> feet<br>\n<strong>12</strong> GHD sit-ups<br>\n<strong>12</strong>-meter double-kettlebell front-rack walking lunge<br>\n9 GHD sit-ups<br>\n3 rope climbs to <strong>12</strong> feet<br>\n9 GHD sit-ups<br>\n9-meter double-kettlebell front-rack walking lunge</p>\n\n<p>♀ <strong>26</strong>-lb kettlebells<br>\n♂ <strong>36</strong>-lb kettlebells</p>\n\n<p><strong>Beginner option:</strong><br>\nFor time:<br>\n<strong>15 AbMat</strong> sit-ups<br>\n<strong>5 pull-to-stands</strong><br>\n<strong>15 AbMat</strong> sit-ups<br>\n<strong>15</strong>-meter <strong>walking lunge</strong><br>\n<strong>12 AbMat</strong> sit-ups<br>\n<strong>4 pull-to-stands</strong><br>\n<strong>12 AbMat</strong> sit-ups<br>\n<strong>12</strong>-meter <strong>walking lunge</strong><br>\n9 <strong>AbMat</strong> sit-ups<br>\n3 <strong>pull-to-stands</strong><br>\n9 <strong>AbMat</strong> sit-ups<br>\n9-meter <strong>walking lunge</strong></p>\n\n<p><strong>Coaching cues:</strong><br>\nTreat the rope climb as a stand or squat after securing the wrap instead of pulling with the arms. In the warm-up, practice establishing a secure foot hook before standing up and reaching for the next pull. This will reduce the risk of unnecessary foot sliding as you are climbing.</p>\n",
                             DescriptionPlain = "For time:\n21 GHD sit-ups\n7 rope climbs to 15 feet\n21 GHD sit-ups\n21-meter double-kettlebell front-rack walking lunge\n15 GHD sit-ups\n5 rope climbs to 15 feet\n15 GHD sit-ups\n15-meter double-kettlebell front-rack walking lunge\n9 GHD sit-ups\n3 rope climbs to 15 feet\n9 GHD sit-ups\n9-meter double-kettlebell front-rack walking lunge\n\n♀ 35-lb kettlebells\n♂ 53-lb kettlebells\n\nPost time to comments.\n\nStimulus and Strategy:\nExpect this conditioning workout to challenge the trunk and legs, as well as the skill of the rope climb. The GHD sit-up volume is reasonable, but expect this movement to increase the difficulty of the knee raise component of the rope climbs, as well as the core demands of the kettlebell front-rack walking lunges. The load of the kettlebells is intended to be moderate, where the initial round can be completed unbroken or with one break.\n\nScaling:\nReduce the loading of the kettlebells. Reduce the reps of the GHD sit-ups and rope climbs.\n\nTo reduce the complexity of the GHD sit-ups, reduce the range of motion. For the rope climbs, reduce the height of the climb. For the kettlebell front-rack lunges, perform the lunges with a single kettlebell or hold the two kettlebells in the farmers carry position.\n\nIn case of injury or limitation, perform sit-ups or V-ups in place of the GHD sit-ups. For the rope climbs, perform pull-to-stands. For the kettlebell front-rack lunges, eliminate the loading or consider step-ups to a low box.\n\nIntermediate option:\nFor time:\n15 GHD sit-ups\n7 rope climbs to 12 feet\n15 GHD sit-ups\n15-meter double-kettlebell front-rack walking lunge\n12 GHD sit-ups\n5 rope climbs to 12 feet\n12 GHD sit-ups\n12-meter double-kettlebell front-rack walking lunge\n9 GHD sit-ups\n3 rope climbs to 12 feet\n9 GHD sit-ups\n9-meter double-kettlebell front-rack walking lunge\n\n♀ 26-lb kettlebells\n♂ 36-lb kettlebells\n\nBeginner option:\nFor time:\n15 AbMat sit-ups\n5 pull-to-stands\n15 AbMat sit-ups\n15-meter walking lunge\n12 AbMat sit-ups\n4 pull-to-stands\n12 AbMat sit-ups\n12-meter walking lunge\n9 AbMat sit-ups\n3 pull-to-stands\n9 AbMat sit-ups\n9-meter walking lunge\n\nCoaching cues:\nTreat the rope climb as a stand or squat after securing the wrap instead of pulling with the arms. In the warm-up, practice establishing a secure foot hook before standing up and reaching for the next pull. This will reduce the risk of unnecessary foot sliding as you are climbing.\n",
-                            Name = "Tuesday/250702",
-                            WorkoutDate = new DateTime(2025, 7, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Tuesday/250725",
+                            WorkoutDate = new DateTime(2025, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("0940e1fb-1329-40cc-940b-66a27289bad2"),
                             DescriptionHTML = "<p><strong>Part 1</strong><br>\nIn 10 minutes:<br>\nEstablish a 2-rep-max shoulder press</p>\n\n<p>3 minutes rest</p>\n\n<p><strong>Part 2</strong><br>\nAs many calories as possible in 10 minutes of:<br>\nEcho bike</p>\n\n<p>Post to comments:<br>\n1. Max weight lifted on the shoulder press in pounds<br>\n2. Total calories completed on the bike<br>\n3. Total weight + calories</p>\n\n<p><strong>Stimulus and Strategy:</strong><br>\nThis two-part workout will test upper-body pressing strength, as well as general conditioning. Start at a light load in the shoulder press and build up quickly to establish a 2-rep max for the day with sound mechanics. New athletes can focus on mechanics and keep the loads sub-maximal. Ten minutes on the bike will feel like a LONG TIME where you are at your threshold for a large portion of the workout. Set a goal cadence to maintain and treat the last minute as a final sprint to the finish.</p>\n\n<p><strong>Scaling:</strong><br>\nReduce the time on the Echo bike in Part 2.</p>\n\n<p>To reduce the complexity of the shoulder presses, consider using a pair of dumbbells. This will eliminate the need to navigate the head and reduce the complexity of the rack position.</p>\n\n<p>In case of injury or limitation, perform bench presses or floor presses in place of the shoulder presses. If necessary, consider single-dumbbell shoulder presses. For the max calories in Part 2, use any machine available.</p>\n\n<p><strong>Intermediate option:</strong><br>\nSame as Rx’d.</p>\n\n<p><strong>Beginner option:</strong><br>\nSame as Rx’d.</p>\n\n<p><strong>Coaching cues:</strong><br>\nKeep your abdominals, glutes, and quadriceps tight throughout the shoulder press to reduce issues of overextending the trunk.</p>",
                             DescriptionPlain = "Part 1\nIn 10 minutes:\nEstablish a 2-rep-max shoulder press\n\n3 minutes rest\n\nPart 2\nAs many calories as possible in 10 minutes of:\nEcho bike\n\nPost to comments:\n1. Max weight lifted on the shoulder press in pounds\n2. Total calories completed on the bike\n3. Total weight + calories\n\nStimulus and Strategy:\nThis two-part workout will test upper-body pressing strength, as well as general conditioning. Start at a light load in the shoulder press and build up quickly to establish a 2-rep max for the day with sound mechanics. New athletes can focus on mechanics and keep the loads sub-maximal. Ten minutes on the bike will feel like a LONG TIME where you are at your threshold for a large portion of the workout. Set a goal cadence to maintain and treat the last minute as a final sprint to the finish.\n\nScaling:\nReduce the time on the Echo bike in Part 2.\n\nTo reduce the complexity of the shoulder presses, consider using a pair of dumbbells. This will eliminate the need to navigate the head and reduce the complexity of the rack position.\n\nIn case of injury or limitation, perform bench presses or floor presses in place of the shoulder presses. If necessary, consider single-dumbbell shoulder presses. For the max calories in Part 2, use any machine available.\n\nIntermediate option:\nSame as Rx’d.\n\nBeginner option:\nSame as Rx’d.\n\nCoaching cues:\nKeep your abdominals, glutes, and quadriceps tight throughout the shoulder press to reduce issues of overextending the trunk.",
-                            Name = "Wednesday/250703",
-                            WorkoutDate = new DateTime(2025, 7, 3, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Wednesday/250726",
+                            WorkoutDate = new DateTime(2025, 7, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = new Guid("7e45fff5-e83f-48b1-bb99-90fc46f9ec08"),
                             DescriptionHTML = "<p><strong>Triple Deuce</strong></p><p>As many rounds and reps as possible in 20 minutes of:<br>22 burpees<br>22 air squats<br>22 pull-ups<br>22 sandbag ground-to-over-the-shoulders<br>722-meter run</p><p>♀ 40-lb sandbag<br>♂ 60-lb sandbag</p><p>Post rounds and reps to comments.</p><p>Army Sgt. 1st Class Jamie Nicholas, Army Sgt. 1st Class Gary Vasquez, and Army Capt. Richard Cliff, Jr., assigned to the 1st Battalion, 7th Special Forces Group in Fort Bragg, North Carolina, died Sept. 29, 2008, in Yakhchal, Afghanistan, from wounds sustained when their vehicle encountered an improvised explosive device during mounted operations.</p><p><strong>Stimulus and Strategy:</strong><br>This Hero workout will test cardiorespiratory endurance and stamina, where completing 3 or more rounds is a general guideline to follow. Since this is a Hero workout, feel free to attempt it as prescribed, even if 3 rounds may not be within reach. The air squats can be performed quickly, while the burpees and pull-ups may need some pacing to be able to complete them at a consistent pace. The sandbag is intended to be light so 22 reps can be completed with minimal rest between each.</p><p><strong>Scaling:</strong><br>Reduce the loading of the sandbag. Reduce the reps of the movements. Reduce the distance of the run.</p><p>To reduce the complexity of the burpees, perform up-downs. For the pull-ups, consider performing jumping pull-ups or ring rows. For the sandbag ground-to-over-the-shoulders, perform dumbbell power cleans, hang power cleans, or even light medicine-ball cleans over the shoulder</p><p>In case of injury or limitation, perform a 1,750/2,500-meter Echo bike or 800/1,000-meter row in place of the 722-meter run. For the air squats, consider squatting to a target that allows for a pain-free range of motion.</p><p><strong>Intermediate option:</strong><br>As many rounds and reps as possible in 20 minutes of:<br><strong>15</strong> burpees<br><strong>15</strong> air squats<br><strong>15 jumping</strong> pull-ups<br><strong>15</strong> sandbag ground-to-over-the-shoulders<br>722-meter run</p><p>♀ <strong>30</strong>-lb sandbag<br>♂ <strong>45</strong>-lb sandbag</p><p><strong>Beginner option:</strong><br>As many rounds and reps as possible in <strong>15</strong> minutes of:<br><strong>12</strong> burpees<br><strong>12</strong> air squats<br><strong>12 ring rows</strong><br><strong>12</strong> sandbag ground-to-over-the-shoulders<br><strong>400</strong>-meter run</p><p>♀ <strong>20</strong>-lb sandbag<br>♂ <strong>30</strong>-lb sandbag</p><p><strong>Coaching cues:</strong><br>Focus on using your hips and legs to launch the sandbag over your shoulders instead of solely pulling with your arms.</p>",
                             DescriptionPlain = "Triple Deuce\n\nAs many rounds and reps as possible in 20 minutes of:\n22 burpees\n22 air squats\n22 pull-ups\n22 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 40-lb sandbag\n♂ 60-lb sandbag\n\nPost rounds and reps to comments.\n\nArmy Sgt. 1st Class Jamie Nicholas, Army Sgt. 1st Class Gary Vasquez, and Army Capt. Richard Cliff, Jr., assigned to the 1st Battalion, 7th Special Forces Group in Fort Bragg, North Carolina, died Sept. 29, 2008, in Yakhchal, Afghanistan, from wounds sustained when their vehicle encountered an improvised explosive device during mounted operations.\n\nStimulus and Strategy:\nThis Hero workout will test cardiorespiratory endurance and stamina, where completing 3 or more rounds is a general guideline to follow. Since this is a Hero workout, feel free to attempt it as prescribed, even if 3 rounds may not be within reach. The air squats can be performed quickly, while the burpees and pull-ups may need some pacing to be able to complete them at a consistent pace. The sandbag is intended to be light so 22 reps can be completed with minimal rest between each.\n\nScaling:\nReduce the loading of the sandbag. Reduce the reps of the movements. Reduce the distance of the run.\n\nTo reduce the complexity of the burpees, perform up-downs. For the pull-ups, consider performing jumping pull-ups or ring rows. For the sandbag ground-to-over-the-shoulders, perform dumbbell power cleans, hang power cleans, or even light medicine-ball cleans over the shoulder\n\nIn case of injury or limitation, perform a 1,750/2,500-meter Echo bike or 800/1,000-meter row in place of the 722-meter run. For the air squats, consider squatting to a target that allows for a pain-free range of motion.\n\nIntermediate option:\nAs many rounds and reps as possible in 20 minutes of:\n15 burpees\n15 air squats\n15 jumping pull-ups\n15 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 30-lb sandbag\n♂ 45-lb sandbag\n\nBeginner option:\nAs many rounds and reps as possible in 15 minutes of:\n12 burpees\n12 air squats\n12 ring rows\n12 sandbag ground-to-over-the-shoulders\n400-meter run\n\n♀ 20-lb sandbag\n♂ 30-lb sandbag\n\nCoaching cues:\nFocus on using your hips and legs to launch the sandbag over your shoulders instead of solely pulling with your arms.",
-                            Name = "Friday/250704",
-                            WorkoutDate = new DateTime(2025, 7, 4, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                            Name = "Friday/250727",
+                            WorkoutDate = new DateTime(2025, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 
@@ -586,6 +587,12 @@ namespace SCV.Data.Migrations
                     b.Property<Guid>("EventId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced Event. Part of the entity composite PK.");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Shows if EventUser entry is deleted");
 
                     b.HasKey("ApplicationUserId", "EventId");
 
@@ -13338,8 +13345,7 @@ namespace SCV.Data.Migrations
                         .HasComment("Price of the membership.");
 
                     b.Property<Guid?>("TrainerId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Foreign Key to the Trainer, who coaches in the membership. If null the membership is a class.");
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -13490,9 +13496,6 @@ namespace SCV.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Unique identifier for the order");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Identifier of the customer who made the order");
@@ -13520,8 +13523,6 @@ namespace SCV.Data.Migrations
                         .HasComment("The total price of the order");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CustomerId");
 
@@ -13869,9 +13870,6 @@ namespace SCV.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Primary key for the UserFeedback Table.");
 
-                    b.Property<Guid?>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Feedback")
                         .IsRequired()
                         .HasMaxLength(2024)
@@ -13906,8 +13904,6 @@ namespace SCV.Data.Migrations
                         .HasComment("The Username (the email from AspNetUser) of the user who provided the feedback.");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("UserId");
 
@@ -13957,44 +13953,6 @@ namespace SCV.Data.Migrations
                         {
                             t.HasComment("Workout Plan entity for a structured workout plan for fitness, crossFit or powerlifting");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("022aec47-1894-4b70-856b-64caece77676"),
-                            Description = "Day 1 – Upper Body\n- Lat Pulldown: 3 sets x 8-10 reps\n- Bent Over Rows: 3 x 8-10 reps \n- Barbell Bench Press: 3 sets x 8-10 reps\n- Dumbbell Shoulder Press: 3 x 8-10 reps \n- Bicep Curl with dumbbells: 3 x 8-10 reps \n- Triceps Pushdown: 3 x 8-10 reps\n\nDay 2 – Lower Body\n- Squats: 3 x 8-10\n- Bodyweight Walking Lunges: 3 x 8-10 each leg\n- Lying Leg Curls: 3 x 8-10\n- Standing Calf Raises: 3 x 10\n- Plank: 3 x 30 sec\n- Crunches: 3 x 12-15 \n\nDay 3 – Optional Cardio or Rest day\n- For warm up: Burpees: 3 x 10\n- 20 minutes of walking on the Treadmill\nOr 20 minutes on the  Exercise bikes",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/4dgg6mp2tjgvzv0pcqjiq/FullBodyBeginnerFitness.jpg?rlkey=clp3qppsk03ous2a93in8ukds&st=iu0a9e92",
-                            IsDeleted = false,
-                            Title = "Full Body – Beginner Fitness",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd"),
-                            Description = "Day 1 – Chest & Triceps\n- Bench Press: 4 x 6-8\n- Incline Dumbbell Press: 4 x 8-10\n- Cable Crossover: 4 x 10-12\n- EZ-Bar Skullcrusher: 3 x 8-10\n- Triceps Dips: 3 x 10-12\n\nDay 2 – Back & Biceps\n- Barbell Deadlift: 4 x 6\n- Lat Pulldowns: 4 x 10-12\n- Seated Cable Rows: 4 x 10-12- Dumbbell Curls: 3 x 8-10\n- Hammer Curls: 3 x 10-12\n\nDay 3 – Legs & Abs\n- Squats: 4 x 6\n- Romanian Deadlifts: 4 x 8-10\n- Leg Extensions: 4 x 10-12\n- Lying Leg Curls: 3 x 10-12\n- Ab Roller: 3 x 12\n- Hanging Leg Raises: 3 x 12",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/6xw90evojamxwk6ewuwix/MuscleSculptIntermediateFitness.jpg?rlkey=a4e66pg3fv3d1mbsg4ch5937k&st=fxos16dd",
-                            IsDeleted = false,
-                            Title = "Muscle Sculpt – Intermediate Fitness",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("47c520d4-622c-4898-92e5-47041cd20fd7"),
-                            Description = "4 Rounds for Time:\n- 30 sec Jump Squats\n- 20 Push-Ups\n- 40 Mountain Climbers\n- 20 Kettlebell Thrusters\n- 60 sec Rest between rounds\n\nFinish with 3 sets:\n- Crunches: 20 reps\n- Plank Hold: 60 sec",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/luxe0zuskfqfaaqazsj7g/FatBlastHIITFitness.jpg?rlkey=1wgxbt3urb7rt6zxmw64dqqw1&st=rp2q1jm0",
-                            IsDeleted = false,
-                            Title = "Fat Blast HIIT – Fitness",
-                            Type = 0
-                        },
-                        new
-                        {
-                            Id = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2"),
-                            Description = "Day 1 – Squat Focus\n- Back Squat: 5 x 5 @ 80%\n- Front Squat: 3 x 5\n- Walking Lunges: 3 x 12 each leg\n\nDay 2 – Bench Focus\n- Bench Press: 5 x 5 @ 80%\n- Incline Press: 3 x 10\n- Triceps Pushdown: 3 x 15\n\nDay 3 – Deadlift Focus\n- Deadlift: 5 x 5 @ 80%\n- Barbell Rows: 3 x 10\n- Plank: 3 x 45 sec",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/sgl6jakmrh4zv6fw0fozm/PowerliftingSplit-Strength.jpg?rlkey=r4wjm06gry6w6jc2ggv2l27xb&st=ycdk52o7",
-                            IsDeleted = false,
-                            Title = "Powerlifting Split – Strength",
-                            Type = 2
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.WorkoutPlanExercise", b =>
@@ -14014,223 +13972,6 @@ namespace SCV.Data.Migrations
                     b.ToTable("WorkoutPlanExercises", t =>
                         {
                             t.HasComment("Workout Plan Exercise entity representing an exercise within a workout plan");
-                        });
-
-                    b.HasData(
-                        new
-                        {
-                            ExerciseId = "Full_Range-Of-Motion_Lat_Pulldown",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Bent_Over_Barbell_Row",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Bench_Press_-_Medium_Grip",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Dumbbell_Shoulder_Press",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Dumbbell_Bicep_Curl",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Triceps_Pushdown",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Full_Squat",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Bodyweight_Walking_Lunge",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Lying_Leg_Curls",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Standing_Calf_Raises",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Plank",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Crunches",
-                            WorkoutPlanId = new Guid("022aec47-1894-4b70-856b-64caece77676")
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Bench_Press_-_Medium_Grip",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Incline_Dumbbell_Press",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Cable_Crossover",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "EZ-Bar_Skullcrusher",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Dips_-_Triceps_Version",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Deadlift",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Full_Range-Of-Motion_Lat_Pulldown",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Seated_Cable_Rows",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Dumbbell_Bicep_Curl",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Hammer_Curls",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Full_Squat",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Romanian_Deadlift",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Leg_Extensions",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Lying_Leg_Curls",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Ab_Roller",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Hanging_Leg_Raise",
-                            WorkoutPlanId = new Guid("984a02e2-029d-44c1-855f-c90c056e3cdd")
-                        },
-                        new
-                        {
-                            ExerciseId = "Freehand_Jump_Squat",
-                            WorkoutPlanId = new Guid("47c520d4-622c-4898-92e5-47041cd20fd7")
-                        },
-                        new
-                        {
-                            ExerciseId = "Pushups",
-                            WorkoutPlanId = new Guid("47c520d4-622c-4898-92e5-47041cd20fd7")
-                        },
-                        new
-                        {
-                            ExerciseId = "Mountain_Climbers",
-                            WorkoutPlanId = new Guid("47c520d4-622c-4898-92e5-47041cd20fd7")
-                        },
-                        new
-                        {
-                            ExerciseId = "Kettlebell_Thruster",
-                            WorkoutPlanId = new Guid("47c520d4-622c-4898-92e5-47041cd20fd7")
-                        },
-                        new
-                        {
-                            ExerciseId = "Crunches",
-                            WorkoutPlanId = new Guid("47c520d4-622c-4898-92e5-47041cd20fd7")
-                        },
-                        new
-                        {
-                            ExerciseId = "Plank",
-                            WorkoutPlanId = new Guid("47c520d4-622c-4898-92e5-47041cd20fd7")
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Full_Squat",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
-                        },
-                        new
-                        {
-                            ExerciseId = "Front_Squat_Clean_Grip",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
-                        },
-                        new
-                        {
-                            ExerciseId = "Bodyweight_Walking_Lunge",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
-                        },
-                        new
-                        {
-                            ExerciseId = "Bench_Press_-_Powerlifting",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Shoulder_Press",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
-                        },
-                        new
-                        {
-                            ExerciseId = "Triceps_Pushdown",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
-                        },
-                        new
-                        {
-                            ExerciseId = "Barbell_Deadlift",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
-                        },
-                        new
-                        {
-                            ExerciseId = "Bent_Over_Barbell_Row",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
-                        },
-                        new
-                        {
-                            ExerciseId = "Plank",
-                            WorkoutPlanId = new Guid("1b055049-3e04-424d-81d1-8efa83cd50c2")
                         });
                 });
 
@@ -14285,17 +14026,10 @@ namespace SCV.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("SCV.Data.Models.CrossfitClass", b =>
-                {
-                    b.HasOne("SCV.Data.Models.ApplicationUser", null)
-                        .WithMany("CrossfitClassesUsers")
-                        .HasForeignKey("ApplicationUserId");
-                });
-
             modelBuilder.Entity("SCV.Data.Models.CrossfitClassUser", b =>
                 {
                     b.HasOne("SCV.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
+                        .WithMany("CrossfitClassesUsers")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -14332,11 +14066,9 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.Membership", b =>
                 {
-                    b.HasOne("SCV.Data.Models.Trainer", "Trainer")
+                    b.HasOne("SCV.Data.Models.Trainer", null)
                         .WithMany("Memberships")
                         .HasForeignKey("TrainerId");
-
-                    b.Navigation("Trainer");
                 });
 
             modelBuilder.Entity("SCV.Data.Models.MembershipUser", b =>
@@ -14360,12 +14092,8 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.Order", b =>
                 {
-                    b.HasOne("SCV.Data.Models.ApplicationUser", null)
-                        .WithMany("Orders")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("SCV.Data.Models.ApplicationUser", "Customer")
-                        .WithMany()
+                        .WithMany("Orders")
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -14422,12 +14150,8 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.UserFeedback", b =>
                 {
-                    b.HasOne("SCV.Data.Models.ApplicationUser", null)
-                        .WithMany("UserFeedbacks")
-                        .HasForeignKey("ApplicationUserId");
-
                     b.HasOne("SCV.Data.Models.ApplicationUser", "User")
-                        .WithMany()
+                        .WithMany("UserFeedbacks")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

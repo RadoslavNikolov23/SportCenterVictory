@@ -23,7 +23,6 @@
         {
             IEnumerable<MembershipDetailViewModel> allMembershipsViewModels = await this.membershipRepo
                                     .GetAllAttached()
-                                    .Include(m => m.Trainer)
                                     .AsNoTracking()
                                     .OrderBy(m => m.MembershipType)
                                     .ThenBy(m => m.Price)
@@ -34,7 +33,6 @@
                                         Description = m.Description,
                                         Price = m.Price,
                                         Duration = m.Duration,
-                                        TrainerName = m.Trainer == null ? $"{m.Trainer!.FirstName} {m.Trainer.LastName}" : null,
                                     })
                                     .ToListAsync();
 
@@ -48,7 +46,6 @@
 
             membershipsCollection = await this.membershipRepo
                         .GetAllAttached()
-                        .Include(m => m.Trainer)
                         .AsNoTracking()
                         .Where(m => m.MembershipType == membershipType)
                         .OrderBy(m => m.Price)
@@ -59,30 +56,10 @@
                             Description = m.Description,
                             Price = m.Price,
                             Duration = m.Duration,
-                            TrainerName = m.Trainer == null ? $"{m.Trainer!.FirstName} {m.Trainer.LastName}" : null,
                         })
                         .ToListAsync();
 
             return membershipsCollection;
-
-        }
-
-        //TODO: Delete this method when you Remove the Trainer from Membership
-        public async Task<ICollection<MembershipsTrainerViewModel>> GetAllMembershipForTrainerAsync(string trainerId)
-        {
-            ICollection<MembershipsTrainerViewModel> membershipsTrainerVM = await this.membershipRepo
-                                      .GetAllAttached()
-                                      .Include(mt => mt.Trainer)
-                                      .AsNoTracking()
-                                      .Where(mt => mt.Trainer!.Id.ToString().ToLower() == trainerId.ToString().ToLower())
-                                      .Select(mt => new MembershipsTrainerViewModel()
-                                      {
-                                          Name = mt.Name,
-                                          MembershipType = mt.MembershipType,
-                                      })
-                                      .ToListAsync();
-
-            return membershipsTrainerVM;
 
         }
 

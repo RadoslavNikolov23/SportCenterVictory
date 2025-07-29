@@ -1,8 +1,10 @@
 ﻿namespace SCV.Data.Configuration
 {
-    using SCV.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+    using SCV.Data.Models;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsCrossfit.CrossfitClassConstraints;
 
     public class CrossfitClassConfiguration : BaseConfiguration, IEntityTypeConfiguration<CrossfitClass>
@@ -38,7 +40,6 @@
 
             entity
                 .Property(cc => cc.IsActive)
-                .IsRequired()
                 .HasDefaultValue(true);
 
             entity

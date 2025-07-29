@@ -54,12 +54,6 @@
         margin-bottom: 10px;
     }
 
-    .membership-trainer {
-        font-size: 0.95rem;
-        color: #444;
-        margin-bottom: 15px;
-    }
-
     .buy-button {
         padding: 10px 20px;
         background-color: #28a745;
@@ -90,11 +84,6 @@
                 <div class="membership-title">@membership.Name</div>
 
                 <div class="membership-description">@membership.Description</div>
-
-                @if (!string.IsNullOrEmpty(membership.TrainerName))
-                {
-                    <div class="membership-trainer">Trainer: @membership.TrainerName</div>
-                }
 
                 <div class="membership-price-duration">
                     @membership.Price.ToString("C") - @membership.Duration

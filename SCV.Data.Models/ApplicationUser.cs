@@ -18,7 +18,7 @@
         public DateTime RegisteredOn { get; set; }
 
         [Comment("Collection of CrossFit Classes the user is attending")]
-        public virtual ICollection<CrossfitClass> CrossfitClassesUsers { get; set; } = new HashSet<CrossfitClass>();
+        public virtual ICollection<CrossfitClassUser> CrossfitClassesUsers { get; set; } = new HashSet<CrossfitClassUser>();
 
         [Comment("Collection of Events the user is attending")]
         public virtual ICollection<EventUser> EventUsers { get; set; } = new HashSet<EventUser>();

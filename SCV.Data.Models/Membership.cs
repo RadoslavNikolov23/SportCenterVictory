@@ -28,14 +28,6 @@
         [Comment("Indicates whether the membership is deleted.")]
         public bool IsDeleted { get; set; }
 
-        //TODO: Remove This property in the future
-
-        [Comment("Foreign Key to the Trainer, who coaches in the membership. If null the membership is a class.")]
-        public Guid? TrainerId { get; set; }
-
-        [Comment("Navigation property to the Trainer, who coaches in the membership.")]
-        public virtual Trainer? Trainer { get; set; }
-
         [Comment("Collection of MembershipUsers associated with this membership.")]
         public virtual ICollection<MembershipUser> MembershipUsers { get; set; } = new HashSet<MembershipUser>();
 

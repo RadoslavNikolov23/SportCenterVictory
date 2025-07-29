@@ -59,9 +59,6 @@
                 .HasOne(t => t.ApplicationUser)
                 .WithMany(au=>au.Trainers)
                 .HasForeignKey(t => t.ApplicationUserId);
-
-            //TODO: Remove this method in the future
-            //entity.HasData(SeedFromJson<Trainer>(Path.Combine("..", "SCV.Data", "SeedFiles", "Trainers", "trainersSeed.json")));
         }
     }
 }

@@ -2,10 +2,11 @@
 {
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
     using SCV.Data.Models;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsProduct;
     using static SCV.GlCommon.ApplicationConstants;
-
 
     public class ProductConfiguration : BaseConfiguration, IEntityTypeConfiguration<Product>
     {
