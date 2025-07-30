@@ -12,12 +12,14 @@
     {
         private readonly IProductService productService;
         private readonly IMembershipService membershipService;
+        private readonly IMembershipUserService membershipUserService;
 
 
-        public StoreController(IProductService productService, IMembershipService membershipService)
+        public StoreController(IProductService productService, IMembershipService membershipService, IMembershipUserService membershipUserService)
         {
             this.productService = productService;
             this.membershipService = membershipService;
+            this.membershipUserService = membershipUserService;
         }
 
         [HttpGet]
@@ -63,6 +65,15 @@
         {
             IEnumerable<MembershipDetailViewModel> allMembershipsViewModels = await this.membershipService
                                                         .GetAllMembershipAsync();
+
+            if (this.IsUserAuthenticated())
+            {
+                foreach (MembershipDetailViewModel membershipDetailVM in allMembershipsViewModels)
+                {
+                    membershipDetailVM.IsPurchasedMembership = await this.membershipUserService
+                        .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
+                }
+            }
 
             if (allMembershipsViewModels == null || !allMembershipsViewModels.Any())
             {

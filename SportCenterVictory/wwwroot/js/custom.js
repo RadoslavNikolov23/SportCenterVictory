@@ -9,9 +9,9 @@ $(function () {
 	/* Preloader
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 	
-	setTimeout(function () {
-		$('.loader_bg').fadeToggle();
-	}, 1500);
+	//setTimeout(function () {
+	//	$('.loader_bg').fadeToggle();
+	//}, 1500);
 	
 	/* JQuery Menu
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -23,9 +23,9 @@ $(function () {
 	/* Tooltip
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 	
-	$(document).ready(function(){
-		$('[data-toggle="tooltip"]').tooltip();
-	});
+	//$(document).ready(function(){
+	//	$('[data-toggle="tooltip"]').tooltip();
+	//});
 	
 	/* sticky
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
@@ -51,9 +51,9 @@ $(function () {
 	/* NiceScroll
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */
 	
-	$(".brand-box").niceScroll({
-		cursorcolor:"#9b9b9c",
-	});	
+	//$(".brand-box").niceScroll({
+	//	cursorcolor:"#9b9b9c",
+	//});	
 	
 	/* NiceSelect
 	-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- */

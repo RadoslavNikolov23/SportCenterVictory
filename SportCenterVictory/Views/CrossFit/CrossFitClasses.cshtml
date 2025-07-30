@@ -24,6 +24,7 @@
         padding: 25px;
         position: relative;
         box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        text-align: center;
         transition: transform 0.3s ease;
     }
 
@@ -59,21 +60,36 @@
         text-align: center;
     }
 
-    .join-btn {
+    .join-button {
         background-color: #590f9e;
         color: #fff;
-        padding: 10px 18px;
+        padding: 10px 20px;
         border: none;
         border-radius: 8px;
         font-size: 1rem;
-        font-weight: 500;
-        display: block;
-        margin: 0 auto;
+        font-weight: 600;
+        cursor: pointer;
         transition: background-color 0.3s ease;
     }
 
-        .join-btn:hover {
+    .join-button:hover {
             background-color: #6b026c;
+        }
+
+    .remove-button {
+        align-self: flex-start;
+        background-color: #903031;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .remove-button:hover {
+            background-color: #772929;
         }
 
 </style>
@@ -91,7 +107,27 @@
 
             <div class="class-description">@crossfitClass.Description</div>
 
-            <button class="join-btn">Join Class</button>
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                @if (crossfitClass.IsUserJoined)
+                {
+                    <form asp-controller="UserPanel" asp-action="RemoveCrossfitClass" method="post" class="d-inline">
+                        <input type="hidden" name="crossfitClassId" value="@crossfitClass.CrossfitClassId" />
+                        <button type="submit" class="remove-button">
+                            <i class="bi bi-file-x"></i> Remove Class
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="UserPanel" asp-action="JoinCrossfitClass" method="post" class="d-inline">
+                        <input type="hidden" name="crossfitClassId" value="@crossfitClass.CrossfitClassId" />
+                        <button type="submit" class="join-button">
+                            <i class="bi bi-bookmark-star"></i> Join Class
+                        </button>
+                    </form>
+                }
+            }
         </div>
     }
 </div>

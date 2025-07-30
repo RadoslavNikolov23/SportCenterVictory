@@ -1,4 +1,4 @@
-﻿namespace SCV.Web.ViewModels.CommonVM
+﻿namespace SCV.Web.ViewModels.CrossfitVM
 {
     using SCV.GlCommon.Enums;
     public class CrossfitClassUserDetailViewModel
@@ -12,5 +12,7 @@
         public DayOfWeek DayOfWeek { get; set; }
 
         public string TrainerName { get; set; } = null!;
+
+        public bool IsUserJoined { get; set; }
     }
 }

@@ -34,7 +34,9 @@
                     Title = eu.Event.Title,
                     EventType = eu.Event.EventType,
                     StartDate = eu.Event.StartDate.ToString(DateOnlyFormat),
-                    Location = eu.Event.Location
+                    Location = eu.Event.Location,
+                    ImageUrl = eu.Event.ImageUrl
+                    //IsUserJoined = eu.IsDeleted
                 })
                 .ToArrayAsync();
 
@@ -111,7 +113,7 @@
             return result;
         }
 
-        public async Task<bool> IsUserAddedToEventlist(string? eventId, string? userId)
+        public async Task<bool> IsUserAddedToEventList(string? eventId, string? userId)
         {
             bool result = false;
 
@@ -121,10 +123,11 @@
                 if (isEventIdValid)
                 {
                     EventUser? eventUserEntry = await this.eventUserRepo
-                         .GetAllAttached()
+                        .GetAllAttached()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(eu => eu.ApplicationUserId.ToString().ToLower() == userId &&
-                                                    eu.EventId.ToString() == eventGuid.ToString());
+                        .SingleOrDefaultAsync(eu => (eu.ApplicationUserId.ToString().ToLower() == userId &&
+                                                    eu.EventId.ToString() == eventGuid.ToString())
+                                                    && eu.IsDeleted == false);
                     if (eventUserEntry != null)
                     {
                         result = true;

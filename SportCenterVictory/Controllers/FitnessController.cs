@@ -15,14 +15,18 @@
         private readonly ITrainerService trainerService;
         private readonly IEventService eventService;
         private readonly IWorkoutPlanService workoutPlanService;
+        private readonly IEventUserService eventUserService;
+        private readonly IMembershipUserService membershipUserService;
 
-        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IWorkoutPlanService workoutPlanService)
+        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IWorkoutPlanService workoutPlanService, IEventUserService eventUserService, IMembershipUserService membershipUserService)
         {
             this.exerciseService = exerciseService;
             this.membershipService = membershipService;
             this.trainerService = trainerService;
             this.eventService = eventService;
             this.workoutPlanService = workoutPlanService;
+            this.eventUserService = eventUserService;
+            this.membershipUserService = membershipUserService;
         }
 
         [HttpGet]
@@ -70,6 +74,15 @@
             IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
                                                 .GetAllMembershipPerSportAsync(SportType.Fitness);
 
+            if (this.IsUserAuthenticated())
+            {
+                foreach (MembershipDetailViewModel membershipDetailVM in membershipsVM)
+                {
+                    membershipDetailVM.IsPurchasedMembership = await this.membershipUserService
+                        .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
+                }
+            }
+
             if (membershipsVM == null || !membershipsVM.Any())
             {
                 return NotFound(string.Format(ErrorMessages.MembershipsNotFound, "the Fitness"));
@@ -102,6 +115,15 @@
         {
             IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
                                     .GetAllEventByEventTypeAsync(SportType.Fitness);
+
+            if (this.IsUserAuthenticated())
+            {
+                foreach (EventDetailViewModel eventDetailVM in eventViewModels)
+                {
+                    eventDetailVM.IsUserJoined = await this.eventUserService
+                        .IsUserAddedToEventList(eventDetailVM.Id, this.GetUserId());
+                }
+            }
 
             if (eventViewModels == null || !eventViewModels.Any())
             {

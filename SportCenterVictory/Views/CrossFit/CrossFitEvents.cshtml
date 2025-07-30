@@ -119,6 +119,22 @@
         .join-button:hover {
             background-color: #218838;
         }
+
+    .remove-button {
+        align-self: flex-start;
+        background-color: #903031;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .remove-button:hover {
+            background-color: #772929;
+        }
 </style>
 
 <h2 class="about_taital text-center pt-4">🏆 Upcoming CrossFit Events</h2>
@@ -136,7 +152,27 @@
                     <div class="event-description-box">@eventVM.Description</div>
                 </div>
 
-                <button class="join-button">Join Event</button>
+                @if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    @if (eventVM.IsUserJoined)
+                    {
+                        <form asp-controller="UserPanel" asp-action="RemoveEvent" method="post" class="d-inline">
+                            <input type="hidden" name="eventId" value="@eventVM.Id" />
+                            <button type="submit" class="remove-button">
+                                <i class="bi bi-file-x"></i> Remove Event
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="UserPanel" asp-action="JoinEvent" method="post" class="d-inline">
+                            <input type="hidden" name="eventId" value="@eventVM.Id" />
+                            <button type="submit" class="join-button">
+                                <i class="bi bi-bookmark-star"></i> Join Event
+                            </button>
+                        </form>
+                    }
+                }
             </div>
 
             <div class="event-footer">

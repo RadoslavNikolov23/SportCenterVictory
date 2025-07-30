@@ -12,5 +12,8 @@
 
         public string Duration { get; set; } = null!;
 
+        public bool IsPurchasedMembership { get; set; }
+
+
     }
 }

@@ -4,6 +4,8 @@
 
     public class EventDetailViewModel
     {
+        public string Id { get; set; } = null!;
+
         public string Title { get; set; } = null!;
 
         public SportType EventType { get; set; }
@@ -15,5 +17,7 @@
         public string Location { get; set; } = null!;
 
         public string? ImageUrl { get; set; }
+
+        public bool IsUserJoined { get; set; }
     }
 }

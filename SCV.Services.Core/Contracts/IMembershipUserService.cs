@@ -10,7 +10,7 @@
 
         Task<bool> RemoveUserFromMembershipAsync(string? membershipId, string? userId);
 
-        Task<bool> IsUserAddedToMembershiplist(string? membershipId, string? userId);
+        Task<bool> IsUserAddedToMembershipList(string? membershipId, string? userId);
 
     }
 }

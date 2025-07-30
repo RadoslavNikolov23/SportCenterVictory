@@ -68,30 +68,66 @@
         .buy-button:hover {
             background-color: #218838;
         }
+
+    .remove-button {
+        align-self: flex-start;
+        background-color: #903031;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .remove-button:hover {
+            background-color: #772929;
+        }
 </style>
 
 <div class="about_section layout_padding pt-2">
 
-<h1 class="text-center pt-4"> All Our Memberships</h1>
+    <h1 class="text-center pt-4"> All Our Memberships</h1>
 
-@foreach (var group in Model.GroupBy(m => m.MembershipType))
-{
-    <h3 class="text-center mt-5">@group.Key Memberships</h3>
-    <div class="membership-container">
-        @foreach (var membership in group)
-        {
-            <div class="membership-card">
-                <div class="membership-title">@membership.Name</div>
+    @foreach (var group in Model.GroupBy(m => m.MembershipType))
+    {
+        <h3 class="text-center mt-5">@group.Key Memberships</h3>
+        <div class="membership-container">
+            @foreach (var membership in group)
+            {
+                <div class="membership-card">
+                    <div class="membership-title">@membership.Name</div>
 
-                <div class="membership-description">@membership.Description</div>
+                    <div class="membership-description">@membership.Description</div>
 
-                <div class="membership-price-duration">
-                    @membership.Price.ToString("C") - @membership.Duration
+                    <div class="membership-price-duration">
+                        @membership.Price.ToString("C") - @membership.Duration
+                    </div>
+
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        @if (membership.IsPurchasedMembership)
+                        {
+                            <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
+                                <input type="hidden" name="membershipId" value="@membership.Id" />
+                                <button type="submit" class="remove-button">
+                                    <i class="bi bi-file-x"></i> Remove Membership
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                                <input type="hidden" name="membershipId" value="@membership.Id" />
+                                <button type="submit" class="buy-button">
+                                    <i class="bi bi-bookmark-star"></i> Buy Membership
+                                </button>
+                            </form>
+                        }
+                    }
                 </div>
-
-                <button class="buy-button">Buy Membership</button>
-            </div>
-        }
-    </div>
-}
+            }
+        </div>
+    }
 </div>

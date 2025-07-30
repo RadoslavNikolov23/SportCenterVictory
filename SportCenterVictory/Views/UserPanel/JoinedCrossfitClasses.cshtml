@@ -1,5 +1,143 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.CrossfitVM
+@model IEnumerable<CrossfitClassUserDetailViewModel>
 @{
+    ViewData["Title"] = "CrossFit Classes ";
 }
+
+<style>
+    body {
+        background-color: #f7f9fc;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .classes-board {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        padding: 40px;
+    }
+
+    .class-card {
+        background: linear-gradient(135deg, #fff, #f0f0f0);
+        border: 2px dashed #590f9e;
+        border-radius: 16px;
+        padding: 25px;
+        position: relative;
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+            border-color: #89048E;
+        }
+
+    .class-title {
+        font-size: 1.4rem;
+        font-weight: bold;
+        color: #590f9e;
+        margin-bottom: 10px;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    .class-description {
+        font-size: 0.9rem;
+        color: #333;
+        margin-bottom: 15px;
+        text-align: center;
+        padding: 10px;
+        background-color: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+    }
+
+    .class-info {
+        font-size: 0.95rem;
+        color: #555;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .join-button {
+        background-color: #590f9e;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .join-button:hover {
+            background-color: #6b026c;
+        }
+
+    .remove-button {
+        align-self: flex-start;
+        background-color: #903031;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .remove-button:hover {
+            background-color: #772929;
+        }
+
+</style>
+
+<h2 class="about_taital text-center pt-4">Joined CrossFit Classes</h2>
+
+@if (Model.Count() == 0)
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <h4>You have not joined any Crossfit Class yet!</h4>
+        <p class="text-muted">Join a Crossfit Class to see them here.</p>
+    </div>
+}
+else
+{
+
+    <div class="classes-board">
+        @foreach (var crossfitClass in Model)
+        {
+            <div class="class-card">
+                <div class="class-title">@crossfitClass.Name</div>
+
+                <div class="class-info"><strong>Trainer:</strong> @crossfitClass.TrainerName</div>
+                <div class="class-info"><strong>Start Time:</strong> @crossfitClass.StartTime</div>
+
+                @if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    @if (crossfitClass.IsUserJoined)
+                    {
+                        <form asp-controller="UserPanel" asp-action="RemoveCrossfitClass" method="post" class="d-inline">
+                            <input type="hidden" name="crossfitClassId" value="@crossfitClass.CrossfitClassId" />
+                            <button type="submit" class="remove-button">
+                                <i class="bi bi-file-x"></i> Remove Class
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="UserPanel" asp-action="JoinCrossfitClass" method="post" class="d-inline">
+                            <input type="hidden" name="crossfitClassId" value="@crossfitClass.CrossfitClassId" />
+                            <button type="submit" class="join-button">
+                                <i class="bi bi-bookmark-star"></i> Join Class
+                            </button>
+                        </form>
+                    }
+                }
+            </div>
+        }
+    </div>
+}
+

@@ -372,6 +372,20 @@
                 {
                     property.SetValue(entity, true);
                 }
+                else if (property == null)
+                {
+                    property = entity.GetType().GetProperty("IsActive");
+
+                    if (property != null && property.CanWrite)
+                    {
+                        property.SetValue(entity, false);
+                        return;
+                    }
+                    else
+                    {
+                        throw new InvalidOperationException("The entity does not support soft deletion.");
+                    }
+                }
                 else
                 {
                     throw new InvalidOperationException("The entity does not support soft deletion.");

@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
@@ -15,14 +16,20 @@
         private readonly IEventService eventService;
         private readonly ICrossfitClassService crossfitClassService;
         private readonly ICrossfitWODService crossfitWODService;
+        private readonly IEventUserService eventUserService;
+        private readonly IMembershipUserService membershipUserService;
+        private readonly ICrossfitClassUserService crossfitClassUserService;
 
-        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, ICrossfitClassService crossfitClassService, ICrossfitWODService crossfitWODService)
+        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, ICrossfitClassService crossfitClassService, ICrossfitWODService crossfitWODService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ICrossfitClassUserService crossfitClassUserService)
         {
             this.membershipService = membershipService;
             this.trainerService = trainerService;
             this.eventService = eventService;
             this.crossfitClassService = crossfitClassService;
             this.crossfitWODService = crossfitWODService;
+            this.eventUserService = eventUserService;
+            this.membershipUserService = membershipUserService;
+            this.crossfitClassUserService = crossfitClassUserService;
         }
 
         [HttpGet]
@@ -37,6 +44,15 @@
         {
             IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
                                                 .GetAllMembershipPerSportAsync(SportType.CrossFit);
+
+            if (this.IsUserAuthenticated())
+            {
+                foreach (MembershipDetailViewModel membershipDetailVM in membershipsVM)
+                {
+                    membershipDetailVM.IsPurchasedMembership = await this.membershipUserService
+                        .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
+                }
+            }
 
             if (membershipsVM == null || !membershipsVM.Any())
             {
@@ -71,6 +87,15 @@
             IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
                                     .GetAllEventByEventTypeAsync(SportType.CrossFit);
 
+            if (this.IsUserAuthenticated())
+            {
+                foreach (EventDetailViewModel eventDetailVM in eventViewModels)
+                {
+                    eventDetailVM.IsUserJoined = await this.eventUserService
+                        .IsUserAddedToEventList(eventDetailVM.Id, this.GetUserId());
+                }
+            }
+
             if (eventViewModels == null || !eventViewModels.Any())
             {
                 return NotFoundWithMessage(string.Format(ErrorMessages.EventsNotFound, "CrossFit"));
@@ -84,15 +109,24 @@
         [AllowAnonymous]
         public async Task<IActionResult> CrossFitClasses()
         {
-            IEnumerable<CrossfitClassDetailViewModel> crossfitClassDetailVM = await this.crossfitClassService
+            IEnumerable<CrossfitClassDetailViewModel> allCrossfitClassDetailVM = await this.crossfitClassService
                                     .GetAllCrossfitClassesAsync();
 
-            if(crossfitClassDetailVM == null || !crossfitClassDetailVM.Any())
+            if (this.IsUserAuthenticated())
+            {
+                foreach (CrossfitClassDetailViewModel crossfitClassDetailVM in allCrossfitClassDetailVM)
+                {
+                    crossfitClassDetailVM.IsUserJoined = await this.crossfitClassUserService
+                        .IsUserAddedToCrossfitClassList(crossfitClassDetailVM.CrossfitClassId, this.GetUserId());
+                }
+            }
+
+            if (allCrossfitClassDetailVM == null || !allCrossfitClassDetailVM.Any())
             {
                 return NotFoundWithMessage(ErrorMessages.CrossfitClassesNotFound);
             }
 
-            return View(crossfitClassDetailVM);
+            return View(allCrossfitClassDetailVM);
 
         }
 
@@ -126,6 +160,7 @@
         {
             CrossfitWODViewModel? crossfitWODViewModel = await this.crossfitWODService
                                 .GetCrossfitWODByIdAsync(id);
+
             if (crossfitWODViewModel == null)
             {
                 return NotFound();

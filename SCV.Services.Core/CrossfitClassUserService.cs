@@ -5,7 +5,8 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.CommonVM;
+    using SCV.Web.ViewModels.CrossfitVM;
+    using SCV.GlCommon.Enums;
 
     public class CrossfitClassUserService : ICrossfitClassUserService
     {
@@ -61,6 +62,7 @@
                     if (crossfitClassUserEntity != null)
                     {
                         crossfitClassUserEntity.IsActive = true;
+                        crossfitClassUserEntity.JoinedAt = DateTime.UtcNow;
                         result = await this.crossfitClassUserRepo
                                                     .UpdateAsync(crossfitClassUserEntity);
                     }
@@ -70,6 +72,7 @@
                         {
                             ApplicationUserId = userGuid,
                             CrossfitClassId = crossfitClassGuid,
+                            JoinedAt = DateTime.UtcNow,
                         };
 
                         await this.crossfitClassUserRepo.AddAsync(crossfitClassUserEntity);
@@ -89,18 +92,17 @@
             {
                 bool isCrossfitClassIdValid = Guid.TryParse(crossfitClassId, out Guid crossfitClassGuid);
 
-                bool isUserIdValid = Guid.TryParse(userId, out Guid userGuid);
-
                 if (isCrossfitClassIdValid)
                 {
                     CrossfitClassUser? crossfitClassUserEntry = await this.crossfitClassUserRepo
-                                         .GetAllAttached()
-                                         .IgnoreQueryFilters()
-                                         .SingleOrDefaultAsync(ccu => ccu.ApplicationUserId.ToString().ToLower() == userId && ccu.CrossfitClassId.ToString() == crossfitClassGuid.ToString());
+                                    .GetAllAttached()
+                                    .IgnoreQueryFilters()
+                                    .SingleOrDefaultAsync(ccu => ccu.ApplicationUserId.ToString().ToLower() == userId && ccu.CrossfitClassId.ToString() == crossfitClassGuid.ToString());
 
                     if (crossfitClassUserEntry != null)
                     {
                         crossfitClassUserEntry.IsActive = false;
+                        crossfitClassUserEntry.JoinedAt = new DateTime();
 
                         //Maybe make DeleteAsync to -> SoftDeleteAsync
                         result = await this.crossfitClassUserRepo.DeleteAsync(crossfitClassUserEntry);
@@ -111,7 +113,7 @@
             return result;
         }
 
-        public async Task<bool> IsUserAddedToCrossfitClasslist(string? crossfitClassId, string? userId)
+        public async Task<bool> IsUserAddedToCrossfitClassList(string? crossfitClassId, string? userId)
         {
             bool result = false;
 
@@ -122,10 +124,10 @@
                 if (isCrossfitClassIdValid)
                 {
                     CrossfitClassUser? crossfitClassUserEntry = await this.crossfitClassUserRepo
-                                        .GetAllAttached()
-                                        .IgnoreQueryFilters()
-                                        .SingleOrDefaultAsync(ccu => ccu.ApplicationUserId.ToString().ToLower() == userId 
-                                        && ccu.CrossfitClassId.ToString() == crossfitClassGuid.ToString());
+                                    .GetAllAttached()
+                                    .IgnoreQueryFilters()
+                                    .SingleOrDefaultAsync(ccu => (ccu.ApplicationUserId.ToString().ToLower() == userId && ccu.CrossfitClassId.ToString() == crossfitClassGuid.ToString())
+                                     && ccu.IsActive == true);
 
                     if (crossfitClassUserEntry != null)
                     {

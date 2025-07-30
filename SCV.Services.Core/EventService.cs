@@ -28,6 +28,7 @@
                             .Where(e => e.EventType == eventType)
                             .Select(e => new EventDetailViewModel()
                             {
+                                Id = e.Id.ToString(),
                                 Title = e.Title,
                                 EventType = e.EventType,
                                 Description = e.Description,

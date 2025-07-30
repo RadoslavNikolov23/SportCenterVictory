@@ -25,6 +25,7 @@
                                             .OrderBy(cc => (int)cc.DayOfWeek)
                                             .Select(cc => new CrossfitClassDetailViewModel()
                                             {
+                                                CrossfitClassId = cc.Id.ToString(),
                                                 Name = cc.Name,
                                                 Description = cc.Description,
                                                 StartTime = cc.StartTime,

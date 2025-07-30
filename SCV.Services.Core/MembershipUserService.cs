@@ -93,6 +93,7 @@
                         .IgnoreQueryFilters()
                         .SingleOrDefaultAsync(mu => mu.ApplicationUserId.ToString().ToLower() == userId &&
                                                      mu.MembershipId.ToString() == membershipGuid.ToString());
+
                     if (membershipUserEntry != null)
                     {
                         membershipUserEntry.IsDeleted = true;
@@ -106,7 +107,7 @@
             return result;
         }
 
-        public async Task<bool> IsUserAddedToMembershiplist(string? membershipId, string? userId)
+        public async Task<bool> IsUserAddedToMembershipList(string? membershipId, string? userId)
         {
             bool result = false;
 
@@ -119,8 +120,9 @@
                     MembershipUser? membershipUserEntry = await this.membershipUserRepo
                          .GetAllAttached()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(mu => mu.ApplicationUserId.ToString().ToLower() == userId &&
-                                                    mu.MembershipId.ToString() == membershipGuid.ToString());
+                        .SingleOrDefaultAsync(mu => (mu.ApplicationUserId.ToString().ToLower() == userId &&
+                                                    mu.MembershipId.ToString() == membershipGuid.ToString())
+                                                    && mu.IsDeleted == false);
                     if (membershipUserEntry != null)
                     {
                         result = true;

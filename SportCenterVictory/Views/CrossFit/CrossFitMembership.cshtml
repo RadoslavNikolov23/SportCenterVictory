@@ -69,6 +69,22 @@
         .buy-button:hover {
             background-color: #218838;
         }
+
+    .remove-button {
+        align-self: flex-start;
+        background-color: #903031;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .remove-button:hover {
+            background-color: #772929;
+        }
 </style>
 
 <h2 class="about_taital text-center pt-4">Our CrossFit Memberships</h2>
@@ -85,7 +101,27 @@
                 @membership.Price.ToString("C") - @membership.Duration
             </div>
 
-            <button class="buy-button">Buy Membership</button>
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                @if (membership.IsPurchasedMembership)
+                {
+                    <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
+                        <input type="hidden" name="membershipId" value="@membership.Id" />
+                        <button type="submit" class="remove-button">
+                            <i class="bi bi-file-x"></i> Remove Membership
+                        </button>
+                    </form>
+                }
+                else
+                {
+                    <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                        <input type="hidden" name="membershipId" value="@membership.Id" />
+                        <button type="submit" class="buy-button">
+                            <i class="bi bi-bookmark-star"></i> Buy Membership
+                        </button>
+                    </form>
+                }
+            }
         </div>
     }
 </div>

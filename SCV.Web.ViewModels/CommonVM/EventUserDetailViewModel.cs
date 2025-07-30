@@ -12,7 +12,10 @@
 
         public string StartDate { get; set; } = null!;
 
-        //Maybe???
         public string Location { get; set; } = null!;
+
+        public string? ImageUrl { get; set; }
+
+        public bool IsUserJoined { get; set; }
     }
 }

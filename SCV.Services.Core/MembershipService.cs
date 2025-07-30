@@ -28,6 +28,7 @@
                                     .ThenBy(m => m.Price)
                                     .Select(m => new MembershipDetailViewModel()
                                     {
+                                        Id = m.Id.ToString(),
                                         Name = m.Name,
                                         MembershipType = m.MembershipType,
                                         Description = m.Description,
@@ -51,6 +52,7 @@
                         .OrderBy(m => m.Price)
                         .Select(m => new MembershipDetailViewModel()
                         {
+                            Id = m.Id.ToString(),
                             Name = m.Name,
                             MembershipType = m.MembershipType,
                             Description = m.Description,

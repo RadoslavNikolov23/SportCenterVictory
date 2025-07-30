@@ -10,7 +10,7 @@
 
         Task<bool> RemoveUserFromEventAsync(string? eventId, string? userId);
 
-        Task<bool> IsUserAddedToEventlist(string? eventId, string? userId);
+        Task<bool> IsUserAddedToEventList(string? eventId, string? userId);
 
     }
 }

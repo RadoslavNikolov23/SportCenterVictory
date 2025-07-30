@@ -1,16 +1,16 @@
 ﻿namespace SCV.Services.Core.Contracts
 {
-    using SCV.Web.ViewModels.CommonVM;
+    using SCV.Web.ViewModels.CrossfitVM;
 
     public interface ICrossfitClassUserService
     {
         Task<IEnumerable<CrossfitClassUserDetailViewModel>> GetCrossfitClassUserListAsync(string userId);
 
-        Task<bool> AddUserToCrossfitClass(string? crossfitClassId, string appUserId);
+        Task<bool> AddUserToCrossfitClass(string? crossfitClassId, string userId);
 
         Task<bool> RemoveUserFromCrossfitClassAsync(string? crossfitClassId, string? userId);
 
-        Task<bool> IsUserAddedToCrossfitClasslist(string? crossfitClassId, string? userId);
+        Task<bool> IsUserAddedToCrossfitClassList(string? crossfitClassId, string? userId);
 
     }
 }

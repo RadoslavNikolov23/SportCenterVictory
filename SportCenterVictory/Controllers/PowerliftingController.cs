@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
@@ -12,13 +13,16 @@
         private readonly IMembershipService membershipService;
         private readonly ITrainerService trainerService;
         private readonly IEventService eventService;
+        private readonly IEventUserService eventUserService;
+        private readonly IMembershipUserService membershipUserService;
 
-
-        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService)
+        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IEventUserService eventUserService, IMembershipUserService membershipUserService)
         {
             this.membershipService = membershipService;
             this.trainerService = trainerService;
             this.eventService = eventService;
+            this.eventUserService = eventUserService;
+            this.membershipUserService = membershipUserService;
         }
 
         [HttpGet]
@@ -33,6 +37,15 @@
         {
             IEnumerable<MembershipDetailViewModel> membershipsVM = await this.membershipService
                                                 .GetAllMembershipPerSportAsync(SportType.Powerlifting);
+
+            if (this.IsUserAuthenticated())
+            {
+                foreach (MembershipDetailViewModel membershipDetailVM in membershipsVM)
+                {
+                    membershipDetailVM.IsPurchasedMembership = await this.membershipUserService
+                        .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
+                }
+            }
 
             if (membershipsVM == null || !membershipsVM.Any())
             {
@@ -65,6 +78,15 @@
         {
             IEnumerable<EventDetailViewModel> eventViewModels = await this.eventService
                                     .GetAllEventByEventTypeAsync(SportType.Powerlifting);
+
+            if (this.IsUserAuthenticated())
+            {
+                foreach (EventDetailViewModel eventDetailVM in eventViewModels)
+                {
+                    eventDetailVM.IsUserJoined = await this.eventUserService
+                        .IsUserAddedToEventList(eventDetailVM.Id, this.GetUserId());
+                }
+            }
 
             if (eventViewModels == null || !eventViewModels.Any())
             {
