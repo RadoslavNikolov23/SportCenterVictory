@@ -209,6 +209,13 @@
 
         [HttpGet]
         [Authorize(Roles = AdminOrManager)]
+        public async Task<IActionResult> UsersPurchasedMemberships()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = AdminOrManager)]
         public IActionResult AddProduct()
         {
             return View();
@@ -389,6 +396,13 @@
 
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = AdminOrManager)]
+        public async Task<IActionResult> UsersOrders()
+        {
+            return View();
         }
 
     }

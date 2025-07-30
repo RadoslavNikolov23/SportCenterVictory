@@ -214,5 +214,12 @@
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        [HttpGet]
+        [Authorize(Roles = AdminOrManager)]
+        public async Task<IActionResult> TrainersAndClients()
+        {
+            return View();
+        }
     }
 }

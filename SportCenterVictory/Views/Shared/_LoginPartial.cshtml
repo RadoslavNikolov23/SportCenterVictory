@@ -29,27 +29,27 @@
             @* === USER ROLE === *@
             @if (roles.Contains("User"))
             {
-                <li><a class="dropdown-item" asp-controller="Feedback" asp-action="Leave">Leave Feedback</a></li>
-                <li><a class="dropdown-item" asp-controller="CrossfitClass" asp-action="Available">Join CrossFit Classes</a></li>
-                <li><a class="dropdown-item" asp-controller="Trainer" asp-action="Favorites">Favorite Trainers</a></li>
-                <li><a class="dropdown-item" asp-controller="Order" asp-action="MyOrders">My Orders</a></li>
-                <li><a class="dropdown-item" asp-controller="Membership" asp-action="MyMemberships">My Memberships</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="LeaveFeedback">Leave Feedback</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="JoinedCrossfitClasses">Joined CrossFit Classes</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="JoinedEvents">Joined Events</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="FavoriteTrainers">Favorite Trainers</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="PurchasedMemberships">My Memberships</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="MadeOrders">My Orders</a></li>
             }
 
             @* === TRAINER ROLE === *@
             else if (roles.Contains("Trainer"))
             {
-                <li><a class="dropdown-item" asp-controller="User" asp-action="List">User List</a></li>
-                <li><a class="dropdown-item" asp-controller="TrainerFavorites" asp-action="Add">Add User to Favorites</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="TrainerPanel" asp-action="UserClientList">Client List</a></li>
             }
 
             @* === ADMIN/MANAGER === *@
             else if (roles.Contains("Admin") || roles.Contains("Manager"))
             {
-                <li><a class="dropdown-item" asp-controller="CrossfitClass" asp-action="ListWithUsers">CrossFit Classes & Users</a></li>
-                <li><a class="dropdown-item" asp-controller="Membership" asp-action="ListWithUsers">Memberships & Users</a></li>
-                <li><a class="dropdown-item" asp-controller="Trainer" asp-action="ListWithUsers">Trainers & Users</a></li>
-                <li><a class="dropdown-item" asp-controller="Order" asp-action="ListWithUsers">Orders & Users</a></li>
+                <li><a class="dropdown-item" asp-area="Administration" asp-controller="CrossfitClass" asp-action="UsersJoinedCrossfitClass">CrossFit Classes & Users</a></li>
+                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="UsersPurchasedMemberships">Memberships & Users</a></li>
+                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Trainer" asp-action="TrainersAndClients">Trainers & Clients</a></li>
+                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="UsersOrders">Orders & Users</a></li>
             }
 
             <li><hr class="dropdown-divider" /></li>
