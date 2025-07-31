@@ -8,6 +8,7 @@
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.CrossfitVM;
+    using SCV.Web.ViewModels.TrainerVM;
 
     public class CrossFitController : BaseController
     {
@@ -19,8 +20,9 @@
         private readonly IEventUserService eventUserService;
         private readonly IMembershipUserService membershipUserService;
         private readonly ICrossfitClassUserService crossfitClassUserService;
+        private readonly ITrainerUserService trainerUserService;
 
-        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, ICrossfitClassService crossfitClassService, ICrossfitWODService crossfitWODService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ICrossfitClassUserService crossfitClassUserService)
+        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, ICrossfitClassService crossfitClassService, ICrossfitWODService crossfitWODService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ICrossfitClassUserService crossfitClassUserService, ITrainerUserService trainerUserService)
         {
             this.membershipService = membershipService;
             this.trainerService = trainerService;
@@ -30,6 +32,7 @@
             this.eventUserService = eventUserService;
             this.membershipUserService = membershipUserService;
             this.crossfitClassUserService = crossfitClassUserService;
+            this.trainerUserService = trainerUserService;
         }
 
         [HttpGet]
@@ -69,6 +72,15 @@
         {
             IEnumerable<TrainerDetailViewModel> trainerViewModels = await this.trainerService
                                         .GetAllTrainerBySpecialtiesAsync(SportType.CrossFit);
+
+            if (this.IsUserAuthenticated())
+            {
+                foreach (TrainerDetailViewModel trainerDetailVM in trainerViewModels)
+                {
+                    trainerDetailVM.IsAddedToFavorites = await this.trainerUserService
+                        .IsTrainerAddedToUserList(trainerDetailVM.Id, this.GetUserId());
+                }
+            }
 
             if (trainerViewModels == null || !trainerViewModels.Any())
             {

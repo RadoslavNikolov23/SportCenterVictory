@@ -8,8 +8,7 @@
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.TrainerBioVM;
-    using SCV.Web.ViewModels.CommonVM;
-
+    using SCV.Web.ViewModels.TrainerVM;
     using static SCV.GlCommon.RoleConstants;
 
     public class TrainerService : ITrainerService

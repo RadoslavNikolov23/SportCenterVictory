@@ -1,4 +1,4 @@
-﻿@using SCV.Web.ViewModels.CommonVM
+﻿@using SCV.Web.ViewModels.TrainerVM
 @model IEnumerable<TrainerDetailViewModel>
 
 @{
@@ -101,7 +101,32 @@
         font-size: 4rem;
         opacity: 0.1;
     }
+
+    .trainer-heart {
+        background: none;
+        border: none;
+        padding: 20px;
+        cursor: pointer;
+        color: #dc3545;
+        font-size: 45px;
+        transition: color 0.3s ease;
+    }
+
+        .trainer-heart:hover {
+            color: #c82333;
+        }
+
+        .trainer-heart .fas {
+            color: #e60023; /* red filled heart */
+        }
+
+        .trainer-heart:hover {
+            color: #c82333; /* darker on hover */
+        }
 </style>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
 
 <h2 class="about_taital text-center pt-4">Meet Our CrossFit Coaches</h2>
 
@@ -113,6 +138,34 @@
 
             <div class="trainer-img">
                 <img src="@trainer.ImageUrl" />
+
+                @* Add this and the wast threee styling for the css. See if this work first then add to the other *@
+                @if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    @if (trainer.IsAddedToFavorites)
+                    {
+
+                        <form asp-controller="UserPanel" asp-action="RemoveTrainer" method="post" class="d-inline">
+                            <input type="hidden" name="trainerId" value="@trainer.Id" />
+                            <button type="submit" role="button" class="trainer-heart">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                        </form>
+
+
+                    }
+                    else
+                    {
+
+                        <form asp-controller="UserPanel" asp-action="AddTrainer" method="post" class="d-inline">
+                            <input type="hidden" name="trainerId" value="@trainer.Id" />
+                            <button type="submit" role="button" class="trainer-heart">
+                                <i class="far fa-heart"></i>
+                            </button>
+                        </form>
+                    }
+                }
+
             </div>
 
             <div class="trainer-content">

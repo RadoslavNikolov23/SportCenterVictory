@@ -12,8 +12,8 @@ using SCV.Data;
 namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
-    [Migration("20250729213908_SeedMembershipsAndProducts")]
-    partial class SeedMembershipsAndProducts
+    [Migration("20250731194738_InitialCreateDB")]
+    partial class InitialCreateDB
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -282,88 +282,6 @@ namespace SCV.Data.Migrations
                         {
                             t.HasComment("CrossFit Class Model");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("7aa86503-08e5-4d0f-a76e-331652c9235b"),
-                            DayOfWeek = 0,
-                            Description = "A high-intensity Hero WOD designed to test endurance and mental toughness.",
-                            IsActive = false,
-                            Name = "WOD: Hero Workout",
-                            StartTime = "Monday at 17:00",
-                            TrainerName = "Ivan Dimitrov"
-                        },
-                        new
-                        {
-                            Id = new Guid("621d28e0-4142-4ba6-a754-a0f3537548e3"),
-                            DayOfWeek = 0,
-                            Description = "Focus on building strength with heavy lifts and compound movements.",
-                            IsActive = false,
-                            Name = "CrossFit Strength",
-                            StartTime = "Monday at 19:00",
-                            TrainerName = "Georgi Kolev"
-                        },
-                        new
-                        {
-                            Id = new Guid("43c892c1-6fd9-409e-82e8-4b38eedcbed5"),
-                            DayOfWeek = 1,
-                            Description = "Enhance flexibility and mobility to improve overall performance.",
-                            IsActive = false,
-                            Name = "CrossFit Mobility",
-                            StartTime = "Tuesday at 18:00",
-                            TrainerName = "Maya Ivanova"
-                        },
-                        new
-                        {
-                            Id = new Guid("7724554f-7f07-49f5-a7e2-5cc81e77a81a"),
-                            DayOfWeek = 2,
-                            Description = "Team-based workout to build camaraderie and competitive spirit.",
-                            IsActive = false,
-                            Name = "CrossFit Team Challenge",
-                            StartTime = "Wednesday at 17:00",
-                            TrainerName = "Georgi Kolev"
-                        },
-                        new
-                        {
-                            Id = new Guid("55ea312a-2607-432a-beaa-88cdae84261d"),
-                            DayOfWeek = 1,
-                            Description = "Cardio-focused CrossFit session to build stamina and VO2 max.",
-                            IsActive = false,
-                            Name = "CrossFit Endurance",
-                            StartTime = "Tuesday at 19:00",
-                            TrainerName = "Ivan Dimitrov"
-                        },
-                        new
-                        {
-                            Id = new Guid("a67e482d-ede8-491b-8f71-eeb4b3ecefbc"),
-                            DayOfWeek = 4,
-                            Description = "Introduction to CrossFit movements and techniques for beginners.",
-                            IsActive = false,
-                            Name = "CrossFit Basics",
-                            StartTime = "Friday at 18:00",
-                            TrainerName = "Maya Ivanova"
-                        },
-                        new
-                        {
-                            Id = new Guid("c33e1e9d-1a72-47d5-8e53-8ed00d668785"),
-                            DayOfWeek = 5,
-                            Description = "Specialized training session to prepare for the CrossFit Open competition.",
-                            IsActive = false,
-                            Name = "CrossFit Open Prep",
-                            StartTime = "Saturday at 10:00",
-                            TrainerName = "Guest Coach: Stoyan Dimitrov"
-                        },
-                        new
-                        {
-                            Id = new Guid("6b0d85a4-6707-4c9b-8759-132ec7512afe"),
-                            DayOfWeek = 5,
-                            Description = "Classes teaching technique and power development in snatch and clean and jerk.",
-                            IsActive = false,
-                            Name = "CrossFit Olympic Lifting",
-                            StartTime = "Saturday at 17:00",
-                            TrainerName = "Guest Coach: Tsvetan Nikolov"
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.CrossfitClassUser", b =>
@@ -431,32 +349,6 @@ namespace SCV.Data.Migrations
                         {
                             t.HasComment("Represents a Crossfit Workout of the Day (WOD)");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("91a4bb71-3c90-46aa-8a66-a9ce3ca67907"),
-                            DescriptionHTML = "<p>For time:<br>\n21 GHD sit-ups<br>\n7 rope climbs to 15 feet<br>\n21 GHD sit-ups<br>\n21-meter double-kettlebell front-rack walking lunge<br>\n15 GHD sit-ups<br>\n5 rope climbs to 15 feet<br>\n15 GHD sit-ups<br>\n15-meter double-kettlebell front-rack walking lunge<br>\n9 GHD sit-ups<br>\n3 rope climbs to 15 feet<br>\n9 GHD sit-ups<br>\n9-meter double-kettlebell front-rack walking lunge</p>\n\n<p>♀ 35-lb kettlebells<br>\n♂ 53-lb kettlebells</p>\n\n<p>Post time to comments.</p>\n\n<p><strong>Stimulus and Strategy:</strong><br>\nExpect this conditioning workout to challenge the trunk and legs, as well as the skill of the rope climb. The GHD sit-up volume is reasonable, but expect this movement to increase the difficulty of the knee raise component of the rope climbs, as well as the core demands of the kettlebell front-rack walking lunges. The load of the kettlebells is intended to be moderate, where the initial round can be completed unbroken or with one break.</p>\n\n<p><strong>Scaling:</strong><br>\nReduce the loading of the kettlebells. Reduce the reps of the GHD sit-ups and rope climbs.</p>\n\n<p>To reduce the complexity of the GHD sit-ups, reduce the range of motion. For the rope climbs, reduce the height of the climb. For the kettlebell front-rack lunges, perform the lunges with a single kettlebell or hold the two kettlebells in the farmers carry position.</p>\n\n<p>In case of injury or limitation, perform sit-ups or V-ups in place of the GHD sit-ups. For the rope climbs, perform pull-to-stands. For the kettlebell front-rack lunges, eliminate the loading or consider step-ups to a low box.</p>\n\n<p><strong>Intermediate option:</strong><br>\nFor time:<br>\n<strong>15</strong> GHD sit-ups<br>\n7 rope climbs to <strong>12</strong> feet<br>\n<strong>15</strong> GHD sit-ups<br>\n<strong>15</strong>-meter double-kettlebell front-rack walking lunge<br>\n<strong>12</strong> GHD sit-ups<br>\n5 rope climbs to <strong>12</strong> feet<br>\n<strong>12</strong> GHD sit-ups<br>\n<strong>12</strong>-meter double-kettlebell front-rack walking lunge<br>\n9 GHD sit-ups<br>\n3 rope climbs to <strong>12</strong> feet<br>\n9 GHD sit-ups<br>\n9-meter double-kettlebell front-rack walking lunge</p>\n\n<p>♀ <strong>26</strong>-lb kettlebells<br>\n♂ <strong>36</strong>-lb kettlebells</p>\n\n<p><strong>Beginner option:</strong><br>\nFor time:<br>\n<strong>15 AbMat</strong> sit-ups<br>\n<strong>5 pull-to-stands</strong><br>\n<strong>15 AbMat</strong> sit-ups<br>\n<strong>15</strong>-meter <strong>walking lunge</strong><br>\n<strong>12 AbMat</strong> sit-ups<br>\n<strong>4 pull-to-stands</strong><br>\n<strong>12 AbMat</strong> sit-ups<br>\n<strong>12</strong>-meter <strong>walking lunge</strong><br>\n9 <strong>AbMat</strong> sit-ups<br>\n3 <strong>pull-to-stands</strong><br>\n9 <strong>AbMat</strong> sit-ups<br>\n9-meter <strong>walking lunge</strong></p>\n\n<p><strong>Coaching cues:</strong><br>\nTreat the rope climb as a stand or squat after securing the wrap instead of pulling with the arms. In the warm-up, practice establishing a secure foot hook before standing up and reaching for the next pull. This will reduce the risk of unnecessary foot sliding as you are climbing.</p>\n",
-                            DescriptionPlain = "For time:\n21 GHD sit-ups\n7 rope climbs to 15 feet\n21 GHD sit-ups\n21-meter double-kettlebell front-rack walking lunge\n15 GHD sit-ups\n5 rope climbs to 15 feet\n15 GHD sit-ups\n15-meter double-kettlebell front-rack walking lunge\n9 GHD sit-ups\n3 rope climbs to 15 feet\n9 GHD sit-ups\n9-meter double-kettlebell front-rack walking lunge\n\n♀ 35-lb kettlebells\n♂ 53-lb kettlebells\n\nPost time to comments.\n\nStimulus and Strategy:\nExpect this conditioning workout to challenge the trunk and legs, as well as the skill of the rope climb. The GHD sit-up volume is reasonable, but expect this movement to increase the difficulty of the knee raise component of the rope climbs, as well as the core demands of the kettlebell front-rack walking lunges. The load of the kettlebells is intended to be moderate, where the initial round can be completed unbroken or with one break.\n\nScaling:\nReduce the loading of the kettlebells. Reduce the reps of the GHD sit-ups and rope climbs.\n\nTo reduce the complexity of the GHD sit-ups, reduce the range of motion. For the rope climbs, reduce the height of the climb. For the kettlebell front-rack lunges, perform the lunges with a single kettlebell or hold the two kettlebells in the farmers carry position.\n\nIn case of injury or limitation, perform sit-ups or V-ups in place of the GHD sit-ups. For the rope climbs, perform pull-to-stands. For the kettlebell front-rack lunges, eliminate the loading or consider step-ups to a low box.\n\nIntermediate option:\nFor time:\n15 GHD sit-ups\n7 rope climbs to 12 feet\n15 GHD sit-ups\n15-meter double-kettlebell front-rack walking lunge\n12 GHD sit-ups\n5 rope climbs to 12 feet\n12 GHD sit-ups\n12-meter double-kettlebell front-rack walking lunge\n9 GHD sit-ups\n3 rope climbs to 12 feet\n9 GHD sit-ups\n9-meter double-kettlebell front-rack walking lunge\n\n♀ 26-lb kettlebells\n♂ 36-lb kettlebells\n\nBeginner option:\nFor time:\n15 AbMat sit-ups\n5 pull-to-stands\n15 AbMat sit-ups\n15-meter walking lunge\n12 AbMat sit-ups\n4 pull-to-stands\n12 AbMat sit-ups\n12-meter walking lunge\n9 AbMat sit-ups\n3 pull-to-stands\n9 AbMat sit-ups\n9-meter walking lunge\n\nCoaching cues:\nTreat the rope climb as a stand or squat after securing the wrap instead of pulling with the arms. In the warm-up, practice establishing a secure foot hook before standing up and reaching for the next pull. This will reduce the risk of unnecessary foot sliding as you are climbing.\n",
-                            Name = "Tuesday/250725",
-                            WorkoutDate = new DateTime(2025, 7, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("0940e1fb-1329-40cc-940b-66a27289bad2"),
-                            DescriptionHTML = "<p><strong>Part 1</strong><br>\nIn 10 minutes:<br>\nEstablish a 2-rep-max shoulder press</p>\n\n<p>3 minutes rest</p>\n\n<p><strong>Part 2</strong><br>\nAs many calories as possible in 10 minutes of:<br>\nEcho bike</p>\n\n<p>Post to comments:<br>\n1. Max weight lifted on the shoulder press in pounds<br>\n2. Total calories completed on the bike<br>\n3. Total weight + calories</p>\n\n<p><strong>Stimulus and Strategy:</strong><br>\nThis two-part workout will test upper-body pressing strength, as well as general conditioning. Start at a light load in the shoulder press and build up quickly to establish a 2-rep max for the day with sound mechanics. New athletes can focus on mechanics and keep the loads sub-maximal. Ten minutes on the bike will feel like a LONG TIME where you are at your threshold for a large portion of the workout. Set a goal cadence to maintain and treat the last minute as a final sprint to the finish.</p>\n\n<p><strong>Scaling:</strong><br>\nReduce the time on the Echo bike in Part 2.</p>\n\n<p>To reduce the complexity of the shoulder presses, consider using a pair of dumbbells. This will eliminate the need to navigate the head and reduce the complexity of the rack position.</p>\n\n<p>In case of injury or limitation, perform bench presses or floor presses in place of the shoulder presses. If necessary, consider single-dumbbell shoulder presses. For the max calories in Part 2, use any machine available.</p>\n\n<p><strong>Intermediate option:</strong><br>\nSame as Rx’d.</p>\n\n<p><strong>Beginner option:</strong><br>\nSame as Rx’d.</p>\n\n<p><strong>Coaching cues:</strong><br>\nKeep your abdominals, glutes, and quadriceps tight throughout the shoulder press to reduce issues of overextending the trunk.</p>",
-                            DescriptionPlain = "Part 1\nIn 10 minutes:\nEstablish a 2-rep-max shoulder press\n\n3 minutes rest\n\nPart 2\nAs many calories as possible in 10 minutes of:\nEcho bike\n\nPost to comments:\n1. Max weight lifted on the shoulder press in pounds\n2. Total calories completed on the bike\n3. Total weight + calories\n\nStimulus and Strategy:\nThis two-part workout will test upper-body pressing strength, as well as general conditioning. Start at a light load in the shoulder press and build up quickly to establish a 2-rep max for the day with sound mechanics. New athletes can focus on mechanics and keep the loads sub-maximal. Ten minutes on the bike will feel like a LONG TIME where you are at your threshold for a large portion of the workout. Set a goal cadence to maintain and treat the last minute as a final sprint to the finish.\n\nScaling:\nReduce the time on the Echo bike in Part 2.\n\nTo reduce the complexity of the shoulder presses, consider using a pair of dumbbells. This will eliminate the need to navigate the head and reduce the complexity of the rack position.\n\nIn case of injury or limitation, perform bench presses or floor presses in place of the shoulder presses. If necessary, consider single-dumbbell shoulder presses. For the max calories in Part 2, use any machine available.\n\nIntermediate option:\nSame as Rx’d.\n\nBeginner option:\nSame as Rx’d.\n\nCoaching cues:\nKeep your abdominals, glutes, and quadriceps tight throughout the shoulder press to reduce issues of overextending the trunk.",
-                            Name = "Wednesday/250726",
-                            WorkoutDate = new DateTime(2025, 7, 26, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        },
-                        new
-                        {
-                            Id = new Guid("7e45fff5-e83f-48b1-bb99-90fc46f9ec08"),
-                            DescriptionHTML = "<p><strong>Triple Deuce</strong></p><p>As many rounds and reps as possible in 20 minutes of:<br>22 burpees<br>22 air squats<br>22 pull-ups<br>22 sandbag ground-to-over-the-shoulders<br>722-meter run</p><p>♀ 40-lb sandbag<br>♂ 60-lb sandbag</p><p>Post rounds and reps to comments.</p><p>Army Sgt. 1st Class Jamie Nicholas, Army Sgt. 1st Class Gary Vasquez, and Army Capt. Richard Cliff, Jr., assigned to the 1st Battalion, 7th Special Forces Group in Fort Bragg, North Carolina, died Sept. 29, 2008, in Yakhchal, Afghanistan, from wounds sustained when their vehicle encountered an improvised explosive device during mounted operations.</p><p><strong>Stimulus and Strategy:</strong><br>This Hero workout will test cardiorespiratory endurance and stamina, where completing 3 or more rounds is a general guideline to follow. Since this is a Hero workout, feel free to attempt it as prescribed, even if 3 rounds may not be within reach. The air squats can be performed quickly, while the burpees and pull-ups may need some pacing to be able to complete them at a consistent pace. The sandbag is intended to be light so 22 reps can be completed with minimal rest between each.</p><p><strong>Scaling:</strong><br>Reduce the loading of the sandbag. Reduce the reps of the movements. Reduce the distance of the run.</p><p>To reduce the complexity of the burpees, perform up-downs. For the pull-ups, consider performing jumping pull-ups or ring rows. For the sandbag ground-to-over-the-shoulders, perform dumbbell power cleans, hang power cleans, or even light medicine-ball cleans over the shoulder</p><p>In case of injury or limitation, perform a 1,750/2,500-meter Echo bike or 800/1,000-meter row in place of the 722-meter run. For the air squats, consider squatting to a target that allows for a pain-free range of motion.</p><p><strong>Intermediate option:</strong><br>As many rounds and reps as possible in 20 minutes of:<br><strong>15</strong> burpees<br><strong>15</strong> air squats<br><strong>15 jumping</strong> pull-ups<br><strong>15</strong> sandbag ground-to-over-the-shoulders<br>722-meter run</p><p>♀ <strong>30</strong>-lb sandbag<br>♂ <strong>45</strong>-lb sandbag</p><p><strong>Beginner option:</strong><br>As many rounds and reps as possible in <strong>15</strong> minutes of:<br><strong>12</strong> burpees<br><strong>12</strong> air squats<br><strong>12 ring rows</strong><br><strong>12</strong> sandbag ground-to-over-the-shoulders<br><strong>400</strong>-meter run</p><p>♀ <strong>20</strong>-lb sandbag<br>♂ <strong>30</strong>-lb sandbag</p><p><strong>Coaching cues:</strong><br>Focus on using your hips and legs to launch the sandbag over your shoulders instead of solely pulling with your arms.</p>",
-                            DescriptionPlain = "Triple Deuce\n\nAs many rounds and reps as possible in 20 minutes of:\n22 burpees\n22 air squats\n22 pull-ups\n22 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 40-lb sandbag\n♂ 60-lb sandbag\n\nPost rounds and reps to comments.\n\nArmy Sgt. 1st Class Jamie Nicholas, Army Sgt. 1st Class Gary Vasquez, and Army Capt. Richard Cliff, Jr., assigned to the 1st Battalion, 7th Special Forces Group in Fort Bragg, North Carolina, died Sept. 29, 2008, in Yakhchal, Afghanistan, from wounds sustained when their vehicle encountered an improvised explosive device during mounted operations.\n\nStimulus and Strategy:\nThis Hero workout will test cardiorespiratory endurance and stamina, where completing 3 or more rounds is a general guideline to follow. Since this is a Hero workout, feel free to attempt it as prescribed, even if 3 rounds may not be within reach. The air squats can be performed quickly, while the burpees and pull-ups may need some pacing to be able to complete them at a consistent pace. The sandbag is intended to be light so 22 reps can be completed with minimal rest between each.\n\nScaling:\nReduce the loading of the sandbag. Reduce the reps of the movements. Reduce the distance of the run.\n\nTo reduce the complexity of the burpees, perform up-downs. For the pull-ups, consider performing jumping pull-ups or ring rows. For the sandbag ground-to-over-the-shoulders, perform dumbbell power cleans, hang power cleans, or even light medicine-ball cleans over the shoulder\n\nIn case of injury or limitation, perform a 1,750/2,500-meter Echo bike or 800/1,000-meter row in place of the 722-meter run. For the air squats, consider squatting to a target that allows for a pain-free range of motion.\n\nIntermediate option:\nAs many rounds and reps as possible in 20 minutes of:\n15 burpees\n15 air squats\n15 jumping pull-ups\n15 sandbag ground-to-over-the-shoulders\n722-meter run\n\n♀ 30-lb sandbag\n♂ 45-lb sandbag\n\nBeginner option:\nAs many rounds and reps as possible in 15 minutes of:\n12 burpees\n12 air squats\n12 ring rows\n12 sandbag ground-to-over-the-shoulders\n400-meter run\n\n♀ 20-lb sandbag\n♂ 30-lb sandbag\n\nCoaching cues:\nFocus on using your hips and legs to launch the sandbag over your shoulders instead of solely pulling with your arms.",
-                            Name = "Friday/250727",
-                            WorkoutDate = new DateTime(2025, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified)
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.Event", b =>
@@ -507,74 +399,6 @@ namespace SCV.Data.Migrations
                     b.ToTable("Events", t =>
                         {
                             t.HasComment("Represents an event in the web application, such as a fitness, crossfit or powerlifting competition or training session.");
-                        });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("d9f284b3-bbf8-4713-81c9-2fa481818359"),
-                            Description = "6-week transformation bootcamp with professional trainers and nutritionists.",
-                            EventType = 0,
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/us2z7n8g4hmye4xa5qqxl/fitnessTransformation.jpg?rlkey=i87hkjeici7r8bg1qjr8xfb37&st=z6a6rgb4",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 8, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Fitness Transformation Bootcamp"
-                        },
-                        new
-                        {
-                            Id = new Guid("5866069b-fb02-47e9-a5f8-2a76404321f2"),
-                            Description = "A weekend retreat focusing on yoga, meditation, and wellness on the beach.",
-                            EventType = 0,
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/jb1xkthdmdc9vcx4mlitd/fitnessYoga.jpg?rlkey=92dq14uikhvk8gorimortf2g1&st=2uwlwv0h",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 8, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Yoga Retreat Weekend"
-                        },
-                        new
-                        {
-                            Id = new Guid("934f5774-f63d-449e-b4bd-50215cb68a9c"),
-                            Description = "A local competition for intermediate-level CrossFitters.",
-                            EventType = 1,
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/hld3j69y20yj27jw4dawv/crossFitRegional.jpg?rlkey=k0lbgmtwlngh1th2d6ivbxsk0&st=kncc2ohd",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 8, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "CrossFit Regional Challenge"
-                        },
-                        new
-                        {
-                            Id = new Guid("60916c4f-48f8-4b09-ba6c-a3742805e635"),
-                            Description = "Try a real CrossFit Open WOD with the community and judges.",
-                            EventType = 1,
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/oqj3jwvapkztafoohivtt/crossFitOpenNight.jpg?rlkey=urnmnhteku1nhhytsxadwepxu&st=r7ft453r",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 9, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "CrossFit Open Night"
-                        },
-                        new
-                        {
-                            Id = new Guid("f05919a8-b627-4fbe-88a6-ffaeaafd4042"),
-                            Description = "Open bench press meet-up for all strength levels.",
-                            EventType = 2,
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/m49eajd8f9ub0x4261v3p/powerliftingBenchpress.png?rlkey=d53a1zlt6m4roq5kltglj30ev&st=9e8qzhd2",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Bench Press Meet-Up"
-                        },
-                        new
-                        {
-                            Id = new Guid("567ab3d2-ef91-4612-9767-969c74efb87e"),
-                            Description = "Hands-on technique workshop on snatch and clean & jerk.",
-                            EventType = 2,
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/0vbiwjvllt1ym52m42chh/powerliftingOlympicLifting.jpg?rlkey=ox8cp80m4mck06tpl3i8drsar&st=8tzm76fl",
-                            IsDeleted = false,
-                            Location = "Sport Center Victory - Ruse",
-                            StartDate = new DateTime(2025, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Title = "Olympic Lifting Workshop"
                         });
                 });
 
@@ -728,108 +552,6 @@ namespace SCV.Data.Migrations
                         {
                             t.HasComment("Represents a membership in the web application, for the fitness, crossfit and powerlifting.");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("984a4fcc-db08-4767-9db0-81879ce9fa8c"),
-                            Description = "Basic access to gym equipment and cardio area. Includes 1 trainer session/month.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 0,
-                            Name = "Fitness Standard",
-                            Price = 39.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("58241767-75d3-416f-963f-965193013eeb"),
-                            Description = "Unlimited gym access, weekly trainer sessions, workout & meal plan.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 0,
-                            Name = "Fitness Premium",
-                            Price = 79.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("fcd7986d-4173-40aa-9aab-9c6c3287b538"),
-                            Description = "Personalized fitness plan tailored by a personal trainer. Includes unlimited sessions and full access.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 0,
-                            Name = "Fitness Individual",
-                            Price = 99.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("9a48ebfa-b098-4764-8aec-68bb1864c25a"),
-                            Description = "Unlimited CrossFit classes, personal monitoring, and competition prep.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 1,
-                            Name = "CrossFit Unlimited",
-                            Price = 99.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("1b961d8a-defd-426f-9d3d-2383b51400ef"),
-                            Description = "Up to 8 classes a month, perfect for beginners or busy athletes.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 1,
-                            Name = "CrossFit Limited",
-                            Price = 59.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("7d84436e-4fe8-4eed-9de7-95f7855ffc7b"),
-                            Description = "One-time access to a CrossFit session, no subscription required.",
-                            Duration = "1 Day",
-                            IsDeleted = false,
-                            MembershipType = 1,
-                            Name = "CrossFit Drop-In",
-                            Price = 14.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("661f922e-6f92-48d1-b02c-b1354e8c2c83"),
-                            Description = "Introductory strength program, includes 2 trainer sessions/month.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 2,
-                            Name = "Powerlifting Beginners",
-                            Price = 29.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("840bbd66-abeb-49ff-a947-3b4d035e1f9f"),
-                            Description = "Intermediate training plan with weekly progress check-ins.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 2,
-                            Name = "Powerlifting Intermediates",
-                            Price = 49.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("0084ce57-2ad8-4de2-840b-d8e6d4dc1570"),
-                            Description = "Advanced programming with detailed analytics and 24/7 coaching.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 2,
-                            Name = "Powerlifting Experts",
-                            Price = 69.99m
-                        },
-                        new
-                        {
-                            Id = new Guid("370f11b9-0961-4470-ac75-e7a243bea0de"),
-                            Description = "Elite-level coaching and competition prep for professional lifters.",
-                            Duration = "1 Month",
-                            IsDeleted = false,
-                            MembershipType = 2,
-                            Name = "Powerlifting Pros",
-                            Price = 99.99m
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.MembershipUser", b =>
@@ -977,173 +699,6 @@ namespace SCV.Data.Migrations
                         {
                             t.HasComment("Represents a product in the web application. Can be an Equipment or a Nutrition product.");
                         });
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0001"),
-                            Description = "Brown hoodie for CrossFit training.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/ioubda5hs2utyc62mvedr/crossfitHoodie01.jpg?rlkey=2najk5e2wt2pgbcz6kprmu1rs&st=h2q43wd6",
-                            IsDeleted = false,
-                            Price = 49.99m,
-                            ProductCategory = 0,
-                            Quantity = 25,
-                            Title = "CrossFit Hoodie"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0002"),
-                            Description = "Black hoodie for CrossFit sessions.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/6xiqszxl1vd0y1vsvdelk/crossfitHoodie02.jpg?rlkey=gvd8238250o4ra5n44ivpz3or&st=n5kirzrf",
-                            IsDeleted = false,
-                            Price = 52.99m,
-                            ProductCategory = 0,
-                            Quantity = 30,
-                            Title = "CrossFit Hoodie"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0003"),
-                            Description = "Black t-shirt, CrossFit edition.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/rpscr72a2cpxye7f02qh6/crossfitShirt01.jpg?rlkey=8990fhtd1no1y4yyk5bytuju7&st=9mqh715h",
-                            IsDeleted = false,
-                            Price = 24.99m,
-                            ProductCategory = 0,
-                            Quantity = 40,
-                            Title = "CrossFit Shirt"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0004"),
-                            Description = "Dark green CrossFit t-shirt.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/3r0opb42esipf3jc6qbxs/crossfitShirt02.jpg?rlkey=6yxp1g4xr8wr9tolh2i9razsk&st=eac42tjn",
-                            IsDeleted = false,
-                            Price = 24.99m,
-                            ProductCategory = 0,
-                            Quantity = 40,
-                            Title = "Crossfit Shirt"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0005"),
-                            Description = "Pink CrossFit t-shirt for women.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/a7st8xk4x6vn2pki00abk/crossfitShirt03.jpg?rlkey=stszx696okz1ejl9iwh2xllsw&st=dej09t7e",
-                            IsDeleted = false,
-                            Price = 24.99m,
-                            ProductCategory = 0,
-                            Quantity = 35,
-                            Title = "CrossFit Shirt"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0006"),
-                            Description = "Recovery muscle roller for athletes.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/c7okxrgi7gywdhck8grs6/muscleRoller.jpg?rlkey=jag2u213v8idobltx9k71nqoy&st=e088lnnd",
-                            IsDeleted = false,
-                            Price = 29.99m,
-                            ProductCategory = 0,
-                            Quantity = 20,
-                            Title = "Muscle Roller"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0007"),
-                            Description = "Shaker bottle with Spider-Man face.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/oqxd4zochtknx7owql0lq/shaker01.jpg?rlkey=c1my2lz1oh7oxrt309vd7255a&st=hntv27nw",
-                            IsDeleted = false,
-                            Price = 14.99m,
-                            ProductCategory = 0,
-                            Quantity = 50,
-                            Title = "Shaker"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0008"),
-                            Description = "Shaker bottle with Captain America shield.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/hg1z97r3nq2ezrv6n6anq/shaker02.jpg?rlkey=ogzbit9hoczb2dw3ybtndsgyg&st=5pbglcf9",
-                            IsDeleted = false,
-                            Price = 14.99m,
-                            ProductCategory = 0,
-                            Quantity = 50,
-                            Title = "Shaker"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0009"),
-                            Description = "Sturdy wrist wraps for weightlifting.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/j1kim39r33m5rpwxrmx95/wristWraps.jpg?rlkey=xbh2p9e256u8bm6wu1c1xkplw&st=lkkry4ab",
-                            IsDeleted = false,
-                            Price = 9.99m,
-                            ProductCategory = 0,
-                            Quantity = 60,
-                            Title = "Wrist Wraps"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0010"),
-                            Description = "BCAA supplement for muscle recovery - 0.500 grams, mango flavor.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/5oam8qizzojmk3nntmh4k/bcaa.jpg?rlkey=qdnwvziwe4k1mh6befgvi4h5t&st=gtz964o3",
-                            IsDeleted = false,
-                            Price = 14.99m,
-                            ProductCategory = 1,
-                            Quantity = 40,
-                            Title = "BCAA"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0011"),
-                            Description = "Creatine monohydrate powder - 0.500grams, unflavour.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/1hwd0mx4s75sbvkjkfml5/creatine.jpg?rlkey=b7yulqprbourfmru30tg1ojms&st=ob5gdk1t",
-                            IsDeleted = false,
-                            Price = 29.99m,
-                            ProductCategory = 1,
-                            Quantity = 40,
-                            Title = "Creatine"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0012"),
-                            Description = "Multivitamin tablets for daily wellness - 240 tabblets.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/yz7cprusi1paa297ls06l/multivatamins.jpg?rlkey=lizt1ze6m0pofw2tulpxxfbpx&st=x0wgfqof",
-                            IsDeleted = false,
-                            Price = 19.99m,
-                            ProductCategory = 1,
-                            Quantity = 40,
-                            Title = "Multivatamins"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0013"),
-                            Description = "Pre-workout supplement for energy and focus - 0.400 grams, cola flavor.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/8oo1ttfnx69x9f7tl7p73/preworkout.jpg?rlkey=cvukic1y4tmbajr89vluxnp22&st=q4h3wm8y",
-                            IsDeleted = false,
-                            Price = 32.99m,
-                            ProductCategory = 1,
-                            Quantity = 40,
-                            Title = "Preworkout"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0014"),
-                            Description = "Omega-3 softgels for heart and joint support - 250 soft gel tables.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/zbngp5rn5j0083qm5j0sb/omega.jpg?rlkey=jpqpq0xfrgywmeqrn207lgqs0&st=wa41hp5i",
-                            IsDeleted = false,
-                            Price = 22.99m,
-                            ProductCategory = 1,
-                            Quantity = 40,
-                            Title = "Essential Omega"
-                        },
-                        new
-                        {
-                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0015"),
-                            Description = "Whey protein powder for muscle growth - 1 kg, chocolate flavor.",
-                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/57i5a4lrk3ykdffwumnly/wheyProtein.jpg?rlkey=kse99ji33i1ifrgw2aelrtrz2&st=kddhe0qa",
-                            IsDeleted = false,
-                            Price = 49.99m,
-                            ProductCategory = 1,
-                            Quantity = 40,
-                            Title = "Whey Protein"
-                        });
                 });
 
             modelBuilder.Entity("SCV.Data.Models.Trainer", b =>
@@ -1221,10 +776,11 @@ namespace SCV.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced Trainer. Part of the entity composite PK.");
 
-                    b.Property<string>("AdditionalInformation")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasComment("Additional information about which course/membership/plan is the user attached to the trainer");
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Indicates whether the TrainerUser entity is deleted. Soft delete flag.");
 
                     b.HasKey("ApplicationUserId", "TrainerId");
 

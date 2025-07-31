@@ -1,5 +1,208 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.TrainerVM
+@model IEnumerable<TrainerUserDetailViewModel>
+
 @{
+    ViewData["Title"] = "Favorite Trainers ";
+}
+
+<style>
+        body {
+            background-color: #f2f5f9;
+        }
+
+        .trainer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 30px;
+            padding: 40px;
+        }
+
+        .trainer-card {
+            position: relative;
+            background: linear-gradient(135deg, #ffffff, #e8f0ff);
+            border-left: 6px solid #89048E;
+            border-radius: 16px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+            .trainer-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .trainer-img {
+            flex: 0 0 100px;
+            margin-right: 20px;
+        }
+
+            .trainer-img img {
+                width: 100px;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 50%;
+                border: 3px solid #89048E;
+            }
+
+        .trainer-content {
+            flex: 1;
+        }
+
+        .trainer-name {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #1c1c1c;
+            margin-bottom: 5px;
+        }
+
+        .trainer-specialty {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #89048E;
+            margin-bottom: 10px;
+        }
+
+        .trainer-bio {
+            font-size: 0.95rem;
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        .trainer-contact {
+            font-size: 0.9rem;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .membership-list {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f7faff;
+            border-left: 4px solid #28a745;
+            border-radius: 8px;
+        }
+
+        .membership-item {
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: #333;
+        }
+
+            .membership-item strong {
+                color: #28a745;
+            }
+
+        .sport-icon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            font-size: 4rem;
+            opacity: 0.1;
+        }
+
+    .join-button {
+        align-self: flex-start;
+        background-color: #28a745;
+        color: white;
+        font-weight: 600;
+        border: none;
+        padding: 10px;
+        margin-top: 10px;
+        margin-left: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .join-button:hover {
+            background-color: #218838;
+        }
+
+    .remove-button {
+        align-self: flex-start;
+        background-color: #903031;
+        color: white;
+        font-weight: 400;
+        border: none;
+        padding: 10px;
+        margin-top:10px;
+        margin-left:10px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .remove-button:hover {
+            background-color: #772929;
+        }
+</style>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+
+<h4 class="about_taital text-center pt-4">Joined Events</h4>
+
+@if (Model.Count() == 0)
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <h4>You have not added a Trainer!</h4>
+        <p class="text-muted">Add a Trainer to see them here.</p>
+    </div>
+}
+else
+{
+
+    <div class="trainer-grid">
+        @foreach (var trainer in Model)
+        {
+            <div class="trainer-card">
+
+                <div class="trainer-img">
+                    <img src="@trainer.ImageUrl" />
+
+
+                    @* Add this and the wast threee styling for the css. See if this work first then add to the other *@
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        @if (trainer.IsAddedToFavorite)
+                        {
+
+                            <form asp-controller="UserPanel" asp-action="RemoveTrainer" method="post" class="d-inline">
+                                <input type="hidden" name="trainerId" value="@trainer.TrainerId" />
+                                <button type="submit" class="remove-button">
+                                    <i class="bi bi-file-x"></i> Remove
+                                </button>
+                            </form>
+
+
+                        }
+                        else
+                        {
+
+                            <form asp-controller="UserPanel" asp-action="AddTrainer" method="post" class="d-inline">
+                                <input type="hidden" name="trainerId" value="@trainer.TrainerId" />
+                                <button type="submit" role="button" class="trainer-heart">
+                                    <i class="bi bi-bookmark-star"></i> Add back
+                                </button>
+                            </form>
+                        }
+                    }
+
+
+
+                </div>
+
+                <div class="trainer-content">
+                    <div class="trainer-name">@trainer.FirstName @trainer.LastName</div>
+                    <div class="trainer-specialty">@trainer.TrainerSpecialty</div>
+
+                    <div class="trainer-contact">
+                        <div><strong>Email:</strong> @trainer.Email</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
 }

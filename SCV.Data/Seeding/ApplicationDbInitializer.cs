@@ -25,10 +25,11 @@
 
         private readonly List<(string, string, string, string)> DefaultUsersToSeed = new List<(string email, string fullName, string password, string role)>
             {
+            //Admin
                 ("admin@sportcentervictory.com", "Admin User - Rado", "Admin123!", RoleConstants.Admin),
-
+            //Manager
                 ("manager@sportcentervictory.com", "Manager Rado", "Rado123!", RoleConstants.Manager),
-
+            //Trainers
                 ("viktornachev@sportcentervictory.com", "Viktor Nachev", "Victor123!", RoleConstants.Trainer),
                 ("sofiazlateva@sportcentervictory.com", "Sofia Zlateva", "Sofia123!", RoleConstants.Trainer),
                 ("desislaviliev@sportcentervictory.com", "Desislav Iliev", "Desislav123!", RoleConstants.Trainer),
@@ -37,10 +38,13 @@
                 ("georgikolev@sportcentervictory.com", "Georgi Kolev", "Georgi123!", RoleConstants.Trainer),
                 ("kristinadimitrova@sportcentervictory.com", "Kristina Dimitrova", "Kristina123!", RoleConstants.Trainer),
                 ("stefantodorov@sportcentervictory.com", "Stefan Todorov", "Stefan123!", RoleConstants.Trainer),
-
+            //Users
                 ("victoriadimitrova@sportcentervictory.com", "Victoria Dimitrova", "Victoria123!", RoleConstants.User),
                 ("ivanpetrov@sportcentervictory.com", "Ivan Petrov", "Ivan123!", RoleConstants.User),
-                ("mariastefanova@sportcentervictory.com", "Maria Stefanova", "Maria123!", RoleConstants.User)
+                ("mariastefanova@sportcentervictory.com", "Maria Stefanova", "Maria123!", RoleConstants.User),
+                ("stefanivanov@sportcentervictory.com", "Stefan Ivanov", "Stefan123!", RoleConstants.User),
+                ("evamateeva@sportcentervictory.com", "Eva Mateeva", "Eva123!", RoleConstants.User),
+                ("martindakov@sportcentervictory.com", "Martin Dakov", "Maria123!", RoleConstants.User)
             };
 
         private readonly UserManager<ApplicationUser> userManager;
@@ -141,6 +145,7 @@
                         UserName = userFeedback.UserName,
                         FullName = userFeedback.FullName,
                         Feedback = userFeedback.Feedback,
+                        Status = userFeedback.Status,
                         ImageUrl = userFeedback.ImageUrl,
                         UserId = user.Id
                     };

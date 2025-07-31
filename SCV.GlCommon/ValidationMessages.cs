@@ -95,5 +95,22 @@
 
             public const string ImageUrlInvalid = "Product Image URL is invalid.";
         }
+
+        public static class UserFeedback
+        {
+            public const string UserIdRequired = "UserId is required.";
+
+            public const string UserNameRequired = "UserName is required.";
+            public const string UserNameLength = "UserName must be between {2} and {1} characters long.";
+
+            public const string FullNameRequired = "User Full Name is required.";
+            public const string FullNameLength = "User Full Name  must be between {2} and {1} characters long.";
+
+            public const string FeedbackRequired = "Feedback is required.";
+            public const string FeedbackLength = "Feedback must be between {2} and {1} characters long.";
+
+            public const string ImageUrlInvalid = "Event Image URL is invalid.";
+
+        }
     }
 }

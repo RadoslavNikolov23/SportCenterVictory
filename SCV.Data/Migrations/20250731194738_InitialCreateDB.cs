@@ -1,4 +1,5 @@
-﻿#nullable disable
+﻿
+#nullable disable
 
 namespace SCV.Data.Migrations
 {
@@ -479,7 +480,7 @@ namespace SCV.Data.Migrations
                 {
                     ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
                     TrainerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced Trainer. Part of the entity composite PK."),
-                    AdditionalInformation = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true, comment: "Additional information about which course/membership/plan is the user attached to the trainer")
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicates whether the TrainerUser entity is deleted. Soft delete flag.")
                 },
                 constraints: table =>
                 {

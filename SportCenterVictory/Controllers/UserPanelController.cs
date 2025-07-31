@@ -1,24 +1,39 @@
 ﻿namespace SportCenterVictory.Controllers
 {
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
 
+    using SCV.Data.Models;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.CrossfitVM;
+    using SCV.Web.ViewModels.UserFeedbackVM;
 
-    public class UserPanelController : BaseController
+    using static SCV.GlCommon.ApplicationConstants;
+
+
+    public partial class UserPanelController : BaseController
     {
         private readonly IEventUserService eventUserService;
         private readonly ICrossfitClassUserService crossfitClassUserService;
         private readonly IMembershipUserService membershipUserService;
+        private readonly ITrainerUserService trainerUserService;
+        private readonly IUserFeedbackService userFeedbackService;
+        private readonly UserManager<ApplicationUser> userManager;
 
-        public UserPanelController(IEventUserService eventUserService, ICrossfitClassUserService crossfitClassUserService, IMembershipUserService membershipUserService)
+        public UserPanelController(IEventUserService eventUserService, ICrossfitClassUserService crossfitClassUserService,
+        IMembershipUserService membershipUserService, ITrainerUserService trainerUserService,
+        IUserFeedbackService userFeedbackService, UserManager<ApplicationUser> userManager)
         {
             this.eventUserService = eventUserService;
             this.crossfitClassUserService = crossfitClassUserService;
             this.membershipUserService = membershipUserService;
+            this.trainerUserService = trainerUserService;
+            this.userFeedbackService = userFeedbackService;
+            this.userManager = userManager;
+
         }
+
 
         //-------------------UserFeedback--------------------------------------
 
@@ -26,7 +41,71 @@
         [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
         public async Task<IActionResult> LeaveFeedback()
         {
-           return View();
+            //TODO: use the methods in the BaseController
+            var user = await userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                TempData[ErrorMessageKey] = "Unable to find user.";
+                return RedirectToAction("Index", "Home");
+            }
+
+            UserFeedbackAddViewModel userFeedbackAddVM = new UserFeedbackAddViewModel
+            {
+                UserId = user.Id.ToString(),
+                UserName = user.UserName,
+                FullName = user.FullName,
+            };
+            return View(userFeedbackAddVM);
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
+        public async Task<IActionResult> LeaveFeedback(UserFeedbackAddViewModel userFeedbackAddVM)
+        {
+            try
+            {
+                var user = await userManager.GetUserAsync(User);
+
+                if (user == null)
+                {
+                    TempData[ErrorMessageKey] = "User not found.";
+                    return RedirectToAction("Index", "Home");
+                }
+
+                // Overwrite with current user data to avoid tampering
+                userFeedbackAddVM.UserId = user.Id.ToString();
+                userFeedbackAddVM.UserName = user.UserName;
+                userFeedbackAddVM.FullName = user.FullName;
+
+                if (!this.ModelState.IsValid)
+                {
+                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
+
+                    return this.View(userFeedbackAddVM);
+                }
+
+                bool isAddedSuccessfully = await this.userFeedbackService
+                    .AddUserFeedbackAsync(userFeedbackAddVM);
+
+                if (!isAddedSuccessfully)
+                {
+                    TempData[ErrorMessageKey] = "User Feedback could not be created. Please try again.";
+
+                    return View(userFeedbackAddVM);
+                }
+
+
+                TempData[SuccessMessageKey] = "User Feedback added successfully!";
+                return RedirectToAction("Index", "Home", new { area = "" });
+
+
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the User Feedback! Please contact developer team! The error is {e.Message}";
+                return RedirectToAction("Index", "Home");
+            }
         }
 
 
@@ -129,222 +208,8 @@
             }
         }
 
-        //--------------------Events-------------------------------
+        //Trainer actions and Events actions are in the partial UserPanelController.EventTrainer.cs ->
 
-        [HttpGet]
-        [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
-        public async Task<IActionResult> JoinedEvents()
-        {
-            try
-            {
-                string? userId = this.GetUserId();
-
-                if (userId == null)
-                {
-                    return this.Forbid();
-                }
-
-                IEnumerable<EventUserDetailViewModel> eventUserList = await this.eventUserService
-                    .GetEventUserListAsync(userId);
-
-                foreach (EventUserDetailViewModel eventUserVM in eventUserList)
-                {
-                    eventUserVM.IsUserJoined = await this.eventUserService
-                        .IsUserAddedToEventList(eventUserVM.EventId, this.GetUserId());
-                }
-
-                return View(eventUserList);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> JoinEvent(string? eventId)
-        {
-            try
-            {
-                string userId = this.GetUserId()!;
-
-                if (eventId == null)
-                {
-                    //TODO: Redirect to the same action detail
-                    return this.RedirectToAction(nameof(JoinedEvents));
-                    //Or ad this   return this.Forbid();
-                }
-
-                bool isEventJoinedByUser = await this.eventUserService
-                                      .AddUserToEvent(eventId, userId);
-
-                if (isEventJoinedByUser == false)
-                {
-                    // TODO: Add JS notifications and fix this!
-                    return this.RedirectToAction(nameof(JoinedEvents), "UserPanel");
-                }
-
-                // Also TODO this:
-                return this.RedirectToAction(nameof(JoinedEvents));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RemoveEvent(string? eventId)
-        {
-            try
-            {
-                string userId = this.GetUserId()!;
-
-                if (eventId == null)
-                {
-                    //TODO: Redirect to the same action detail
-                    return this.RedirectToAction(nameof(JoinedEvents));
-                    //Or ad this   return this.Forbid();
-                }
-
-                bool isRemovedUserFromEvent = await this.eventUserService
-                                     .RemoveUserFromEventAsync(eventId, userId);
-
-                if (isRemovedUserFromEvent == false)
-                {
-                    // If the recipe was not removed from favorites, we still redirect to the same page by default by the requirements.
-                    return this.RedirectToAction(nameof(JoinedEvents), "UserPanel");
-                }
-
-                return this.RedirectToAction(nameof(JoinedEvents));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return this.RedirectToAction(nameof(Index), "Home");
-            }
-        }
-
-        //----------------------Trainers-----------------------------------
-
-        [HttpGet]
-        [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
-        public async Task<IActionResult> FavoriteTrainers()
-        {
-            return View();
-        }
-
-        //------------------------Memberships---------------------------------
-
-        [HttpGet]
-        [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
-        public async Task<IActionResult> PurchasedMemberships()
-        {
-            try
-            {
-                string? userId = this.GetUserId();
-
-                if (userId == null)
-                {
-                    return this.Forbid();
-                }
-
-                IEnumerable<MembershipUserDetailViewModel> membershipUserList = await this.membershipUserService
-                                                .GetMembershipUserListAsync(userId);
-
-                foreach (MembershipUserDetailViewModel membershipUserVM in membershipUserList)
-                {
-                    membershipUserVM.IsPurchasedMembership = await this.membershipUserService
-                        .IsUserAddedToMembershipList(membershipUserVM.MembershipId, this.GetUserId());
-                }
-
-                return View(membershipUserList);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> JoinMembership(string? membershipId)
-        {
-            try
-            {
-                string userId = this.GetUserId()!;
-
-                if (membershipId == null)
-                {
-                    //TODO: Redirect to the same action detail
-                    return this.RedirectToAction(nameof(Index));
-                    //Or ad this   return this.Forbid();
-                }
-
-                bool isMembershipJoinedByUser = await this.membershipUserService
-                                      .AddUserToMembership(membershipId, userId);
-
-                if (isMembershipJoinedByUser == false)
-                {
-                    // TODO: Add JS notifications and fix this!
-                    return this.RedirectToAction(nameof(PurchasedMemberships), "UserPanel");
-                }
-
-                // Also TODO this:
-                return this.RedirectToAction(nameof(PurchasedMemberships));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
-            }
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> RemoveMembership(string? membershipId)
-        {
-            try
-            {
-                string userId = this.GetUserId()!;
-
-                if (membershipId == null)
-                {
-                    //TODO: Redirect to the same action detail
-                    return this.RedirectToAction(nameof(PurchasedMemberships));
-                    //Or ad this   return this.Forbid();
-                }
-
-                bool isRemovedUserFromMembership = await this.membershipUserService
-                                        .RemoveUserFromMembershipAsync(membershipId, userId);
-
-                if (isRemovedUserFromMembership == false)
-                {
-                    // If the recipe was not removed from favorites, we still redirect to the same page by default by the requirements.
-                    return this.RedirectToAction(nameof(PurchasedMemberships), "UserPanel");
-                }
-
-                return this.RedirectToAction(nameof(PurchasedMemberships));
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                return this.RedirectToAction(nameof(Index), "Home");
-            }
-        }
-
-        //----------------------Orders-----------------------------------
-
-        [HttpGet]
-        [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
-        public async Task<IActionResult> MadeOrders()
-        {
-            return View();
-        }
+        //Store - Membership actions and Product actions are in the partial UserPanelController.Store.cs ->
     }
 }

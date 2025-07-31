@@ -13845,10 +13845,11 @@ namespace SCV.Data.Migrations
                         .HasColumnType("uniqueidentifier")
                         .HasComment("Foreign key to the referenced Trainer. Part of the entity composite PK.");
 
-                    b.Property<string>("AdditionalInformation")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)")
-                        .HasComment("Additional information about which course/membership/plan is the user attached to the trainer");
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasComment("Indicates whether the TrainerUser entity is deleted. Soft delete flag.");
 
                     b.HasKey("ApplicationUserId", "TrainerId");
 

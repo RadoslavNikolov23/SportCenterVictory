@@ -2,7 +2,7 @@
 {
     using SCV.GlCommon.Enums;
     using SCV.Web.ViewModels.Administration.TrainerBioVM;
-    using SCV.Web.ViewModels.CommonVM;
+    using SCV.Web.ViewModels.TrainerVM;
 
     public interface ITrainerService
     {

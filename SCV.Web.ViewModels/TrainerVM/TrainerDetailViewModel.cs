@@ -1,4 +1,4 @@
-﻿namespace SCV.Web.ViewModels.CommonVM
+﻿namespace SCV.Web.ViewModels.TrainerVM
 {
     using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
@@ -22,5 +22,7 @@
         public SportType TrainerSpecialty { get; set; }
 
         public string? ImageUrl { get; set; }
+
+        public bool IsAddedToFavorites { get; set; }
     }
 }

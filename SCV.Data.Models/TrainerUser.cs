@@ -15,7 +15,9 @@
 
         public virtual Trainer Trainer { get; set; } = null!;
 
-        [Comment("Additional information about which course/membership/plan is the user attached to the trainer")]
-        public string? AdditionalInformation { get; set; }
+        //Removed the addition informating and add IsDelete property
+
+        [Comment("Indicates whether the TrainerUser entity is deleted. Soft delete flag.")]
+        public bool IsDeleted { get; set; }
     }
 }

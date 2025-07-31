@@ -11,12 +11,16 @@
     {
         public void Configure(EntityTypeBuilder<TrainerUser> entity)
         {
-           entity
-                .HasKey(tu => new { tu.ApplicationUserId, tu.TrainerId });
+            entity
+                 .HasKey(tu => new { tu.ApplicationUserId, tu.TrainerId });
+
+            entity
+                .Property(tu => tu.IsDeleted)
+                .HasDefaultValue(false);
 
             entity
                 .HasOne(tu => tu.ApplicationUser)
-                .WithMany(au=>au.TrainerUsers)
+                .WithMany(au => au.TrainerUsers)
                 .HasForeignKey(tu => tu.ApplicationUserId);
 
             entity
@@ -25,12 +29,8 @@
                 .HasForeignKey(tu => tu.TrainerId);
 
             entity
-                .HasQueryFilter(t=>t.Trainer.IsDeleted==false);
-
-            entity
-                .Property(tu => tu.AdditionalInformation)
-                .HasMaxLength(AdditionalInformationMaxLength)
-                .IsRequired(false);
+                .HasQueryFilter(tu => tu.IsDeleted == false 
+                                   && tu.Trainer.IsDeleted == false);
         }
     }
 }

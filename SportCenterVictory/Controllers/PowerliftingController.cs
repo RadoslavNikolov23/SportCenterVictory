@@ -7,6 +7,7 @@
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
+    using SCV.Web.ViewModels.TrainerVM;
 
     public class PowerliftingController : BaseController
     {
@@ -15,14 +16,16 @@
         private readonly IEventService eventService;
         private readonly IEventUserService eventUserService;
         private readonly IMembershipUserService membershipUserService;
+        private readonly ITrainerUserService trainerUserService;
 
-        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IEventUserService eventUserService, IMembershipUserService membershipUserService)
+        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ITrainerUserService trainerUserService)
         {
             this.membershipService = membershipService;
             this.trainerService = trainerService;
             this.eventService = eventService;
             this.eventUserService = eventUserService;
             this.membershipUserService = membershipUserService;
+            this.trainerUserService = trainerUserService;
         }
 
         [HttpGet]
@@ -61,6 +64,15 @@
         {
             IEnumerable<TrainerDetailViewModel> trainerViewModels = await this.trainerService
                                         .GetAllTrainerBySpecialtiesAsync(SportType.Powerlifting);
+
+            if (this.IsUserAuthenticated())
+            {
+                foreach (TrainerDetailViewModel trainerDetailVM in trainerViewModels)
+                {
+                    trainerDetailVM.IsAddedToFavorites = await this.trainerUserService
+                        .IsTrainerAddedToUserList(trainerDetailVM.Id, this.GetUserId());
+                }
+            }
 
             if (trainerViewModels == null || !trainerViewModels.Any())
             {

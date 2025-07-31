@@ -4,13 +4,15 @@
     "UserName": "victoriadimitrova@sportcentervictory.com",
     "FullName": "Victoria Dimitrova",
     "Feedback": "The trainers are amazing and the CrossFit classes push me beyond my limits. Great vibe overall, highly recommend!",
-    "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/ts9jhmb8aipulleoklss6/victoriaDimitrova.jpg?rlkey=k8jlir2bltax9twhn7ft4hfae&st=qti82d9b"
+    "Status": 1,
+    "ImageUrl": "https://www.dropbox.com/scl/fi/hlqmt0rl0xnlj4zn2qx46/VictoriaDimitrova.jpg?rlkey=kp19i14px0eonr7excu8netvv&st=i831qepf&raw=1"
   },
   {
     "Id": 2,
     "UserName": "ivanpetrov@sportcentervictory.com",
     "FullName": "Ivan Petrov",
     "Feedback": "I really enjoy the new powerlifting area. Lots of squat racks that are a great addition, love the vide of the sport center!",
+    "Status": 1,
     "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/d2my2dsc6fe4tihtelrij/ivanPetrov.jpg?rlkey=o5f41b0ap6p1z4hirztoons5l&st=s4slv3g1"
   },
   {
@@ -18,6 +20,31 @@
     "UserName": "mariastefanova@sportcentervictory.com",
     "FullName": "Maria Stefanova",
     "Feedback": "Excellent gym with a motivating atmosphere. Love the group workouts and the clean facilities. Always a great experience!",
-    "ImageUrl": "https://dl.dropboxusercontent.com/scl/fi/96ek1jy085stzc60mz9jk/mariaStefanova.jpg?rlkey=6invn5ok3r8fnty4azb8jdt0f&st=uxdynytd"
+    "Status": 1,
+    "ImageUrl": "https://www.dropbox.com/scl/fi/l5a45chovyifm36ueiabo/MariaStefanova.jpg?rlkey=ctu43cftpfisl0iv00vwg86ch&st=z1ro5faf&raw=1"
+  },
+  {
+    "Id": 4,
+    "UserName": "stefanivanov@sportcentervictory.com",
+    "FullName": "Stefan Ivanov",
+    "Feedback": "Excellent Crossfit Area with a motivating  and participants. Love every  group workouts. Cheers!",
+    "Status": 1,
+    "ImageUrl": "https://www.dropbox.com/scl/fi/mtr5oxic66uno3ita56ug/StefanIvanov.jpg?rlkey=zwj1zcfoqqmlgjsak5rgzokbl&st=hyuv7o3z&raw=1"
+  },
+  {
+    "Id": 5,
+    "UserName": "evamateeva@sportcentervictory.com",
+    "FullName": "Eva Mateeva",
+    "Feedback": "Used to Crossfit all the time, trying Powerlifting for a once, what a challenge. Recommend the trainers and environment!",
+    "Status": 1,
+    "ImageUrl": "https://www.dropbox.com/scl/fi/9h2uqu93bd452q4mn8xqs/EvaMateeva.jpg?rlkey=9g0xmoh6iujbo9j5xknood6da&st=1ohq4uqc&raw=1"
+  },
+  {
+    "Id": 6,
+    "UserName": "martindakov@sportcentervictory.com",
+    "FullName": "Martin Dakov",
+    "Feedback": "Awesome fitness equipment, great trainers, just a super sport center. Visiting this Center over 15 years! Love every minute.",
+    "Status": 1,
+    "ImageUrl": "https://www.dropbox.com/scl/fi/v9kgstu31moshy0wdfyk6/MartinDakov.jpg?rlkey=smnci52rxtsd7kmqg5incd7xk&st=6nxwaqt0&raw=1"
   }
 ]

@@ -1,5 +1,72 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.TrainerVM
+@model IEnumerable<TrainerClientListViewModel>
+
 @{
+    ViewData["Title"] = "Client List ";
+}
+
+@section Styles {
+    <style>
+        .client-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .client-card:hover {
+                transform: scale(1.03);
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            }
+
+        .avatar-circle {
+            width: 60px;
+            height: 60px;
+            background-color: #007bff;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+        }
+    </style>
+}
+
+<h3 class="about_taital text-center pb-4">All of Our Clients</h3>
+
+<div class="container mb-4">
+    <input type="text" id="searchInput" class="form-control w-50 mx-auto" placeholder="Search clients by name or email..." />
+</div>
+
+<div class="container">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="clientCardList">
+        @foreach (var userVm in Model)
+        {
+            <div class="col client-card-item">
+                <div class="card h-100 client-card border-0 shadow-sm text-center">
+                    <div class="card-body">
+                        <div class="avatar-circle">
+                            @userVm.FullName.Substring(0, 1).ToUpper()
+                        </div>
+                        <h5 class="card-title">@userVm.FullName</h5>
+                        <p class="card-text text-muted">@userVm.UserName</p>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.getElementById("searchInput").addEventListener("keyup", function () {
+            var filter = this.value.toUpperCase();
+            var cards = document.querySelectorAll(".client-card-item");
+
+            cards.forEach(card => {
+                let text = card.innerText.toUpperCase();
+                card.style.display = text.includes(filter) ? "" : "none";
+            });
+        });
+    </script>
 }
