@@ -1,9 +1,12 @@
 ﻿namespace SportCenterVictory.Controllers
 {
-    using SCV.GlCommon;
-    using System.Security.Claims;
+
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
+    using System.Security.Claims;
+
+    using SCV.GlCommon;
 
     [Authorize]
     public abstract class BaseController : Controller
@@ -33,6 +36,20 @@
             this.Response.StatusCode = 404;
 
             return View(ErrorViews.Error404, model: message);
+        }
+
+        protected IActionResult AccessForbidden(string message)
+        {
+            this.Response.StatusCode = 403;
+
+            return View(ErrorViews.Error403, model: message);
+        }
+
+        protected IActionResult ServerError(string message)
+        {
+            this.Response.StatusCode = 500;
+
+            return View(ErrorViews.Error500, model: message);
         }
     }
 }
