@@ -1,5 +1,109 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.Administration.FitnessVM
+@model IEnumerable<WorkoutPlanAdminDetailViewModel>
+
 @{
+    ViewData["Title"] = "Edit Workout Plan ";
+}
+
+<h1 class="about_taital text-center">Edit Workout Plan</h1>
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+
+        <label for="workoutPlanSelect">Search & Select an Workout Plan</label>
+        <input class="form-control mb-2" list="workoutPlanOptions" id="workoutPlanSearchInput" placeholder="Type Workout Plan name..." />
+        <datalist id="workoutPlanOptions">
+            @foreach (WorkoutPlanAdminDetailViewModel workoutPlan in Model)
+            {
+                <option value="@workoutPlan.Title" data-id="@workoutPlan.Id"></option>
+            }
+        </datalist>
+
+        <button class="btn btn-primary mb-4" id="loadWorkoutPlanBtn">Load Workout Plan</button>
+
+        <form id="editWorkoutPlanForm" asp-action="EditWorkoutPlan" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="Id" name="Id" />
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="Title">Workout Plan Title</label>
+                    <input class="form-control" id="Title" name="Title" />
+                </div>
+
+                <div class="col-sm-6 mb-2">
+                    <label for="Type">Sport Type</label>
+                    <select id="Type" name="Type" class="form-control">
+                        <option value="">Select an membership type</option>
+                        @foreach (var type in Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>())
+                        {
+                            var value = (int)Enum.Parse(typeof(SCV.GlCommon.Enums.SportType), type.Value.ToString());
+                            <option value="@value">@type.Text</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="Description">Description</label>
+                <textarea class="form-control" id="Description" name="Description" rows="9"></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label for="ImageUrl">Image URL</label>
+                <input class="form-control" id="ImageUrl" name="ImageUrl" />
+            </div>
+
+            <div class="mb-2">
+                <button type="submit" class="btn btn-warning w-100">Update Workout Plan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("Id").value = "";
+            document.getElementById("Title").value = "";
+            document.getElementById("Type").value = "";
+            document.getElementById("Description").value = "";
+            document.getElementById("ImageUrl").value = "";
+
+            const workoutPlans = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+            document.getElementById("loadWorkoutPlanBtn").addEventListener("click", function () {
+                const input = document.getElementById("workoutPlanSearchInput").value;
+                const selected = workoutPlans.find(wp => wp.Title === input);
+
+                if (!selected) {
+                    toastr.error("Please select a valid Workout Plan name.");
+                    return;
+                }
+
+                fetch(`/Administration/Fitness/GetWorkoutPlan?id=${selected.Id}`)
+                    .then(res => res.json())
+                    .then( result => {
+                            if (!result.success) {
+                                toastr.error(result.message); // Show server error
+                                return;
+                            }
+
+                        const data = result.data;
+                        document.getElementById("Id").value = data.id;
+                        document.getElementById("Title").value = data.title;
+                        document.getElementById("Type").value = data.type.toString();
+                        document.getElementById("Description").value = data.description;
+                        document.getElementById("ImageUrl").value = data.imageUrl;
+
+                        document.getElementById("editWorkoutPlanForm").style.display = "block";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        toastr.error("An unexpected error occurred while loading Workout Plan info.");
+                    });
+            });
+        });
+    </script>
 }

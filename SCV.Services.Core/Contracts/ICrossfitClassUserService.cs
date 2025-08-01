@@ -1,5 +1,6 @@
 ﻿namespace SCV.Services.Core.Contracts
 {
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.CrossfitVM;
 
     public interface ICrossfitClassUserService
@@ -11,6 +12,8 @@
         Task<bool> RemoveUserFromCrossfitClassAsync(string? crossfitClassId, string? userId);
 
         Task<bool> IsUserAddedToCrossfitClassList(string? crossfitClassId, string? userId);
+
+        Task<IEnumerable<UserCrossfitClassesForAdminListViewModel>> ForAdminCrossfitClassClientsListAsync();
 
     }
 }

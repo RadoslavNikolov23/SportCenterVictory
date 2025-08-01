@@ -1,5 +1,152 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.Administration.FitnessVM
+@model IEnumerable<ExerciseAdminDetailViewModel>
+
 @{
+    ViewData["Title"] = "Edit Exercise ";
+}
+
+<h1 class="about_taital text-center">Edit Exercise</h1>
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+
+        <label for="exerciseSelect">Search & Select an Exercise</label>
+        <input class="form-control mb-2" list="exerciseOptions" id="exerciseSearchInput" placeholder="Type exercise name..." />
+        <datalist id="exerciseOptions">
+
+            @foreach (ExerciseAdminDetailViewModel exercise in Model)
+            {
+                <option value="@exercise.Name" data-id="@exercise.Id"></option>
+            }
+        </datalist>
+
+        <button class="btn btn-primary mb-4" id="loadExerciseBtn">Load Exercise</button>
+
+        <form id="editExerciseForm" asp-action="EditExercise" method="post">
+            @Html.AntiForgeryToken()
+
+            <input type="hidden" id="Id" name="Id" />
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="Name">Exercise Name</label>
+                    <input class="form-control" id="Name" name="Name" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="Force">Force</label>
+                    <input class="form-control" id="Force" name="Force" />
+                </div>
+                <div class="col-sm-6 mb-2">
+                    <label for="Category">Category</label>
+                    <input class="form-control" id="Category" name="Category" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="Equipment">Equipment</label>
+                    <input class="form-control" id="Equipment" name="Equipment" />
+                </div>
+                <div class="col-sm-6 mb-2">
+                    <label for="Mechanic">Mechanic</label>
+                    <input class="form-control" id="Mechanic" name="Mechanic" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="PrimaryMuscles">Primary Muscles</label>
+                    <input class="form-control" id="PrimaryMuscles" name="PrimaryMuscles" />
+                </div>
+                <div class="col-sm-6 mb-2">
+                    <label for="SecondaryMuscles">Secondary Muscles</label>
+                    <input class="form-control" id="SecondaryMuscles" name="SecondaryMuscles" />
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label for="Instructions">Instructions</label>
+                <textarea class="form-control" id="Instructions" name="Instructions" rows="8"></textarea>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="ImageUrlOne">ImageUrl One Exercise</label>
+                    <input class="form-control" id="ImageUrlOne" name="ImageUrlOne" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-6 mb-2">
+                    <label for="ImageUrlTwo">ImageUrl Two Exercise</label>
+                    <input class="form-control" id="ImageUrlTwo" name="ImageUrlTwo" />
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <button type="submit" class="btn btn-warning w-100">Update Exercise</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.addEventListener("DOMContentLoaded", () => {
+            document.getElementById("Id").value = "";
+            document.getElementById("Name").value = "";
+            document.getElementById("Force").value = "";
+            document.getElementById("Mechanic").value = "";
+            document.getElementById("Equipment").value = "";
+            document.getElementById("PrimaryMuscles").value = "";
+            document.getElementById("SecondaryMuscles").value = "";
+            document.getElementById("Instructions").value = "";
+            document.getElementById("Category").value = "";
+            document.getElementById("ImageUrlOne").value = "";
+            document.getElementById("ImageUrlTwo").value = "";
+
+            const exercises = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+            document.getElementById("loadExerciseBtn").addEventListener("click", function () {
+                const input = document.getElementById("exerciseSearchInput").value;
+                const selected = exercises.find(e => e.Name === input);
+
+                if (!selected) {
+                    toastr.error("Please select a valid exercise name.");
+                    return;
+                }
+
+                fetch(`/Administration/Fitness/GetExercise?id=${selected.Id}`)
+                    .then(res => res.json())
+                    .then( result => {
+                            if (!result.success) {
+                                toastr.error(result.message); // Show server error
+                                return;
+                            }
+
+                        const data = result.data;
+                        document.getElementById("Id").value = data.id;
+                        document.getElementById("Name").value = data.name;
+                        document.getElementById("Force").value = data.force;
+                        document.getElementById("Mechanic").value = data.mechanic;
+                        document.getElementById("Equipment").value = data.equipment;
+                        document.getElementById("PrimaryMuscles").value = data.primaryMuscles;
+                        document.getElementById("SecondaryMuscles").value = data.secondaryMuscles;
+                        document.getElementById("Instructions").value = data.instructions;
+                        document.getElementById("Category").value = data.category;
+                        document.getElementById("ImageUrlOne").value = data.imageUrlOne;
+                        document.getElementById("ImageUrlTwo").value = data.imageUrlTwo;
+
+                        document.getElementById("editExerciseForm").style.display = "block";
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        toastr.error("An unexpected error occurred while loading exercise info.");
+                    });
+            });
+        });
+    </script>
 }

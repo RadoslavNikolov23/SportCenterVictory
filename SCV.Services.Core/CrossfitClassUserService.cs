@@ -1,12 +1,12 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
-
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
-    using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.CrossfitVM;
     using SCV.GlCommon.Enums;
+    using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
+    using SCV.Web.ViewModels.CrossfitVM;
 
     public class CrossfitClassUserService : ICrossfitClassUserService
     {
@@ -137,6 +137,27 @@
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<UserCrossfitClassesForAdminListViewModel>> ForAdminCrossfitClassClientsListAsync()
+        {
+            IEnumerable<UserCrossfitClassesForAdminListViewModel> clientsCrossfitClassList = await this.crossfitClassUserRepo
+                .GetAllAttached()
+                .Include(ccu => ccu.ApplicationUser)
+                .Include(ccu => ccu.CrossfitClass)
+                .AsNoTracking()
+                //? Maybe other
+                .OrderBy(ccu => ccu.CrossfitClass.Id)
+                .Select(ccu => new UserCrossfitClassesForAdminListViewModel()
+                {
+                    ClientUserName = ccu.ApplicationUser.UserName,
+                    ClientFullName = ccu.ApplicationUser.FullName,
+                    CrossfitClassName = ccu.CrossfitClass.Name,
+                    CrossfitClassTrainerName = ccu.CrossfitClass.TrainerName
+                })
+                .ToListAsync();
+
+            return clientsCrossfitClassList;
         }
     }
 }

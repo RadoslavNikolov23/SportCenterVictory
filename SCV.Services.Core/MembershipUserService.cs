@@ -5,6 +5,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.CommonVM;
 
     public class MembershipUserService : IMembershipUserService
@@ -131,6 +132,27 @@
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<UserMembershipForAdminListViewModel>> ForAdminMembershipClientsListAsync()
+        {
+            IEnumerable<UserMembershipForAdminListViewModel> clientsMemberhsipList = await this.membershipUserRepo
+                .GetAllAttached()
+                .Include(mu => mu.ApplicationUser)
+                .Include(mu => mu.Membership)
+                .AsNoTracking()
+                //? Maybe other
+                .OrderBy(mu => mu.Membership.Id)
+                .Select(mu => new UserMembershipForAdminListViewModel()
+                {
+                    ClientUserName = mu.ApplicationUser!.UserName!,
+                    ClientFullName = mu.ApplicationUser.FullName,
+                    MembershipName = mu.Membership.Name,
+                    MembershipType = mu.Membership.MembershipType
+                })
+                .ToListAsync();
+
+            return clientsMemberhsipList;
         }
 
     }

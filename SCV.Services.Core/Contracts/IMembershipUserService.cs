@@ -1,5 +1,6 @@
 ﻿namespace SCV.Services.Core.Contracts
 {
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.CommonVM;
 
     public interface IMembershipUserService
@@ -11,6 +12,8 @@
         Task<bool> RemoveUserFromMembershipAsync(string? membershipId, string? userId);
 
         Task<bool> IsUserAddedToMembershipList(string? membershipId, string? userId);
+
+        Task<IEnumerable<UserMembershipForAdminListViewModel>> ForAdminMembershipClientsListAsync();
 
     }
 }

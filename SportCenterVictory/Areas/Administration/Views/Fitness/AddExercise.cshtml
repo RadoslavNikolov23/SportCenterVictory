@@ -1,5 +1,93 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.GlCommon.Enums
+@using SCV.Web.ViewModels.Administration.FitnessVM
+@model ExerciseAddViewModel
+
 @{
+    ViewData["Title"] = "Add Exercise ";
+}
+
+<h1 class="about_taital text-center pd-5">Add Exercise</h1>
+
+<div class="row pt-3">
+    <div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <form asp-action="AddExercise" method="post">
+            @Html.AntiForgeryToken()
+
+            <div class="mb-2">
+                <label asp-for="Name" class="form-label-add-edit">Name</label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="Force" class="form-label-add-edit">Force</label>
+                    <input asp-for="Force" class="form-control" placeholder="Example: push, pull..." />
+                    <span asp-validation-for="Force" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label asp-for="Category" class="form-label-add-edit">Category</label>
+                    <input asp-for="Category" class="form-control" placeholder="Example: strength, cardio..." />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="Equipment" class="form-label-add-edit">Equipment</label>
+                    <input asp-for="Equipment" class="form-control" placeholder="Example: barbell, dumbbell, bodyweight..." />
+                    <span asp-validation-for="Equipment" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label asp-for="Mechanic" class="form-label-add-edit">Mechanic</label>
+                    <input asp-for="Mechanic" class="form-control" placeholder="Example: compound, isolation..." />
+                    <span asp-validation-for="Mechanic" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 mb-2">
+                    <label asp-for="PrimaryMuscles" class="form-label-add-edit">Primary Muscles</label>
+                    <input asp-for="PrimaryMuscles" class="form-control" placeholder="Example: abs, chest, back..." />
+                    <span asp-validation-for="PrimaryMuscles" class="text-danger"></span>
+                </div>
+                <div class="col-md-6 mb-2">
+                    <label asp-for="SecondaryMuscles" class="form-label-add-edit">Secondary Muscles</label>
+                    <input asp-for="SecondaryMuscles" class="form-control" />
+                    <span asp-validation-for="SecondaryMuscles" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="Instructions" class="form-label-add-edit">Instructions</label>
+                <textarea asp-for="Instructions" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Instructions" class="text-danger"></span>
+            </div>
+
+
+            <div class="mb-2">
+                <label asp-for="ImageUrlOne" class="form-label-add-edit">Image URL One</label>
+                <input asp-for="ImageUrlOne" class="form-control" />
+                <span asp-validation-for="ImageUrlOne" class="text-danger"></span>
+            </div>
+
+            <div class="mb-2">
+                <label asp-for="ImageUrlTwo" class="form-label-add-edit">Image URL Two</label>
+                <input asp-for="ImageUrlTwo" class="form-control" />
+                <span asp-validation-for="ImageUrlTwo" class="text-danger"></span>
+            </div>
+
+            <div class="mb-2">
+                <button class="btn btn-warning btn-dark-text w-100 py-2 fw-bold rounded" type="submit">
+                    Save Exercise
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
 }

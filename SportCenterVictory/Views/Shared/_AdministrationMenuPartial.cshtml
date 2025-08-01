@@ -10,6 +10,7 @@
     }
 }
 
+
 @if (User.Identity!.IsAuthenticated &&
     (User.IsInRole(@Admin) || User.IsInRole(@Manager) || User.IsInRole(@Trainer)))
 {
@@ -22,12 +23,12 @@
             <!-- Fitness Section -->
             <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#">Fitness</a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" asp-area="Administration" asp-controller="Fitness" asp-action="AddExercise">Add Exercise</a></li>
+                <ul class="dropdown-menu" style="min-width: 200px;">
+                    <li><a class="dropdown-item"  asp-area="Administration" asp-controller="Fitness" asp-action="AddExercise">Add Exercise</a></li>
                     <li><a class="dropdown-item" asp-area="Administration" asp-controller="Fitness" asp-action="EditExercise">Edit Exercise</a></li>
                     @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
                     {
-                        <li><a class="dropdown-item" asp-area="Admin" asp-controller="Fitness" asp-action="DeleteExercise">Delete Exercise</a></li>
+                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Fitness" asp-action="DeleteExercise">Delete Exercise</a></li>
                     }
                     <li><hr class="dropdown-divider" /></li>
                     <li><a class="dropdown-item" asp-area="Administration" asp-controller="Fitness" asp-action="AddWorkoutPlan">Add Workout Plan</a></li>
@@ -76,7 +77,7 @@
             {
                 <li class="dropdown-submenu">
                     <a class="dropdown-item dropdown-toggle" href="#">Store</a>
-                    <ul class="dropdown-menu">
+                    <ul class="dropdown-menu" style="min-width: 200px;">
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="AddProduct">Add Product</a></li>
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="EditProduct">Edit Product</a></li>
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="DeleteProduct">Delete Product</a></li>
@@ -100,7 +101,7 @@
 
             <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#">Trainer Bio</a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu" style="min-width: 200px;">
                     @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
                     {
                         <li><a class="dropdown-item" asp-area="Administration" asp-controller="Trainer" asp-action="AddTrainerBio">Add Trainer Bio</a></li>

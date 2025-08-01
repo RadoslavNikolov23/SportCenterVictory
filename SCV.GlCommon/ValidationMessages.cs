@@ -112,5 +112,46 @@
             public const string ImageUrlInvalid = "Event Image URL is invalid.";
 
         }
+        public static class Exercise
+        {
+            public const string IdRequired = "Exercise Name(Id) is required.";
+            public const string IdLength = "Exercise Name(Id) must be between {2} and {1} characters long.";
+
+            public const string NameRequired = "Exercise Name is required.";
+            public const string NameLength = "Exercise Name must be between {2} and {1} characters long.";
+
+            public const string ForceLength = "Exercise Force must be between {2} and {1} characters long.";
+
+            public const string MechanicLength = "Exercise Mechanic must be between {2} and {1} characters long.";
+
+            public const string EquipmentLength = "Exercise Equipment must be between {2} and {1} characters long.";
+
+            public const string PrimaryMuscleRequired = "Exercise Primary Muscle is required.";
+            public const string PrimaryMuscleLength = "Exercise Primary Muscle must be between {2} and {1} characters long.";
+
+            public const string SecondaryMuscleLength = "Exercise Seconadry Muscle must be between {2} and {1} characters long.";
+
+            public const string InstructionLength = "Exercise Instructions must be between {2} and {1} characters long.";
+
+            public const string CategoryRequired = "Exercise Category is required.";
+            public const string CategoryLength = "Exercise Category must be between {2} and {1} characters long.";
+
+            public const string ImageUrlOneInvalid = "Exercise Image URL is invalid.";
+
+            public const string ImageUrlTwoInvalid = "Exercise Image URL is invalid.";
+        }
+
+        public static class WorkoutPlan
+        {
+            public const string TitleLengthRequired = "Workout Plan Title is required.";
+            public const string TitleLength = "Workout Plan Title must be between {2} and {1} characters long.";
+
+            public const string DescriptionRequired = "Description is required.";
+            public const string DescriptionLength = "Description must be between {2} and {1} characters long.";
+
+            public const string TypeRequired = "Sport Type is required.";
+
+            public const string ImageUrlInvalid = "Exercise Image URL is invalid.";
+        }
     }
 }

@@ -4,6 +4,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.TrainerVM;
 
     public class TrainerUserService : ITrainerUserService
@@ -149,6 +150,28 @@
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<TrainerUserForAdminListViewModel>> ForAdminTrainerClientsListAsync()
+        {
+            IEnumerable<TrainerUserForAdminListViewModel> clientsTrainerList = await this.trainerUserRepo
+                .GetAllAttached()
+                .Include(tu => tu.ApplicationUser)
+                .Include(tu => tu.Trainer)
+                .AsNoTracking()
+                //? Maybe other
+                .OrderBy(tu => tu.Trainer.ApplicationUserId)
+                .Select(tu => new TrainerUserForAdminListViewModel()
+                {
+                    ClientUserName = tu.ApplicationUser.UserName,
+                    ClientFullName = tu.ApplicationUser.FullName,
+                    TrainerFullName = $"{tu.Trainer.FirstName} {tu.Trainer.LastName}",
+                    TrainerEmail = tu.Trainer.Email,
+                    TrainerSpecialty = tu.Trainer.TrainerSpecialty
+                })
+                .ToListAsync();
+
+            return clientsTrainerList;
         }
 
     }

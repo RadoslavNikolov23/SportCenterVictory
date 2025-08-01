@@ -1,5 +1,46 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.Administration.FitnessVM
+@model IEnumerable<WorkoutPlanDeleteViewModel>
+
 @{
+    ViewData["Title"] = "Manage Workout Plans (Delete/Restore) ";
 }
+
+<h3 class="about_taital text-center pb-4">Manage All Workout Plans</h3>
+
+<table class="table table-hover text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Sport Type</th>
+            <th>Action</th>
+            <th>Option</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (WorkoutPlanDeleteViewModel workoutPlanVm in Model)
+        {
+            <tr class="@(!workoutPlanVm.IsDeleted ? "" : "table-warning")">
+                <td>@workoutPlanVm.Title</td>
+                <td>@workoutPlanVm.Type</td>
+                <td>
+                    @if (!workoutPlanVm.IsDeleted)
+                    {
+                        <span class="badge bg-success text-white">Active</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary text-white">Deleted</span>
+                    }
+                </td>
+                <td>
+                    <a asp-action="ToggleDeleteWorkoutPlan"
+                       asp-route-id="@workoutPlanVm.Id"
+                       class="btn @(workoutPlanVm.IsDeleted ? "btn-danger" : "btn-warning") btn-sm fw-bold">
+                        <i class="bi @(!workoutPlanVm.IsDeleted ? "bi-trash" : "bi-arrow-clockwise")"></i>
+                        @(!workoutPlanVm.IsDeleted ? "Delete" : "Restore")
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

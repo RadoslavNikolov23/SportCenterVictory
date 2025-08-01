@@ -1,5 +1,6 @@
 ﻿namespace SCV.Services.Core.Contracts
 {
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.TrainerVM;
 
     public interface ITrainerUserService
@@ -13,6 +14,8 @@
         Task<bool> RemoveTrainerFromUserAsync(string? trainerId, string? userId);
 
         Task<bool> IsTrainerAddedToUserList(string? trainerId, string? userId);
+
+        Task<IEnumerable<TrainerUserForAdminListViewModel>> ForAdminTrainerClientsListAsync();
 
     }
 }
