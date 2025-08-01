@@ -1,5 +1,84 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Data.Models
+@using SCV.Web.ViewModels.Administration.UserManagementVM
+@using Microsoft.AspNetCore.Identity
+
+@model IEnumerable<UserManagementIndexViewModel>
+
+@inject RoleManager<ApplicationRole> roleManager
+
 @{
+    ViewData["Title"] = "User Management";
 }
+
+<h3 class="about_taital text-center pb-4 pt-4">Manage Users & Roles</h3>
+
+
+<table class="table table-hover text-center align-middle shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Email</th>
+            <th>Roles</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>
+                    @foreach (var role in user.Roles)
+                    {
+                        <span class="badge bg-warning text-dark fw-bold">@role</span>
+                    }
+                </td>
+                <td>
+                    @if (!user.Roles.Contains("Admin"))
+                    {
+                        @* <div class="d-flex justify-content-center align-items-center flex-wrap gap-4"> *@
+                            <select id="roleDropdown-@user.Id" class="form-select form-select-sm w-auto mr-3" >
+                                @foreach (var role in roleManager.Roles.ToList())
+                                {
+                                    <option value="@role.Name" selected="@(user.Roles.Contains(role.Name) ? "selected" : null)">
+                                        @role.Name
+                                    </option>
+                                }
+                            </select>
+
+                        <form method="post" asp-action="AssignRole" asp-controller="UserManagement" asp-area="Administration" class="d-inline mr-2">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <input type="hidden" name="role" id="assignRoleInput-@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-success fw-bold"
+                                        onclick="setRoleValue('@user.Id', 'assignRoleInput')">
+                                    <i class="bi bi-person-plus-fill"></i> Assign
+                                </button>
+                            </form>
+
+                        <form method="post" asp-action="RemoveRole" asp-controller="UserManagement" asp-area="Administration" class="d-inline mr-2">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <input type="hidden" name="role" id="removeRoleInput-@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-warning fw-bold"
+                                        onclick="setRoleValue('@user.Id', 'removeRoleInput')">
+                                    <i class="bi bi-person-x-fill"></i> Remove
+                                </button>
+                            </form>
+
+                        <form method="post" asp-action="DeleteUser" asp-controller="UserManagement" asp-area="Administration" class="d-inline mr-2">
+                                <input type="hidden" name="userId" value="@user.Id" />
+                                <button type="submit" class="btn btn-sm btn-danger fw-bold">
+                                    <i class="bi bi-trash-fill"></i> Delete
+                                </button>
+                            </form>
+                        @* </div> *@
+                    }
+                    else
+                    {
+                        <span class="text-muted fw-bold">Cannot edit Admin</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="~/js/userManagement.js" asp-append-version="true"></script>
