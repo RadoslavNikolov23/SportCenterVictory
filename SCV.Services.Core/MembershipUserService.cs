@@ -8,6 +8,8 @@
     using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.CommonVM;
 
+    using static SCV.GlCommon.ApplicationConstants;
+
     public class MembershipUserService : IMembershipUserService
     {
 
@@ -136,23 +138,25 @@
 
         public async Task<IEnumerable<UserMembershipForAdminListViewModel>> ForAdminMembershipClientsListAsync()
         {
-            IEnumerable<UserMembershipForAdminListViewModel> clientsMemberhsipList = await this.membershipUserRepo
+            IEnumerable<UserMembershipForAdminListViewModel> clientsMembershipList = await this.membershipUserRepo
                 .GetAllAttached()
                 .Include(mu => mu.ApplicationUser)
                 .Include(mu => mu.Membership)
                 .AsNoTracking()
                 //? Maybe other
-                .OrderBy(mu => mu.Membership.Id)
+                .OrderBy(mu => mu.Membership.MembershipType)
+                .ThenBy(mu => mu.ApplicationUser.FullName)
                 .Select(mu => new UserMembershipForAdminListViewModel()
                 {
-                    ClientUserName = mu.ApplicationUser!.UserName!,
+                    ClientEmail = mu.ApplicationUser!.Email!,
                     ClientFullName = mu.ApplicationUser.FullName,
                     MembershipName = mu.Membership.Name,
-                    MembershipType = mu.Membership.MembershipType
+                    MembershipType = mu.Membership.MembershipType,
+                    PurchaseDate = mu.PurchasedOn.ToString(DateOnlyFormat)
                 })
                 .ToListAsync();
 
-            return clientsMemberhsipList;
+            return clientsMembershipList;
         }
 
     }

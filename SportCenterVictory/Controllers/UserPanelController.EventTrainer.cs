@@ -2,15 +2,18 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.TrainerVM;
+
+    using SCV.GlCommon;
 
     public partial class UserPanelController
     {
         //--------------------Events-------------------------------
 
         [HttpGet]
-        [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
+        [Authorize(Roles = $"{RoleConstants.User},{RoleConstants.Trainer}")]
         public async Task<IActionResult> JoinedEvents()
         {
             try
@@ -76,6 +79,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = $"{RoleConstants.User},{RoleConstants.Trainer}")]
         public async Task<IActionResult> RemoveEvent(string? eventId)
         {
             try

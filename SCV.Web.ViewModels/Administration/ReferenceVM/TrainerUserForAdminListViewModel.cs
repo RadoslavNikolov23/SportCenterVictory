@@ -5,7 +5,7 @@
 
     public class TrainerUserForAdminListViewModel
     {
-        public string ClientUserName { get; set; } = null!;
+        public string ClientEmail { get; set; } = null!;
 
         public string ClientFullName { get; set; } = null!;
 

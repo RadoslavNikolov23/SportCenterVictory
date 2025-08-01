@@ -5,17 +5,19 @@
 
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
-
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
 
     public class CrossfitController : BaseAdminController
     {
         private readonly ICrossfitClassService crossfitClassService;
+        private readonly ICrossfitClassUserService crossfitClassUserService;
 
-        public CrossfitController(ICrossfitClassService crossfitClassService)
+        public CrossfitController(ICrossfitClassService crossfitClassService, ICrossfitClassUserService crossfitClassUserService)
         {
             this.crossfitClassService = crossfitClassService;
+            this.crossfitClassUserService = crossfitClassUserService;
         }
 
         [HttpGet]
@@ -50,7 +52,8 @@
 
 
                 TempData[SuccessMessageKey] = "CrossFit Classes added successfully!";
-                return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
+                //return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
+                return RedirectToAction("CrossfitClasses", "Crossfit");
 
 
             }
@@ -131,7 +134,8 @@
 
             TempData["Success"] = $"CrossFit Class {crossfitClassEditVM.Name} updated successfully!";
 
-            return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
+           // return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
+            return RedirectToAction("CrossfitClasses", "Crossfit");
 
         }
 
@@ -189,7 +193,19 @@
         [Authorize(Roles = AdminOrManager)]
         public async Task<IActionResult> UsersJoinedCrossfitClass()
         {
-            return View();
+            try
+            {
+                IEnumerable<UserCrossfitClassesForAdminListViewModel> crossfitClassesUsersList = await this.crossfitClassUserService
+                    .ForAdminCrossfitClassClientsListAsync();
+
+                return View(crossfitClassesUsersList);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return this.RedirectToAction(nameof(Index), "Home");
+            }
         }
     }
 }

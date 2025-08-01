@@ -8,9 +8,11 @@
 
         public SportType MembershipType { get; set; }
 
-        public string ClientUserName { get; set; } = null!;
+        public string ClientEmail { get; set; } = null!;
 
         public string ClientFullName { get; set; } = null!;
+
+        public string PurchaseDate { get; set; } = null!;
 
 
     }

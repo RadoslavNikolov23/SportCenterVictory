@@ -1,10 +1,10 @@
 ﻿@using SCV.Web.ViewModels.Administration.ReferenceVM
-@model IEnumerable<TrainerUserForAdminListViewModel>
+@model IEnumerable<EventsUserForAdminListViewModel>
 
 @{
-    ViewData["Title"] = "Trainer-Client Overview";
-    var groupedTrainerClient = Model
-        .GroupBy(m => m.TrainerSpecialty);
+    ViewData["Title"] = "Events-Users Overview";
+    var groupedEventUsers= Model
+        .GroupBy(m => m.EventType);
 }
 
 @section Styles {
@@ -37,34 +37,45 @@
     </style>
 }
 
-<h3 class="about_taital text-center pt-5 pb-5">Trainer & Client Overview</h3>
+<h3 class="about_taital text-center pt-5 pb-5">Events & Users Overview</h3>
 
-@foreach (var trainerClient in groupedTrainerClient)
+@foreach (var eventUsers in groupedEventUsers)
 {
     <div class="card specialty-card">
         <div class="specialty-header">
-            <h4 class="mb-0 text-white text-center">@trainerClient.Key.ToString() Trainer(s)</h4>
+            <h4 class="mb-0 text-white text-center">@eventUsers.Key.ToString() Event</h4>
         </div>
 
         <div class="table-responsive">
             <table class="table table-striped table-hover specialty-table mb-0">
                 <thead>
                     <tr>
-                        <th>Trainer Name</th>
-                        <th>Trainer Email</th>
+                        <th>Event Title</th>
+                        <th>Event StartDate</th>
+                        <th>Event Location</th>
                         <th>Client Full Name</th>
                         <th>Client Email</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in trainerClient)
+                    @{
+                        var first = eventUsers.First();
+                        bool firstRow = true;
+                    }
+
+                    @foreach (var item in eventUsers)
                     {
                         <tr>
-                            <td>@item.TrainerFullName</td>
-                            <td><a href="mailto:@item.TrainerEmail">@item.TrainerEmail</a></td>
+                            @if (firstRow)
+                            {
+                                <td rowspan="@eventUsers.Count()">@first.EventTitle</td>
+                                <td rowspan="@eventUsers.Count()">@first.EventStartDate</td>
+                                <td rowspan="@eventUsers.Count()">@first.EventLocation</td>
+                                firstRow = false;
+                            }
+
                             <td>@item.ClientFullName</td>
                             <td><a href="mailto:@item.ClientEmail">@item.ClientEmail</a></td>
-
                         </tr>
                     }
                 </tbody>

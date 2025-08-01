@@ -147,13 +147,15 @@
                 .Include(ccu => ccu.CrossfitClass)
                 .AsNoTracking()
                 //? Maybe other
-                .OrderBy(ccu => ccu.CrossfitClass.Id)
+                .OrderBy(ccu => ccu.CrossfitClass.DayOfWeek)
+                .ThenBy(ccu => ccu.CrossfitClass.Name)
                 .Select(ccu => new UserCrossfitClassesForAdminListViewModel()
                 {
-                    ClientUserName = ccu.ApplicationUser.UserName,
+                    ClientEmail = ccu.ApplicationUser!.Email!,
                     ClientFullName = ccu.ApplicationUser.FullName,
                     CrossfitClassName = ccu.CrossfitClass.Name,
-                    CrossfitClassTrainerName = ccu.CrossfitClass.TrainerName
+                    CrossfitClassTrainerName = ccu.CrossfitClass.TrainerName,
+                    DayOfWeek = ccu.CrossfitClass.DayOfWeek,
                 })
                 .ToListAsync();
 

@@ -5,21 +5,23 @@
 
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.Administration.StoreVM.MembershipsVM;
-    using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM;
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
 
     public partial class StoreController : BaseAdminController
     {
-        private readonly IMembershipService memershipServices;
+        private readonly IMembershipService membershipServices;
+        private readonly IMembershipUserService membershipUserServices;
         private readonly IProductService productService;
 
-        public StoreController(IMembershipService memershipServices, IProductService productService)
+        public StoreController(IMembershipService memershipServices, IMembershipUserService membershipUserServices, IProductService productService)
         {
-            this.memershipServices = memershipServices;
+            this.membershipServices = memershipServices;
             this.productService = productService;
+            this.membershipUserServices = membershipUserServices;
 
         }
 
@@ -43,7 +45,7 @@
                     return this.View(membershipAddVM);
                 }
 
-                bool isAddedSuccessfully = await this.memershipServices
+                bool isAddedSuccessfully = await this.membershipServices
                                                         .AddMembershipAsync(membershipAddVM);
 
                 if (!isAddedSuccessfully)
@@ -57,16 +59,27 @@
                 TempData[SuccessMessageKey] = "Membership added successfully!";
 
 
+                //switch (membershipAddVM.MembershipType)
+                //{
+                //    case SportType.Fitness:
+                //        return RedirectToAction("FitnessMembership", "Fitness", new { area = "" });
+                //    case SportType.CrossFit:
+                //        return RedirectToAction("CrossfitMembership", "Crossfit", new { area = "" });
+                //    case SportType.Powerlifting:
+                //        return RedirectToAction("PowerliftingMembership", "Powerlifting", new { area = "" });
+                //    default:
+                //        return RedirectToAction("Index", "Home", new { area = "" });
+                //}
                 switch (membershipAddVM.MembershipType)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessMembership", "Fitness", new { area = "" });
+                        return RedirectToAction("FitnessMembership", "Fitness");
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossfitMembership", "Crossfit", new { area = "" });
+                        return RedirectToAction("CrossfitMembership", "Crossfit");
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingMembership", "Powerlifting", new { area = "" });
+                        return RedirectToAction("PowerliftingMembership", "Powerlifting");
                     default:
-                        return RedirectToAction("Index", "Home", new { area = "" });
+                        return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception e)
@@ -84,7 +97,7 @@
 
             try
             {
-                IEnumerable<MembershipAdminDetailViewModel> membershipAdminDetailVM = await this.memershipServices.GetAllMembershipsForAdminAsync();
+                IEnumerable<MembershipAdminDetailViewModel> membershipAdminDetailVM = await this.membershipServices.GetAllMembershipsForAdminAsync();
 
                 return this.View(membershipAdminDetailVM);
             }
@@ -101,7 +114,7 @@
         {
             try
             {
-                MembershipEditViewModel? membershipEditVM = await this.memershipServices
+                MembershipEditViewModel? membershipEditVM = await this.membershipServices
                                                         .GetMembershipByIdAsync(id);
 
                 if (membershipEditVM == null)
@@ -142,20 +155,31 @@
                 return View(membershipEditVM);
             }
 
-            await memershipServices.EditMembershipAsync(membershipEditVM);
+            await membershipServices.EditMembershipAsync(membershipEditVM);
 
             TempData["Success"] = $"Membership {membershipEditVM.Name} updated successfully!";
 
+            //switch (membershipEditVM.MembershipType)
+            //{
+            //    case SportType.Fitness:
+            //        return RedirectToAction("FitnessMembership", "Fitness", new { area = "" });
+            //    case SportType.CrossFit:
+            //        return RedirectToAction("CrossfitMembership", "Crossfit", new { area = "" });
+            //    case SportType.Powerlifting:
+            //        return RedirectToAction("PowerliftingMembership", "Powerlifting", new { area = "" });
+            //    default:
+            //        return RedirectToAction("Memberships", "Store", new { area = "" });
+            //}
             switch (membershipEditVM.MembershipType)
             {
                 case SportType.Fitness:
-                    return RedirectToAction("FitnessMembership", "Fitness", new { area = "" });
+                    return RedirectToAction("FitnessMembership", "Fitness");
                 case SportType.CrossFit:
-                    return RedirectToAction("CrossfitMembership", "Crossfit", new { area = "" });
+                    return RedirectToAction("CrossfitMembership", "Crossfit");
                 case SportType.Powerlifting:
-                    return RedirectToAction("PowerliftingMembership", "Powerlifting", new { area = "" });
+                    return RedirectToAction("PowerliftingMembership", "Powerlifting");
                 default:
-                    return RedirectToAction("Memberships", "Store", new { area = "" });
+                    return RedirectToAction("Memberships", "Store");
             }
 
         }
@@ -166,7 +190,7 @@
         {
             try
             {
-                IEnumerable<MembershipDeleteViewModel> membershipDeleteDetailVM = await this.memershipServices.GetAllMembershipForDeletingAsync();
+                IEnumerable<MembershipDeleteViewModel> membershipDeleteDetailVM = await this.membershipServices.GetAllMembershipForDeletingAsync();
 
                 return this.View(membershipDeleteDetailVM);
             }
@@ -183,7 +207,7 @@
         {
             try
             {
-                (bool isSuccess, bool isRestored) opResult = await this.memershipServices
+                (bool isSuccess, bool isRestored) opResult = await this.membershipServices
                                         .DeleteOrRestoreMembershipAsync(id);
 
                 if (!opResult.isSuccess)
@@ -211,7 +235,20 @@
         [Authorize(Roles = AdminOrManager)]
         public async Task<IActionResult> UsersPurchasedMemberships()
         {
-            return View();
+            try
+            {
+
+                IEnumerable<UserMembershipForAdminListViewModel> memebrshipUsersList = await this.membershipUserServices
+                    .ForAdminMembershipClientsListAsync();
+
+                return View(memebrshipUsersList);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return this.RedirectToAction(nameof(Index), "Home");
+            }
         }
 
 

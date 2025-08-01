@@ -5,6 +5,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.CommonVM;
 
     using static SCV.GlCommon.ApplicationConstants;
@@ -136,6 +137,30 @@
             }
 
             return result;
+        }
+
+        public async Task<IEnumerable<EventsUserForAdminListViewModel>> ForAdminEventUsersListAsync()
+        {
+            IEnumerable<EventsUserForAdminListViewModel> eventUserList = await this.eventUserRepo
+                .GetAllAttached()
+                .Include(eu => eu.ApplicationUser)
+                .Include(eu => eu.Event)
+                .AsNoTracking()
+                //? Maybe other
+                .OrderBy(eu => eu.Event.EventType)
+                .ThenBy(eu => eu.Event.StartDate)
+                .Select(eu => new EventsUserForAdminListViewModel()
+                {
+                    ClientEmail = eu.ApplicationUser!.Email!,
+                    ClientFullName = eu.ApplicationUser.FullName,
+                    EventTitle = eu.Event.Title,
+                    EventStartDate = eu.Event.StartDate.ToString(DateOnlyFormat),
+                    EventLocation = eu.Event.Location,
+                    EventType = eu.Event.EventType
+                })
+                .ToListAsync();
+
+            return eventUserList;
         }
 
     }

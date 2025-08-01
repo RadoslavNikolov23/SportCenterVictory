@@ -39,13 +39,15 @@
             else if (roles.Contains("Trainer"))
             {
                 <li><a class="dropdown-item" asp-area="" asp-controller="TrainerPanel" asp-action="UserClientList">Client List</a></li>
+                <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="JoinedEvents">Joined Events</a></li>
             }
 
             @* === ADMIN/MANAGER === *@
             else if (roles.Contains("Admin") || roles.Contains("Manager"))
             {
-                <li><a class="dropdown-item" asp-area="Administration" asp-controller="CrossfitClass" asp-action="UsersJoinedCrossfitClass">CrossFit Classes & Users</a></li>
+                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="UsersJoinedCrossfitClass">CrossFit Classes & Users</a></li>
                 <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="UsersPurchasedMemberships">Memberships & Users</a></li>
+                <li><a class="dropdown-item" asp-area="Administration" asp-controller="Event" asp-action="EventsAndClients">Events & Users</a></li>
                 <li><a class="dropdown-item" asp-area="Administration" asp-controller="Trainer" asp-action="TrainersAndClients">Trainers & Clients</a></li>
                 <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="UsersOrders">Orders & Users</a></li>
             }

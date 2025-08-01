@@ -1,4 +1,5 @@
 ﻿@using SCV.Web.ViewModels.TrainerVM
+@using SCV.GlCommon;
 @model IEnumerable<TrainerDetailViewModel>
 
 @{
@@ -141,7 +142,7 @@
                 <img src="@trainer.ImageUrl" />
 
                 @* Add this and the wast threee styling for the css. See if this work first then add to the other *@
-                @if (User?.Identity?.IsAuthenticated ?? false)
+                @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
                 {
                     @if (trainer.IsAddedToFavorites)
                     {

@@ -6,17 +6,19 @@
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.EventVM;
-
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
 
     public class EventController : BaseAdminController
     {
         private readonly IEventService eventService;
+        private readonly IEventUserService eventUserService;
 
-        public EventController(IEventService eventService)
+        public EventController(IEventService eventService, IEventUserService eventUserService)
         {
             this.eventService = eventService;
+            this.eventUserService = eventUserService;
         }
 
         [HttpGet]
@@ -199,6 +201,25 @@
                 TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Event! Please contact developer team! The error is {e.Message}";
 
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = AdminOrManager)]
+        public async Task<IActionResult> EventsAndClients()
+        {
+            try
+            {
+                IEnumerable<EventsUserForAdminListViewModel> eventUserList = await this.eventUserService
+                    .ForAdminEventUsersListAsync();
+
+                return View(eventUserList);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return this.RedirectToAction(nameof(Index), "Home");
             }
         }
 

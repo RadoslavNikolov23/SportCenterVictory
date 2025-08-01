@@ -46,10 +46,10 @@
                 .Include(tu => tu.ApplicationUser)
                 .Include(tu => tu.Trainer)
                 .AsNoTracking()
-                .Where(tu => tu.Trainer.ApplicationUserId.ToString().ToLower() == userId.ToLower())
+                .Where(tu => tu.Trainer!.ApplicationUserId!.ToString()!.ToLower() == userId.ToLower())
                 .Select(tu => new TrainerClientListViewModel()
                 {
-                    UserName = tu.ApplicationUser.UserName,
+                    UserName = tu.ApplicationUser!.UserName!,
                     FullName = tu.ApplicationUser.FullName,
                 })
                 .ToListAsync();
@@ -160,10 +160,11 @@
                 .Include(tu => tu.Trainer)
                 .AsNoTracking()
                 //? Maybe other
-                .OrderBy(tu => tu.Trainer.ApplicationUserId)
+                .OrderBy(tu => tu.Trainer.TrainerSpecialty)
+                .ThenBy(tu => tu.Trainer.FirstName)
                 .Select(tu => new TrainerUserForAdminListViewModel()
                 {
-                    ClientUserName = tu.ApplicationUser.UserName,
+                    ClientEmail = tu.ApplicationUser!.Email!,
                     ClientFullName = tu.ApplicationUser.FullName,
                     TrainerFullName = $"{tu.Trainer.FirstName} {tu.Trainer.LastName}",
                     TrainerEmail = tu.Trainer.Email,

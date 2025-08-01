@@ -8,6 +8,7 @@
     using SCV.Data.Models;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.Administration.TrainerBioVM;
 
     using static SCV.GlCommon.ApplicationConstants;
@@ -16,12 +17,14 @@
     public class TrainerController : BaseAdminController
     {
         private readonly ITrainerService trainerService;
+        private readonly ITrainerUserService trainerUserService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public TrainerController(ITrainerService trainerService, UserManager<ApplicationUser> userManager)
+        public TrainerController(ITrainerService trainerService, UserManager<ApplicationUser> userManager, ITrainerUserService trainerUserService)
         {
             this.trainerService = trainerService;
             this.userManager = userManager;
+            this.trainerUserService = trainerUserService;
         }
 
         [HttpGet]
@@ -219,7 +222,20 @@
         [Authorize(Roles = AdminOrManager)]
         public async Task<IActionResult> TrainersAndClients()
         {
-            return View();
+            try
+            {
+
+                IEnumerable<TrainerUserForAdminListViewModel> clientsTrainerList = await this.trainerUserService
+                    .ForAdminTrainerClientsListAsync();
+
+                return View(clientsTrainerList);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+
+                return this.RedirectToAction(nameof(Index), "Home");
+            }
         }
     }
 }
