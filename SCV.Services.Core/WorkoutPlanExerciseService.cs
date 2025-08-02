@@ -8,39 +8,68 @@
     public class WorkoutPlanExerciseService : IWorkoutPlanExerciseService
     {
         public readonly IWorkoutPlanExerciseRepository workoutPlanExerciseRepo;
+        public readonly IWorkoutPlanRepository workoutPlanRepo;
 
-        public WorkoutPlanExerciseService(IWorkoutPlanExerciseRepository workoutPlanExerciseRepo)
+        public WorkoutPlanExerciseService(IWorkoutPlanExerciseRepository workoutPlanExerciseRepo, IWorkoutPlanRepository workoutPlanRepo)
         {
             this.workoutPlanExerciseRepo = workoutPlanExerciseRepo;
+            this.workoutPlanRepo = workoutPlanRepo;
         }
 
         public async Task<List<string>> GetExerciseIdsForWorkoutPlanAsync(string workoutPlanId)
         {
-            throw new NotImplementedException("This method is not implemented yet.");
-            //return await this.dbContext.WorkoutPlanExercises
-            //    .Where(x => x.WorkoutPlanId.ToString() == workoutPlanId)
-            //    .Select(x => x.ExerciseId)
-            //    .ToListAsync();
+            return await this.workoutPlanExerciseRepo
+                        .GetAllAttached()
+                        .Where(x => x.WorkoutPlanId.ToString().ToLower() == workoutPlanId.ToLower())
+                        .Select(x => x.ExerciseId)
+                        .ToListAsync();
         }
 
-        public async Task UpdateExercisesForWorkoutPlanAsync(string workoutPlanId, List<string> exerciseIds)
+        public async Task UpdateExercisesForWorkoutPlanAsync(string workoutPlanId, ICollection<string> exerciseIds)
         {
-            throw new NotImplementedException("This method is not implemented yet.");
+            if (string.IsNullOrWhiteSpace(workoutPlanId))
+            {
+                throw new ArgumentNullException(nameof(workoutPlanId), "Workout Plan ID cannot be null or empty.");
+            }
 
-            //var existing = await dbContext.WorkoutPlanExercises
-            //    .Where(x => x.WorkoutPlanId.ToString() == workoutPlanId)
-            //    .ToListAsync();
+            bool isWorkoutPlanGuided = Guid.TryParse(workoutPlanId, out Guid workoutPlanGuid);
 
-            //dbContext.WorkoutPlanExercises.RemoveRange(existing);
+            if (!isWorkoutPlanGuided)
+            {
+                throw new ArgumentNullException(nameof(workoutPlanId), "Workout Plan ID cannot be null or empty.");
+            }
 
-            //var newLinks = exerciseIds.Select(eid => new WorkoutPlanExercise
-            //{
-            //    WorkoutPlanId = Guid.Parse(workoutPlanId),
-            //    ExerciseId = eid
-            //});
+            if (exerciseIds == null)
+            {
+                throw new ArgumentNullException(nameof(exerciseIds), "Exercise ID list cannot be null.");
+            }
 
-            //await dbContext.WorkoutPlanExercises.AddRangeAsync(newLinks);
-            //await dbContext.SaveChangesAsync();
+
+            // 1. Get all existing links for this workout plan
+            ICollection<WorkoutPlanExercise> existingLinks = await this.workoutPlanExerciseRepo
+                .GetAllAttached()
+                .Where(wpe => wpe.WorkoutPlanId == workoutPlanGuid)
+                .ToListAsync();
+
+            // 2. Delete them in bulk
+            if (existingLinks.Any())
+            {
+                await this.workoutPlanExerciseRepo.HardDeleteRangeAsync(existingLinks);
+            }
+
+            // 3. Add new links
+            if (exerciseIds.Any())
+            {
+                IEnumerable<WorkoutPlanExercise> newExercisesAttached = exerciseIds
+                                .Select(eid => new WorkoutPlanExercise
+                                        {
+                                            WorkoutPlanId = workoutPlanGuid,
+                                            ExerciseId = eid
+                                        });
+
+                await this.workoutPlanExerciseRepo.AddRangeAsync(newExercisesAttached);
+            }
+
         }
 
 

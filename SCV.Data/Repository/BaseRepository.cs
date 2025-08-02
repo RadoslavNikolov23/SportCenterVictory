@@ -181,6 +181,24 @@
             return result > 0;
         }
 
+        public async Task HardDeleteRangeAsync(IEnumerable<TEntity> entities)
+        {
+            if (entities == null || !entities.Any())
+            {
+                throw new ArgumentNullException(nameof(entities), "The entity collection to delete cannot be null or empty.");
+            }
+
+            try
+            {
+                this.DbSet.RemoveRange(entities);
+                await this.DbContext.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error during hard delete of entities: {ex.Message}", ex);
+            }
+        }
+
         public async Task SaveChangesAsync()
         {
             await this.DbContext.SaveChangesAsync();
@@ -350,6 +368,23 @@
             result = this.DbContext.SaveChanges();
 
             return result > 0;
+        }
+        public void HardDeleteRange(IEnumerable<TEntity> entities)
+        {
+            if (entities == null || !entities.Any())
+            {
+                throw new ArgumentNullException(nameof(entities), "The entity collection to delete cannot be null or empty.");
+            }
+
+            try
+            {
+                this.DbSet.RemoveRange(entities);
+                this.DbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Error during hard delete of entities: {ex.Message}", ex);
+            }
         }
 
         public void SaveChanges()
