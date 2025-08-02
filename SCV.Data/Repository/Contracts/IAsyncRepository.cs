@@ -24,6 +24,8 @@
 
         Task<bool> HardDeleteAsync(TEntity entity);
 
+        Task HardDeleteRangeAsync(IEnumerable<TEntity> entities);
+
         Task SaveChangesAsync();
     }
 }

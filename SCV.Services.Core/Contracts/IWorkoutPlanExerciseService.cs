@@ -4,6 +4,6 @@
     {
         Task<List<string>> GetExerciseIdsForWorkoutPlanAsync(string workoutPlanId);
 
-        Task UpdateExercisesForWorkoutPlanAsync(string workoutPlanId, List<string> exerciseIds);
+        Task UpdateExercisesForWorkoutPlanAsync(string workoutPlanId, ICollection<string> exerciseIds);
     }
 }

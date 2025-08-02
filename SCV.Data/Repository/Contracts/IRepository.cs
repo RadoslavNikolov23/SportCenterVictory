@@ -24,6 +24,8 @@
 
         bool HardDelete(TEntity entity);
 
+        void HardDeleteRange(IEnumerable<TEntity> entities);
+
         void SaveChanges();
     }
 }

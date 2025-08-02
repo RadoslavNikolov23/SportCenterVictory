@@ -1,0 +1,81 @@
+﻿@using SCV.Web.ViewModels.Administration.FitnessVM
+@model WorkoutPlanExerciseAttachViewModel
+
+@{
+    ViewData["Title"] = "Attach Exercises to Workout Plan ";
+}
+
+<h2 class="about_taital text-center pb-5 pt-5">Attach Exercises to: @Model.WorkoutPlanTitle</h2>
+
+<form asp-action="AttachExercises" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" asp-for="WorkoutPlanId" />
+
+    <div class="mb-3 text-center">
+        <input type="text" id="exerciseSearch" class="form-control" placeholder="Search exercises..." />
+    </div>
+
+    <div class="mb-3 text-center">
+        <select id="exerciseSelect" class="form-select">
+            <option value="">-- Select an exercise --</option>
+            @foreach (var exercise in Model.AllExercises)
+            {
+                <option value="@exercise.Id">@exercise.Name</option>
+            }
+        </select>
+        <button type="button" id="attachExerciseBtn" class="btn btn-sm btn-outline-primary mt-2">Attach</button>
+    </div>
+
+    <ul id="attachedExercisesList" class="list-group mb-3">
+        @foreach (var attachedId in Model.AttachedExerciseIds)
+        {
+            var name = Model.AllExercises.FirstOrDefault(e => e.Id == attachedId)?.Name ?? "(Unknown)";
+            <li id="li_@attachedId" class="list-group-item d-flex justify-content-between align-items-center">
+                @name
+                <button type="button" class="btn btn-sm btn-danger" onclick="removeExercise('@attachedId')">Remove</button>
+                <input type="hidden" name="SelectedExerciseIds" value="@attachedId" id="input_@attachedId" />
+            </li>
+        }
+    </ul>
+
+    <div>
+        <button type="submit" class="btn btn-success w-100">Save Attachments</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        const attachBtn = document.getElementById("attachExerciseBtn");
+        const select = document.getElementById("exerciseSelect");
+        const list = document.getElementById("attachedExercisesList");
+
+        attachBtn.addEventListener("click", function () {
+            const selectedId = select.value;
+            const selectedText = select.options[select.selectedIndex].text;
+
+            if (!selectedId || document.getElementById("li_" + selectedId)) return;
+
+            const li = document.createElement("li");
+            li.id = "li_" + selectedId;
+            li.classList.add("list-group-item", "d-flex", "justify-content-between", "align-items-center");
+            li.innerHTML = `${selectedText}
+                <button type="button" class="btn btn-sm btn-danger" onclick="removeExercise('${selectedId}')">Remove</button>
+                <input type="hidden" name="SelectedExerciseIds" value="${selectedId}" id="input_${selectedId}" />`;
+
+            list.appendChild(li);
+        });
+
+        function removeExercise(id) {
+            document.getElementById("li_" + id)?.remove();
+            document.getElementById("input_" + id)?.remove();
+        }
+
+        document.getElementById("exerciseSearch").addEventListener("input", function () {
+            const search = this.value.toLowerCase();
+            Array.from(select.options).forEach(option => {
+                if (!option.value) return;
+                option.style.display = option.text.toLowerCase().includes(search) ? "block" : "none";
+            });
+        });
+    </script>
+}

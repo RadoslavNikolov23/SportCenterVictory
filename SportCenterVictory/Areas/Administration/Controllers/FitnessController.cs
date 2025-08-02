@@ -13,11 +13,13 @@
     {
         private readonly IExerciseService exerciseService;
         private readonly IWorkoutPlanService workoutPlanService;
+        private readonly IWorkoutPlanExerciseService workoutPlanExerciseService;
 
-        public FitnessController(IExerciseService exerciseService, IWorkoutPlanService workoutPlanService)
+        public FitnessController(IExerciseService exerciseService, IWorkoutPlanService workoutPlanService, IWorkoutPlanExerciseService workoutPlanExerciseService)
         {
             this.exerciseService = exerciseService;
             this.workoutPlanService = workoutPlanService;
+            this.workoutPlanExerciseService = workoutPlanExerciseService;
         }
 
         [HttpGet]
@@ -346,5 +348,75 @@
                 return RedirectToAction("Index", "Home");
             }
         }
+
+        [HttpGet]
+        public async Task<IActionResult> SelectWorkoutPlan()
+        {
+            IEnumerable<WorkoutPlanAdminDetailViewModel> workoutPlans = await workoutPlanService.GetAllWorkoutPlansForAdminAsync();
+
+            WorkoutPlanSelectListViewModel WorkoutPlansSelectedListVM = new WorkoutPlanSelectListViewModel
+                                        {
+                                            WorkoutPlans = workoutPlans
+                                        };
+
+            return View(WorkoutPlansSelectedListVM);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> AttachExercises(string id)
+        {
+            WorkoutPlanEditViewModel? workoutPlan = await workoutPlanService
+                                .GetWorkoutPlanByIdAsync(id);
+
+            if (workoutPlan == null)
+            {
+                TempData[ErrorMessageKey] = "Workout plan not found.";
+
+                return RedirectToAction(nameof(EditWorkoutPlan), "Fitness");
+            }
+
+            IEnumerable<ExerciseAdminDetailViewModel> allExercises = await exerciseService
+                                                    .GetAllExerciseForAdminAsync();
+
+            ICollection<string> attachedIds = await workoutPlanExerciseService
+                                .GetExerciseIdsForWorkoutPlanAsync(id);
+
+            WorkoutPlanExerciseAttachViewModel workoutPlanExerciseAttachVM = new WorkoutPlanExerciseAttachViewModel
+            {
+                WorkoutPlanId = id,
+                WorkoutPlanTitle = workoutPlan.Title,
+                AllExercises = allExercises,
+                AttachedExerciseIds = attachedIds
+            };
+
+            return View(workoutPlanExerciseAttachVM);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AttachExercises(WorkoutPlanExerciseAttachViewModel workoutPlanExerciseAttachVM)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    workoutPlanExerciseAttachVM.AllExercises = await exerciseService
+                                                        .GetAllExerciseForAdminAsync();
+                    return View(workoutPlanExerciseAttachVM);
+                }
+
+                await workoutPlanExerciseService
+                    .UpdateExercisesForWorkoutPlanAsync(workoutPlanExerciseAttachVM.WorkoutPlanId, workoutPlanExerciseAttachVM.SelectedExerciseIds ?? new List<string>());
+
+                TempData["Success"] = "Exercises updated successfully.";
+                return RedirectToAction("EditWorkoutPlan", "Fitness");
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while attaching Exercises to the Workout Plan! Please contact developer team! The error is {e.Message}";
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
     }
 }
