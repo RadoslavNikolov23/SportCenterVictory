@@ -40,6 +40,16 @@ namespace SportCenterVictory
                             options.Password.RequireNonAlphanumeric = false;
                             options.Password.RequireUppercase = false;
                             options.Password.RequireLowercase = false;
+
+                            /*For production, you should set the following options to true:
+                             * 
+                                options.Password.RequireDigit = true;
+                                options.Password.RequireNonAlphanumeric = true;
+                                options.Password.RequireUppercase = true;
+                                options.Password.RequireLowercase = true;
+                                options.Password.RequiredLength = 8;
+                                options.Password.RequiredUniqueChars = 1;
+                             */
                         })
                     .AddEntityFrameworkStores<SportCenterDbContext>()
                     .AddDefaultTokenProviders();
@@ -61,7 +71,6 @@ namespace SportCenterVictory
                             options.SlidingExpiration = true;
                             options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
                         });
-
 
             builder.Services
                      .AddControllersWithViews()

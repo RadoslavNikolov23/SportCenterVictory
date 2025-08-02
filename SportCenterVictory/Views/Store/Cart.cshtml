@@ -1,6 +1,6 @@
 ﻿@using SCV.Web.ViewModels.StoreVM
 @using SCV.GlCommon.Enums
-@model CartPageViewModel
+@model OrderDetailViewModel
 
 @{
     ViewData["Title"] = "Your Cart ";
@@ -10,10 +10,10 @@
 <h2 class="about_taital text-center pt-4 pb-4">Your Cart</h2>
 
 
-@if (Model.CurrentCart == null || !Model.CurrentCart.Products.Any())
+@if (Model == null || !Model.Products.Any())
 {
     <div class="text-center" style="padding-top: 180px;">
-        <p class="text-muted">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
             🛒 Your cart is currently empty. Browse the <a href="/Store/Equipment">Equipment</a> or <a href="/Store/Nutrition">Nutrition</a> sections to add items.
         </p>
     </div>
@@ -30,14 +30,14 @@ else
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model.CurrentCart.Products)
+            @foreach (var item in Model.Products)
             {
                 <tr>
                     <td>@item.Title</td>
                     <td>@item.Quantity</td>
                     <td>@String.Format("{0:C}", item.Price)</td>
                     <td>
-                        <form asp-action="RemoveFromCart" method="post" class="d-inline">
+                        <form asp-action="RemoveFromCart" method="post">
                             @Html.AntiForgeryToken()
                             <input type="hidden" name="productId" value="@Guid.Parse(item.ProductId)" />
                             <button type="submit" class="btn btn-danger btn-sm">Remove</button>
@@ -49,18 +49,18 @@ else
         <tfoot>
             <tr>
                 <td colspan="2"><strong>Total</strong></td>
-                <td><strong>@String.Format("{0:C}", Model.CurrentCart.TotalPrice)</strong></td>
+                <td><strong>@String.Format("{0:C}", Model.TotalPrice)</strong></td>
                 <td></td>
             </tr>
         </tfoot>
     </table>
     <form asp-action="FinishOrder" method="post" class="d-flex align-items-center gap-3">
         @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="CurrentCart.OrderId" />
+        <input type="hidden" asp-for="OrderId" />
 
         <div class="flex-grow-1 pr-5" style="max-width: 180px;">
             <label for="CurrentCart_PaymentMethod" class="form-label mb-1" style="font-size: 0.9rem;">Payment Method</label>
-            <select asp-for="CurrentCart.PaymentMethod" asp-items="Html.GetEnumSelectList<PaymentMethod>()" class="form-control form-control-sm" style="font-size: 0.9rem; padding: 0.25rem 0.5rem;"></select>
+            <select asp-for="PaymentMethod" asp-items="Html.GetEnumSelectList<PaymentMethod>()" class="form-control form-control-sm" style="font-size: 0.9rem; padding: 0.25rem 0.5rem;"></select>
         </div>
 
         <div>
@@ -69,9 +69,8 @@ else
     </form>
 }
 
-<hr />
 
-<h3>Past Orders</h3>
+@* <h3>Past Orders</h3>
 
 @if (!Model.PastOrders.Any())
 {
@@ -99,4 +98,4 @@ else
             </ul>
         </div>
     }
-}
+} *@

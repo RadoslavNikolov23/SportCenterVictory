@@ -309,6 +309,7 @@
                                                     {
                                                         Id = e.Id,
                                                         Name = e.Name,
+                                                        PrimaryMuscles = e.PrimaryMuscles,
                                                         Category = e.Category,
                                                         IsDeleted = e.IsDeleted
                                                     })

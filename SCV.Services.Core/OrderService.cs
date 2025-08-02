@@ -75,7 +75,6 @@
                                                 {
                                                     ProductId = op.ProductId.ToString(),
                                                     Title = op.Product.Title,
-                                                    //Price = op.Price.ToString("C"),
                                                     Price = op.Price,
                                                     Quantity = op.Quantity,
                                                     ImageUrl = op.Product.ImageUrl ?? $"/noImage.jpg",
@@ -104,7 +103,6 @@
                                                 {
                                                     ProductId = op.ProductId.ToString(),
                                                     Title = op.Product.Title,
-                                                    //Price = op.Product.Price.ToString("C"),
                                                     Price = op.Product.Price,
                                                     Quantity = op.Quantity,
                                                     ImageUrl = op.Product.ImageUrl ?? $"/noImage.jpg",
@@ -139,6 +137,31 @@
             }
 
             return isFinished;
+        }
+
+        public async Task<IEnumerable<OrderDetailViewModel>> GetUsersOrdersForProcessingAsync(string userId)
+        {
+            return await orderRepo
+                .GetAllAttached()
+                .Where(o => o.CustomerId.ToString().ToLower() == userId.ToLower()
+                   && o.OrderStatus == OrderStatus.Processing)
+                .Include(o => o.OrderProducts)
+                .ThenInclude(op => op.Product)
+                .Select(order => new OrderDetailViewModel
+                {
+                    OrderId = order.Id.ToString(),
+                    TotalPrice = order.OrderProducts.Sum(op => op.Product.Price * op.Quantity),
+                    Products = order.OrderProducts.Select(op => new OrderProductDetailViewModel
+                    {
+                        ProductId = op.ProductId.ToString(),
+                        Title = op.Product.Title,
+                        Price = op.Product.Price,
+                        Quantity = op.Quantity,
+                        ImageUrl = op.Product.ImageUrl ?? $"/noImage.jpg",
+
+                    }).ToList()
+                })
+                .ToListAsync();
         }
     }
 }

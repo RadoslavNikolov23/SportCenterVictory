@@ -127,15 +127,20 @@
             OrderDetailViewModel? currentCart = await orderService
                                         .GetUserCartAsync(userId!);
 
-            IEnumerable<OrderDetailViewModel> pastOrders = await orderService
-                                        .GetUserPastOrdersAsync(userId!);
+            //if (currentCart == null)
+            //{
+            //    return NotFoundWithMessage("Your cart is empty.");
+            //}
 
-            CartPageViewModel cartPageViewModel = new CartPageViewModel
-                                            {
-                                                CurrentCart = currentCart,
-                                                PastOrders = pastOrders.ToList()
-                                            };
-            return View(cartPageViewModel);
+            //IEnumerable<OrderDetailViewModel> pastOrders = await orderService
+            //.GetUserPastOrdersAsync(userId!);
+
+            //CartPageViewModel cartPageViewModel = new CartPageViewModel
+            //                                {
+            //                                    CurrentCart = currentCart,
+            //                                    PastOrders = pastOrders.ToList()
+            //                                };
+            return View(currentCart);
         }
 
         [HttpPost]
@@ -160,7 +165,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> FinishOrder(CartPageViewModel cartPageVM)
+        public async Task<IActionResult> FinishOrder(OrderDetailViewModel currentCart)
         {
             string? userId = this.userManager.GetUserId(User);
 
@@ -169,21 +174,14 @@
                 return this.AccessForbidden("Please log in to complete your order.");
             }
 
-            
+
 
             if (!ModelState.IsValid)
             {
-                // re-fetch cart if needed
-                cartPageVM.PastOrders = await this.orderService.GetUserPastOrdersAsync(userId!);
-                return View(cartPageVM);
+                return View(currentCart);
             }
 
-            if (cartPageVM.CurrentCart == null)
-            {
-                return this.NotFoundWithMessage("Your cart is empty. Please add products before finishing your order.");
-            }
-
-            bool isSuccessful = await this.orderService.FinishOrderAsync(userId, cartPageVM.CurrentCart.PaymentMethod);
+            bool isSuccessful = await this.orderService.FinishOrderAsync(userId, currentCart.PaymentMethod);
 
             if (!isSuccessful)
             {
@@ -193,6 +191,40 @@
             TempData["Success"] = "Your order was placed successfully!";
             return RedirectToAction(nameof(Cart));
         }
+        //[HttpPost]
+        //public async Task<IActionResult> FinishOrder(CartPageViewModel cartPageVM)
+        //{
+        //    string? userId = this.userManager.GetUserId(User);
+
+        //    if (string.IsNullOrEmpty(userId))
+        //    {
+        //        return this.AccessForbidden("Please log in to complete your order.");
+        //    }
+
+
+
+        //    if (!ModelState.IsValid)
+        //    {
+        //        // re-fetch cart if needed
+        //        cartPageVM.PastOrders = await this.orderService.GetUserPastOrdersAsync(userId!);
+        //        return View(cartPageVM);
+        //    }
+
+        //    if (cartPageVM.CurrentCart == null)
+        //    {
+        //        return this.NotFoundWithMessage("Your cart is empty. Please add products before finishing your order.");
+        //    }
+
+        //    bool isSuccessful = await this.orderService.FinishOrderAsync(userId, cartPageVM.CurrentCart.PaymentMethod);
+
+        //    if (!isSuccessful)
+        //    {
+        //        return this.ServerError("Something went wrong. Please try again.");
+        //    }
+
+        //    TempData["Success"] = "Your order was placed successfully!";
+        //    return RedirectToAction(nameof(Cart));
+        //}
 
 
         [HttpGet]

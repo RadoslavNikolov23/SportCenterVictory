@@ -15,6 +15,7 @@
     public partial class UserPanelController : BaseController
     {
         private readonly IEventUserService eventUserService;
+        private readonly IOrderService orderService;
         private readonly ICrossfitClassUserService crossfitClassUserService;
         private readonly IMembershipUserService membershipUserService;
         private readonly ITrainerUserService trainerUserService;
@@ -23,7 +24,7 @@
 
         public UserPanelController(IEventUserService eventUserService, ICrossfitClassUserService crossfitClassUserService,
         IMembershipUserService membershipUserService, ITrainerUserService trainerUserService,
-        IUserFeedbackService userFeedbackService, UserManager<ApplicationUser> userManager)
+        IUserFeedbackService userFeedbackService, IOrderService orderService, UserManager<ApplicationUser> userManager)
         {
             this.eventUserService = eventUserService;
             this.crossfitClassUserService = crossfitClassUserService;
@@ -31,7 +32,7 @@
             this.trainerUserService = trainerUserService;
             this.userFeedbackService = userFeedbackService;
             this.userManager = userManager;
-
+            this.orderService = orderService;
         }
 
 

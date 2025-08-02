@@ -11,6 +11,7 @@
     <thead class="table-dark">
         <tr>
             <th>Name</th>
+            <th>Primary Muscles</th>
             <th>Category</th>
             <th>Action</th>
             <th>Option</th>
@@ -21,6 +22,7 @@
         {
             <tr class="@(!exerciseVm.IsDeleted ? "" : "table-warning")">
                 <td>@exerciseVm.Name</td>
+                <td>@exerciseVm.PrimaryMuscles</td>
                 <td>@exerciseVm.Category</td>
                 <td>
                     @if (!exerciseVm.IsDeleted)

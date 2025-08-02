@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SCV.Web.ViewModels.CommonVM;
+    using SCV.Web.ViewModels.StoreVM;
 
     public partial class UserPanelController
     {
@@ -113,7 +114,24 @@
         [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
         public async Task<IActionResult> MadeOrders()
         {
-            return View();
+            try
+            {
+                string? userId = this.GetUserId();
+
+                if (userId == null)
+                {
+                    return this.Forbid();
+                }
+
+                IEnumerable<OrderDetailViewModel> orders = await this.orderService
+                                    .GetUserPastOrdersAsync(userId);
+                return View(orders);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                return this.RedirectToAction(nameof(Index), "Home");
+            }
         }
     }
 }

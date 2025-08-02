@@ -1,5 +1,39 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using SCV.Web.ViewModels.StoreVM
+@using SCV.GlCommon.Enums
+@model IEnumerable<OrderDetailViewModel>
+
 @{
+    ViewData["Title"] = "Orders ";
+}
+
+
+<h2 class="about_taital text-center pt-4 pb-4">Your Past Orders</h2>
+
+
+@if (!Model.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-muted">
+            No past orders yet.
+        </p>
+    </div>
+}
+else
+{
+    @foreach (var order in Model)
+    {
+        <div class="card mb-3">
+            <div class="card-header text-bg-darker" style="background-color:palegoldenrod;">
+                Order Total: @String.Format("{0:C}", order.TotalPrice)
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in order.Products)
+                {
+                    <li class="list-group-item">
+                        @item.Title – Qty: @item.Quantity – @String.Format("{0:C}", item.Price)
+                    </li>
+                }
+            </ul>
+        </div>
+    }
 }

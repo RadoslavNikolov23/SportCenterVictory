@@ -13,5 +13,7 @@
         Task<IEnumerable<OrderDetailViewModel>> GetUserPastOrdersAsync(string userId);
 
         Task<bool> FinishOrderAsync(string userId, PaymentMethod paymentMethod);
+
+        Task<IEnumerable<OrderDetailViewModel>> GetUsersOrdersForProcessingAsync(string userId);
     }
 }
