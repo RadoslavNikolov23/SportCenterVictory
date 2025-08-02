@@ -1,5 +1,6 @@
 ﻿namespace SCV.Services.Core
 {
+    using Microsoft.AspNetCore.Components.Forms;
     using Microsoft.EntityFrameworkCore;
 
     using SCV.Data.Models;
@@ -33,7 +34,9 @@
                     MembershipId = mu.MembershipId.ToString(),
                     Name = mu.Membership.Name,
                     MembershipType = mu.Membership.MembershipType,
-                    DurationText = mu.Membership.DurationText
+                    DurationText = mu.Membership.DurationText,
+                    PurchasedOn = mu.PurchasedOn.ToString(DateOnlyFormat),
+                    CanBeRemoved = CanBeRemoved(mu.PurchasedOn),
                 })
                 .ToArrayAsync();
 
@@ -57,7 +60,7 @@
                         .SingleOrDefaultAsync(mu => mu.ApplicationUserId.ToString().ToLower() == userId.ToLower()
                        && mu.MembershipId.ToString().ToLower() == membershipGuid.ToString().ToLower());
 
-                    if (membershipUserEntity != null)
+                    if (membershipUserEntity != null && !CanBeRemoved(membershipUserEntity.PurchasedOn))
                     {
                         membershipUserEntity.IsDeleted = false;
                         membershipUserEntity.PurchasedOn = DateTime.UtcNow;
@@ -100,12 +103,15 @@
 
                     if (membershipUserEntry != null)
                     {
-                        membershipUserEntry.IsDeleted = true;
-                        membershipUserEntry.PurchasedOn = new DateTime();
+                        if (CanBeRemoved(membershipUserEntry.PurchasedOn))
+                        {
+                            membershipUserEntry.IsDeleted = true;
+                            membershipUserEntry.PurchasedOn = new DateTime();
 
-                        //Maybe make DeleteAsync to -> SoftDeleteAsync
-                        result = await this.membershipUserRepo.DeleteAsync(membershipUserEntry);
-                    }
+                            //Maybe make DeleteAsync to -> SoftDeleteAsync
+                            result = await this.membershipUserRepo.DeleteAsync(membershipUserEntry);
+                        }
+                    } 
                 }
             }
 
@@ -130,7 +136,7 @@
                        && mu.MembershipId.ToString().ToLower() == membershipGuid.ToString().ToLower())
                        && mu.IsDeleted == false);
 
-                    if (membershipUserEntry != null)
+                    if (membershipUserEntry != null && CanBeRemoved(membershipUserEntry.PurchasedOn))
                     {
                         result = true;
                     }
@@ -160,6 +166,11 @@
                 .ToListAsync();
 
             return clientsMembershipList;
+        }
+
+        private static bool CanBeRemoved(DateTime inputDateTime)
+        {
+            return (DateTime.UtcNow - inputDateTime).TotalDays <= 14;
         }
 
     }

@@ -26,6 +26,7 @@
                             .GetAllAttached()
                             .AsNoTracking()
                             .Where(e => e.EventType == eventType)
+                            .OrderBy(e => e.StartDate)
                             .Select(e => new EventDetailViewModel()
                             {
                                 Id = e.Id.ToString(),

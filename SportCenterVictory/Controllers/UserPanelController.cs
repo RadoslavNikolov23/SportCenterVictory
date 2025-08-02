@@ -53,7 +53,7 @@
             UserFeedbackAddViewModel userFeedbackAddVM = new UserFeedbackAddViewModel
             {
                 UserId = user.Id.ToString(),
-                UserName = user.UserName,
+                UserName = user.UserName!,
                 FullName = user.FullName,
             };
             return View(userFeedbackAddVM);

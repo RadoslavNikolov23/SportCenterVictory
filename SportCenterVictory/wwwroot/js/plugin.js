@@ -739,21 +739,21 @@ d));k.push(d)});return 1==k.length?k[0]:k};window.NiceScroll={getjQuery:function
 * Includes: widget.js, position.js, data.js, disable-selection.js, effect.js, effects/effect-blind.js, effects/effect-bounce.js, effects/effect-clip.js, effects/effect-drop.js, effects/effect-explode.js, effects/effect-fade.js, effects/effect-fold.js, effects/effect-highlight.js, effects/effect-puff.js, effects/effect-pulsate.js, effects/effect-scale.js, effects/effect-shake.js, effects/effect-size.js, effects/effect-slide.js, effects/effect-transfer.js, focusable.js, form-reset-mixin.js, jquery-1-7.js, keycode.js, labels.js, scroll-parent.js, tabbable.js, unique-id.js, widgets/accordion.js, widgets/autocomplete.js, widgets/button.js, widgets/checkboxradio.js, widgets/controlgroup.js, widgets/datepicker.js, widgets/dialog.js, widgets/draggable.js, widgets/droppable.js, widgets/menu.js, widgets/mouse.js, widgets/progressbar.js, widgets/resizable.js, widgets/selectable.js, widgets/selectmenu.js, widgets/slider.js, widgets/sortable.js, widgets/spinner.js, widgets/tabs.js, widgets/tooltip.js
 * Copyright jQuery Foundation and other contributors; Licensed MIT */
 
-(function( factory ) {
-	if ( typeof define === "function" && define.amd ) {
+//(function( factory ) {
+//	if ( typeof define === "function" && define.amd ) {
 
-		// AMD. Register as an anonymous module.
-		define([ "jquery" ], factory );
-	} else {
+//		// AMD. Register as an anonymous module.
+//		define([ "jquery" ], factory );
+//	} else {
 
-		// Browser globals
-		factory( jQuery );
-	}
-}(function( $ ) {
+//		// Browser globals
+//		factory( jQuery );
+//	}
+//}(function( $ ) {
 
-$.ui = $.ui || {};
+//$.ui = $.ui || {};
 
-var version = $.ui.version = "1.12.1";
+//var version = $.ui.version = "1.12.1";
 
 
 /*!
@@ -2644,55 +2644,55 @@ each( spaces, function( spaceName, space ) {
 
 // Add cssHook and .fx.step function for each named hook.
 // accept a space separated string of properties
-color.hook = function( hook ) {
-	var hooks = hook.split( " " );
-	each( hooks, function( i, hook ) {
-		jQuery.cssHooks[ hook ] = {
-			set: function( elem, value ) {
-				var parsed, curElem,
-					backgroundColor = "";
+//color.hook = function( hook ) {
+//	var hooks = hook.split( " " );
+//	each( hooks, function( i, hook ) {
+//		jQuery.cssHooks[ hook ] = {
+//			set: function( elem, value ) {
+//				var parsed, curElem,
+//					backgroundColor = "";
 
-				if ( value !== "transparent" && ( jQuery.type( value ) !== "string" ||
-						( parsed = stringParse( value ) ) ) ) {
-					value = color( parsed || value );
-					if ( !support.rgba && value._rgba[ 3 ] !== 1 ) {
-						curElem = hook === "backgroundColor" ? elem.parentNode : elem;
-						while (
-							( backgroundColor === "" || backgroundColor === "transparent" ) &&
-							curElem && curElem.style
-						) {
-							try {
-								backgroundColor = jQuery.css( curElem, "backgroundColor" );
-								curElem = curElem.parentNode;
-							} catch ( e ) {
-							}
-						}
+//				if ( value !== "transparent" && ( jQuery.type( value ) !== "string" ||
+//						( parsed = stringParse( value ) ) ) ) {
+//					value = color( parsed || value );
+//					if ( !support.rgba && value._rgba[ 3 ] !== 1 ) {
+//						curElem = hook === "backgroundColor" ? elem.parentNode : elem;
+//						while (
+//							( backgroundColor === "" || backgroundColor === "transparent" ) &&
+//							curElem && curElem.style
+//						) {
+//							try {
+//								backgroundColor = jQuery.css( curElem, "backgroundColor" );
+//								curElem = curElem.parentNode;
+//							} catch ( e ) {
+//							}
+//						}
 
-						value = value.blend( backgroundColor && backgroundColor !== "transparent" ?
-							backgroundColor :
-							"_default" );
-					}
+//						value = value.blend( backgroundColor && backgroundColor !== "transparent" ?
+//							backgroundColor :
+//							"_default" );
+//					}
 
-					value = value.toRgbaString();
-				}
-				try {
-					elem.style[ hook ] = value;
-				} catch ( e ) {
+//					value = value.toRgbaString();
+//				}
+//				try {
+//					elem.style[ hook ] = value;
+//				} catch ( e ) {
 
-					// Wrapped to prevent IE from throwing errors on "invalid" values like
-					// 'auto' or 'inherit'
-				}
-			}
-		};
-		jQuery.fx.step[ hook ] = function( fx ) {
-			if ( !fx.colorInit ) {
-				fx.start = color( fx.elem, hook );
-				fx.end = color( fx.end );
-				fx.colorInit = true;
-			}
-			jQuery.cssHooks[ hook ].set( fx.elem, fx.start.transition( fx.end, fx.pos ) );
-		};
-	} );
+//					// Wrapped to prevent IE from throwing errors on "invalid" values like
+//					// 'auto' or 'inherit'
+//				}
+//			}
+//		};
+//		//jQuery.fx.step[ hook ] = function( fx ) {
+//		//	if ( !fx.colorInit ) {
+//		//		fx.start = color( fx.elem, hook );
+//		//		fx.end = color( fx.end );
+//		//		fx.colorInit = true;
+//		//	}
+//		//	jQuery.cssHooks[ hook ].set( fx.elem, fx.start.transition( fx.end, fx.pos ) );
+//		//};
+//	} );
 
 };
 

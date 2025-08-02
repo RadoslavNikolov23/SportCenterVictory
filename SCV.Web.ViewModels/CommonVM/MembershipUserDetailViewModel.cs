@@ -8,11 +8,16 @@
 
         public string Name { get; set; } = null!;
 
+
         public SportType MembershipType { get; set; }
 
         public string DurationText { get; set; } = null!;
 
+        public string PurchasedOn { get; set; } = null!;
+
         public bool IsPurchasedMembership { get; set; }
+
+        public bool CanBeRemoved { get; set; }
 
 
     }

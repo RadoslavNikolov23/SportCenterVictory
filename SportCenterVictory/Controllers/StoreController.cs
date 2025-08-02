@@ -189,43 +189,10 @@
             }
 
             TempData["Success"] = "Your order was placed successfully!";
-            return RedirectToAction(nameof(Cart));
+
+            return RedirectToAction("MadeOrders", "UserPane");
+
         }
-        //[HttpPost]
-        //public async Task<IActionResult> FinishOrder(CartPageViewModel cartPageVM)
-        //{
-        //    string? userId = this.userManager.GetUserId(User);
-
-        //    if (string.IsNullOrEmpty(userId))
-        //    {
-        //        return this.AccessForbidden("Please log in to complete your order.");
-        //    }
-
-
-
-        //    if (!ModelState.IsValid)
-        //    {
-        //        // re-fetch cart if needed
-        //        cartPageVM.PastOrders = await this.orderService.GetUserPastOrdersAsync(userId!);
-        //        return View(cartPageVM);
-        //    }
-
-        //    if (cartPageVM.CurrentCart == null)
-        //    {
-        //        return this.NotFoundWithMessage("Your cart is empty. Please add products before finishing your order.");
-        //    }
-
-        //    bool isSuccessful = await this.orderService.FinishOrderAsync(userId, cartPageVM.CurrentCart.PaymentMethod);
-
-        //    if (!isSuccessful)
-        //    {
-        //        return this.ServerError("Something went wrong. Please try again.");
-        //    }
-
-        //    TempData["Success"] = "Your order was placed successfully!";
-        //    return RedirectToAction(nameof(Cart));
-        //}
-
 
         [HttpGet]
         public async Task<IActionResult> Search(string? searchTerm)

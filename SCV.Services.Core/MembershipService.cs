@@ -207,5 +207,10 @@
 
             return (result, isRestored);
         }
+
+        private static bool CanBeRemoved(DateTime inputDateTime)
+        {
+            return (DateTime.UtcNow - inputDateTime).TotalDays <= 14;
+        }
     }
 }
