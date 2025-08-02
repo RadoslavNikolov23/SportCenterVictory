@@ -102,33 +102,97 @@
 
 <div class="about_section layout_padding pt-2">
 
-<div class="store-container">
-    <h2 class="text-center mb-5">🏋️‍♀️ Welcome to the Sport Center Victory Store for Nutrition</h2>
+    <div class="store-container">
+        <h1 class="text-center mb-3" style="font-size: 2.5rem;">Welcome to the Sport Center Victory Store for Nutrition</h1>
 
-    <div class="product-grid">
-        @foreach (var product in Model)
-        {
-            <div class="product-card">
-                <img src="@product.ImageUrl" alt="@product.Title" class="product-image" />
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1rem;">
+            <a href="/Store/Cart" class="btn btn-primary btn-lg">
+                Go to Cart
+            </a>
+        </div>
 
-                <div class="product-content">
-                    <div class="product-title">@product.Title</div>
-                    <div class="product-category">@product.ProductCategory</div>
+        <div class="product-grid">
+            @foreach (var product in Model)
+            {
+                <div class="product-card">
+                    <img src="@product.ImageUrl" alt="@product.Title" class="product-image" />
 
-                    @if (!string.IsNullOrWhiteSpace(product.Description))
-                    {
-                        <div class="product-description">@product.Description</div>
-                    }
+                    <div class="product-content">
+                        <div class="product-title">@product.Title</div>
+                        <div class="product-category">@product.ProductCategory</div>
 
-                    <div class="product-price">@product.Price.ToString("C")</div>
+                        @if (!string.IsNullOrWhiteSpace(product.Description))
+                        {
+                            <div class="product-description">@product.Description</div>
+                        }
 
-                    <div class="quantity-buy">
-                        <input type="number" min="1" max="@product.Quantity" value="1" class="form-control" />
-                        <button class="btn-buy" data-id="@product.Id">Buy</button>
+                        <div class="product-price">@product.Price.ToString("C")</div>
+
+                        <form asp-controller="Store" asp-action="AddToCart" method="post" class="quantity-buy">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="productId" value="@product.Id" />
+                            <input type="number" name="quantity" min="1" max="@product.Quantity" value="1" class="form-control" />
+                            <button type="submit" class="btn-buy">Buy</button>
+                        </form>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
 </div>
-</div>
+
+@section Scripts {
+    <script>
+        // Attach to all forms with class quantity-buy
+        document.querySelectorAll('form.quantity-buy').forEach(form => {
+            form.addEventListener('submit', async function (e) {
+                e.preventDefault(); // stop normal form submission
+
+                const formData = new FormData(this);
+                const token = formData.get('__RequestVerificationToken');
+
+                try {
+                    const response = await fetch(this.action, {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': token
+                        },
+                        body: formData
+                    });
+
+                    if (response.ok) {
+                        toastr.success('Product added to cart!');
+                        // Optionally reset quantity input
+                        this.querySelector('input[name="quantity"]').value = 1;
+                    } else {
+                        toastr.error('Failed to add product to cart.');
+                    }
+                } catch (error) {
+                    toastr.error('An error occurred.');
+                    console.error(error);
+                }
+            });
+        });
+    </script>
+}
+
+@* @section Scripts {
+    <script>
+        document.querySelectorAll(".btn-buy").forEach(btn => {
+            btn.addEventListener("click", function () {
+                const productId = this.getAttribute("data-id");
+                const quantity = this.parentElement.querySelector("input").value;
+
+                fetch('/Store/AddToCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                    },
+                    body: JSON.stringify({ productId, quantity })
+                })
+                .then(() => window.location.href = '/Store/Cart');
+            });
+        });
+    </script>
+} *@

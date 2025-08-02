@@ -1,7 +1,8 @@
 ﻿namespace SCV.Data.Models
 {
-    using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
+
+    using SCV.GlCommon.Enums;
 
     public class Order
     {

@@ -1,0 +1,102 @@
+﻿@using SCV.Web.ViewModels.StoreVM
+@using SCV.GlCommon.Enums
+@model CartPageViewModel
+
+@{
+    ViewData["Title"] = "Your Cart ";
+}
+
+
+<h2 class="about_taital text-center pt-4 pb-4">Your Cart</h2>
+
+
+@if (Model.CurrentCart == null || !Model.CurrentCart.Products.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-muted">
+            🛒 Your cart is currently empty. Browse the <a href="/Store/Equipment">Equipment</a> or <a href="/Store/Nutrition">Nutrition</a> sections to add items.
+        </p>
+    </div>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Remove Item</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.CurrentCart.Products)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Quantity</td>
+                    <td>@String.Format("{0:C}", item.Price)</td>
+                    <td>
+                        <form asp-action="RemoveFromCart" method="post" class="d-inline">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="productId" value="@Guid.Parse(item.ProductId)" />
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="2"><strong>Total</strong></td>
+                <td><strong>@String.Format("{0:C}", Model.CurrentCart.TotalPrice)</strong></td>
+                <td></td>
+            </tr>
+        </tfoot>
+    </table>
+    <form asp-action="FinishOrder" method="post" class="d-flex align-items-center gap-3">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="CurrentCart.OrderId" />
+
+        <div class="flex-grow-1 pr-5" style="max-width: 180px;">
+            <label for="CurrentCart_PaymentMethod" class="form-label mb-1" style="font-size: 0.9rem;">Payment Method</label>
+            <select asp-for="CurrentCart.PaymentMethod" asp-items="Html.GetEnumSelectList<PaymentMethod>()" class="form-control form-control-sm" style="font-size: 0.9rem; padding: 0.25rem 0.5rem;"></select>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-success mt-4">Finish Order</button>
+        </div>
+    </form>
+}
+
+<hr />
+
+<h3>Past Orders</h3>
+
+@if (!Model.PastOrders.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-muted">
+            No past orders yet.
+        </p>
+    </div>
+}
+else
+{
+    @foreach (var order in Model.PastOrders)
+    {
+        <div class="card mb-3">
+            <div class="card-header text-bg-darker" style="background-color:palegoldenrod;">
+                Order Total: @String.Format("{0:C}", order.TotalPrice)
+            </div>
+            <ul class="list-group list-group-flush">
+                @foreach (var item in order.Products)
+                {
+                    <li class="list-group-item">
+                        @item.Title – Qty: @item.Quantity – @String.Format("{0:C}", item.Price)
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}

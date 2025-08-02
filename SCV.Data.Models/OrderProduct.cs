@@ -21,6 +21,8 @@
         [Comment("Price per single unit")]
         public decimal Price { get; set; }
 
+        //Add IsDeleted property if you want to support soft deletion
+
 
     }
 }

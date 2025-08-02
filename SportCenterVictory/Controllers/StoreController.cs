@@ -1,25 +1,35 @@
 ﻿namespace SportCenterVictory.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Mvc;
+
+    using SCV.Data.Models;
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
+    using SCV.Web.ViewModels.StoreVM;
     using SVC.Web.ViewModels.StoreVM;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
 
     public class StoreController : BaseController
     {
         private readonly IProductService productService;
         private readonly IMembershipService membershipService;
         private readonly IMembershipUserService membershipUserService;
+        private readonly IOrderService orderService;
+        private readonly IOrderProductService orderProductService;
+        private readonly UserManager<ApplicationUser> userManager;
 
 
-        public StoreController(IProductService productService, IMembershipService membershipService, IMembershipUserService membershipUserService)
+        public StoreController(IProductService productService, IMembershipService membershipService, IMembershipUserService membershipUserService, IOrderService orderService, IOrderProductService orderProductService, UserManager<ApplicationUser> userManager)
         {
             this.productService = productService;
             this.membershipService = membershipService;
             this.membershipUserService = membershipUserService;
+            this.orderService = orderService;
+            this.orderProductService = orderProductService;
+            this.userManager = userManager;
         }
 
         [HttpGet]
@@ -83,6 +93,105 @@
 
             return View(allMembershipsViewModels);
 
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddToCart(Guid productId, int quantity)
+        {
+            string? userId = this.userManager.GetUserId(User);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                this.AccessForbidden("Access is forbidden. Log in or Register first.");
+            }
+
+            Order order = await this.orderService
+                                .GetOrCreateDraftOrderAsync(userId!);
+
+            await this.orderProductService
+                        .AddProductToOrderAsync(order.Id.ToString(), productId.ToString(), quantity);
+
+            return RedirectToAction("Cart");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Cart()
+        {
+            string? userId = this.userManager.GetUserId(User);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                this.AccessForbidden("Access is forbidden. Log in or Register first.");
+            }
+
+            OrderDetailViewModel? currentCart = await orderService
+                                        .GetUserCartAsync(userId!);
+
+            IEnumerable<OrderDetailViewModel> pastOrders = await orderService
+                                        .GetUserPastOrdersAsync(userId!);
+
+            CartPageViewModel cartPageViewModel = new CartPageViewModel
+                                            {
+                                                CurrentCart = currentCart,
+                                                PastOrders = pastOrders.ToList()
+                                            };
+            return View(cartPageViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveFromCart(Guid productId)
+        {
+            string? userId = this.userManager.GetUserId(User);
+            if (string.IsNullOrEmpty(userId))
+            {
+                this.AccessForbidden("Access is forbidden. Log in or Register first.");
+            }
+
+            Order? order = await this.orderService.GetOrCreateDraftOrderAsync(userId!);
+
+            if (order == null)
+            {
+                return NotFoundWithMessage("Order not found.");
+            }
+
+            await this.orderProductService.RemoveProductFromOrderAsync(order.Id, productId);
+
+            return RedirectToAction(nameof(Cart));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> FinishOrder(CartPageViewModel cartPageVM)
+        {
+            string? userId = this.userManager.GetUserId(User);
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return this.AccessForbidden("Please log in to complete your order.");
+            }
+
+            
+
+            if (!ModelState.IsValid)
+            {
+                // re-fetch cart if needed
+                cartPageVM.PastOrders = await this.orderService.GetUserPastOrdersAsync(userId!);
+                return View(cartPageVM);
+            }
+
+            if (cartPageVM.CurrentCart == null)
+            {
+                return this.NotFoundWithMessage("Your cart is empty. Please add products before finishing your order.");
+            }
+
+            bool isSuccessful = await this.orderService.FinishOrderAsync(userId, cartPageVM.CurrentCart.PaymentMethod);
+
+            if (!isSuccessful)
+            {
+                return this.ServerError("Something went wrong. Please try again.");
+            }
+
+            TempData["Success"] = "Your order was placed successfully!";
+            return RedirectToAction(nameof(Cart));
         }
     }
 }
