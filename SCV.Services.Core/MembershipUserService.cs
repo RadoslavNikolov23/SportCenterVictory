@@ -54,13 +54,13 @@
                     MembershipUser? membershipUserEntity = await this.membershipUserRepo
                         .GetAllAttached()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(mu =>
-                                               mu.ApplicationUserId.ToString().ToLower() == userId
-                                            && mu.MembershipId.ToString() == membershipGuid.ToString());
+                        .SingleOrDefaultAsync(mu => mu.ApplicationUserId.ToString().ToLower() == userId.ToLower()
+                       && mu.MembershipId.ToString().ToLower() == membershipGuid.ToString().ToLower());
 
                     if (membershipUserEntity != null)
                     {
                         membershipUserEntity.IsDeleted = false;
+                        membershipUserEntity.PurchasedOn = DateTime.UtcNow;
                         result = await this.membershipUserRepo
                                                     .UpdateAsync(membershipUserEntity);
                     }
@@ -70,6 +70,7 @@
                         {
                             ApplicationUserId = userGuid,
                             MembershipId = membershipGuid,
+                            PurchasedOn = DateTime.UtcNow,
                         };
 
                         await this.membershipUserRepo.AddAsync(membershipUserEntity);
@@ -92,14 +93,15 @@
                 if (isMembershipIdValid)
                 {
                     MembershipUser? membershipUserEntry = await this.membershipUserRepo
-                         .GetAllAttached()
+                        .GetAllAttached()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(mu => mu.ApplicationUserId.ToString().ToLower() == userId &&
-                                                     mu.MembershipId.ToString() == membershipGuid.ToString());
+                        .SingleOrDefaultAsync(mu => mu.ApplicationUserId.ToString().ToLower() == userId.ToLower() 
+                       && mu.MembershipId.ToString().ToLower() == membershipGuid.ToString().ToLower());
 
                     if (membershipUserEntry != null)
                     {
                         membershipUserEntry.IsDeleted = true;
+                        membershipUserEntry.PurchasedOn = new DateTime();
 
                         //Maybe make DeleteAsync to -> SoftDeleteAsync
                         result = await this.membershipUserRepo.DeleteAsync(membershipUserEntry);
@@ -121,11 +123,13 @@
                 if (isMembershipIdValid)
                 {
                     MembershipUser? membershipUserEntry = await this.membershipUserRepo
-                         .GetAllAttached()
+                        .GetAllAttached()
+                        .AsNoTracking()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(mu => (mu.ApplicationUserId.ToString().ToLower() == userId &&
-                                                    mu.MembershipId.ToString() == membershipGuid.ToString())
-                                                    && mu.IsDeleted == false);
+                        .SingleOrDefaultAsync(mu =>(mu.ApplicationUserId.ToString().ToLower() == userId.ToLower()
+                       && mu.MembershipId.ToString().ToLower() == membershipGuid.ToString().ToLower())
+                       && mu.IsDeleted == false);
+
                     if (membershipUserEntry != null)
                     {
                         result = true;
@@ -143,7 +147,6 @@
                 .Include(mu => mu.ApplicationUser)
                 .Include(mu => mu.Membership)
                 .AsNoTracking()
-                //? Maybe other
                 .OrderBy(mu => mu.Membership.MembershipType)
                 .ThenBy(mu => mu.ApplicationUser.FullName)
                 .Select(mu => new UserMembershipForAdminListViewModel()

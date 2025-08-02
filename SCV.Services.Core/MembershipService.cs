@@ -1,11 +1,11 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.Administration.StoreVM.MembershipsVM;
     using SCV.Web.ViewModels.CommonVM;
 
@@ -113,9 +113,8 @@
             if (!string.IsNullOrEmpty(id))
             {
                 Membership? membershipEntity = await this.membershipRepo
-                                    .GetAllAttached()
-                                    .IgnoreQueryFilters()
-                                    .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
+                            .GetAllAttached()
+                            .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
 
                 if (membershipEntity != null)
                 {
@@ -145,7 +144,6 @@
 
             Membership? membershipEntity = await this.membershipRepo
                                         .GetAllAttached()
-                                        .IgnoreQueryFilters()
                                         .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == membershipEditVM.Id.ToLower());
 
             if (membershipEntity != null)
@@ -167,7 +165,6 @@
         {
             IEnumerable<MembershipDeleteViewModel> listMembershipsDeleteVM = await this.membershipRepo
                                                     .GetAllAttached()
-                                                    .AsNoTracking()
                                                     .IgnoreQueryFilters()
                                                     .Select(e => new MembershipDeleteViewModel()
                                                     {

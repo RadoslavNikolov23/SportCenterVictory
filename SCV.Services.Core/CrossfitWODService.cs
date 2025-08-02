@@ -1,13 +1,16 @@
 ﻿namespace SCV.Services.Core
 {
-    using HtmlAgilityPack;
     using Microsoft.EntityFrameworkCore;
+    using HtmlAgilityPack;
+
+    using System.Globalization;
+    using System.Text;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CrossfitVM;
-    using System.Globalization;
-    using System.Text;
+
     using static SCV.GlCommon.ApplicationConstants;
 
     public class CrossfitWODService : ICrossfitWODService
@@ -38,10 +41,7 @@
             }
 
             return crossfitWODViewModel;
-
         }
-
-
 
         public async Task<CrossfitWODViewModel?> GetLatestCrossfitWODAsync()
         {
@@ -68,10 +68,7 @@
             {
                 Id = entityCrossfitWOD.Id.ToString(),
                 Name = entityCrossfitWOD.Name,
-                //WorkoutDate = entityCrossfitWOD.WorkoutDate.ToString(DateOnlyFormatCrossfitWOD),
-                //DescriptionPlain = entityCrossfitWOD.DescriptionPlain,
                 DescriptionHTML = entityCrossfitWOD.DescriptionHTML,
-
             };
 
             return crossfitWODVieModel;
@@ -93,7 +90,6 @@
 
             return allCrossfitWODViews;
         }
-
 
         private async Task<CrossfitWorkoutOfTheDay?> GetWorkOutOfDay()
         {
@@ -164,9 +160,7 @@
                 Console.WriteLine($"Could not fetch the WOD. The page might not be published yet. Erro: " + e.Message);
             }
 
-
             return crossfitWOD;
-
         }
     }
 }

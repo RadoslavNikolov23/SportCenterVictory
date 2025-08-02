@@ -75,7 +75,8 @@
                     PhoneNumber = trainerBioToAddVM.PhoneNumber,
                     Bio = trainerBioToAddVM.Bio,
                     TrainerSpecialty = trainerBioToAddVM.TrainerSpecialty,
-                    ImageUrl = trainerBioToAddVM.ImageUrl
+                    ImageUrl = trainerBioToAddVM.ImageUrl,
+                    ApplicationUserId = Guid.TryParse(trainerBioToAddVM.ApplicationUserId, out Guid userId) ? userId : null,
                 };
 
                 await this.trainerRepo.AddAsync(trainerToAdd);

@@ -40,15 +40,14 @@
         {
             IEnumerable<CrossfitClassAdminDetailViewModel> crossfitClassAdminDetailVM = 
                                 await this.crossfitClassRepo
-                                                        .GetAllAttached()
-                                                        .AsNoTracking()
-                                                        .IgnoreQueryFilters()
-                                                        .Select(cc => new CrossfitClassAdminDetailViewModel()
-                                                        {
-                                                            Id = cc.Id.ToString(),
-                                                            Name = cc.Name,
-                                                        })
-                                                        .ToListAsync();
+                                                .GetAllAttached()
+                                                .AsNoTracking()
+                                                .Select(cc => new CrossfitClassAdminDetailViewModel()
+                                                {
+                                                    Id = cc.Id.ToString(),
+                                                    Name = cc.Name,
+                                                })
+                                                .ToListAsync();
 
             return crossfitClassAdminDetailVM;
         }
@@ -85,7 +84,6 @@
             {
                 CrossfitClass? crossfitClassEntity = await this.crossfitClassRepo
                                     .GetAllAttached()
-                                    .IgnoreQueryFilters()
                                     .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
                 
                 if (crossfitClassEntity != null)
@@ -116,7 +114,6 @@
 
             CrossfitClass? crossfitClass = await this.crossfitClassRepo
                                         .GetAllAttached()
-                                        .IgnoreQueryFilters()
                                         .FirstOrDefaultAsync(cc => cc.Id.ToString().ToLower() == crossfitClassEditVM.Id.ToLower());
 
             if (crossfitClass != null)
@@ -138,16 +135,16 @@
         {
             IEnumerable<CrossfitClassDeleteVIewModel> crossfitClassAdminDetailVM =
                                 await this.crossfitClassRepo
-                                                        .GetAllAttached()
-                                                        .AsNoTracking()
-                                                        .IgnoreQueryFilters()
-                                                        .Select(cc => new CrossfitClassDeleteVIewModel()
-                                                        {
-                                                            Id = cc.Id.ToString(),
-                                                            Name = cc.Name,
-                                                            IsActive = cc.IsActive
-                                                        })
-                                                        .ToListAsync();
+                                                .GetAllAttached()
+                                                .AsNoTracking()
+                                                .IgnoreQueryFilters()
+                                                .Select(cc => new CrossfitClassDeleteVIewModel()
+                                                {
+                                                    Id = cc.Id.ToString(),
+                                                    Name = cc.Name,
+                                                    IsActive = cc.IsActive
+                                                })
+                                                .ToListAsync();
 
             return crossfitClassAdminDetailVM;
         }

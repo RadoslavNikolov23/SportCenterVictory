@@ -88,9 +88,8 @@
             if (!string.IsNullOrEmpty(id))
             {
                 Event? eventEntity = await this.eventRepo
-                                    .GetAllAttached()
-                                    .IgnoreQueryFilters()
-                                    .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
+                            .GetAllAttached()
+                            .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
 
                 if (eventEntity != null)
                 {
@@ -121,7 +120,6 @@
 
             Event? eventEntity = await this.eventRepo
                                         .GetAllAttached()
-                                        .IgnoreQueryFilters()
                                         .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == eventEditVM.Id.ToLower());
 
             if (eventEntity != null)
@@ -143,7 +141,6 @@
         {
             IEnumerable<EventDeleteViewModel> listEventsDeleteVM = await this.eventRepo
                                                     .GetAllAttached()
-                                                    .AsNoTracking()
                                                     .IgnoreQueryFilters()
                                                     .Select(e => new EventDeleteViewModel()
                                                     {
@@ -165,9 +162,9 @@
             if (!String.IsNullOrWhiteSpace(id))
             {
                 Event? eventEntity = await this.eventRepo
-                                    .GetAllAttached()
-                                    .IgnoreQueryFilters()
-                                    .SingleOrDefaultAsync(c => c.Id.ToString().ToLower() == id.ToLower());
+                                .GetAllAttached()
+                                .IgnoreQueryFilters()
+                                .SingleOrDefaultAsync(c => c.Id.ToString().ToLower() == id.ToLower());
 
                 if (eventEntity != null)
                 {
@@ -184,7 +181,6 @@
             }
 
             return (result, isRestored);
-
         }
     }
 }

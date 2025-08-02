@@ -1,4 +1,5 @@
 ﻿@using SCV.Data.Models
+@using SCV.GlCommon
 @using SCV.Web.ViewModels.Administration.UserManagementVM
 @using Microsoft.AspNetCore.Identity
 
@@ -37,7 +38,7 @@
                     {
                         @* <div class="d-flex justify-content-center align-items-center flex-wrap gap-4"> *@
                             <select id="roleDropdown-@user.Id" class="form-select form-select-sm w-auto mr-3" >
-                                @foreach (var role in roleManager.Roles.ToList())
+                            @foreach (var role in roleManager.Roles.Where(r => r.Name != RoleConstants.Admin).ToList())
                                 {
                                     <option value="@role.Name" selected="@(user.Roles.Contains(role.Name) ? "selected" : null)">
                                         @role.Name

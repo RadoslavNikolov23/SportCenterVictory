@@ -1,15 +1,14 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
+    using System.Text.RegularExpressions;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
-    using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.FitnessVM;
-    using SCV.Web.ViewModels.Administration.StoreVM.MembershipsVM;
     using SCV.Web.ViewModels.FitnessVM;
-    using System.Text.RegularExpressions;
-    using static SCV.GlCommon.ValidationMessages.Exercise;
 
     public class ExerciseService : IExerciseService
     {
@@ -78,7 +77,8 @@
 
         public async Task<IEnumerable<ExercisesDetailViewModel>> GetExercisesPageAsync(int page, int pageSize, string? query)
         {
-            IQueryable<Exercise> exercisesQuery = this.exerciseRepo.GetAllAttached().AsQueryable();
+            IQueryable<Exercise> exercisesQuery = this.exerciseRepo
+                                                .GetAllAttached();
 
             if (!string.IsNullOrWhiteSpace(query))
             {
@@ -89,7 +89,7 @@
 
             IEnumerable<ExercisesDetailViewModel> exercisesViewModels = await exercisesQuery
                             .AsNoTracking()
-                            //.OrderBy(e => e.Id) // optional, but helps stable paging
+                            //.OrderBy(e => e.Id) // TODO: optional, for stability in pagination
                             .Skip((page - 1) * pageSize)
                             .Take(pageSize)
                             .Select(ex => new ExercisesDetailViewModel
@@ -193,10 +193,9 @@
             if (!string.IsNullOrEmpty(id))
             {
                 Exercise? exerciseEntity = await this.exerciseRepo
-                                    .GetAllAttached()
-                                    .AsNoTracking()
-                                    .IgnoreQueryFilters()
-                                    .SingleOrDefaultAsync(e => e.Id.ToString().ToLower() == id.ToLower());
+                                .GetAllAttached()
+                                .IgnoreQueryFilters()
+                                .SingleOrDefaultAsync(e => e.Id.ToString().ToLower() == id.ToLower());
 
 
                 if (exerciseEntity != null)
@@ -296,7 +295,6 @@
                     isEdited = await this.exerciseRepo
                                             .UpdateAsync(exerciseEntity);
                 }
-
             }
 
             return isEdited;
@@ -352,7 +350,5 @@
         {
             return Regex.Replace(nameExercise.Trim().ToLower(), @"[^a-z0-9]+", "_").Trim('_');
         }
-
-
     }
 }

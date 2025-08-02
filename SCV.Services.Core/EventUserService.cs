@@ -23,7 +23,6 @@
 
         public async Task<IEnumerable<EventUserDetailViewModel>> GetEventUserListAsync(string userId)
         {
-            // Due to the use of the built-in IdentityUser, we do not have direct navigation collection from the user side
             IEnumerable<EventUserDetailViewModel> eventUserList = await this.eventUserRepo
                 .GetAllAttached()
                 .Include(eu=>eu.Event)
@@ -37,7 +36,6 @@
                     StartDate = eu.Event.StartDate.ToString(DateOnlyFormat),
                     Location = eu.Event.Location,
                     ImageUrl = eu.Event.ImageUrl
-                    //IsUserJoined = eu.IsDeleted
                 })
                 .ToArrayAsync();
 
@@ -97,10 +95,11 @@
                 if (isEventIdValid)
                 {
                     EventUser? eventUserEntry = await this.eventUserRepo
-                         .GetAllAttached()
+                        .GetAllAttached()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(eu => eu.ApplicationUserId.ToString().ToLower() == userId &&
-                                                     eu.EventId.ToString() == eventGuid.ToString());
+                        .SingleOrDefaultAsync(eu => eu.ApplicationUserId.ToString().ToLower() == userId.ToLower() 
+                        && eu.EventId.ToString().ToLower() == eventGuid.ToString().ToLower());
+
                     if (eventUserEntry != null)
                     {
                         eventUserEntry.IsDeleted = true;
@@ -126,9 +125,10 @@
                     EventUser? eventUserEntry = await this.eventUserRepo
                         .GetAllAttached()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(eu => (eu.ApplicationUserId.ToString().ToLower() == userId &&
-                                                    eu.EventId.ToString() == eventGuid.ToString())
-                                                    && eu.IsDeleted == false);
+                        .SingleOrDefaultAsync(eu => (eu.ApplicationUserId.ToString().ToLower() == userId.ToLower() 
+                        && eu.EventId.ToString().ToLower() == eventGuid.ToString().ToLower())
+                        && eu.IsDeleted == false);
+
                     if (eventUserEntry != null)
                     {
                         result = true;
@@ -146,7 +146,6 @@
                 .Include(eu => eu.ApplicationUser)
                 .Include(eu => eu.Event)
                 .AsNoTracking()
-                //? Maybe other
                 .OrderBy(eu => eu.Event.EventType)
                 .ThenBy(eu => eu.Event.StartDate)
                 .Select(eu => new EventsUserForAdminListViewModel()

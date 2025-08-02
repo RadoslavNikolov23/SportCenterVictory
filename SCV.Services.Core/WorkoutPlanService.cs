@@ -1,6 +1,7 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
@@ -141,7 +142,6 @@
         {
             IEnumerable<WorkoutPlanDeleteViewModel> listWorkoutPansDeleteVM = await this.workoutPlanRepo
                                                     .GetAllAttached()
-                                                    .AsNoTracking()
                                                     .IgnoreQueryFilters()
                                                     .Select(wp => new WorkoutPlanDeleteViewModel()
                                                     {

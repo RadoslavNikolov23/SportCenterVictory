@@ -1,6 +1,7 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
@@ -110,10 +111,11 @@
                 if (isTrainerIdValid)
                 {
                     TrainerUser? trainerUserEntry = await this.trainerUserRepo
-                         .GetAllAttached()
+                        .GetAllAttached()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(tu => tu.ApplicationUserId.ToString().ToLower() == userId &&
-                                                     tu.TrainerId.ToString() == trainerGuid.ToString());
+                        .SingleOrDefaultAsync(tu => tu.ApplicationUserId.ToString().ToLower() == userId.ToLower() 
+                        && tu.TrainerId.ToString().ToLower() == trainerGuid.ToString().ToLower());
+                    
                     if (trainerUserEntry != null)
                     {
                         trainerUserEntry.IsDeleted = true;
@@ -139,9 +141,10 @@
                     TrainerUser? trainerUserEntry = await this.trainerUserRepo
                         .GetAllAttached()
                         .IgnoreQueryFilters()
-                        .SingleOrDefaultAsync(tu => (tu.ApplicationUserId.ToString().ToLower() == userId &&
-                                                    tu.TrainerId.ToString() == trainerGuid.ToString())
-                                                    && tu.IsDeleted == false);
+                        .SingleOrDefaultAsync(tu => (tu.ApplicationUserId.ToString().ToLower() == userId.ToLower()
+                        && tu.TrainerId.ToString().ToLower() == trainerGuid.ToString().ToLower())
+                        && tu.IsDeleted == false);
+
                     if (trainerUserEntry != null)
                     {
                         result = true;
@@ -159,7 +162,6 @@
                 .Include(tu => tu.ApplicationUser)
                 .Include(tu => tu.Trainer)
                 .AsNoTracking()
-                //? Maybe other
                 .OrderBy(tu => tu.Trainer.TrainerSpecialty)
                 .ThenBy(tu => tu.Trainer.FirstName)
                 .Select(tu => new TrainerUserForAdminListViewModel()

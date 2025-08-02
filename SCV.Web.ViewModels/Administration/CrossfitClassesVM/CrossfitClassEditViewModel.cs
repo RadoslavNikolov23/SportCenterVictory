@@ -3,5 +3,6 @@
     public class CrossfitClassEditViewModel : CrossfitClassAddViewModel
     {
         public string Id { get; set; } = null!;
+
     }
 }

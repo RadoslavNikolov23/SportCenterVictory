@@ -75,7 +75,7 @@
 
                 // Overwrite with current user data to avoid tampering
                 userFeedbackAddVM.UserId = user.Id.ToString();
-                userFeedbackAddVM.UserName = user.UserName;
+                userFeedbackAddVM.UserName = user.UserName!;
                 userFeedbackAddVM.FullName = user.FullName;
 
                 if (!this.ModelState.IsValid)
