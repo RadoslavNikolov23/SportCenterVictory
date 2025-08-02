@@ -33,7 +33,7 @@
                     MembershipId = mu.MembershipId.ToString(),
                     Name = mu.Membership.Name,
                     MembershipType = mu.Membership.MembershipType,
-                    Duration = mu.Membership.Duration
+                    DurationText = mu.Membership.DurationText
                 })
                 .ToArrayAsync();
 

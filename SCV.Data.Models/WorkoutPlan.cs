@@ -1,7 +1,8 @@
 ﻿namespace SCV.Data.Models
 {
-    using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
+
+    using SCV.GlCommon.Enums;
 
     [Comment("Workout Plan entity for a structured workout plan for fitness, crossFit or powerlifting")]
     public class WorkoutPlan

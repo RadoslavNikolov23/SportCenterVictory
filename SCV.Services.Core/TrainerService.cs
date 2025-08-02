@@ -26,7 +26,6 @@
         {
             IEnumerable<TrainerDetailViewModel> trainerVM = await this.trainerRepo
                                         .GetAllAttached()
-                                        .Include(tp => tp.Memberships)
                                         .AsNoTracking()
                                         .Where(tp => tp.TrainerSpecialty == trainerSpecialty)
                                         .Select(tp => new TrainerDetailViewModel()

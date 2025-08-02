@@ -7,7 +7,6 @@ namespace SCV.Data.Migrations
     using System;
     using Microsoft.EntityFrameworkCore.Migrations;
 
-
     /// <inheritdoc />
     public partial class SeedWorkoutPlansExercises : Migration
     {

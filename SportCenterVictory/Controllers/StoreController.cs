@@ -178,7 +178,7 @@
 
             if (!ModelState.IsValid)
             {
-                return View(currentCart);
+                return View(nameof(Cart));
             }
 
             bool isSuccessful = await this.orderService.FinishOrderAsync(userId, currentCart.PaymentMethod);

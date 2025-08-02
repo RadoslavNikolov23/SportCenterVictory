@@ -1,0 +1,56 @@
+﻿@using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM
+@using SCV.GlCommon.Enums
+
+@model IEnumerable<OrderApproveAdminViewModel>
+
+<h3 class="about_taital text-center pb-4 pt-4">Manage User Orders</h3>
+
+<table class="table table-hover text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Order Date</th>
+            <th>Total Price</th>
+            <th>Payment</th>
+            <th>Products</th>
+            <th>Status</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr class="table-warning">
+                <form asp-action="ApproveOrder" method="post">
+                <td>@order.OrderDate</td>
+                <td>@order.TotalPrice.ToString("C")</td>
+                <td>@order.PaymentMethod</td>
+                <td>
+                    <ul class="list-group list-group-flush">
+                        @foreach (var p in order.Products)
+                        {
+                            <li class="list-group-item d-flex justify-content-between px-2 py-1">
+                                <span><strong>@p.Title</strong></span>
+                                <span>@p.Quantity × @p.Price.ToString("C")</span>
+                            </li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <select name="newStatus" class="form-select">
+                        @foreach (var status in Enum.GetValues(typeof(OrderStatus)))
+                        {
+                            <option value="@status" selected="@(status.Equals(OrderStatus.Processing))">@status</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="hidden" name="orderId" value="@order.OrderId" />
+                    <button type="submit" class="btn btn-primary btn-sm">
+                        <i class="bi bi-check-circle"></i> Save
+                    </button>
+                </td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>

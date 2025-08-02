@@ -2,6 +2,7 @@
 {
     using SCV.Data.Models;
     using SCV.GlCommon.Enums;
+    using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM;
     using SCV.Web.ViewModels.StoreVM;
 
     public interface IOrderService
@@ -14,6 +15,10 @@
 
         Task<bool> FinishOrderAsync(string userId, PaymentMethod paymentMethod);
 
-        Task<IEnumerable<OrderDetailViewModel>> GetUsersOrdersForProcessingAsync(string userId);
+        Task<IEnumerable<OrderApproveAdminViewModel>> GetUsersOrdersForProcessingAsync();
+
+        Task<bool> UpdateOrderStatusAsync(string orderId, OrderStatus newStatus);
+
+        Task<IEnumerable<OrderAdminDetailViewModel>> GetAllOrdersForAdminAsync();
     }
 }

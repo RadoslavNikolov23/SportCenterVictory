@@ -107,6 +107,17 @@
                 </li>
             }
 
+            @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
+            {
+                <li><hr class="dropdown-divider" /></li>
+                <li class="dropdown-submenu">
+                    <a class="dropdown-item dropdown-toggle" href="#">Orders</a>
+                    <ul class="dropdown-menu" style="min-width: 200px;">
+                        <li><a class="dropdown-item" asp-area="Administration" asp-controller="Store" asp-action="ApproveOrder">Approve Orders</a></li>
+                    </ul>
+                </li>
+            }
+
             <!-- Trainer Bio -->
 
             <li class="dropdown-submenu">

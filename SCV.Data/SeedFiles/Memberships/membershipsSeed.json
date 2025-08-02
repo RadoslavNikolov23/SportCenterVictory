@@ -5,7 +5,8 @@
     "MembershipType": 0,
     "Description": "Basic access to gym equipment and cardio area. Includes 1 trainer session/month.",
     "Price": 39.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -15,7 +16,8 @@
     "MembershipType": 0,
     "Description": "Unlimited gym access, weekly trainer sessions, workout & meal plan.",
     "Price": 79.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -25,7 +27,8 @@
     "MembershipType": 0,
     "Description": "Personalized fitness plan tailored by a personal trainer. Includes unlimited sessions and full access.",
     "Price": 99.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -35,7 +38,8 @@
     "MembershipType": 1,
     "Description": "Unlimited CrossFit classes, personal monitoring, and competition prep.",
     "Price": 99.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -45,7 +49,8 @@
     "MembershipType": 1,
     "Description": "Up to 8 classes a month, perfect for beginners or busy athletes.",
     "Price": 59.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -55,7 +60,8 @@
     "MembershipType": 1,
     "Description": "One-time access to a CrossFit session, no subscription required.",
     "Price": 14.99,
-    "Duration": "1 Day",
+    "DurationText": "1 Day",
+    "Duration": 1,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -65,7 +71,8 @@
     "MembershipType": 2,
     "Description": "Introductory strength program, includes 2 trainer sessions/month.",
     "Price": 29.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -75,7 +82,8 @@
     "MembershipType": 2,
     "Description": "Intermediate training plan with weekly progress check-ins.",
     "Price": 49.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -85,7 +93,8 @@
     "MembershipType": 2,
     "Description": "Advanced programming with detailed analytics and 24/7 coaching.",
     "Price": 69.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   },
@@ -95,7 +104,8 @@
     "MembershipType": 2,
     "Description": "Elite-level coaching and competition prep for professional lifters.",
     "Price": 99.99,
-    "Duration": "1 Month",
+    "DurationText": "1 Month",
+    "Duration": 31,
     "TrainerId": null,
     "IsDeleted": false
   }

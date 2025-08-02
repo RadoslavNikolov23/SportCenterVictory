@@ -66,7 +66,8 @@
             public const string MembershipTypeRequired = "Membership Type is required.";
 
             public const string DescriptionRequired = "Membership Description is required.";
-            public const string DescriptionLength = "Membership Description must be between {2} and {1} characters long.";
+            public const string DescriptionTextLength = "Membership Description must be between {2} and {1} characters long.";
+            public const string DurationRange = "Membership Duration must be between {2} and {1}.";
 
             public const string PriceRequired = "Membership Price is required.";
             public const string PriceInvalid = "Membership Price must be a positive number.";

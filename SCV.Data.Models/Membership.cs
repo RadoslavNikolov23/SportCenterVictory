@@ -22,8 +22,11 @@
         [Comment("Price of the membership.")]
         public decimal Price { get; set; }
 
-        [Comment("Duration of the membership - '1 month', '3 months', '1 year'.")]
-        public string Duration { get; set; } = null!;
+        [Comment("Duration of the membership in text for UI - '1 month', '3 months', '1 year'.")]
+        public string DurationText { get; set; } = null!;
+
+        [Comment("Duration of the membership in Days - '30', '60', '365'.")]
+        public int Duration { get; set; }
 
         [Comment("Indicates whether the membership is deleted.")]
         public bool IsDeleted { get; set; }

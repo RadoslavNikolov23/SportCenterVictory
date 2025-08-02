@@ -22,6 +22,8 @@
         public decimal Price { get; set; }
 
         //Add IsDeleted property if you want to support soft deletion
+        //The current implementation does not include soft deletion for OrderProduct
+        // and in the services layer, is used only hard deletion.
 
 
     }

@@ -2,7 +2,7 @@
 {
     using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
-
+    using System.Diagnostics.Contracts;
     using static SCV.GlCommon.ModelConstants.EntityConstantsMembership;
     using static SCV.GlCommon.ValidationMessages.Membership;
 
@@ -17,7 +17,7 @@
         public SportType MembershipType { get; set; }
 
         [Required(ErrorMessage = DescriptionRequired)]
-        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionLength)]
+        [StringLength(DescriptionMaxLength, MinimumLength = DescriptionMinLength, ErrorMessage = DescriptionTextLength)]
         public string Description { get; set; } = null!;
 
         [Required(ErrorMessage = PriceRequired)]
@@ -25,7 +25,12 @@
         public decimal Price { get; set; }
 
         [Required(ErrorMessage = DurationRequired)]
-        [StringLength(DurationMaxLength, MinimumLength = DurationMinLength, ErrorMessage = DurationLength)]
-        public string Duration { get; set; } = null!;
+        [StringLength(DurationTextMaxLength, MinimumLength = DurationTextMinLength, ErrorMessage = DurationLength)]
+        public string DurationText { get; set; } = null!;
+
+        [Required(ErrorMessage = DurationRequired)]
+        [Range(DurationValueMinValue, DurationValueMaxValue, ErrorMessage = DurationRange)]
+        public int Duration { get; set; }
+
     }
 }

@@ -23,6 +23,7 @@
             IEnumerable<CrossfitClassUserDetailViewModel> crossfitClassUserList = await this.crossfitClassUserRepo
                 .GetAllAttached()
                 .Include(ccu => ccu.CrossfitClass)
+                .Include(ccu => ccu.ApplicationUser)
                 .AsNoTracking()
                 .Where(ccu => ccu.ApplicationUserId.ToString().ToLower() == userId.ToLower())
                 .Select(ccu => new CrossfitClassUserDetailViewModel()

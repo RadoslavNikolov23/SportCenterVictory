@@ -12,8 +12,8 @@ using SCV.Data;
 namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
-    [Migration("20250731195003_SeedEvents")]
-    partial class SeedEvents
+    [Migration("20250802210222_SeedMembershipsAndProducts")]
+    partial class SeedMembershipsAndProducts
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -691,11 +691,15 @@ namespace SCV.Data.Migrations
                         .HasColumnType("nvarchar(525)")
                         .HasComment("Description of the membership.");
 
-                    b.Property<string>("Duration")
+                    b.Property<int>("Duration")
+                        .HasColumnType("int")
+                        .HasComment("Duration of the membership in Days - '30', '60', '365'.");
+
+                    b.Property<string>("DurationText")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
-                        .HasComment("Duration of the membership - '1 month', '3 months', '1 year'.");
+                        .HasComment("Duration of the membership in text for UI - '1 month', '3 months', '1 year'.");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -717,16 +721,123 @@ namespace SCV.Data.Migrations
                         .HasColumnType("decimal(18, 6)")
                         .HasComment("Price of the membership.");
 
-                    b.Property<Guid?>("TrainerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TrainerId");
 
                     b.ToTable("Memberships", t =>
                         {
                             t.HasComment("Represents a membership in the web application, for the fitness, crossfit and powerlifting.");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("984a4fcc-db08-4767-9db0-81879ce9fa8c"),
+                            Description = "Basic access to gym equipment and cardio area. Includes 1 trainer session/month.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 0,
+                            Name = "Fitness Standard",
+                            Price = 39.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("58241767-75d3-416f-963f-965193013eeb"),
+                            Description = "Unlimited gym access, weekly trainer sessions, workout & meal plan.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 0,
+                            Name = "Fitness Premium",
+                            Price = 79.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("fcd7986d-4173-40aa-9aab-9c6c3287b538"),
+                            Description = "Personalized fitness plan tailored by a personal trainer. Includes unlimited sessions and full access.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 0,
+                            Name = "Fitness Individual",
+                            Price = 99.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("9a48ebfa-b098-4764-8aec-68bb1864c25a"),
+                            Description = "Unlimited CrossFit classes, personal monitoring, and competition prep.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 1,
+                            Name = "CrossFit Unlimited",
+                            Price = 99.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("1b961d8a-defd-426f-9d3d-2383b51400ef"),
+                            Description = "Up to 8 classes a month, perfect for beginners or busy athletes.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 1,
+                            Name = "CrossFit Limited",
+                            Price = 59.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("7d84436e-4fe8-4eed-9de7-95f7855ffc7b"),
+                            Description = "One-time access to a CrossFit session, no subscription required.",
+                            Duration = 1,
+                            DurationText = "1 Day",
+                            IsDeleted = false,
+                            MembershipType = 1,
+                            Name = "CrossFit Drop-In",
+                            Price = 14.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("661f922e-6f92-48d1-b02c-b1354e8c2c83"),
+                            Description = "Introductory strength program, includes 2 trainer sessions/month.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 2,
+                            Name = "Powerlifting Beginners",
+                            Price = 29.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("840bbd66-abeb-49ff-a947-3b4d035e1f9f"),
+                            Description = "Intermediate training plan with weekly progress check-ins.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 2,
+                            Name = "Powerlifting Intermediates",
+                            Price = 49.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("0084ce57-2ad8-4de2-840b-d8e6d4dc1570"),
+                            Description = "Advanced programming with detailed analytics and 24/7 coaching.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 2,
+                            Name = "Powerlifting Experts",
+                            Price = 69.99m
+                        },
+                        new
+                        {
+                            Id = new Guid("370f11b9-0961-4470-ac75-e7a243bea0de"),
+                            Description = "Elite-level coaching and competition prep for professional lifters.",
+                            Duration = 31,
+                            DurationText = "1 Month",
+                            IsDeleted = false,
+                            MembershipType = 2,
+                            Name = "Powerlifting Pros",
+                            Price = 99.99m
                         });
                 });
 
@@ -874,6 +985,173 @@ namespace SCV.Data.Migrations
                     b.ToTable("Products", t =>
                         {
                             t.HasComment("Represents a product in the web application. Can be an Equipment or a Nutrition product.");
+                        });
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0001"),
+                            Description = "Brown hoodie for CrossFit training.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/ioubda5hs2utyc62mvedr/crossfitHoodie01.jpg?rlkey=2najk5e2wt2pgbcz6kprmu1rs&st=h2q43wd6",
+                            IsDeleted = false,
+                            Price = 49.99m,
+                            ProductCategory = 0,
+                            Quantity = 25,
+                            Title = "CrossFit Hoodie"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0002"),
+                            Description = "Black hoodie for CrossFit sessions.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/6xiqszxl1vd0y1vsvdelk/crossfitHoodie02.jpg?rlkey=gvd8238250o4ra5n44ivpz3or&st=n5kirzrf",
+                            IsDeleted = false,
+                            Price = 52.99m,
+                            ProductCategory = 0,
+                            Quantity = 30,
+                            Title = "CrossFit Hoodie"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0003"),
+                            Description = "Black t-shirt, CrossFit edition.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/rpscr72a2cpxye7f02qh6/crossfitShirt01.jpg?rlkey=8990fhtd1no1y4yyk5bytuju7&st=9mqh715h",
+                            IsDeleted = false,
+                            Price = 24.99m,
+                            ProductCategory = 0,
+                            Quantity = 40,
+                            Title = "CrossFit Shirt"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0004"),
+                            Description = "Dark green CrossFit t-shirt.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/3r0opb42esipf3jc6qbxs/crossfitShirt02.jpg?rlkey=6yxp1g4xr8wr9tolh2i9razsk&st=eac42tjn",
+                            IsDeleted = false,
+                            Price = 24.99m,
+                            ProductCategory = 0,
+                            Quantity = 40,
+                            Title = "Crossfit Shirt"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0005"),
+                            Description = "Pink CrossFit t-shirt for women.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/a7st8xk4x6vn2pki00abk/crossfitShirt03.jpg?rlkey=stszx696okz1ejl9iwh2xllsw&st=dej09t7e",
+                            IsDeleted = false,
+                            Price = 24.99m,
+                            ProductCategory = 0,
+                            Quantity = 35,
+                            Title = "CrossFit Shirt"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0006"),
+                            Description = "Recovery muscle roller for athletes.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/c7okxrgi7gywdhck8grs6/muscleRoller.jpg?rlkey=jag2u213v8idobltx9k71nqoy&st=e088lnnd",
+                            IsDeleted = false,
+                            Price = 29.99m,
+                            ProductCategory = 0,
+                            Quantity = 20,
+                            Title = "Muscle Roller"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0007"),
+                            Description = "Shaker bottle with Spider-Man face.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/oqxd4zochtknx7owql0lq/shaker01.jpg?rlkey=c1my2lz1oh7oxrt309vd7255a&st=hntv27nw",
+                            IsDeleted = false,
+                            Price = 14.99m,
+                            ProductCategory = 0,
+                            Quantity = 50,
+                            Title = "Shaker"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0008"),
+                            Description = "Shaker bottle with Captain America shield.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/hg1z97r3nq2ezrv6n6anq/shaker02.jpg?rlkey=ogzbit9hoczb2dw3ybtndsgyg&st=5pbglcf9",
+                            IsDeleted = false,
+                            Price = 14.99m,
+                            ProductCategory = 0,
+                            Quantity = 50,
+                            Title = "Shaker"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0009"),
+                            Description = "Sturdy wrist wraps for weightlifting.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/j1kim39r33m5rpwxrmx95/wristWraps.jpg?rlkey=xbh2p9e256u8bm6wu1c1xkplw&st=lkkry4ab",
+                            IsDeleted = false,
+                            Price = 9.99m,
+                            ProductCategory = 0,
+                            Quantity = 60,
+                            Title = "Wrist Wraps"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0010"),
+                            Description = "BCAA supplement for muscle recovery - 0.500 grams, mango flavor.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/5oam8qizzojmk3nntmh4k/bcaa.jpg?rlkey=qdnwvziwe4k1mh6befgvi4h5t&st=gtz964o3",
+                            IsDeleted = false,
+                            Price = 14.99m,
+                            ProductCategory = 1,
+                            Quantity = 40,
+                            Title = "BCAA"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0011"),
+                            Description = "Creatine monohydrate powder - 0.500grams, unflavour.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/1hwd0mx4s75sbvkjkfml5/creatine.jpg?rlkey=b7yulqprbourfmru30tg1ojms&st=ob5gdk1t",
+                            IsDeleted = false,
+                            Price = 29.99m,
+                            ProductCategory = 1,
+                            Quantity = 40,
+                            Title = "Creatine"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0012"),
+                            Description = "Multivitamin tablets for daily wellness - 240 tabblets.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/yz7cprusi1paa297ls06l/multivatamins.jpg?rlkey=lizt1ze6m0pofw2tulpxxfbpx&st=x0wgfqof",
+                            IsDeleted = false,
+                            Price = 19.99m,
+                            ProductCategory = 1,
+                            Quantity = 40,
+                            Title = "Multivatamins"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0013"),
+                            Description = "Pre-workout supplement for energy and focus - 0.400 grams, cola flavor.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/8oo1ttfnx69x9f7tl7p73/preworkout.jpg?rlkey=cvukic1y4tmbajr89vluxnp22&st=q4h3wm8y",
+                            IsDeleted = false,
+                            Price = 32.99m,
+                            ProductCategory = 1,
+                            Quantity = 40,
+                            Title = "Preworkout"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0014"),
+                            Description = "Omega-3 softgels for heart and joint support - 250 soft gel tables.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/zbngp5rn5j0083qm5j0sb/omega.jpg?rlkey=jpqpq0xfrgywmeqrn207lgqs0&st=wa41hp5i",
+                            IsDeleted = false,
+                            Price = 22.99m,
+                            ProductCategory = 1,
+                            Quantity = 40,
+                            Title = "Essential Omega"
+                        },
+                        new
+                        {
+                            Id = new Guid("9f74f8c2-3f1f-4fcd-89c5-1c1a2a1a0015"),
+                            Description = "Whey protein powder for muscle growth - 1 kg, chocolate flavor.",
+                            ImageUrl = "https://dl.dropboxusercontent.com/scl/fi/57i5a4lrk3ykdffwumnly/wheyProtein.jpg?rlkey=kse99ji33i1ifrgw2aelrtrz2&st=kddhe0qa",
+                            IsDeleted = false,
+                            Price = 49.99m,
+                            ProductCategory = 1,
+                            Quantity = 40,
+                            Title = "Whey Protein"
                         });
                 });
 
@@ -1169,13 +1447,6 @@ namespace SCV.Data.Migrations
                     b.Navigation("Event");
                 });
 
-            modelBuilder.Entity("SCV.Data.Models.Membership", b =>
-                {
-                    b.HasOne("SCV.Data.Models.Trainer", null)
-                        .WithMany("Memberships")
-                        .HasForeignKey("TrainerId");
-                });
-
             modelBuilder.Entity("SCV.Data.Models.MembershipUser", b =>
                 {
                     b.HasOne("SCV.Data.Models.ApplicationUser", "ApplicationUser")
@@ -1332,8 +1603,6 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.Trainer", b =>
                 {
-                    b.Navigation("Memberships");
-
                     b.Navigation("TrainerUsers");
                 });
 

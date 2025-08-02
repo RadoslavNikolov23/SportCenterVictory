@@ -10,7 +10,7 @@
 
         public SportType MembershipType { get; set; }
 
-        public string Duration { get; set; } = null!;
+        public string DurationText { get; set; } = null!;
 
         public bool IsPurchasedMembership { get; set; }
 

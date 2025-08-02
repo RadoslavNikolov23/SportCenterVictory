@@ -11,7 +11,10 @@
         public const decimal PriceMaxValue = 10000.00m;
         public const decimal PriceMinValue = 0.00m;
 
-        public const int DurationMaxLength = 40;
-        public const int DurationMinLength = 3;
+        public const int DurationTextMaxLength = 40;
+        public const int DurationTextMinLength = 3;
+
+        public const int DurationValueMaxValue = 365;
+        public const int DurationValueMinValue = 0;
     }
 }

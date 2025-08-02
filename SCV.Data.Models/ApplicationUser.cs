@@ -23,7 +23,7 @@
         [Comment("Collection of Events the user is attending")]
         public virtual ICollection<EventUser> EventUsers { get; set; } = new HashSet<EventUser>();
 
-        [Comment("Collection of the Memberships/Programs the user has joined.")]
+        [Comment("Collection of the Memberships the user has purchased.")]
         public virtual ICollection<MembershipUser> MembershipUsers { get; set; } = new HashSet<MembershipUser>();
 
         [Comment("Collection of orders for the user")]

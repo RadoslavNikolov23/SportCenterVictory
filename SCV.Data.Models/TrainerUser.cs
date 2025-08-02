@@ -15,8 +15,6 @@
 
         public virtual Trainer Trainer { get; set; } = null!;
 
-        //Removed the addition informating and add IsDelete property
-
         [Comment("Indicates whether the TrainerUser entity is deleted. Soft delete flag.")]
         public bool IsDeleted { get; set; }
     }

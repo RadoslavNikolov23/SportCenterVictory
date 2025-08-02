@@ -33,7 +33,7 @@
                                         MembershipType = m.MembershipType,
                                         Description = m.Description,
                                         Price = m.Price,
-                                        Duration = m.Duration,
+                                        DurationText = m.DurationText,
                                     })
                                     .ToListAsync();
 
@@ -57,7 +57,7 @@
                             MembershipType = m.MembershipType,
                             Description = m.Description,
                             Price = m.Price,
-                            Duration = m.Duration,
+                            DurationText = m.DurationText,
                         })
                         .ToListAsync();
 
@@ -95,6 +95,7 @@
                     MembershipType = membershipAddVM.MembershipType,
                     Description = membershipAddVM.Description,
                     Price = membershipAddVM.Price,
+                    DurationText = membershipAddVM.DurationText,
                     Duration = membershipAddVM.Duration,
 
                 };

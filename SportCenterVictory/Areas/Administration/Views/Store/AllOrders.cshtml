@@ -1,0 +1,65 @@
+﻿@using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM
+@model IEnumerable<OrderAdminDetailViewModel>
+
+@{
+    ViewData["Title"] = "All Orders by Users";
+    var groupedOrders = Model
+        .GroupBy(o => new { o.UserFullName, o.Email })
+        .OrderBy(g => g.Key.UserFullName);
+}
+
+<h3 class="about_taital text-center pt-5 pb-5">User Orders Overview</h3>
+
+@if (!groupedOrders.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No user orders have been made yet!
+        </p>
+    </div>
+}
+else
+{
+    foreach (var userOrders in groupedOrders)
+    {
+        <div class="card specialty-card mb-5">
+            <div class="specialty-header p-3 bg-dark text-white">
+                <h4 class="mb-0 text-center text-white">
+                    @userOrders.Key.UserFullName – <a href="mailto:@userOrders.Key.Email" class="text-white">@userOrders.Key.Email</a>
+                </h4>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover specialty-table mb-0">
+                    <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Order Date</th>
+                            <th scope="col">Total Price</th>
+                            <th scope="col">Products</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var order in userOrders)
+                        {
+                            <tr>
+                                <td>@order.OrderDate</td>
+                                <td>@order.TotalPrice.ToString("C")</td>
+                                <td>
+                                    <ul class="list-group list-group-flush">
+                                        @foreach (var p in order.Products)
+                                        {
+                                            <li class="list-group-item d-flex justify-content-between px-2 py-1">
+                                                <span><strong>@p.Title</strong></span>
+                                                <span>@p.Quantity × @p.Price.ToString("C")</span>
+                                            </li>
+                                        }
+                                    </ul>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
+}

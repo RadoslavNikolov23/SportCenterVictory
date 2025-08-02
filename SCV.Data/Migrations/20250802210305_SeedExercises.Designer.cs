@@ -12,7 +12,7 @@ using SCV.Data;
 namespace SCV.Data.Migrations
 {
     [DbContext(typeof(SportCenterDbContext))]
-    [Migration("20250731195136_SeedExercises")]
+    [Migration("20250802210305_SeedExercises")]
     partial class SeedExercises
     {
         /// <inheritdoc />
@@ -13318,11 +13318,15 @@ namespace SCV.Data.Migrations
                         .HasColumnType("nvarchar(525)")
                         .HasComment("Description of the membership.");
 
-                    b.Property<string>("Duration")
+                    b.Property<int>("Duration")
+                        .HasColumnType("int")
+                        .HasComment("Duration of the membership in Days - '30', '60', '365'.");
+
+                    b.Property<string>("DurationText")
                         .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)")
-                        .HasComment("Duration of the membership - '1 month', '3 months', '1 year'.");
+                        .HasComment("Duration of the membership in text for UI - '1 month', '3 months', '1 year'.");
 
                     b.Property<bool>("IsDeleted")
                         .ValueGeneratedOnAdd()
@@ -13344,12 +13348,7 @@ namespace SCV.Data.Migrations
                         .HasColumnType("decimal(18, 6)")
                         .HasComment("Price of the membership.");
 
-                    b.Property<Guid?>("TrainerId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("TrainerId");
 
                     b.ToTable("Memberships", t =>
                         {
@@ -13361,7 +13360,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("984a4fcc-db08-4767-9db0-81879ce9fa8c"),
                             Description = "Basic access to gym equipment and cardio area. Includes 1 trainer session/month.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 0,
                             Name = "Fitness Standard",
@@ -13371,7 +13371,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("58241767-75d3-416f-963f-965193013eeb"),
                             Description = "Unlimited gym access, weekly trainer sessions, workout & meal plan.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 0,
                             Name = "Fitness Premium",
@@ -13381,7 +13382,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("fcd7986d-4173-40aa-9aab-9c6c3287b538"),
                             Description = "Personalized fitness plan tailored by a personal trainer. Includes unlimited sessions and full access.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 0,
                             Name = "Fitness Individual",
@@ -13391,7 +13393,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("9a48ebfa-b098-4764-8aec-68bb1864c25a"),
                             Description = "Unlimited CrossFit classes, personal monitoring, and competition prep.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 1,
                             Name = "CrossFit Unlimited",
@@ -13401,7 +13404,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("1b961d8a-defd-426f-9d3d-2383b51400ef"),
                             Description = "Up to 8 classes a month, perfect for beginners or busy athletes.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 1,
                             Name = "CrossFit Limited",
@@ -13411,7 +13415,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("7d84436e-4fe8-4eed-9de7-95f7855ffc7b"),
                             Description = "One-time access to a CrossFit session, no subscription required.",
-                            Duration = "1 Day",
+                            Duration = 1,
+                            DurationText = "1 Day",
                             IsDeleted = false,
                             MembershipType = 1,
                             Name = "CrossFit Drop-In",
@@ -13421,7 +13426,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("661f922e-6f92-48d1-b02c-b1354e8c2c83"),
                             Description = "Introductory strength program, includes 2 trainer sessions/month.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 2,
                             Name = "Powerlifting Beginners",
@@ -13431,7 +13437,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("840bbd66-abeb-49ff-a947-3b4d035e1f9f"),
                             Description = "Intermediate training plan with weekly progress check-ins.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 2,
                             Name = "Powerlifting Intermediates",
@@ -13441,7 +13448,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("0084ce57-2ad8-4de2-840b-d8e6d4dc1570"),
                             Description = "Advanced programming with detailed analytics and 24/7 coaching.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 2,
                             Name = "Powerlifting Experts",
@@ -13451,7 +13459,8 @@ namespace SCV.Data.Migrations
                         {
                             Id = new Guid("370f11b9-0961-4470-ac75-e7a243bea0de"),
                             Description = "Elite-level coaching and competition prep for professional lifters.",
-                            Duration = "1 Month",
+                            Duration = 31,
+                            DurationText = "1 Month",
                             IsDeleted = false,
                             MembershipType = 2,
                             Name = "Powerlifting Pros",
@@ -14065,13 +14074,6 @@ namespace SCV.Data.Migrations
                     b.Navigation("Event");
                 });
 
-            modelBuilder.Entity("SCV.Data.Models.Membership", b =>
-                {
-                    b.HasOne("SCV.Data.Models.Trainer", null)
-                        .WithMany("Memberships")
-                        .HasForeignKey("TrainerId");
-                });
-
             modelBuilder.Entity("SCV.Data.Models.MembershipUser", b =>
                 {
                     b.HasOne("SCV.Data.Models.ApplicationUser", "ApplicationUser")
@@ -14228,8 +14230,6 @@ namespace SCV.Data.Migrations
 
             modelBuilder.Entity("SCV.Data.Models.Trainer", b =>
                 {
-                    b.Navigation("Memberships");
-
                     b.Navigation("TrainerUsers");
                 });
 

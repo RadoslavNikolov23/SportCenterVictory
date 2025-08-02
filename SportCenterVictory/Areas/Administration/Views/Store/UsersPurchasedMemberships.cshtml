@@ -39,38 +39,49 @@
 
 <h3 class="about_taital text-center pt-5 pb-5">Memberships & Client Overview</h3>
 
-@foreach (var userMembership in groupedUserMemberships)
+@if (!groupedUserMemberships.Any())
 {
-    <div class="card specialty-card">
-        <div class="specialty-header">
-            <h4 class="mb-0 text-white text-center">@userMembership.Key.ToString() Membership Type</h4>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-striped table-hover specialty-table mb-0">
-                <thead>
-                    <tr>
-                        <th>Membership Name</th>
-                        <th>Membership Type</th>
-                        <th>Client FullName</th>
-                        <th>Client Email</th>
-                        <th>Purchase On</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in userMembership)
-                    {
-                        <tr>
-                            <td>@item.MembershipName</td>
-                            <td>@item.MembershipType</td>
-                            <td>@item.ClientFullName</td>
-                            <td><a href="mailto:@item.ClientEmail">@item.ClientEmail</a></td>
-                            <td>@item.PurchaseDate</td>
-
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No User have purchased Memberships yet!
+        </p>
     </div>
+}
+else
+{
+    @foreach (var userMembership in groupedUserMemberships)
+    {
+        <div class="card specialty-card">
+            <div class="specialty-header">
+                <h4 class="mb-0 text-white text-center">@userMembership.Key.ToString() Membership Type</h4>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover specialty-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Membership Name</th>
+                            <th>Membership Type</th>
+                            <th>Client FullName</th>
+                            <th>Client Email</th>
+                            <th>Purchase On</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in userMembership)
+                        {
+                            <tr>
+                                <td>@item.MembershipName</td>
+                                <td>@item.MembershipType</td>
+                                <td>@item.ClientFullName</td>
+                                <td><a href="mailto:@item.ClientEmail">@item.ClientEmail</a></td>
+                                <td>@item.PurchaseDate</td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 }

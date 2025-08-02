@@ -15,19 +15,19 @@ namespace SCV.Data.Migrations
         {
             migrationBuilder.InsertData(
                 table: "Memberships",
-                columns: new[] { "Id", "Description", "Duration", "MembershipType", "Name", "Price", "TrainerId" },
+                columns: new[] { "Id", "Description", "Duration", "DurationText", "MembershipType", "Name", "Price" },
                 values: new object[,]
                 {
-                    { new Guid("0084ce57-2ad8-4de2-840b-d8e6d4dc1570"), "Advanced programming with detailed analytics and 24/7 coaching.", "1 Month", 2, "Powerlifting Experts", 69.99m, null },
-                    { new Guid("1b961d8a-defd-426f-9d3d-2383b51400ef"), "Up to 8 classes a month, perfect for beginners or busy athletes.", "1 Month", 1, "CrossFit Limited", 59.99m, null },
-                    { new Guid("370f11b9-0961-4470-ac75-e7a243bea0de"), "Elite-level coaching and competition prep for professional lifters.", "1 Month", 2, "Powerlifting Pros", 99.99m, null },
-                    { new Guid("58241767-75d3-416f-963f-965193013eeb"), "Unlimited gym access, weekly trainer sessions, workout & meal plan.", "1 Month", 0, "Fitness Premium", 79.99m, null },
-                    { new Guid("661f922e-6f92-48d1-b02c-b1354e8c2c83"), "Introductory strength program, includes 2 trainer sessions/month.", "1 Month", 2, "Powerlifting Beginners", 29.99m, null },
-                    { new Guid("7d84436e-4fe8-4eed-9de7-95f7855ffc7b"), "One-time access to a CrossFit session, no subscription required.", "1 Day", 1, "CrossFit Drop-In", 14.99m, null },
-                    { new Guid("840bbd66-abeb-49ff-a947-3b4d035e1f9f"), "Intermediate training plan with weekly progress check-ins.", "1 Month", 2, "Powerlifting Intermediates", 49.99m, null },
-                    { new Guid("984a4fcc-db08-4767-9db0-81879ce9fa8c"), "Basic access to gym equipment and cardio area. Includes 1 trainer session/month.", "1 Month", 0, "Fitness Standard", 39.99m, null },
-                    { new Guid("9a48ebfa-b098-4764-8aec-68bb1864c25a"), "Unlimited CrossFit classes, personal monitoring, and competition prep.", "1 Month", 1, "CrossFit Unlimited", 99.99m, null },
-                    { new Guid("fcd7986d-4173-40aa-9aab-9c6c3287b538"), "Personalized fitness plan tailored by a personal trainer. Includes unlimited sessions and full access.", "1 Month", 0, "Fitness Individual", 99.99m, null }
+                    { new Guid("0084ce57-2ad8-4de2-840b-d8e6d4dc1570"), "Advanced programming with detailed analytics and 24/7 coaching.", 31, "1 Month", 2, "Powerlifting Experts", 69.99m },
+                    { new Guid("1b961d8a-defd-426f-9d3d-2383b51400ef"), "Up to 8 classes a month, perfect for beginners or busy athletes.", 31, "1 Month", 1, "CrossFit Limited", 59.99m },
+                    { new Guid("370f11b9-0961-4470-ac75-e7a243bea0de"), "Elite-level coaching and competition prep for professional lifters.", 31, "1 Month", 2, "Powerlifting Pros", 99.99m },
+                    { new Guid("58241767-75d3-416f-963f-965193013eeb"), "Unlimited gym access, weekly trainer sessions, workout & meal plan.", 31, "1 Month", 0, "Fitness Premium", 79.99m },
+                    { new Guid("661f922e-6f92-48d1-b02c-b1354e8c2c83"), "Introductory strength program, includes 2 trainer sessions/month.", 31, "1 Month", 2, "Powerlifting Beginners", 29.99m },
+                    { new Guid("7d84436e-4fe8-4eed-9de7-95f7855ffc7b"), "One-time access to a CrossFit session, no subscription required.", 1, "1 Day", 1, "CrossFit Drop-In", 14.99m },
+                    { new Guid("840bbd66-abeb-49ff-a947-3b4d035e1f9f"), "Intermediate training plan with weekly progress check-ins.", 31, "1 Month", 2, "Powerlifting Intermediates", 49.99m },
+                    { new Guid("984a4fcc-db08-4767-9db0-81879ce9fa8c"), "Basic access to gym equipment and cardio area. Includes 1 trainer session/month.", 31, "1 Month", 0, "Fitness Standard", 39.99m },
+                    { new Guid("9a48ebfa-b098-4764-8aec-68bb1864c25a"), "Unlimited CrossFit classes, personal monitoring, and competition prep.", 31, "1 Month", 1, "CrossFit Unlimited", 99.99m },
+                    { new Guid("fcd7986d-4173-40aa-9aab-9c6c3287b538"), "Personalized fitness plan tailored by a personal trainer. Includes unlimited sessions and full access.", 31, "1 Month", 0, "Fitness Individual", 99.99m }
                 });
 
             migrationBuilder.InsertData(

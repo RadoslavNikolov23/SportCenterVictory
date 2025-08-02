@@ -1,11 +1,9 @@
-﻿
-#nullable disable
+﻿#nullable disable
 
 namespace SCV.Data.Migrations
 {
     using System;
     using Microsoft.EntityFrameworkCore.Migrations;
-
     /// <inheritdoc />
     public partial class InitialCreateDB : Migration
     {
@@ -129,6 +127,25 @@ namespace SCV.Data.Migrations
                     table.PrimaryKey("PK_Exercises", x => x.Id);
                 },
                 comment: "Represents an exercise in the database for the web app.");
+
+            migrationBuilder.CreateTable(
+                name: "Memberships",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Primary Key for the membership."),
+                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Name of the membership"),
+                    MembershipType = table.Column<int>(type: "int", nullable: false, comment: "Type of the membership - Fitness, CrossFit, Powerlifting."),
+                    Description = table.Column<string>(type: "nvarchar(525)", maxLength: 525, nullable: false, comment: "Description of the membership."),
+                    Price = table.Column<decimal>(type: "decimal(18,6)", nullable: false, comment: "Price of the membership."),
+                    DurationText = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false, comment: "Duration of the membership in text for UI - '1 month', '3 months', '1 year'."),
+                    Duration = table.Column<int>(type: "int", nullable: false, comment: "Duration of the membership in Days - '30', '60', '365'."),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicates whether the membership is deleted.")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Memberships", x => x.Id);
+                },
+                comment: "Represents a membership in the web application, for the fitness, crossfit and powerlifting.");
 
             migrationBuilder.CreateTable(
                 name: "Products",
@@ -399,6 +416,33 @@ namespace SCV.Data.Migrations
                 comment: "Represents a user who has purchased a membership.");
 
             migrationBuilder.CreateTable(
+                name: "MembershipUsers",
+                columns: table => new
+                {
+                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
+                    MembershipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced Membership. Part of the entity composite PK."),
+                    PurchasedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date and time when the membership was purchased."),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicates whether the membership user is deleted. Used for soft deletion.")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MembershipUsers", x => new { x.ApplicationUserId, x.MembershipId });
+                    table.ForeignKey(
+                        name: "FK_MembershipUsers_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_MembershipUsers_Memberships_MembershipId",
+                        column: x => x.MembershipId,
+                        principalTable: "Memberships",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                },
+                comment: "Represents a user who has purchased a membership.");
+
+            migrationBuilder.CreateTable(
                 name: "WorkoutPlanExercises",
                 columns: table => new
                 {
@@ -451,30 +495,6 @@ namespace SCV.Data.Migrations
                 comment: "Represents an item in an order, linking a product to an order with quantity and price details");
 
             migrationBuilder.CreateTable(
-                name: "Memberships",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Primary Key for the membership."),
-                    Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false, comment: "Name of the membership"),
-                    MembershipType = table.Column<int>(type: "int", nullable: false, comment: "Type of the membership - Fitness, CrossFit, Powerlifting."),
-                    Description = table.Column<string>(type: "nvarchar(525)", maxLength: 525, nullable: false, comment: "Description of the membership."),
-                    Price = table.Column<decimal>(type: "decimal(18,6)", nullable: false, comment: "Price of the membership."),
-                    Duration = table.Column<string>(type: "nvarchar(40)", maxLength: 40, nullable: false, comment: "Duration of the membership - '1 month', '3 months', '1 year'."),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicates whether the membership is deleted."),
-                    TrainerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Memberships", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Memberships_Trainers_TrainerId",
-                        column: x => x.TrainerId,
-                        principalTable: "Trainers",
-                        principalColumn: "Id");
-                },
-                comment: "Represents a membership in the web application, for the fitness, crossfit and powerlifting.");
-
-            migrationBuilder.CreateTable(
                 name: "TrainerUsers",
                 columns: table => new
                 {
@@ -499,33 +519,6 @@ namespace SCV.Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 },
                 comment: "Entity representing the many-to-many relationship between ApplicationUser and Trainer.");
-
-            migrationBuilder.CreateTable(
-                name: "MembershipUsers",
-                columns: table => new
-                {
-                    ApplicationUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced ApplicationUser. Part of the entity composite PK."),
-                    MembershipId = table.Column<Guid>(type: "uniqueidentifier", nullable: false, comment: "Foreign key to the referenced Membership. Part of the entity composite PK."),
-                    PurchasedOn = table.Column<DateTime>(type: "datetime2", nullable: false, comment: "The date and time when the membership was purchased."),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Indicates whether the membership user is deleted. Used for soft deletion.")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_MembershipUsers", x => new { x.ApplicationUserId, x.MembershipId });
-                    table.ForeignKey(
-                        name: "FK_MembershipUsers_AspNetUsers_ApplicationUserId",
-                        column: x => x.ApplicationUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_MembershipUsers_Memberships_MembershipId",
-                        column: x => x.MembershipId,
-                        principalTable: "Memberships",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                },
-                comment: "Represents a user who has purchased a membership.");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -575,11 +568,6 @@ namespace SCV.Data.Migrations
                 name: "IX_EventUsers_EventId",
                 table: "EventUsers",
                 column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Memberships_TrainerId",
-                table: "Memberships",
-                column: "TrainerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MembershipUsers_MembershipId",
@@ -678,13 +666,13 @@ namespace SCV.Data.Migrations
                 name: "Products");
 
             migrationBuilder.DropTable(
+                name: "Trainers");
+
+            migrationBuilder.DropTable(
                 name: "Exercises");
 
             migrationBuilder.DropTable(
                 name: "WorkoutPlans");
-
-            migrationBuilder.DropTable(
-                name: "Trainers");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

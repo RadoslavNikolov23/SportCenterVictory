@@ -24,7 +24,7 @@ else
     {
         <div class="card mb-3">
             <div class="card-header text-bg-darker" style="background-color:palegoldenrod;">
-                Order Total: @String.Format("{0:C}", order.TotalPrice)
+                @order.OrderDate | Order Total: @String.Format("{0:C}", order.TotalPrice)
             </div>
             <ul class="list-group list-group-flush">
                 @foreach (var item in order.Products)

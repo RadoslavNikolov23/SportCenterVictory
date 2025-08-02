@@ -103,7 +103,7 @@
                     <div class="membership-description">@membership.Description</div>
 
                     <div class="membership-price-duration">
-                        @membership.Price.ToString("C") - @membership.Duration
+                        @membership.Price.ToString("C") - @membership.DurationText
                     </div>
 
                     @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))

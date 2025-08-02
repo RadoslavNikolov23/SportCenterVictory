@@ -35,10 +35,14 @@
                 .HasColumnType(PriceSqlType);
 
             entity
-                .Property(m => m.Duration)
+                .Property(m => m.DurationText)
                 .IsRequired()
-                .HasMaxLength(DurationMaxLength);
+                .HasMaxLength(DurationTextMaxLength);
 
+            entity
+                .Property(m => m.Duration)
+                .IsRequired();
+                
             entity
                 .Property(m => m.IsDeleted)
                 .HasDefaultValue(false);

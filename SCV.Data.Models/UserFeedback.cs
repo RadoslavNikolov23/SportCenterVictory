@@ -1,6 +1,7 @@
 ﻿namespace SCV.Data.Models
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.GlCommon.Enums;
 
     [Comment("Represents user feedback in the system.")]

@@ -24,7 +24,7 @@ else
         <thead>
             <tr>
                 <th>Product</th>
-                <th>Qty</th>
+                <th>Quantity</th>
                 <th>Price</th>
                 <th>Remove Item</th>
             </tr>
@@ -48,9 +48,9 @@ else
         </tbody>
         <tfoot>
             <tr>
+                <td>@Model.OrderDate</td>
                 <td colspan="2"><strong>Total</strong></td>
                 <td><strong>@String.Format("{0:C}", Model.TotalPrice)</strong></td>
-                <td></td>
             </tr>
         </tfoot>
     </table>

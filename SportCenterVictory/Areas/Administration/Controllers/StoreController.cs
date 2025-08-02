@@ -16,13 +16,14 @@
         private readonly IMembershipService membershipServices;
         private readonly IMembershipUserService membershipUserServices;
         private readonly IProductService productService;
+        private readonly IOrderService orderService;
 
-        public StoreController(IMembershipService memershipServices, IMembershipUserService membershipUserServices, IProductService productService)
+        public StoreController(IMembershipService memershipServices, IMembershipUserService membershipUserServices, IProductService productService, IOrderService orderService)
         {
             this.membershipServices = memershipServices;
             this.productService = productService;
             this.membershipUserServices = membershipUserServices;
-
+            this.orderService = orderService;
         }
 
         [HttpGet]

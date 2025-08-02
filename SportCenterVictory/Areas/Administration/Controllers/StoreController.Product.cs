@@ -4,8 +4,9 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SCV.GlCommon.Enums;
+    using SCV.Services.Core;
     using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM;
-
+    using SCV.Web.ViewModels.StoreVM;
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
 
@@ -197,9 +198,55 @@
 
         [HttpGet]
         [Authorize(Roles = AdminOrManager)]
-        public async Task<IActionResult> UsersOrders()
+        public async Task<IActionResult> ApproveOrder()
         {
-            return View();
+            IEnumerable<OrderApproveAdminViewModel> userOrders = await this.orderService
+                            .GetUsersOrdersForProcessingAsync();
+
+            return View(userOrders);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = AdminOrManager)]
+        public async Task<IActionResult> ApproveOrder(string orderId, OrderStatus newStatus)
+        {
+            try
+            {
+                bool isSuccess = await orderService
+                    .UpdateOrderStatusAsync(orderId, newStatus);
+
+                if (!isSuccess)
+                {
+                    TempData[ErrorMessageKey] = "Order could not be updated. Please try again.";
+                    return RedirectToAction(nameof(ApproveOrder));
+                }
+
+                TempData[SuccessMessageKey] = "Order status updated successfully!";
+                return RedirectToAction(nameof(ApproveOrder));
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while approving the Order! Please contact developer team! The error is {e.Message}";
+
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [HttpGet]
+        [Authorize(Roles = AdminOrManager)]
+        public async Task<IActionResult> AllOrders()
+        {
+            try
+            {
+                IEnumerable<OrderAdminDetailViewModel> allOrders = await this.orderService
+                    .GetAllOrdersForAdminAsync();
+                return View(allOrders);
+            }
+            catch (Exception e)
+            {
+                TempData[ErrorMessageKey] = $"Unexpected error occurred while retrieving all orders! Please contact developer team! The error is {e.Message}";
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }

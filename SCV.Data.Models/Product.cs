@@ -1,7 +1,8 @@
 ﻿namespace SCV.Data.Models
 {
-    using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
+
+    using SCV.GlCommon.Enums;
 
     [Comment("Represents a product in the web application. Can be an Equipment or a Nutrition product.")]
     public class Product
@@ -30,7 +31,7 @@
         [Comment("Indicates if the product is currently available for purchase. If true, the product is deleted and not available.")]
         public bool IsDeleted { get; set; }
 
-        public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
+        public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new HashSet<OrderProduct>();
 
     }
 }

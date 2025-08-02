@@ -1,7 +1,8 @@
 ﻿namespace SCV.Data.Models
 {
-    using SCV.GlCommon.Enums;
     using Microsoft.EntityFrameworkCore;
+
+    using SCV.GlCommon.Enums;
 
     [Comment("Represents an event in the web application, such as a fitness, crossfit or powerlifting competition or training session.")]
     public class Event
