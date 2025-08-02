@@ -1,25 +1,27 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM;
+    using SCV.Web.ViewModels.StoreVM;
     using SVC.Web.ViewModels.StoreVM;
 
     public class ProductService : IProductService
     {
-        private readonly IProductRepository productRepository;
+        private readonly IProductRepository productRepo;
 
         public ProductService(IProductRepository productRepository)
         {
-            this.productRepository = productRepository;
+            this.productRepo = productRepository;
         }
 
         public async Task<IEnumerable<StoreProductViewModel>> GetAllProductsByProductCategoryAsync(ProductCategory productCategory)
         {
-            IEnumerable<StoreProductViewModel> storeProductVM = await this.productRepository
+            IEnumerable<StoreProductViewModel> storeProductVM = await this.productRepo
                                             .GetAllAttached()
                                             .AsNoTracking()
                                             .Where(p => p.ProductCategory == productCategory)
@@ -42,7 +44,7 @@
         public async Task<IEnumerable<ProductAdminDetailViewModel>> GetAllProductsForAdminAsync()
         {
             IEnumerable<ProductAdminDetailViewModel> productsAdminDetailVM = await
-                                                    this.productRepository
+                                                    this.productRepo
                                                     .GetAllAttached()
                                                     .AsNoTracking()
                                                     .IgnoreQueryFilters()
@@ -75,7 +77,7 @@
 
                 };
 
-                await this.productRepository.AddAsync(productToAdd);
+                await this.productRepo.AddAsync(productToAdd);
                 isAdded = true;
             }
 
@@ -88,7 +90,7 @@
 
             if (!string.IsNullOrEmpty(id))
             {
-                Product? productEntity = await this.productRepository
+                Product? productEntity = await this.productRepo
                                     .GetAllAttached()
                                     .IgnoreQueryFilters()
                                     .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == id.ToLower());
@@ -120,7 +122,7 @@
                 return isEdited;
             }
 
-            Product? productEntity = await this.productRepository
+            Product? productEntity = await this.productRepo
                                         .GetAllAttached()
                                         .IgnoreQueryFilters()
                                         .SingleOrDefaultAsync(cc => cc.Id.ToString().ToLower() == productEditVM.Id.ToLower());
@@ -135,7 +137,7 @@
                 productEntity.ImageUrl = productEditVM.ImageUrl;
 
 
-                isEdited = await this.productRepository
+                isEdited = await this.productRepo
                                         .UpdateAsync(productEntity);
             }
 
@@ -144,7 +146,7 @@
 
         public async Task<IEnumerable<ProductDeleteViewModel>> GetAllProductsForDeletingAsync()
         {
-            IEnumerable<ProductDeleteViewModel> listProductsDeleteVM = await this.productRepository
+            IEnumerable<ProductDeleteViewModel> listProductsDeleteVM = await this.productRepo
                                                     .GetAllAttached()
                                                     .AsNoTracking()
                                                     .IgnoreQueryFilters()
@@ -167,7 +169,7 @@
 
             if (!String.IsNullOrWhiteSpace(id))
             {
-                Product? productEntity = await this.productRepository
+                Product? productEntity = await this.productRepo
                                     .GetAllAttached()
                                     .IgnoreQueryFilters()
                                     .SingleOrDefaultAsync(c => c.Id.ToString().ToLower() == id.ToLower());
@@ -181,12 +183,29 @@
 
                     productEntity.IsDeleted = !productEntity.IsDeleted;
 
-                    result = await this.productRepository
+                    result = await this.productRepo
                                     .UpdateAsync(productEntity);
                 }
             }
 
             return (result, isRestored);
+        }
+
+        public async Task<IEnumerable<ProductResultViewModel>> ReturnProductSearchResult(string searchTerm)
+        {
+            return await this.productRepo
+                    .GetAllAttached()
+                    .AsNoTracking()
+                    .Where(p => !p.IsDeleted && p.Title.ToLower().Contains(searchTerm.ToLower()))
+                    .Select(p => new ProductResultViewModel
+                    {
+                        Id = p.Id.ToString(),
+                        Title = p.Title,
+                        ImageUrl = p.ImageUrl,
+                        ProductCategory = p.ProductCategory
+                    })
+                    .ToListAsync();
+
         }
     }
 }

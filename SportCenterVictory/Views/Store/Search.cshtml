@@ -1,0 +1,107 @@
+﻿@using SCV.Web.ViewModels.StoreVM
+@using SCV.GlCommon.Enums
+@model ProductSearchViewModel
+
+@{
+    ViewData["Title"] = "Search Products ";
+}
+
+<style>
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 2rem;
+    }
+
+    .search-input-group {
+        width: 50%;
+        display: flex;
+        align-items: center;
+    }
+
+        .search-input-group input[type="text"] {
+            flex: 1;
+            border-radius: 0.375rem 0 0 0.375rem;
+        }
+
+        .search-input-group button {
+            border-radius: 0 0.375rem 0.375rem 0;
+        }
+
+    .card-title a {
+        font-size: 1.2rem;
+        font-weight: 600;
+    }
+
+    .card {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s ease;
+    }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+    .search-results .card {
+        transition: transform 0.2s ease;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+        .search-results .card:hover {
+            transform: translateY(-4px);
+        }
+
+    .product-image {
+        max-height: 200px;
+        object-fit: contain;
+    }
+</style>
+
+<div class="container py-4">
+    <h2 class="about_taital text-center pb-4 pt-4">Search the Store</h2>
+
+        <form asp-controller="Store" asp-action="Search" method="get">
+        <div class="search-input-group input-group mx-auto">
+            <input type="text" name="searchTerm" value="@Model.SearchTerm" class="form-control" placeholder="Search for a product..." />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </div>
+        </form>
+
+
+
+    @if (Model.Results.Any())
+    {
+        <div class="search-results container mt-4">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                @foreach (var product in Model.Results)
+                {
+                    var categoryAction = product.ProductCategory switch
+                    {
+                        ProductCategory.Equipment => "Equipment",
+                        ProductCategory.Nutrition => "Nutrition",
+                        _ => "Index"
+                    };
+
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body d-flex flex-column justify-content-between">
+                                <h5 class="card-title text-center">
+                                    <a asp-controller="Store" asp-action="@categoryAction" class="text-decoration-none text-dark">
+                                        @product.Title
+                                    </a>
+                                </h5>
+                                <span class="badge bg-light text-dark">@product.ProductCategory</span>
+
+                            </div>
+                            <img src="@product.ImageUrl" alt="@product.Title" class="card-img-top img-fluid rounded" style="max-height: 200px; object-fit: cover;" />
+
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+    else if (!string.IsNullOrWhiteSpace(Model.SearchTerm))
+    {
+        <p class="text-center text-danger">No results found for "@Model.SearchTerm"</p>
+    }
+</div>

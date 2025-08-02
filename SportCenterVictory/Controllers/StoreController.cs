@@ -193,5 +193,47 @@
             TempData["Success"] = "Your order was placed successfully!";
             return RedirectToAction(nameof(Cart));
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string? searchTerm)
+        {
+            ProductSearchViewModel productSearchVM = new ProductSearchViewModel
+            {
+                SearchTerm = searchTerm ?? string.Empty,
+                Results = new HashSet<ProductResultViewModel>()
+            };
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                productSearchVM.Results = await this.productService
+                                    .ReturnProductSearchResult(searchTerm);
+            }
+
+            return View(productSearchVM);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ProductsByCategory(ProductCategory productCategory)
+        {
+            IEnumerable<StoreProductViewModel> productsByCategory = await this.productService
+                                                .GetAllProductsByProductCategoryAsync(productCategory);
+            if (productsByCategory == null || !productsByCategory.Any())
+            {
+                return NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, productCategory.ToString().ToLower() + " products"));
+            }
+
+            switch (productCategory)
+            {
+                case ProductCategory.Equipment:
+                    return RedirectToAction("Equipment", "Store", new { area = "" });
+                case ProductCategory.Nutrition:
+                    return RedirectToAction("Nutrition", "Store", new { area = "" });
+                default:
+                    return RedirectToAction("Index", "Store", new { area = "" });
+            }
+        }
+
     }
+
 }
