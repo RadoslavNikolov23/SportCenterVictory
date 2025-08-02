@@ -9,6 +9,7 @@ namespace SportCenterVictory
     using SCV.Data.Repository.Contracts;
     using SCV.Data.Seeding;
     using SCV.Data.Seeding.Contracts;
+    using SCV.Services.Common;
     using SCV.Services.Core.Contracts;
     using SCV.Web.Infrastructure;
 
@@ -44,6 +45,9 @@ namespace SportCenterVictory
                     .AddDefaultTokenProviders();
 
             builder.Services.AddScoped<IApplicationDbInitializer, ApplicationDbInitializer>();
+
+            builder.Services.Configure<EmailSettings>(builder.Configuration
+                                                                .GetSection("EmailSettings"));
 
             builder.Services.AddProjectRepositories(typeof(IExerciseRepository).Assembly);
             builder.Services.AddProjectServices(typeof(IExerciseService).Assembly);
