@@ -1,0 +1,63 @@
+﻿@using SCV.Web.ViewModels.Administration.UserFeedbackVM
+@using SCV.GlCommon.Enums;
+@model IEnumerable<UserFeedbackApproveViewModel>
+
+@{
+    ViewData["Title"] = "Manage User Feedbacks ";
+}
+
+<h3 class="about_taital text-center pb-4 pt-4">Manage All User Feedbacks</h3>
+
+<table class="table table-hover text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>User</th>
+            <th>Full Name</th>
+            <th>Image</th>
+            <th>Feedback</th>
+            <th>Status</th>
+            <th>Update</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var feedback in Model)
+        {
+            <tr class="@(feedback.Status == FeedbackStatus.Pending ? "table-warning" : (feedback.Status == FeedbackStatus.Published ? "table-success" : "table-danger"))">
+                <form asp-action="UpdateFeedbackStatus" method="post">
+                <td>@feedback.UserName</td>
+                <td>@feedback.FullName</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(feedback.ImageUrl))
+                    {
+                        <img src="@feedback.ImageUrl" alt="User Image" style="height: 60px; border-radius: 8px;" />
+                    }
+                    else
+                    {
+                        <span>No image</span>
+                    }
+                </td>
+                <td>
+                    <textarea name="Feedback" class="form-control" rows="2">@feedback.Feedback</textarea>
+                </td>
+                <td>
+                    <select name="Status" class="form-select">
+                        @foreach (var status in Enum.GetValues(typeof(FeedbackStatus)))
+                        {
+                            <option value="@status" selected="@(status.ToString() == feedback.Status.ToString())">@status</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    <input type="hidden" name="Id" value="@feedback.Id" />
+                    <input type="hidden" name="UserName" value="@feedback.UserName" />
+                    <input type="hidden" name="FullName" value="@feedback.FullName" />
+                    <input type="hidden" name="ImageUrl" value="@feedback.ImageUrl" />
+                    <button type="submit" class="btn btn-primary btn-sm fw-bold">
+                        <i class="bi bi-check-circle"></i> Save
+                    </button>
+                </td>
+                </form>
+            </tr>
+        }
+    </tbody>
+</table>

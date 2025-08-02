@@ -33,7 +33,6 @@
             try
             {
                 bool isSend = await emailService.SendContactEmailAsync(model);
-                string 
 
                 if (!isSend)
                 {
@@ -46,7 +45,7 @@
             }
             catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = "Something wen wrong. Please try again.";
+                TempData[ErrorMessageKey] = $"Something wen wrong. Please try again. Message {ex.Message}";
                 return RedirectToAction(nameof(Index));
             }
         }

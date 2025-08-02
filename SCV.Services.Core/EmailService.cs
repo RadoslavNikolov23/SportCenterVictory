@@ -43,11 +43,11 @@
                 await smtp.SendMailAsync(message);
                 isSendSuccessful = true; 
             }
-            catch (SmtpException ex)
+            catch (SmtpException)
             {
                 isSendSuccessful = false;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 isSendSuccessful = false;
             }

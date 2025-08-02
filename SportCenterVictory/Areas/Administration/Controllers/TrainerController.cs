@@ -35,6 +35,7 @@
                                 .GetUsersInRoleAsync(SCV.GlCommon.RoleConstants.Trainer);
 
             ViewBag.Trainers = new SelectList(trainerUsers, "Id", "UserName");
+
             return View();
         }
 

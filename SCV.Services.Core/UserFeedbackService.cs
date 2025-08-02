@@ -6,6 +6,8 @@
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
+    using SCV.Web.ViewModels.Administration.TrainerBioVM;
+    using SCV.Web.ViewModels.Administration.UserFeedbackVM;
     using SCV.Web.ViewModels.UserFeedbackVM;
     using System.Collections.Generic;
 
@@ -80,6 +82,50 @@
             }
 
             return isAdded;
+        }
+
+        public async Task<IEnumerable<UserFeedbackApproveViewModel>> AllUserFeedbacksForApproveAsync()
+        {
+            IEnumerable<UserFeedbackApproveViewModel> userFeedbackApproveVM = await this.userFeedbackRepo
+                                            .GetAllAttached()
+                                            .Select(uf => new UserFeedbackApproveViewModel
+                                            {
+                                                Id = uf.Id.ToString(),
+                                                UserName = uf.UserName,
+                                                FullName = uf.FullName,
+                                                Feedback = uf.Feedback,
+                                                Status = uf.Status,
+                                                ImageUrl = uf.ImageUrl,
+                                            })
+                                            .ToListAsync();
+            return userFeedbackApproveVM;
+        }
+
+
+        public async Task<bool> ApproveOrNotUserFeedbackAsync(UserFeedbackApproveViewModel userFeedbackApproveVM)
+        {
+            bool isApproved = false;
+
+            if (userFeedbackApproveVM != null)
+            {
+                UserFeedback? userFeedbackToApprove = await this.userFeedbackRepo
+                                        .GetAllAttached()
+                                        .SingleOrDefaultAsync(uf => uf.Id.ToString().ToLower() == userFeedbackApproveVM.Id.ToLower());
+
+                if (userFeedbackToApprove != null)
+                {
+
+                    userFeedbackToApprove.UserName = userFeedbackApproveVM.UserName;
+                    userFeedbackToApprove.FullName = userFeedbackApproveVM.FullName;
+                    userFeedbackToApprove.Feedback = userFeedbackApproveVM.Feedback;
+                    userFeedbackToApprove.Status = userFeedbackApproveVM.Status;
+                    userFeedbackToApprove.ImageUrl = userFeedbackApproveVM.ImageUrl;
+
+                    isApproved = await this.userFeedbackRepo.UpdateAsync(userFeedbackToApprove);
+                }
+            }
+
+            return isApproved;
         }
     }
 }
