@@ -1,6 +1,7 @@
 ﻿namespace SportCenterVictory.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
 
     using System.Collections.Generic;
 
@@ -9,7 +10,6 @@
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
-    using Microsoft.AspNetCore.Authorization;
 
     public class UserFeedbackController : BaseAdminController
     {

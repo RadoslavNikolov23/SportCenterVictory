@@ -132,7 +132,7 @@
                             .Include(o => o.OrderProducts)
                             .SingleOrDefaultAsync(o => o.CustomerId.ToString().ToLower() == userId.ToLower() && o.OrderStatus == OrderStatus.Processing);
 
-            if (order != null || !order.OrderProducts.Any())
+            if (order != null || !order!.OrderProducts.Any())
             {
                 order.PaymentMethod = paymentMethod;
                 order.OrderStatus = OrderStatus.Shipped;

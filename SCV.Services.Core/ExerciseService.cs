@@ -1,14 +1,13 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
-
-    using System.Text.RegularExpressions;
-
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.FitnessVM;
     using SCV.Web.ViewModels.FitnessVM;
+    using System.Text.RegularExpressions;
+
 
     public class ExerciseService : IExerciseService
     {
@@ -300,22 +299,47 @@
             return isEdited;
         }
 
-        public async Task<IEnumerable<ExerciseDeleteViewModel>> GetAllExerciseForDeletingAsync()
+        public async Task<ExerciseDeletePageViewModel> GetAllExerciseForDeletingByPageAsync(int page = 1, string? searchTerm = null)
         {
-            IEnumerable<ExerciseDeleteViewModel> listExerciseDeleteVM = await this.exerciseRepo
-                                                    .GetAllAttached()
-                                                    .IgnoreQueryFilters()
-                                                    .Select(e => new ExerciseDeleteViewModel()
-                                                    {
-                                                        Id = e.Id,
-                                                        Name = e.Name,
-                                                        PrimaryMuscles = e.PrimaryMuscles,
-                                                        Category = e.Category,
-                                                        IsDeleted = e.IsDeleted
-                                                    })
-                                                    .ToListAsync();
 
-            return listExerciseDeleteVM;
+            int pageSize = 20;
+            IQueryable<Exercise> exercisesList = this.exerciseRepo
+                                                        .GetAllAttached()
+                                                        .IgnoreQueryFilters();
+
+            if (!string.IsNullOrWhiteSpace(searchTerm))
+            {
+                searchTerm = searchTerm.Trim().ToLower();
+                exercisesList = exercisesList
+                                    .Where(e => e.Name.ToLower().Contains(searchTerm));
+            }
+
+            int totalCount = await exercisesList.CountAsync();
+
+            IEnumerable<ExerciseDeleteViewModel> listExerciseDeleteVM = await exercisesList
+                                                           .OrderBy(e => e.Id)
+                                                           .Skip((page - 1) * pageSize)
+                                                           .Take(pageSize)
+                                                           .Select(e => new ExerciseDeleteViewModel()
+                                                           {
+                                                               Id = e.Id,
+                                                               Name = e.Name,
+                                                               PrimaryMuscles = e.PrimaryMuscles,
+                                                               Category = e.Category,
+                                                               IsDeleted = e.IsDeleted
+                                                           })
+                                                           .ToListAsync();
+
+            ExerciseDeletePageViewModel exerciseDeletePage = new ExerciseDeletePageViewModel
+                                        {
+                                            Exercises = listExerciseDeleteVM,
+                                            CurrentPage = page,
+                                            TotalPages = (int)Math.Ceiling((double)totalCount / pageSize),
+                                            SearchTerm = searchTerm
+                                        };
+
+
+            return exerciseDeletePage;
         }
 
         public async Task<(bool, bool)> DeleteOrRestoreExerciseAsync(string? id)

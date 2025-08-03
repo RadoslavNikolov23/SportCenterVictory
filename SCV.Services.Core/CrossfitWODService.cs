@@ -71,7 +71,7 @@
 
             crossfitWODVieModel = new CrossfitWODViewModel()
             {
-                Id = entityCrossfitWOD.Id.ToString(),
+                Id = entityCrossfitWOD!.Id.ToString(),
                 Name = entityCrossfitWOD.Name,
                 DescriptionHTML = entityCrossfitWOD.DescriptionHTML,
             };

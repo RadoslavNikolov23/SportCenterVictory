@@ -142,14 +142,20 @@
 
         [HttpGet]
         [Authorize(Roles = AdminOrManager)]
-        public async Task<IActionResult> DeleteExercise()
+        public async Task<IActionResult> DeleteExercise(int page = 1, string? searchTerm = null)
         {
             try
             {
-                IEnumerable<ExerciseDeleteViewModel> exerciseDeleteDetailVM = await this.exerciseService
-                            .GetAllExerciseForDeletingAsync();
 
-                return this.View(exerciseDeleteDetailVM);
+                ExerciseDeletePageViewModel exerciseDeletePageVM = await this.exerciseService
+                            .GetAllExerciseForDeletingByPageAsync(page, searchTerm);
+
+                if (Request.Headers["X-Requested-With"] == "XMLHttpRequest")
+                {
+                    return PartialView("_ExerciseDeleteTablePartial", exerciseDeletePageVM);
+                }
+
+                return this.View(exerciseDeletePageVM);
             }
             catch (Exception e)
             {

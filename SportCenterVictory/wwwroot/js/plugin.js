@@ -2642,73 +2642,72 @@ each( spaces, function( spaceName, space ) {
 	} );
 } );
 
-// Add cssHook and .fx.step function for each named hook.
-// accept a space separated string of properties
-//color.hook = function( hook ) {
-//	var hooks = hook.split( " " );
-//	each( hooks, function( i, hook ) {
-//		jQuery.cssHooks[ hook ] = {
-//			set: function( elem, value ) {
-//				var parsed, curElem,
-//					backgroundColor = "";
+ //Add cssHook and .fx.step function for each named hook.
+ //accept a space separated string of properties
+	color.hook = function (hook) {
+		var hooks = hook.split(" ");
+		each(hooks, function (i, hook) {
+			jQuery.cssHooks[hook] = {
+				set: function (elem, value) {
+					var parsed, curElem,
+						backgroundColor = "";
 
-//				if ( value !== "transparent" && ( jQuery.type( value ) !== "string" ||
-//						( parsed = stringParse( value ) ) ) ) {
-//					value = color( parsed || value );
-//					if ( !support.rgba && value._rgba[ 3 ] !== 1 ) {
-//						curElem = hook === "backgroundColor" ? elem.parentNode : elem;
-//						while (
-//							( backgroundColor === "" || backgroundColor === "transparent" ) &&
-//							curElem && curElem.style
-//						) {
-//							try {
-//								backgroundColor = jQuery.css( curElem, "backgroundColor" );
-//								curElem = curElem.parentNode;
-//							} catch ( e ) {
-//							}
-//						}
+					if (value !== "transparent" && (jQuery.type(value) !== "string" ||
+						(parsed = stringParse(value)))) {
+						value = color(parsed || value);
+						if (!support.rgba && value._rgba[3] !== 1) {
+							curElem = hook === "backgroundColor" ? elem.parentNode : elem;
+							while (
+								(backgroundColor === "" || backgroundColor === "transparent") &&
+								curElem && curElem.style
+							) {
+								try {
+									backgroundColor = jQuery.css(curElem, "backgroundColor");
+									curElem = curElem.parentNode;
+								} catch (e) {
+								}
+							}
 
-//						value = value.blend( backgroundColor && backgroundColor !== "transparent" ?
-//							backgroundColor :
-//							"_default" );
-//					}
+							value = value.blend(backgroundColor && backgroundColor !== "transparent" ?
+								backgroundColor :
+								"_default");
+						}
 
-//					value = value.toRgbaString();
-//				}
-//				try {
-//					elem.style[ hook ] = value;
-//				} catch ( e ) {
+						value = value.toRgbaString();
+					}
+					try {
+						elem.style[hook] = value;
+					} catch (e) {
 
-//					// Wrapped to prevent IE from throwing errors on "invalid" values like
-//					// 'auto' or 'inherit'
-//				}
-//			}
-//		};
-//		//jQuery.fx.step[ hook ] = function( fx ) {
-//		//	if ( !fx.colorInit ) {
-//		//		fx.start = color( fx.elem, hook );
-//		//		fx.end = color( fx.end );
-//		//		fx.colorInit = true;
-//		//	}
-//		//	jQuery.cssHooks[ hook ].set( fx.elem, fx.start.transition( fx.end, fx.pos ) );
-//		//};
-//	} );
+						// Wrapped to prevent IE from throwing errors on "invalid" values like
+						// 'auto' or 'inherit'
+					}
+				}
+			};
+			jQuery.fx.step[hook] = function (fx) {
+				if (!fx.colorInit) {
+					fx.start = color(fx.elem, hook);
+					fx.end = color(fx.end);
+					fx.colorInit = true;
+				}
+				jQuery.cssHooks[hook].set(fx.elem, fx.start.transition(fx.end, fx.pos));
+			};
+		});
 
-};
-
-color.hook( stepHooks );
-
-jQuery.cssHooks.borderColor = {
-	expand: function( value ) {
-		var expanded = {};
-
-		each( [ "Top", "Right", "Bottom", "Left" ], function( i, part ) {
-			expanded[ "border" + part + "Color" ] = value;
-		} );
-		return expanded;
 	}
-};
 
+	color.hook(stepHooks);
+
+	jQuery.cssHooks.borderColor = {
+		expand: function (value) {
+			var expanded = {};
+
+			each(["Top", "Right", "Bottom", "Left"], function (i, part) {
+				expanded["border" + part + "Color"] = value;
+			});
+			return expanded;
+		}
+	};
 // Basic color names only.
 // Usage of any of the other color names requires adding yourself or including
 // jquery.color.svg-names.js.

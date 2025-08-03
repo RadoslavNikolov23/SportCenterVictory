@@ -7,7 +7,7 @@
     string emailUser = User.Identity?.Name!;
     string nameUser = !string.IsNullOrEmpty(emailUser) ? emailUser.Split('@')[0] : "Guest";
 
-    var roles = SignInManager.IsSignedIn(User)
+    IList<string>? roles = SignInManager.IsSignedIn(User)
         ? await UserManager.GetRolesAsync(await UserManager.GetUserAsync(User))
         : new List<string>();
 }

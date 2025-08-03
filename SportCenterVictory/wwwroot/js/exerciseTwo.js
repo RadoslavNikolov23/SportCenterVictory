@@ -1,4 +1,5 @@
 ﻿
+
 let searchQuery = "";
 const loadMoreBtn = document.getElementById('load-more-btn');
 const exerciseList = document.getElementById('exercise-list');

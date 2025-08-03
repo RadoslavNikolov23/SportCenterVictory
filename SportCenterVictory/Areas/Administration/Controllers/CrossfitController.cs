@@ -6,6 +6,7 @@
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
     using SCV.Web.ViewModels.Administration.ReferenceVM;
+
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
 
@@ -52,7 +53,6 @@
 
 
                 TempData[SuccessMessageKey] = "CrossFit Classes added successfully!";
-                //return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
                 return RedirectToAction("CrossfitClasses", "Crossfit");
 
 
@@ -92,8 +92,6 @@
 
                 if (crossfitClassEditVM == null)
                 {
-                   // return NotFound();
-
                     return Json(new
                     {
                         success = false,
@@ -134,9 +132,7 @@
 
             TempData["Success"] = $"CrossFit Class {crossfitClassEditVM.Name} updated successfully!";
 
-           // return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
             return RedirectToAction("CrossfitClasses", "Crossfit");
-
         }
 
         [HttpGet]

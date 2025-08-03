@@ -115,7 +115,7 @@
             }
 
             Trainer? trainer = await this.trainerRepo
-                     .SingleOrDefaultAsync(t => t.ApplicationUserId.ToString().ToLower() == userId.ToLower());
+                     .SingleOrDefaultAsync(t => t.ApplicationUserId!.ToString()!.ToLower()! == userId!.ToLower()!);
 
             if (trainer != null)
             {

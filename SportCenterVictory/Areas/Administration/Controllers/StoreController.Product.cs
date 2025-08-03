@@ -4,9 +4,8 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core;
     using SCV.Web.ViewModels.Administration.StoreVM.ProductsVM;
-    using SCV.Web.ViewModels.StoreVM;
+
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
 

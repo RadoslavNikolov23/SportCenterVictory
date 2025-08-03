@@ -7,6 +7,7 @@
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.Administration.ReferenceVM;
+
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
 
@@ -152,7 +153,6 @@
                 default:
                     return RedirectToAction("Memberships", "Store", new { area = "" });
             }
-
         }
 
         [HttpGet]

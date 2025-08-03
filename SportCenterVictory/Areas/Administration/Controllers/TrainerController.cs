@@ -96,15 +96,15 @@
                     return NotFound();
                 }
 
-                return View("EditTrainerBioUser", trainerEditVM); // standard edit view
+                return View("EditTrainerBioUser", trainerEditVM);
             }
 
             if (roles.Contains(Manager) || roles.Contains(Admin))
             {
                 // Admins and Managers see the dropdown list
-                IEnumerable<TrainerAdminDetailViewModel> allTrainers = await trainerService.GetAllTrainersForAdminAsync(); // Include Id and FirstName/LastName for selection
+                IEnumerable<TrainerAdminDetailViewModel> allTrainers = await trainerService.GetAllTrainersForAdminAsync();
 
-                return View("EditTrainerBioAdminManager", allTrainers); // selection view
+                return View("EditTrainerBioAdminManager", allTrainers);
             }
 
             return Forbid();

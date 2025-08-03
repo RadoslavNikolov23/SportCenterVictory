@@ -21,8 +21,7 @@
 
         Task<bool> EditExerciseAsync(ExerciseEditViewModel exerciseEditVM);
 
-        Task<IEnumerable<ExerciseDeleteViewModel>> GetAllExerciseForDeletingAsync();
-
+        Task<ExerciseDeletePageViewModel> GetAllExerciseForDeletingByPageAsync(int page, string? searchTerm);
         Task<(bool, bool)> DeleteOrRestoreExerciseAsync(string? id);
     }
 }

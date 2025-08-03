@@ -59,18 +59,6 @@
 
                 TempData[SuccessMessageKey] = "Membership added successfully!";
 
-
-                //switch (membershipAddVM.MembershipType)
-                //{
-                //    case SportType.Fitness:
-                //        return RedirectToAction("FitnessMembership", "Fitness", new { area = "" });
-                //    case SportType.CrossFit:
-                //        return RedirectToAction("CrossfitMembership", "Crossfit", new { area = "" });
-                //    case SportType.Powerlifting:
-                //        return RedirectToAction("PowerliftingMembership", "Powerlifting", new { area = "" });
-                //    default:
-                //        return RedirectToAction("Index", "Home", new { area = "" });
-                //}
                 switch (membershipAddVM.MembershipType)
                 {
                     case SportType.Fitness:
@@ -160,17 +148,6 @@
 
             TempData["Success"] = $"Membership {membershipEditVM.Name} updated successfully!";
 
-            //switch (membershipEditVM.MembershipType)
-            //{
-            //    case SportType.Fitness:
-            //        return RedirectToAction("FitnessMembership", "Fitness", new { area = "" });
-            //    case SportType.CrossFit:
-            //        return RedirectToAction("CrossfitMembership", "Crossfit", new { area = "" });
-            //    case SportType.Powerlifting:
-            //        return RedirectToAction("PowerliftingMembership", "Powerlifting", new { area = "" });
-            //    default:
-            //        return RedirectToAction("Memberships", "Store", new { area = "" });
-            //}
             switch (membershipEditVM.MembershipType)
             {
                 case SportType.Fitness:
@@ -253,6 +230,8 @@
         }
 
 
-        //Product actions are in the partial class StoreController.Products.cs file ->
+        //====> 
+        //====> Product actions are in the partial class StoreController.Products.cs file --->
+        //====>
     }
 }
