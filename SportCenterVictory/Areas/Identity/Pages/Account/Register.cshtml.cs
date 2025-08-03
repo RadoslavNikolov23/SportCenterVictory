@@ -1,8 +1,5 @@
 ﻿namespace SportCenterVictory.Areas.Identity.Pages.Account
 {
-    using SCV.Data.Models;
-    using System.Text;
-    using System.ComponentModel.DataAnnotations;
     using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
@@ -10,23 +7,32 @@
     using Microsoft.AspNetCore.Mvc.RazorPages;
     using Microsoft.AspNetCore.WebUtilities;
 
+    using System.Text;
+    using System.ComponentModel.DataAnnotations;
+
+    using SCV.Data.Models;
+
+    using static SCV.GlCommon.ApplicationConstants;
+
     [AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
         private readonly ILogger<RegisterModel> _logger;
         //private readonly IEmailSender _emailSender;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger)
+            ILogger<RegisterModel> logger, RoleManager<ApplicationRole> roleManager)
             //IEmailSender emailSender)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            this._roleManager = roleManager;
             //_emailSender = emailSender;
         }
 
@@ -43,6 +49,10 @@
             [EmailAddress]
             [Display(Name = "Email")]
             public string Email { get; set; } = null!;
+
+            [Required]
+            [Display(Name = "Full Name")]
+            public string FullName { get; set; } = null!;
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -68,10 +78,14 @@
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email };
+                var user = new ApplicationUser { UserName = Input.Email, FullName = Input.FullName, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
+                    await _userManager.AddToRoleAsync(user, SCV.GlCommon.RoleConstants.User);
+
+                    TempData[SuccessMessageKey] = "Registration successful! Your logged in.";
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

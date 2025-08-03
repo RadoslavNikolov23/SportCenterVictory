@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace SportCenterVictory.Areas.Identity.Pages.Account.Manage
 {
     public static class ManageNavPages
     {
         public static string Index => "Index";
+
+        public static string FullName => "FullName";
 
         public static string Email => "Email";
 
