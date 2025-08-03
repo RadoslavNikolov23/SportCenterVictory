@@ -6,7 +6,7 @@
 }
 
 
-<style>
+@* <style>
     body {
         background-color: #f0f3f9;
         font-family: 'Segoe UI', sans-serif;
@@ -137,7 +137,7 @@
         .remove-button:hover {
             background-color: #772929;
         }
-</style>
+</style> *@
 
 <h4 class="about_taital text-center pt-4">Joined Events</h4>
 
@@ -189,10 +189,12 @@ else
                     <div class="event-location">📍 @eventVM.Location</div>
                     <div class="event-date">@eventVM.StartDate</div>
                 </div>
-
-
             </div>
         }
 
     </div>
+}
+
+@section Styles {
+    <link href="~/css/joinedEvents.css" rel="stylesheet" />
 }

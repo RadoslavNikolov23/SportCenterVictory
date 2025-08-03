@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Exercises ";
 }
-
+@* 
 <style>
     .exercise-card {
         background: white;
@@ -63,7 +63,7 @@
         max-height: 4.5em; /* approx 3 lines */
         text-overflow: ellipsis; }
 
-</style>
+</style> *@
 
 @if (!Model.Any())
 {
@@ -89,8 +89,19 @@ else
     </div>
 }
 
+@section Styles {
+    <link href="~/css/exerciseTwo.css" rel="stylesheet" />
+}
 
+@section Scripts {
+    <script>
+        let currentPage = @ViewBag.CurrentPage;
+        const pageSize = @ViewBag.PageSize;
+    </script>
+    <script src="~/js/excerciseTwo.js"></script>
+}
 
+@* 
 @section Scripts {
     <script>
         let currentPage = @ViewBag.CurrentPage;
@@ -174,4 +185,4 @@ else
     </script>
 }
 
-
+ *@

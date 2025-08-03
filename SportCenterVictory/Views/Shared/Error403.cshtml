@@ -1,8 +1,10 @@
-﻿@{
+﻿@model string
+
+@{
     ViewData["Title"] = "Access Denied";
     Layout = "_Layout";
 }
-<style>
+@* <style>
     .error-page {
         text-align: center;
         padding: 60px 20px;
@@ -37,13 +39,27 @@
         .back-btn:hover {
             background-color: #5aaa10;
         }
-</style>
+</style> *@
 
 <div class="error-page layout_padding">
     <div class="error-code">403</div>
-    <div class="error-message pb-5">
-        You don’t have permission to access this page.
-    </div>
+    @if (!string.IsNullOrEmpty(Model))
+    {
+        <div class="error-message pb-5">
+            @Model
+        </div>
+
+    }
+    else
+    {
+        <div class="error-message pb-5">
+            You don’t have permission to access this page.
+        </div>
+    }
     <a asp-controller="Home" asp-action="Index" class="back-btn mt-5">🔐 Go Back Home</a>
 
 </div>
+
+@section Styles {
+    <link href="~/css/errors.css" rel="stylesheet" />
+}

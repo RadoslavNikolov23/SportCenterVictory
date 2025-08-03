@@ -5,7 +5,7 @@
 @{
     ViewData["Title"] = "Search Products ";
 }
-
+@* 
 <style>
     .search-container {
         display: flex;
@@ -54,7 +54,7 @@
         max-height: 200px;
         object-fit: contain;
     }
-</style>
+</style> *@
 
 <div class="container py-4">
     <h2 class="about_taital text-center pb-4 pt-4">Search the Store</h2>
@@ -105,3 +105,7 @@
         <p class="text-center text-danger">No results found for "@Model.SearchTerm"</p>
     }
 </div>
+
+@section Styles {
+    <link href="~/css/search-produtct.css" rel="stylesheet" />
+}

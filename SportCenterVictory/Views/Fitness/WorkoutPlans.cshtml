@@ -5,6 +5,9 @@
     ViewData["Title"] = "Fitness Workout Plans ";
 }
 
+
+
+@* 
 <style>
     body {
         background-color: #f3f6fa;
@@ -108,7 +111,7 @@
             margin: 1rem 0;
             border-top: 1px dashed #aaa;
         }
-</style>
+</style> *@
 
 <h2 class="about_taital text-center pt-4"> Our Fitness Workout Plans</h2>
 
@@ -159,7 +162,16 @@
     </div>
 </div>
 
+
+@section Styles {
+    <link href="~/css/workoutPlan.css" rel="stylesheet" />
+}
+
 @section Scripts {
+    <script src="~/js/workoutPlan.js"></script>
+}
+
+@* @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Delegate click to all links with class 'exercise-link'
@@ -188,4 +200,4 @@
         
     </script>
 
-}
+} *@

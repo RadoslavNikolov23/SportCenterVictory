@@ -46,7 +46,15 @@
                 foreach (MembershipDetailViewModel membershipDetailVM in membershipsVM)
                 {
                     membershipDetailVM.IsPurchasedMembership = await this.membershipUserService
-                        .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
+                                 .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
+                    
+                    membershipDetailVM.CanBeRemoved = await this.membershipUserService
+                                  .CanUserRemovedIt(membershipDetailVM.Id, this.GetUserId());
+
+
+                    membershipDetailVM.IsExpired = await this.membershipUserService
+                                  .IsExpired(membershipDetailVM.Id, this.GetUserId());
+
                 }
             }
 

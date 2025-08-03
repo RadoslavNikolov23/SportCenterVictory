@@ -72,6 +72,17 @@
     </div>
 </div>
 
+
+
+@section Scripts {
+    <script>
+        const memberships = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+    </script>
+    <script src="~/js/admin/membership-edit.js"></script>
+}
+
+@* 
 @section Scripts {
     <script>
         window.addEventListener("DOMContentLoaded", () => {
@@ -118,4 +129,4 @@
             });
         });
     </script>
-}
+} *@

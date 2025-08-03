@@ -71,7 +71,15 @@
     </div>
 </div>
 
+
 @section Scripts {
+    <script>
+        const classes = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+    </script>
+    <script src="~/js/admin/crossfitClass-edit.js"></script>
+}
+
+@* @section Scripts {
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             document.getElementById("Id").value = "";
@@ -117,4 +125,4 @@
             });
         });
     </script>
-}
+} *@

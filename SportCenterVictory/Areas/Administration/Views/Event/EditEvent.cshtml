@@ -76,6 +76,15 @@
 
 @section Scripts {
     <script>
+        const events = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+    </script>
+    <script src="~/js/admin/event-edit.js"></script>
+}
+
+
+@* @section Scripts {
+    <script>
         window.addEventListener("DOMContentLoaded", () => {
             document.getElementById("Id").value = "";
             document.getElementById("Title").value = "";
@@ -122,4 +131,4 @@
             });
         });
     </script>
-}
+} *@

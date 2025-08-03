@@ -37,39 +37,39 @@
                     @if (!user.Roles.Contains("Admin"))
                     {
                         @* <div class="d-flex justify-content-center align-items-center flex-wrap gap-4"> *@
-                            <select id="roleDropdown-@user.Id" class="form-select form-select-sm w-auto mr-3" >
+                        <select id="roleDropdown-@user.Id" class="form-select form-select-sm w-auto mr-3">
                             @foreach (var role in roleManager.Roles.Where(r => r.Name != RoleConstants.Admin).ToList())
-                                {
-                                    <option value="@role.Name" selected="@(user.Roles.Contains(role.Name) ? "selected" : null)">
-                                        @role.Name
-                                    </option>
-                                }
-                            </select>
+                            {
+                                <option value="@role.Name" selected="@(user.Roles.Contains(role.Name) ? "selected" : null)">
+                                    @role.Name
+                                </option>
+                            }
+                        </select>
 
                         <form method="post" asp-action="AssignRole" asp-controller="UserManagement" asp-area="Administration" class="d-inline mr-2">
-                                <input type="hidden" name="userId" value="@user.Id" />
-                                <input type="hidden" name="role" id="assignRoleInput-@user.Id" />
-                                <button type="submit" class="btn btn-sm btn-success fw-bold"
-                                        onclick="setRoleValue('@user.Id', 'assignRoleInput')">
-                                    <i class="bi bi-person-plus-fill"></i> Assign
-                                </button>
-                            </form>
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <input type="hidden" name="role" id="assignRoleInput-@user.Id" />
+                            <button type="submit" class="btn btn-sm btn-success fw-bold"
+                                    onclick="setRoleValue('@user.Id', 'assignRoleInput')">
+                                <i class="bi bi-person-plus-fill"></i> Assign
+                            </button>
+                        </form>
 
                         <form method="post" asp-action="RemoveRole" asp-controller="UserManagement" asp-area="Administration" class="d-inline mr-2">
-                                <input type="hidden" name="userId" value="@user.Id" />
-                                <input type="hidden" name="role" id="removeRoleInput-@user.Id" />
-                                <button type="submit" class="btn btn-sm btn-warning fw-bold"
-                                        onclick="setRoleValue('@user.Id', 'removeRoleInput')">
-                                    <i class="bi bi-person-x-fill"></i> Remove
-                                </button>
-                            </form>
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <input type="hidden" name="role" id="removeRoleInput-@user.Id" />
+                            <button type="submit" class="btn btn-sm btn-warning fw-bold"
+                                    onclick="setRoleValue('@user.Id', 'removeRoleInput')">
+                                <i class="bi bi-person-x-fill"></i> Remove
+                            </button>
+                        </form>
 
                         <form method="post" asp-action="DeleteUser" asp-controller="UserManagement" asp-area="Administration" class="d-inline mr-2">
-                                <input type="hidden" name="userId" value="@user.Id" />
-                                <button type="submit" class="btn btn-sm btn-danger fw-bold">
-                                    <i class="bi bi-trash-fill"></i> Delete
-                                </button>
-                            </form>
+                            <input type="hidden" name="userId" value="@user.Id" />
+                            <button type="submit" class="btn btn-sm btn-danger fw-bold">
+                                <i class="bi bi-trash-fill"></i> Delete
+                            </button>
+                        </form>
                         @* </div> *@
                     }
                     else
@@ -82,4 +82,9 @@
     </tbody>
 </table>
 
-<script src="~/js/userManagement.js" asp-append-version="true"></script>
+
+
+@section Scripts {
+
+    <script src="~/js/admin/userManagement.js" asp-append-version="true"></script>
+}

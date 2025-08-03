@@ -7,7 +7,7 @@
 }
 
 
-<style>
+@* <style>
     .membership-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -86,7 +86,7 @@
         .remove-button:hover {
             background-color: #772929;
         }
-</style>
+</style> *@
 
 <h2 class="about_taital text-center pt-4">Our Powerlifting Memberships</h2>
 
@@ -106,12 +106,26 @@
             {
                 @if (membership.IsPurchasedMembership)
                 {
-                    <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
-                        <input type="hidden" name="membershipId" value="@membership.Id" />
-                        <button type="submit" class="remove-button">
-                            <i class="bi bi-file-x"></i> Remove Membership
-                        </button>
-                    </form>
+
+                    @if (membership.CanBeRemoved)
+                    {
+                        <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
+                            <input type="hidden" name="membershipId" value="@membership.Id" />
+                            <button type="submit" class="remove-button">
+                                <i class="bi bi-file-x"></i> Remove Membership
+                            </button>
+                        </form>
+                    }
+                    else if (membership.IsExpired)
+                    {
+                        <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                            <input type="hidden" name="membershipId" value="@membership.Id" />
+                            <button type="submit" class="buy-button">
+                                <i class="bi bi-bookmark-star"></i> Buy Membership
+                            </button>
+                        </form>
+                    }
+
                 }
                 else
                 {
@@ -121,10 +135,16 @@
                             <i class="bi bi-bookmark-star"></i> Buy Membership
                         </button>
                     </form>
+
                 }
             }
         </div>
     }
 </div>
+
+
+@section Styles {
+    <link href="~/css/powerliftingMembership.css" rel="stylesheet" />
+}
 
 

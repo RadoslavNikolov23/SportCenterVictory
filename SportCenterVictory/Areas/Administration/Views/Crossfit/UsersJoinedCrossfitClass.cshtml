@@ -7,7 +7,7 @@
         .GroupBy(m => m.DayOfWeek);
 }
 
-@section Styles {
+@* @section Styles {
     <style>
         .specialty-card {
             border-radius: 16px;
@@ -35,7 +35,7 @@
             background-color: #f2f2f2;
         }
     </style>
-}
+} *@
 
 <h3 class="about_taital text-center pt-5 pb-5">Memberships & Client Overview</h3>
 
@@ -70,4 +70,8 @@
             </table>
         </div>
     </div>
+}
+
+@section Styles {
+    <link href="~/css/admin/userCrossfitcCass.css" rel="stylesheet" />
 }

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Store - Equipment ";
 }
 
-<style>
+@* <style>
     body {
         background-color: #f8f9fa;
         font-family: 'Segoe UI', sans-serif;
@@ -98,7 +98,7 @@
         .btn-buy:hover {
             background-color: #197208;
         }
-</style>
+</style> *@
 
 <div class="about_section layout_padding pt-2">
     <div class="store-container">
@@ -141,7 +141,18 @@
     </div>
 </div>
 
+
+@section Styles {
+    <link href="~/css/equipment-product.css" rel="stylesheet" />
+}
+
 @section Scripts {
+    <script src="~/js/equipment-product.js"></script>
+}
+
+
+
+@* @section Scripts {
     <script>
         // Attach to all forms with class quantity-buy
         document.querySelectorAll('form.quantity-buy').forEach(form => {
@@ -174,32 +185,4 @@
             });
         });
     </script>
-}
-
-
-@* @section Scripts {
-        <script>
-            document.querySelectorAll(".btn-buy").forEach(btn => {
-                btn.addEventListener("click", function () {
-                    const productId = this.getAttribute("data-id");
-                    const quantity = this.parentElement.querySelector("input").value;
-
-                    fetch('/Store/AddToCart', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
-                        },
-                        body: JSON.stringify({ productId, quantity })
-                    })
-                     .then(response => {
-                        if (response.ok) {
-                            window.location.href = '/Store/Cart';
-                        } else {
-                            alert("Error adding product to cart.");
-                        }
-                    });
-                });
-            });
-        </script>
 } *@

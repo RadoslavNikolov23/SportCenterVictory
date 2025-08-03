@@ -8,7 +8,6 @@
 
         public string Name { get; set; } = null!;
 
-
         public SportType MembershipType { get; set; }
 
         public string DurationText { get; set; } = null!;
@@ -18,6 +17,8 @@
         public bool IsPurchasedMembership { get; set; }
 
         public bool CanBeRemoved { get; set; }
+
+        public bool IsExpired { get; set; }
 
 
     }

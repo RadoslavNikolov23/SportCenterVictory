@@ -36,7 +36,7 @@
                     MembershipType = mu.Membership.MembershipType,
                     DurationText = mu.Membership.DurationText,
                     PurchasedOn = mu.PurchasedOn.ToString(DateOnlyFormat),
-                    CanBeRemoved = CanBeRemoved(mu.PurchasedOn),
+                    //CanBeRemoved = CanBeRemoved(mu.PurchasedOn),
                 })
                 .ToArrayAsync();
 
@@ -136,7 +136,7 @@
                        && mu.MembershipId.ToString().ToLower() == membershipGuid.ToString().ToLower())
                        && mu.IsDeleted == false);
 
-                    if (membershipUserEntry != null && CanBeRemoved(membershipUserEntry.PurchasedOn))
+                    if (membershipUserEntry != null)
                     {
                         result = true;
                     }
@@ -168,9 +168,71 @@
             return clientsMembershipList;
         }
 
+        public async Task<bool> CanUserRemovedIt(string? membershipId, string? userId)
+        {
+            bool result = false;
+
+            if (membershipId != null && userId != null)
+            {
+                bool isMembershipIdValid = Guid.TryParse(membershipId, out Guid membershipGuid);
+
+                if (isMembershipIdValid)
+                {
+                    MembershipUser? membershipUserEntry = await this.membershipUserRepo
+                        .GetAllAttached()
+                        .AsNoTracking()
+                        .IgnoreQueryFilters()
+                        .SingleOrDefaultAsync(mu => (mu.ApplicationUserId.ToString().ToLower() == userId.ToLower()
+                       && mu.MembershipId.ToString().ToLower() == membershipGuid.ToString().ToLower())
+                       && mu.IsDeleted == false);
+
+                    if (membershipUserEntry != null && CanBeRemoved(membershipUserEntry.PurchasedOn))
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        public async Task<bool> IsExpired(string? membershipId, string? userId)
+        {
+            bool result = false;
+
+            if (membershipId != null && userId != null)
+            {
+                bool isMembershipIdValid = Guid.TryParse(membershipId, out Guid membershipGuid);
+
+                if (isMembershipIdValid)
+                {
+                    MembershipUser? membershipUserEntry = await this.membershipUserRepo
+                        .GetAllAttached()
+                        .Include(mu=>mu.Membership)
+                        .AsNoTracking()
+                        .IgnoreQueryFilters()
+                        .SingleOrDefaultAsync(mu => (mu.ApplicationUserId.ToString().ToLower() == userId.ToLower()
+                       && mu.MembershipId.ToString().ToLower() == membershipGuid.ToString().ToLower())
+                       && mu.IsDeleted == false);
+
+                    if (membershipUserEntry != null && IsExpired(membershipUserEntry.PurchasedOn, membershipUserEntry.Membership.Duration))
+                    {
+                        result = true;
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private static bool CanBeRemoved(DateTime inputDateTime)
         {
             return (DateTime.UtcNow - inputDateTime).TotalDays <= 14;
+        }
+
+        private static bool IsExpired(DateTime purchasedOn, int durationInDays)
+        {
+            return DateTime.UtcNow > purchasedOn.AddDays(durationInDays);
         }
 
     }

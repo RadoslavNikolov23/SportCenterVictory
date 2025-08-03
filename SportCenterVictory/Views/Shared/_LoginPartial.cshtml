@@ -17,14 +17,12 @@
         Account
     </a>
 
-    <!-- Dropdown Menu (contains _LoginPartial) -->
     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
 
         @if (SignInManager.IsSignedIn(User))
         {
             <li><h6 class="dropdown-header">Hello, @nameUser!</h6></li>
 
-            @* === USER ROLE === *@
             @if (roles.Contains("User"))
             {
                 <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="LeaveFeedback">Leave Feedback</a></li>
@@ -35,14 +33,12 @@
                 <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="MadeOrders">My Orders</a></li>
             }
 
-            @* === TRAINER ROLE === *@
             else if (roles.Contains("Trainer"))
             {
                 <li><a class="dropdown-item" asp-area="" asp-controller="TrainerPanel" asp-action="UserClientList">Client List</a></li>
                 <li><a class="dropdown-item" asp-area="" asp-controller="UserPanel" asp-action="JoinedEvents">Joined Events</a></li>
             }
 
-            @* === ADMIN/MANAGER === *@
             else if (roles.Contains("Admin") || roles.Contains("Manager"))
             {
                 <li><a class="dropdown-item" asp-area="Administration" asp-controller="Crossfit" asp-action="UsersJoinedCrossfitClass">CrossFit Classes & Users</a></li>
@@ -65,11 +61,9 @@
         }
         else
         {
-            <!-- Guest options -->
             <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Login">Login</a></li>
             <li><a class="dropdown-item" asp-area="Identity" asp-page="/Account/Register">Register</a></li>
         }
     </ul>
 </li>
-@* </li> *@
 

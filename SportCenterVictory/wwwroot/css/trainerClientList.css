@@ -1,0 +1,22 @@
+﻿.client-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+    .client-card:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    }
+
+.avatar-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #007bff;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+}

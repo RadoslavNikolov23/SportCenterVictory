@@ -18,5 +18,9 @@
 
         public bool IsPurchasedMembership { get; set; }
 
+        public bool CanBeRemoved { get; set; }
+
+        public bool IsExpired { get; set; }
+
     }
 }

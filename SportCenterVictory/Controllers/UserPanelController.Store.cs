@@ -30,6 +30,13 @@
                 {
                     membershipUserVM.IsPurchasedMembership = await this.membershipUserService
                         .IsUserAddedToMembershipList(membershipUserVM.MembershipId, this.GetUserId());
+
+                    membershipUserVM.CanBeRemoved = await this.membershipUserService
+         .CanUserRemovedIt(membershipUserVM.MembershipId, this.GetUserId());
+
+
+                    membershipUserVM.IsExpired = await this.membershipUserService
+                        .IsExpired(membershipUserVM.MembershipId, this.GetUserId());
                 }
 
                 return View(membershipUserList);

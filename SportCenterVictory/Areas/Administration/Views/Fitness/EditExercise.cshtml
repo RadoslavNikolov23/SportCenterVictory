@@ -95,6 +95,15 @@
 
 @section Scripts {
     <script>
+        const exercises = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+    </script>
+    <script src="~/js/admin/exercise-edit.js"></script>
+}
+
+
+@* @section Scripts {
+    <script>
         window.addEventListener("DOMContentLoaded", () => {
             document.getElementById("Id").value = "";
             document.getElementById("Name").value = "";
@@ -149,4 +158,4 @@
             });
         });
     </script>
-}
+} *@

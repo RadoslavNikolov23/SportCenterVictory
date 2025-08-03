@@ -54,6 +54,14 @@
                 {
                     membershipDetailVM.IsPurchasedMembership = await this.membershipUserService
                         .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
+
+
+                    membershipDetailVM.CanBeRemoved = await this.membershipUserService
+                        .CanUserRemovedIt(membershipDetailVM.Id, this.GetUserId());
+
+
+                    membershipDetailVM.IsExpired = await this.membershipUserService
+                        .IsExpired(membershipDetailVM.Id, this.GetUserId());
                 }
             }
 
@@ -79,6 +87,7 @@
                 {
                     trainerDetailVM.IsAddedToFavorites = await this.trainerUserService
                         .IsTrainerAddedToUserList(trainerDetailVM.Id, this.GetUserId());
+
                 }
             }
 

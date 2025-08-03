@@ -56,11 +56,16 @@
 
                 if (entityCrossfitWOD != null)
                 {
-                    this.crossfitWODRepository.Add(entityCrossfitWOD);
-                }
-                else
-                {
-                    return null;
+                    CrossfitWorkoutOfTheDay? wodExist = await this.crossfitWODRepository
+                                       .GetAllAttached()
+                                       .SingleOrDefaultAsync(cwod => cwod.WorkoutDate == entityCrossfitWOD.WorkoutDate &&
+                                                            cwod.Name == entityCrossfitWOD.Name);
+
+                    if (wodExist == null)
+                    {
+                        this.crossfitWODRepository.Add(entityCrossfitWOD);
+
+                    }
                 }
             }
 

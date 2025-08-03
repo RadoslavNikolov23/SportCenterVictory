@@ -5,7 +5,7 @@
     ViewData["Title"] = "CrossFit Workout of the Day ";
 }
 
-<style>
+@* <style>
     body {
         background-color: #f7f9fc;
         font-family: 'Segoe UI', sans-serif;
@@ -68,7 +68,7 @@
         color: #ccc;
         cursor: not-allowed;
     }
-</style>
+</style> *@
 
 <div class="about_section layout_padding pt-2">
     <div class="wod-container pt-2">
@@ -86,7 +86,18 @@
     </div>
 </div>
 
+@section Styles {
+    <link href="~/css/crossfitWOD.css" rel="stylesheet" />
+}
+
 @section Scripts {
+    <script>
+        const currentWodName = "@Model.Name";
+    </script>
+    <script src="~/js/crossfitWOD.js"></script>
+}
+
+@* @section Scripts {
     <script>
         let currentIndex = 0;
         let wodList = [];
@@ -134,4 +145,4 @@
             });
         });
     </script>
-}
+} *@

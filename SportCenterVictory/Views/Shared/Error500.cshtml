@@ -1,9 +1,11 @@
-﻿@{
+﻿@model string
+
+@{
     ViewData["Title"] = "Internal Server Error";
     Layout = "_Layout";
 }
 
-<style>
+@* <style>
     .error-page {
         text-align: center;
         padding: 60px 20px;
@@ -38,14 +40,30 @@
         .back-btn:hover {
             background-color: #5aaa10;
         }
-</style>
+</style> *@
 
 <div class="error-page layout_padding">
     <div class="error-code">500</div>
-    <div class="error-message pb-5">
-                    Something went wrong on our side.<br />
-        We’re working on it! Try Again Later
-    </div>
+
+    @if (!string.IsNullOrEmpty(Model))
+    {
+        <div class="error-message pb-5">
+            @Model
+        </div>
+
+    }
+    else
+    {
+        <div class="error-message pb-5">
+            Something went wrong on our side.<br />
+            We’re working on it! Try Again Later
+        </div>
+    }
     <a asp-controller="Home" asp-action="Index" class="back-btn mt-5">🔁 Go back Home</a>
 
 </div>
+
+
+@section Styles {
+    <link href="~/css/errors.css" rel="stylesheet" />
+}

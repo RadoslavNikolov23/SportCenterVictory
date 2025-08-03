@@ -107,6 +107,7 @@
                 </li>
             }
 
+            <!-- Order Approve (Admin and Manager) -->
             @if (User.IsInRole(@Admin) || User.IsInRole(@Manager))
             {
                 <li><hr class="dropdown-divider" /></li>
@@ -119,7 +120,6 @@
             }
 
             <!-- Trainer Bio -->
-
             <li class="dropdown-submenu">
                 <a class="dropdown-item dropdown-toggle" href="#">Trainer Bio</a>
                 <ul class="dropdown-menu" style="min-width: 200px;">

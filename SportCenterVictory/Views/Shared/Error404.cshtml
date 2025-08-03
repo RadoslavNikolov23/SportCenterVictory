@@ -4,7 +4,7 @@
     ViewData["Title"] = "Page Not Found";
     Layout = "_Layout";
 }
-
+@* 
 <style>
     .error-page {
         text-align: center;
@@ -40,7 +40,7 @@
         .back-btn:hover {
             background-color: #5aaa10;
         }
-</style>
+</style> *@
 
 
 <div class="error-page layout_padding">
@@ -63,3 +63,7 @@
 
     <a asp-controller="Home" asp-action="Index" class="back-btn mt-5">🏠 Back to Home</a>
 </div>
+
+@section Styles {
+    <link href="~/css/errors.css" rel="stylesheet" />
+}

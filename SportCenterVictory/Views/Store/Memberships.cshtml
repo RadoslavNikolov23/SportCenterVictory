@@ -6,7 +6,7 @@
     ViewData["Title"] = "Store - Memberships";
 }
 
-<style>
+@* <style>
     .membership-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -85,7 +85,7 @@
         .remove-button:hover {
             background-color: #772929;
         }
-</style>
+</style> *@
 
 <div class="about_section layout_padding pt-2">
 
@@ -108,23 +108,38 @@
 
                     @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
                     {
-                        @if (membership.IsPurchasedMembership)
+                        @if (membership.IsPurchasedMembership && membership.CanBeRemoved)
                         {
-                            <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
-                                <input type="hidden" name="membershipId" value="@membership.Id" />
-                                <button type="submit" class="remove-button">
-                                    <i class="bi bi-file-x"></i> Remove Membership
-                                </button>
-                            </form>
+
+                            @if (membership.CanBeRemoved)
+                            {
+                                <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
+                                    <input type="hidden" name="membershipId" value="@membership.Id" />
+                                    <button type="submit" class="remove-button">
+                                        <i class="bi bi-file-x"></i> Remove Membership
+                                    </button>
+                                </form>
+                            }
+                            else if (membership.IsExpired)
+                            {
+                                <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                                    <input type="hidden" name="membershipId" value="@membership.Id" />
+                                    <button type="submit" class="buy-button">
+                                        <i class="bi bi-bookmark-star"></i> Buy Membership
+                                    </button>
+                                </form>
+                            }
+
                         }
                         else
                         {
-                            <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
-                                <input type="hidden" name="membershipId" value="@membership.Id" />
-                                <button type="submit" class="buy-button">
-                                    <i class="bi bi-bookmark-star"></i> Buy Membership
-                                </button>
-                            </form>
+                                <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                                    <input type="hidden" name="membershipId" value="@membership.Id" />
+                                    <button type="submit" class="buy-button">
+                                        <i class="bi bi-bookmark-star"></i> Buy Membership
+                                    </button>
+                                </form>
+                            
                         }
                     }
                 </div>
@@ -132,3 +147,7 @@
         </div>
     }
 </div>
+
+@section Styles {
+    <link href="~/css/storeMembership.css" rel="stylesheet" />
+}

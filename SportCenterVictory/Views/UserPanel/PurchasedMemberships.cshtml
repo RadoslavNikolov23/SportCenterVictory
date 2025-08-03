@@ -5,10 +5,10 @@
     ViewData["Title"] = "Purchased Memberships";
     var now = DateTime.UtcNow;
     var currentMemberships = Model.Where(m => m.CanBeRemoved).ToList();
-    var pastMemberships = Model.Where(m => !m.CanBeRemoved).ToList();
+    var pastMemberships = Model.Where(m => !m.CanBeRemoved && m.IsExpired).ToList();
 }
 
-<style>
+@* <style>
     .membership-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -90,7 +90,7 @@
         font-weight: bold;
         color: #222;
     }
-</style>
+</style> *@
 
 
 <h2 class="about_taital text-center pt-4 pb-4">Purchased Memberships</h2>
@@ -150,4 +150,8 @@ else
         </div>
     }
     </div>
+}
+
+@section Styles {
+    <link href="~/css/purchasedMemebership.css" rel="stylesheet" />
 }

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Client List ";
 }
 
-@section Styles {
+@* @section Styles {
     <style>
         .client-card {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -30,7 +30,7 @@
             margin: 0 auto 10px;
         }
     </style>
-}
+} *@
 
 <h3 class="about_taital text-center pb-4">All of Our Clients</h3>
 
@@ -57,7 +57,15 @@
     </div>
 </div>
 
+@section Styles {
+    <link href="~/css/trainerClientList.css" rel="stylesheet" />
+}
+
 @section Scripts {
+    <script src="~/js/trainerClientList.js"></script>
+}
+
+@* @section Scripts {
     <script>
         document.getElementById("searchInput").addEventListener("keyup", function () {
             var filter = this.value.toUpperCase();
@@ -69,4 +77,4 @@
             });
         });
     </script>
-}
+} *@

@@ -1,12 +1,13 @@
 ﻿namespace SportCenterVictory.Controllers
 {
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Authorization;
+
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.FitnessVM;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Authorization;
     using SCV.Web.ViewModels.TrainerVM;
 
     public class FitnessController : BaseController
@@ -83,6 +84,13 @@
                 {
                     membershipDetailVM.IsPurchasedMembership = await this.membershipUserService
                         .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
+
+                    membershipDetailVM.CanBeRemoved = await this.membershipUserService
+                             .CanUserRemovedIt(membershipDetailVM.Id, this.GetUserId());
+
+
+                    membershipDetailVM.IsExpired = await this.membershipUserService
+                        .IsExpired(membershipDetailVM.Id, this.GetUserId());
                 }
             }
 

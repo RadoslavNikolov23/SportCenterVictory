@@ -15,5 +15,8 @@
 
         Task<IEnumerable<UserMembershipForAdminListViewModel>> ForAdminMembershipClientsListAsync();
 
+        Task<bool> CanUserRemovedIt(string? membershipId, string? userId);
+
+        Task<bool> IsExpired(string? membershipId, string? userId);
     }
 }

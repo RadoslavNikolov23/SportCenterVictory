@@ -77,6 +77,15 @@
     <script>
         const trainers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
 
+    </script>
+    <script src="~/js/admin/trainerBioAdmin-edit.js"></script>
+}
+
+@* 
+@section Scripts {
+    <script>
+        const trainers = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
         document.getElementById("loadTrainerBtn").addEventListener("click", function () {
             const input = document.getElementById("trainerSearchInput").value;
             const selected = trainers.find(t => t.Email === input);
@@ -113,4 +122,4 @@
                 });
         });
     </script>
-}
+} *@

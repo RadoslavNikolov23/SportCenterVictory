@@ -62,7 +62,16 @@
     </div>
 </div>
 
+
 @section Scripts {
+    <script>
+        const workoutPlans = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(Model));
+
+    </script>
+    <script src="~/js/admin/workoutPlan-edit.js"></script>
+}
+
+@* @section Scripts {
     <script>
         window.addEventListener("DOMContentLoaded", () => {
             document.getElementById("Id").value = "";
@@ -106,4 +115,4 @@
             });
         });
     </script>
-}
+} *@
