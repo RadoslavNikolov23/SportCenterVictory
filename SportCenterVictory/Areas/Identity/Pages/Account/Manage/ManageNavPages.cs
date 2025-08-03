@@ -1,7 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-
+﻿
 namespace SportCenterVictory.Areas.Identity.Pages.Account.Manage
 {
+    using Microsoft.AspNetCore.Mvc.Rendering;
     public static class ManageNavPages
     {
         public static string Index => "Index";

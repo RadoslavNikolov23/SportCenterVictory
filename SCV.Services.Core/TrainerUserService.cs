@@ -120,7 +120,6 @@
                     {
                         trainerUserEntry.IsDeleted = true;
 
-                        //Maybe make DeleteAsync to -> SoftDeleteAsync
                         result = await this.trainerUserRepo.DeleteAsync(trainerUserEntry);
                     }
                 }

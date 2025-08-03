@@ -1,15 +1,12 @@
 ﻿namespace SCV.Web.ViewModels.Administration.FitnessVM
 {
     using System.ComponentModel.DataAnnotations;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsExercise;
     using static SCV.GlCommon.ValidationMessages.Exercise;
 
     public class ExerciseAddViewModel
     {
-
-        // [Required(ErrorMessage = IdRequired)]
-        // [StringLength(IdLength, MinimumLength = IdMinLength, ErrorMessage = IdLength)]
-        // public string Id { get; set; } = null!;
 
         [Required(ErrorMessage = NameRequired)]
         [StringLength(NameMaxLength, MinimumLength = NameMinLength, ErrorMessage = NameLength)]

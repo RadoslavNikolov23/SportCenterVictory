@@ -14,5 +14,8 @@
         public const string ErrorMessageKey = "error";
         public const string SuccessMessageKey = "success";
 
+        public const string NoImage = $"/noImage.jpg";
+        public const string ImageFallback = $"/imagesExercises/fallback.jpg";
+
     }
 }

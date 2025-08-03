@@ -5,65 +5,7 @@
 @{
     ViewData["Title"] = "Exercises ";
 }
-@* 
-<style>
-    .exercise-card {
-        background: white;
-        border-radius: 8px;
-        margin-bottom: 20px;
-        overflow: hidden;
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-    }
 
-        .exercise-card img {
-            width: 100%;
-            max-height: 150px;
-            object-fit: contain;
-        }
-
-    .content {
-        padding: 15px;
-    }
-
-    .bookmark {
-        float: right;
-        cursor: pointer;
-        font-size: 18px;
-        user-select: none;
-    }
-
-    .bookmarked {
-        color: red;
-    }
-
-    .name {
-        font-size: 1.2em;
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    section.collapsed p:not(:first-child) {
-        display: none;
-    }
-
-    .more-link {
-        color: blue;
-        font-size: 0.9em;
-        cursor: pointer;
-        display: inline-block;
-        margin-top: 5px;
-        text-decoration: underline;
-    }
-
-    section.instructions-section.collapsed .instructions-text {
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 3; /* Show about 3 lines */
-        -webkit-box-orient: vertical;
-        max-height: 4.5em; /* approx 3 lines */
-        text-overflow: ellipsis; }
-
-</style> *@
 
 @if (!Model.Any())
 {
@@ -77,12 +19,10 @@ else
         <h1 class="about_taital text-center">Exercise Library</h1>
         <input type="text" id="search" placeholder="Search exercises..." class="form-control mb-3" />
 
-        <!-- Exercises container -->
         <div class="row mb-4" id="exercise-list">
             @await Html.PartialAsync("_ExercisePartial", Model)
         </div>
 
-        <!-- Load More button placed outside the row to avoid layout break -->
         <div class="about_taital text-center mt-1 pt-2">
             <button id="load-more-btn" class="btn btn-primary" style="width: 250px; height: 50px;">Load More</button>
         </div>
@@ -100,89 +40,3 @@ else
     </script>
     <script src="~/js/exerciseTwo.js"></script>
 }
-
-@* 
-@section Scripts {
-    <script>
-        let currentPage = @ViewBag.CurrentPage;
-        const pageSize = @ViewBag.PageSize;
-        let searchQuery = "";
-        const loadMoreBtn = document.getElementById('load-more-btn');
-        const exerciseList = document.getElementById('exercise-list');
-
-        async function loadExercises() {
-            currentPage++;
-        const response = await fetch(`/Fitness/Exercises?page=${currentPage}&pageSize=${pageSize}&query=${encodeURIComponent(searchQuery)}`, {
-            headers: { 'X-Requested-With': 'XMLHttpRequest' }
-            });
-            const html = await response.text();
-            const temp = document.createElement('div');
-            temp.innerHTML = html;
-
-            // Append new cards
-            while (temp.firstChild) {
-                exerciseList.appendChild(temp.firstChild);
-            }
-
-            attachEvents(); // reattach event listeners to new elements
-
-            if (!html.trim()) {
-                loadMoreBtn.style.display = 'none'; // Hide button if no more
-            }
-        }
-
-        function attachEvents() {
-            // Toggle instructions link
-            document.querySelectorAll('.toggle-instructions-link').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    const section = link.closest('section.instructions-section');
-                    const isCollapsed = section.classList.contains('collapsed');
-                    section.classList.toggle('collapsed');
-                    link.textContent = isCollapsed ? 'Collapse' : 'More';
-                });
-            });
-
-            // Image toggle
-            document.querySelectorAll('.toggle-image').forEach(img => {
-                if (!img.dataset.toggleAttached) {
-                    let toggled = false;
-                    img.dataset.toggleAttached = true;
-                    img.addEventListener('click', () => {
-                        const first = img.getAttribute('data-first');
-                        const second = img.getAttribute('data-second');
-                        img.src = toggled ? first : second;
-                        toggled = !toggled;
-                    });
-                }
-            });
-        }
-
-        // Initial attach
-        attachEvents();
-
-        // Load more click
-        loadMoreBtn?.addEventListener('click', loadExercises);
-
-        // Search input handler
-        document.getElementById('search')?.addEventListener('input', async (e) => {
-            searchQuery = e.target.value.toLowerCase();
-            currentPage = 1;
-
-            // Fetch matching exercises from the server
-            const response = await fetch(`/Fitness/Exercises?page=${currentPage}&pageSize=${pageSize}&query=${encodeURIComponent(searchQuery)}`, {
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
-            });
-
-            const html = await response.text();
-            exerciseList.innerHTML = html;
-
-            attachEvents();
-
-            // Show/hide Load More based on query
-            loadMoreBtn.style.display = searchQuery ? 'none' : 'block';
-        });
-    </script>
-}
-
- *@

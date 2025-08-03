@@ -58,9 +58,7 @@
 
                 if (membershipId == null)
                 {
-                    //TODO: Redirect to the same action detail
                     return this.RedirectToAction(nameof(Index));
-                    //Or ad this   return this.Forbid();
                 }
 
                 bool isMembershipJoinedByUser = await this.membershipUserService
@@ -68,11 +66,9 @@
 
                 if (isMembershipJoinedByUser == false)
                 {
-                    // TODO: Add JS notifications and fix this!
                     return this.RedirectToAction(nameof(PurchasedMemberships), "UserPanel");
                 }
 
-                // Also TODO this:
                 return this.RedirectToAction(nameof(PurchasedMemberships));
             }
             catch (Exception e)
@@ -92,9 +88,7 @@
 
                 if (membershipId == null)
                 {
-                    //TODO: Redirect to the same action detail
                     return this.RedirectToAction(nameof(PurchasedMemberships));
-                    //Or ad this   return this.Forbid();
                 }
 
                 bool isRemovedUserFromMembership = await this.membershipUserService
@@ -102,7 +96,6 @@
 
                 if (isRemovedUserFromMembership == false)
                 {
-                    // If the recipe was not removed from favorites, we still redirect to the same page by default by the requirements.
                     return this.RedirectToAction(nameof(PurchasedMemberships), "UserPanel");
                 }
 

@@ -1,6 +1,5 @@
 ﻿namespace SCV.Services.Core
 {
-    using Microsoft.AspNetCore.Components.Forms;
     using Microsoft.EntityFrameworkCore;
 
     using SCV.Data.Models;
@@ -36,7 +35,6 @@
                     MembershipType = mu.Membership.MembershipType,
                     DurationText = mu.Membership.DurationText,
                     PurchasedOn = mu.PurchasedOn.ToString(DateOnlyFormat),
-                    //CanBeRemoved = CanBeRemoved(mu.PurchasedOn),
                 })
                 .ToArrayAsync();
 
@@ -108,7 +106,6 @@
                             membershipUserEntry.IsDeleted = true;
                             membershipUserEntry.PurchasedOn = new DateTime();
 
-                            //Maybe make DeleteAsync to -> SoftDeleteAsync
                             result = await this.membershipUserRepo.DeleteAsync(membershipUserEntry);
                         }
                     } 

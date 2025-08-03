@@ -1,7 +1,8 @@
 ﻿namespace SCV.Web.ViewModels.Administration.ReferenceVM
 {
-    using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
+
+    using SCV.GlCommon.Enums;
 
     public class TrainerUserForAdminListViewModel
     {

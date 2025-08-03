@@ -18,7 +18,5 @@
 
         public string? ImageUrl { get; set; }
 
-
-        //public virtual ICollection<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
     }
 }

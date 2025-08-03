@@ -10,7 +10,6 @@
     <ProjectReference Include="..\SCV.Data\SCV.Data.csproj" />
     <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
     <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
-    <ProjectReference Include="..\SCV.Services.AutoMapper\SCV.Services.AutoMapper.csproj" />
     <ProjectReference Include="..\SCV.Services.Common\SCV.Services.Common.csproj" />
     <ProjectReference Include="..\SCV.Web.ViewModels\SCV.Web.ViewModels.csproj" />
   </ItemGroup>

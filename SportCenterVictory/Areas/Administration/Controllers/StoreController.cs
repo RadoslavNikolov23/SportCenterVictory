@@ -230,8 +230,11 @@
         }
 
 
-        //====> 
-        //====> Product actions are in the partial class StoreController.Products.cs file --->
-        //====>
+        /*
+                ================================================
+                == Product actions are in the partial class   ==
+                == StoreController.Products.cs file --->      ==
+                ================================================
+        */
     }
 }

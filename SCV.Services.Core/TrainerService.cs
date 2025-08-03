@@ -9,6 +9,8 @@
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.TrainerBioVM;
     using SCV.Web.ViewModels.TrainerVM;
+
+    using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
 
     public class TrainerService : ITrainerService
@@ -37,7 +39,7 @@
                                             PhoneNumber = tp.PhoneNumber ?? "n/a",
                                             Bio = tp.Bio,
                                             TrainerSpecialty = tp.TrainerSpecialty,
-                                            ImageUrl = tp.ImageUrl ?? $"/noImage.jpg",
+                                            ImageUrl = tp.ImageUrl ?? NoImage,
 
                                         })
                                         .ToListAsync();

@@ -5,8 +5,6 @@
 
     using SCV.Data.Models;
 
-    using static SCV.GlCommon.ModelConstants.EntityConstantsTrainerUser;
-
     public class TrainerUserConfiguration : IEntityTypeConfiguration<TrainerUser>
     {
         public void Configure(EntityTypeBuilder<TrainerUser> entity)

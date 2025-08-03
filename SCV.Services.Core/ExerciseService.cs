@@ -1,13 +1,16 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
+    using System.Text.RegularExpressions;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.FitnessVM;
     using SCV.Web.ViewModels.FitnessVM;
-    using System.Text.RegularExpressions;
 
+    using static SCV.GlCommon.ApplicationConstants;
 
     public class ExerciseService : IExerciseService
     {
@@ -39,8 +42,8 @@
                         SecondaryMuscles = exerciseEntity.SecondaryMuscles,
                         Instructions = exerciseEntity.Instructions,
                         Category = exerciseEntity.Category,
-                        ImageUrlOne = exerciseEntity.ImageUrlOne ?? $"/imagesExercises/fallback.jpg",
-                        ImageUrlTwo = exerciseEntity.ImageUrlTwo ?? $"/imagesExercises/fallback.jpg"
+                        ImageUrlOne = exerciseEntity.ImageUrlOne ?? ImageFallback,
+                        ImageUrlTwo = exerciseEntity.ImageUrlTwo ??ImageFallback
 
                     };
                 }
@@ -66,8 +69,8 @@
                                 SecondaryMuscles = ex.SecondaryMuscles,
                                 Instructions = ex.Instructions,
                                 Category = ex.Category,
-                                ImageUrlOne = ex.ImageUrlOne ?? $"/imagesExercises/fallback.jpg",
-                                ImageUrlTwo = ex.ImageUrlTwo ?? $"/imagesExercises/fallback.jpg"
+                                ImageUrlOne = ex.ImageUrlOne ?? ImageFallback,
+                                ImageUrlTwo = ex.ImageUrlTwo ?? ImageFallback
                             })
                             .ToListAsync();
 
@@ -88,7 +91,7 @@
 
             IEnumerable<ExercisesDetailViewModel> exercisesViewModels = await exercisesQuery
                             .AsNoTracking()
-                            //.OrderBy(e => e.Id) // TODO: optional, for stability in pagination
+                            .OrderBy(e => e.Id) // TODO: optional, for stability in pagination
                             .Skip((page - 1) * pageSize)
                             .Take(pageSize)
                             .Select(ex => new ExercisesDetailViewModel
@@ -101,8 +104,8 @@
                                 SecondaryMuscles = ex.SecondaryMuscles,
                                 Instructions = ex.Instructions,
                                 Category = ex.Category,
-                                ImageUrlOne = ex.ImageUrlOne ?? $"/imagesExercises/fallback.jpg",
-                                ImageUrlTwo = ex.ImageUrlTwo ?? $"/imagesExercises/fallback.jpg"
+                                ImageUrlOne = ex.ImageUrlOne ?? ImageFallback,
+                                ImageUrlTwo = ex.ImageUrlTwo ?? ImageFallback
                             })
                             .ToListAsync();
 

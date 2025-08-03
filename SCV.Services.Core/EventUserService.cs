@@ -104,7 +104,6 @@
                     {
                         eventUserEntry.IsDeleted = true;
 
-                        //Maybe make DeleteAsync to -> SoftDeleteAsync
                         result = await this.eventUserRepo.DeleteAsync(eventUserEntry);
                     }
                 }

@@ -1,7 +1,8 @@
 ﻿namespace SCV.Web.ViewModels.Administration.EventVM
 {
-    using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
+
+    using SCV.GlCommon.Enums;
 
     using static SCV.GlCommon.ModelConstants.EntityConstantsEvent;
     using static SCV.GlCommon.ValidationMessages.Event;

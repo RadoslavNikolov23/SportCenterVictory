@@ -7,7 +7,6 @@
 
     using static SCV.GlCommon.ApplicationConstants;
 
-
     public class OrderProductConfiguration : IEntityTypeConfiguration<OrderProduct>
     {
         public void Configure(EntityTypeBuilder<OrderProduct> entity)

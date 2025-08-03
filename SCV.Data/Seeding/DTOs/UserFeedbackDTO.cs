@@ -1,7 +1,9 @@
 ﻿namespace SCV.Data.Seeding.DTOs
 {
-    using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
+
+    using SCV.GlCommon.Enums;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsUserFeedback;
     public class UserFeedbackDTO
     {

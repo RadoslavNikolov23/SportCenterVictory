@@ -1,8 +1,11 @@
 ﻿namespace SCV.Web.Infrastructure
 {
-    using SCV.GlCommon;
-    using System.Reflection;
     using Microsoft.Extensions.DependencyInjection;
+
+    using System.Reflection;
+
+    using SCV.GlCommon;
+
 
     public static class ServiceCollectionExtensions
     {

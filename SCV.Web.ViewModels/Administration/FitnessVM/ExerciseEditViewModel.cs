@@ -1,6 +1,7 @@
 ﻿namespace SCV.Web.ViewModels.Administration.FitnessVM
 {
     using System.ComponentModel.DataAnnotations;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsExercise;
     using static SCV.GlCommon.ValidationMessages.Exercise;
 

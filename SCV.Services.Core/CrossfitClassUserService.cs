@@ -103,7 +103,6 @@
                         crossfitClassUserEntry.IsActive = false;
                         crossfitClassUserEntry.JoinedAt = new DateTime();
 
-                        //Maybe make DeleteAsync to -> SoftDeleteAsync
                         result = await this.crossfitClassUserRepo.DeleteAsync(crossfitClassUserEntry);
                     }
                 }

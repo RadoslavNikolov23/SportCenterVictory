@@ -9,6 +9,8 @@
     using SCV.Web.ViewModels.Administration.FitnessVM;
     using SCV.Web.ViewModels.FitnessVM;
 
+    using static SCV.GlCommon.ApplicationConstants;
+
     public class WorkoutPlanService : IWorkoutPlanService
     {
         public readonly IWorkoutPlanRepository workoutPlanRepo;
@@ -31,8 +33,7 @@
                                         Title = wp.Title,
                                         Description = wp.Description,
                                         Type = wp.Type,
-                                        //TODO:Check why this goes to fallback.jpg
-                                        ImageUrl = wp.ImageUrl ?? $"/imagesExercises/fallback.jpg",
+                                        ImageUrl = wp.ImageUrl ?? ImageFallback,
                                         WorkoutPlanExercisesVM = wp.WorkoutPlanExercises
                                                                     .Where(wpe => wpe.WorkoutPlanId == wp.Id)
                                                                     .Select(wpe => new WorkoutPlanExerciseDetailViewModel()

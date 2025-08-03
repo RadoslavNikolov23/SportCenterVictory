@@ -19,48 +19,6 @@
 </div>
 
 @section Scripts {
-    <script>
-               const container = document.getElementById("exerciseTableContainer");
-        const searchInput = document.getElementById("searchInput");
-        const searchBtn = document.getElementById("searchBtn");
 
-        // Load data with AJAX
-        function loadData(page = 1, searchTerm = "") {
-            const url = `?page=${page}&searchTerm=${encodeURIComponent(searchTerm)}`;
-            fetch(url, { headers: { "X-Requested-With": "XMLHttpRequest" } })
-                .then(res => res.text())
-                .then(html => {
-                    container.innerHTML = html;
-                    attachPaginationLinks();
-                })
-                .catch(console.error);
-        }
-
-        // Attach AJAX handlers to pagination links
-        function attachPaginationLinks() {
-            container.querySelectorAll(".pagination a").forEach(link => {
-                link.addEventListener("click", e => {
-                    e.preventDefault();
-                    const urlParams = new URL(link.href).searchParams;
-                    const page = urlParams.get("page") || 1;
-                    loadData(page, searchInput.value.trim());
-                });
-            });
-        }
-
-        // Search button click event
-        searchBtn.addEventListener("click", () => {
-            loadData(1, searchInput.value.trim());
-        });
-
-        // Optional: Allow enter key to trigger search button click
-        searchInput.addEventListener("keyup", (e) => {
-            if (e.key === "Enter") {
-                searchBtn.click();
-            }
-        });
-
-        // Initialize on page load
-        attachPaginationLinks();
-    </script>
+    <script src="~/js/admin/exercise-delete.js"></script>
 }

@@ -22,9 +22,7 @@
         private readonly IUserFeedbackService userFeedbackService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public UserPanelController(IEventUserService eventUserService, ICrossfitClassUserService crossfitClassUserService,
-        IMembershipUserService membershipUserService, ITrainerUserService trainerUserService,
-        IUserFeedbackService userFeedbackService, IOrderService orderService, UserManager<ApplicationUser> userManager)
+        public UserPanelController(IEventUserService eventUserService, ICrossfitClassUserService crossfitClassUserService, IMembershipUserService membershipUserService, ITrainerUserService trainerUserService, IUserFeedbackService userFeedbackService, IOrderService orderService, UserManager<ApplicationUser> userManager)
         {
             this.eventUserService = eventUserService;
             this.crossfitClassUserService = crossfitClassUserService;
@@ -74,7 +72,6 @@
                     return RedirectToAction("Index", "Home");
                 }
 
-                // Overwrite with current user data to avoid tampering
                 userFeedbackAddVM.UserId = user.Id.ToString();
                 userFeedbackAddVM.UserName = user.UserName!;
                 userFeedbackAddVM.FullName = user.FullName;
@@ -152,9 +149,7 @@
 
                 if (crossfitClassId == null)
                 {
-                    //TODO: Redirect to the same action detail
                     return this.RedirectToAction(nameof(JoinedCrossfitClasses));
-                    //Or ad this   return this.Forbid();
                 }
 
                 bool isCrossfitClassJoinedByUser = await this.crossfitClassUserService
@@ -162,11 +157,9 @@
 
                 if (isCrossfitClassJoinedByUser == false)
                 {
-                    // TODO: Add JS notifications and fix this!
                     return this.RedirectToAction(nameof(JoinedCrossfitClasses), "UserPanel");
                 }
 
-                // Also TODO this:
                 return this.RedirectToAction(nameof(JoinedCrossfitClasses));
             }
             catch (Exception e)
@@ -186,9 +179,7 @@
 
                 if (crossfitClassId == null)
                 {
-                    //TODO: Redirect to the same action detail
                     return this.RedirectToAction(nameof(JoinedCrossfitClasses));
-                    //Or ad this   return this.Forbid();
                 }
 
                 bool isRemovedUserFromCrossfitClass = await this.crossfitClassUserService
@@ -196,7 +187,6 @@
 
                 if (isRemovedUserFromCrossfitClass == false)
                 {
-                    // If the recipe was not removed from favorites, we still redirect to the same page by default by the requirements.
                     return this.RedirectToAction(nameof(JoinedCrossfitClasses), "UserPanel");
                 }
 
@@ -209,8 +199,18 @@
             }
         }
 
-        //Trainer actions and Events actions are in the partial UserPanelController.EventTrainer.cs ->
+        /*
+                    ==============================================================
+                    ===== Trainer actions and Events actions are in the partial ==
+                    ===== UserPanelController.EventTrainer.cs ---->             ==
+                    ==============================================================
+        */
 
-        //Store - Membership actions and Product actions are in the partial UserPanelController.Store.cs ->
+        /*
+                    =============================================================
+                    === Store - Membership actions and Product actions         ==
+                    === are in the partial UserPanelController.Store.cs --->   ==
+                    =============================================================
+        */
     }
 }

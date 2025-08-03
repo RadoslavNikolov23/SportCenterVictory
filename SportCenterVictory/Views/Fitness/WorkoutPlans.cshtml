@@ -5,114 +5,6 @@
     ViewData["Title"] = "Fitness Workout Plans ";
 }
 
-
-
-@* 
-<style>
-    body {
-        background-color: #f3f6fa;
-        font-family: 'Segoe UI', sans-serif;
-    }
-
-    .plans-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
-        gap: 30px;
-        padding: 40px;
-    }
-
-    .workout-card {
-        background: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        transition: transform 0.3s ease;
-    }
-
-        .workout-card:hover {
-            transform: translateY(-5px);
-        }
-
-    .workout-img {
-        width: 100%;
-        height: 180px;
-        object-fit: cover;
-    }
-
-    .workout-content {
-        padding: 20px;
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .workout-title {
-        font-size: 1.4rem;
-        font-weight: bold;
-        color: #1c1c1c;
-        margin-bottom: 6px;
-    }
-
-    .workout-type {
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: #89048E;
-        margin-bottom: 10px;
-    }
-
-    .workout-description {
-        font-size: 0.95rem;
-        color: #444;
-        margin-bottom: 15px;
-        flex-grow: 1;
-    }
-
-    .exercise-section {
-        border-top: 1px dashed #ccc;
-        padding-top: 15px;
-    }
-
-    .exercise-title {
-        font-weight: bold;
-        color: #89048E;
-        margin-bottom: 10px;
-    }
-
-    .exercise-list {
-        list-style: none;
-        padding-left: 0;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-    }
-
-    .exercise-item {
-        background-color: #e6f0ff;
-        padding: 8px 12px;
-        border-radius: 8px;
-        font-size: 0.9rem;
-        color: #2a2a2a;
-        box-shadow: 0 2px 4px rgba(0, 123, 255, 0.1);
-    }
-
-    .card {
-        border-radius: 12px;
-        border: none;
-        background-color: #fdfdfd;
-    }
-
-        .card strong {
-            color: #333;
-        }
-
-        .card hr {
-            margin: 1rem 0;
-            border-top: 1px dashed #aaa;
-        }
-</style> *@
-
 <h2 class="about_taital text-center pt-4"> Our Fitness Workout Plans</h2>
 
 <div class="plans-grid">
@@ -156,7 +48,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="exerciseModalBody">
-                <!-- Exercise partial loads here dynamically via JS -->
             </div>
         </div>
     </div>
@@ -171,33 +62,3 @@
     <script src="~/js/workoutPlan.js"></script>
 }
 
-@* @section Scripts {
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Delegate click to all links with class 'exercise-link'
-            document.querySelectorAll('.exercise-link').forEach(link => {
-                link.addEventListener('click', function (e) {
-                    e.preventDefault();
-
-                    const exerciseId = this.getAttribute('data-id');
-
-                    fetch(`/Fitness/ExerciseDetails?id=${exerciseId}`)
-                        .then(res => {
-                            if (!res.ok) {
-                                throw new Error("Failed to fetch exercise.");
-                            }
-                            return res.text();
-                        })
-                        .then(html => {
-                            document.getElementById('exerciseModalBody').innerHTML = html;
-                            const modal = new bootstrap.Modal(document.getElementById('exerciseModal'));
-                            modal.show();
-                        })
-                        .catch(err => console.error('Error loading exercise:', err));
-                });
-            });
-        });  
-        
-    </script>
-
-} *@

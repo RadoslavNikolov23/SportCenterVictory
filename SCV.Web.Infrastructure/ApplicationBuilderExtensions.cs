@@ -1,8 +1,9 @@
 ﻿namespace SCV.Web.Infrastructure
 {
-    using SCV.Data.Seeding.Contracts;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.Extensions.DependencyInjection;
+
+    using SCV.Data.Seeding.Contracts;
 
     public static class ApplicationBuilderExtensions
     {

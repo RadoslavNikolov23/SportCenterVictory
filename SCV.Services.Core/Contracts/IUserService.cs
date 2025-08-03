@@ -8,8 +8,6 @@
 
         Task<bool> UserExistsByIdAsync(string userId);
 
-        //Task<bool> AssignUserToRoleAsync(RoleSelectionInputViewModel roleModel);
-
         Task<bool> AssignUserToRoleAsync(string userId, string roleName);
 
         Task<bool> RemoveUserRoleAsync(string userId, string roleName);

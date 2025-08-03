@@ -1,6 +1,7 @@
 ﻿namespace SCV.Data.Repository
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
 

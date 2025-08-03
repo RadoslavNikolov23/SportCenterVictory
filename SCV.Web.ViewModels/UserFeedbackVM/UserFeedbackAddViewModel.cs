@@ -1,7 +1,8 @@
 ﻿namespace SCV.Web.ViewModels.UserFeedbackVM
 {
-    using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
+
+    using SCV.GlCommon.Enums;
 
     using static SCV.GlCommon.ModelConstants.EntityConstantsUserFeedback;
     using static SCV.GlCommon.ValidationMessages.UserFeedback;

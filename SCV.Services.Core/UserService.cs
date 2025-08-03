@@ -58,6 +58,7 @@
             }
 
             bool roleExists = await this.roleManager.RoleExistsAsync(roleName);
+
             if (!roleExists)
             {
                 throw new ArgumentException("Selected role is not a valid role!");
@@ -107,7 +108,7 @@
         public async Task<bool> DeleteUserAsync(string userId)
         {
             ApplicationUser? user = await userManager
-                .FindByIdAsync(userId);
+                            .FindByIdAsync(userId);
 
             if (user == null)
             {
@@ -115,7 +116,7 @@
             }
 
             Trainer? trainer = await this.trainerRepo
-                     .SingleOrDefaultAsync(t => t.ApplicationUserId!.ToString()!.ToLower()! == userId!.ToLower()!);
+                     .SingleOrDefaultAsync(t => t.ApplicationUserId!.ToString().ToLower() == userId.ToLower());
 
             if (trainer != null)
             {

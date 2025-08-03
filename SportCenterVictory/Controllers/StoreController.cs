@@ -133,20 +133,6 @@
 
             OrderDetailViewModel? currentCart = await orderService
                                         .GetUserCartAsync(userId!);
-
-            //if (currentCart == null)
-            //{
-            //    return NotFoundWithMessage("Your cart is empty.");
-            //}
-
-            //IEnumerable<OrderDetailViewModel> pastOrders = await orderService
-            //.GetUserPastOrdersAsync(userId!);
-
-            //CartPageViewModel cartPageViewModel = new CartPageViewModel
-            //                                {
-            //                                    CurrentCart = currentCart,
-            //                                    PastOrders = pastOrders.ToList()
-            //                                };
             return View(currentCart);
         }
 
@@ -239,7 +225,5 @@
                     return RedirectToAction("Index", "Store", new { area = "" });
             }
         }
-
     }
-
 }

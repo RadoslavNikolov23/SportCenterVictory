@@ -1,8 +1,9 @@
 ﻿namespace SCV.Web.ViewModels.Administration.StoreVM.MembershipsVM
 {
-    using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
-    using System.Diagnostics.Contracts;
+
+    using SCV.GlCommon.Enums;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsMembership;
     using static SCV.GlCommon.ValidationMessages.Membership;
 

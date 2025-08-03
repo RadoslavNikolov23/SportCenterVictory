@@ -3,8 +3,10 @@
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
-    using SCV.Data.Models;
+
     using System.ComponentModel.DataAnnotations;
+
+    using SCV.Data.Models;
 
     public partial class IndexModel : PageModel
     {

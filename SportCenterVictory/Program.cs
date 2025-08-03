@@ -1,6 +1,3 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using SCV.Data;
 namespace SportCenterVictory
 {
     using Microsoft.AspNetCore.Identity;
@@ -39,10 +36,12 @@ namespace SportCenterVictory
                     .AddIdentity<ApplicationUser, ApplicationRole>(options =>
                         {
                             options.SignIn.RequireConfirmedAccount = false;
-                            options.Password.RequireDigit = false;
-                            options.Password.RequireNonAlphanumeric = false;
-                            options.Password.RequireUppercase = false;
-                            options.Password.RequireLowercase = false;
+                            options.Password.RequireDigit = true;
+                            options.Password.RequireNonAlphanumeric = true;
+                            options.Password.RequireUppercase = true;
+                            options.Password.RequireLowercase = true;
+                            options.Password.RequiredLength = 6;
+
 
                             /*For production, you should set the following options to true:
                              * 

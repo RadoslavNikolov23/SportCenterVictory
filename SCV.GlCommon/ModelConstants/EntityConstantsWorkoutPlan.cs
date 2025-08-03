@@ -8,7 +8,7 @@
         public const int DescriptionMaxLength = 2025;
         public const int DescriptionMinLength = 10;
 
-        public const int ImageUrlMaxLength = 2048; // Optional image URL
-        public const int ImageUrlMinLength = 5; // Optional, so can be empty
+        public const int ImageUrlMaxLength = 2048;
+        public const int ImageUrlMinLength = 5;
     }
 }

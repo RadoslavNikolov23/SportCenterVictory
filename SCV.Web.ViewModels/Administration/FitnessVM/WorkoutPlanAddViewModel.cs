@@ -1,7 +1,9 @@
 ﻿namespace SCV.Web.ViewModels.Administration.FitnessVM
 {
-    using SCV.GlCommon.Enums;
     using System.ComponentModel.DataAnnotations;
+
+    using SCV.GlCommon.Enums;
+
     using static SCV.GlCommon.ModelConstants.EntityConstantsWorkoutPlan;
     using static SCV.GlCommon.ValidationMessages.WorkoutPlan;
 

@@ -1,7 +1,6 @@
 ﻿namespace SCV.Services.Core.Contracts
 {
     using SCV.GlCommon.Enums;
-    using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.Administration.StoreVM.MembershipsVM;
     using SCV.Web.ViewModels.CommonVM;
 

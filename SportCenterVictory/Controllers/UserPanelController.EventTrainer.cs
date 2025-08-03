@@ -53,9 +53,7 @@
 
                 if (eventId == null)
                 {
-                    //TODO: Redirect to the same action detail
                     return this.RedirectToAction(nameof(JoinedEvents));
-                    //Or ad this   return this.Forbid();
                 }
 
                 bool isEventJoinedByUser = await this.eventUserService
@@ -63,11 +61,9 @@
 
                 if (isEventJoinedByUser == false)
                 {
-                    // TODO: Add JS notifications and fix this!
                     return this.RedirectToAction(nameof(JoinedEvents), "UserPanel");
                 }
 
-                // Also TODO this:
                 return this.RedirectToAction(nameof(JoinedEvents));
             }
             catch (Exception e)
@@ -88,9 +84,7 @@
 
                 if (eventId == null)
                 {
-                    //TODO: Redirect to the same action detail
                     return this.RedirectToAction(nameof(JoinedEvents));
-                    //Or ad this   return this.Forbid();
                 }
 
                 bool isRemovedUserFromEvent = await this.eventUserService
@@ -98,7 +92,6 @@
 
                 if (isRemovedUserFromEvent == false)
                 {
-                    // If the recipe was not removed from favorites, we still redirect to the same page by default by the requirements.
                     return this.RedirectToAction(nameof(JoinedEvents), "UserPanel");
                 }
 
@@ -154,9 +147,7 @@
 
                 if (trainerId == null)
                 {
-                    //TODO: Redirect to the same action detail
                     return this.RedirectToAction(nameof(FavoriteTrainers));
-                    //Or ad this   return this.Forbid();
                 }
 
                 bool isTrainerAddedByUser = await this.trainerUserService
@@ -164,11 +155,9 @@
 
                 if (isTrainerAddedByUser == false)
                 {
-                    // TODO: Add JS notifications and fix this!
                     return this.RedirectToAction(nameof(FavoriteTrainers), "UserPanel");
                 }
 
-                // Also TODO this:
                 return this.RedirectToAction(nameof(FavoriteTrainers));
             }
             catch (Exception e)
@@ -188,9 +177,7 @@
 
                 if (trainerId == null)
                 {
-                    //TODO: Redirect to the same action detail
                     return this.RedirectToAction(nameof(FavoriteTrainers));
-                    //Or ad this   return this.Forbid();
                 }
 
                 bool isRemovedTrainerFromUser = await this.trainerUserService
@@ -198,7 +185,6 @@
 
                 if (isRemovedTrainerFromUser == false)
                 {
-                    // If the recipe was not removed from favorites, we still redirect to the same page by default by the requirements.
                     return this.RedirectToAction(nameof(FavoriteTrainers), "UserPanel");
                 }
 
@@ -210,6 +196,5 @@
                 return this.RedirectToAction(nameof(Index), "Home");
             }
         }
-
     }
 }

@@ -10,6 +10,8 @@
     using SCV.Web.ViewModels.StoreVM;
     using SVC.Web.ViewModels.StoreVM;
 
+    using static SCV.GlCommon.ApplicationConstants;
+
     public class ProductService : IProductService
     {
         private readonly IProductRepository productRepo;
@@ -33,7 +35,7 @@
                                                 Quantity = p.Quantity,
                                                 Description = p.Description ?? "To be added.",
                                                 Price = p.Price,
-                                                ImageUrl = p.ImageUrl ?? $"/noImage.jpg",
+                                                ImageUrl = p.ImageUrl ?? NoImage,
                                             })
                                             .ToListAsync();
 

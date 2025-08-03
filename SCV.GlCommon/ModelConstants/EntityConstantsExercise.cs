@@ -3,7 +3,7 @@
     public static class EntityConstantsExercise
     {
         public const int IdMaxLength = 136; // Guid length
-        public const int IdMinLength = 1; // Guid length
+        public const int IdMinLength = 1;
 
         public const int NameMaxLength = 160;
         public const int NameMinLength = 3;

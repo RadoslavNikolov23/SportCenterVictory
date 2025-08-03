@@ -2,14 +2,16 @@
 {
     using Microsoft.EntityFrameworkCore;
 
+    using System.Collections.Generic;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.Contracts;
-    using SCV.Web.ViewModels.Administration.TrainerBioVM;
     using SCV.Web.ViewModels.Administration.UserFeedbackVM;
     using SCV.Web.ViewModels.UserFeedbackVM;
-    using System.Collections.Generic;
+
+    using static SCV.GlCommon.ApplicationConstants;
 
     public class UserFeedbackService : IUserFeedbackService
     { 
@@ -31,7 +33,7 @@
                                                    UserName = uf.UserName,
                                                    FullName = uf.FullName,
                                                    Feedback = uf.Feedback,
-                                                   ImageUrl = uf.ImageUrl ?? $"/noImage.jpg",
+                                                   ImageUrl = uf.ImageUrl ?? NoImage,
                                                })
                                                .ToListAsync();
 

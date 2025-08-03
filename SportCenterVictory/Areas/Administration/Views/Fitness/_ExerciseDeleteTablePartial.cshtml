@@ -61,7 +61,6 @@
             <a class="page-link" href="?page=@(Model.CurrentPage - 1)&searchTerm=@Model.SearchTerm">Previous</a>
         </li>
 
-        @* Show first page and leading ellipsis if needed *@
         @if (startPage > 1)
         {
             <li class="page-item">
@@ -73,7 +72,6 @@
             }
         }
 
-        @* Page links in the window *@
         @for (int i = startPage; i <= endPage; i++)
         {
             <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
@@ -81,7 +79,6 @@
             </li>
         }
 
-        @* Trailing ellipsis and last page if needed *@
         @if (endPage < Model.TotalPages)
         {
             if (endPage < Model.TotalPages - 1)

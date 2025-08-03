@@ -35,7 +35,7 @@
                                 Description = e.Description,
                                 StartDate = e.StartDate.ToString(DateOnlyFormat) ?? "To be announced",
                                 Location = e.Location,
-                                ImageUrl = e.ImageUrl ?? $"/noImage.jpg",
+                                ImageUrl = e.ImageUrl ?? NoImage,
                             })
                             .ToListAsync();
 

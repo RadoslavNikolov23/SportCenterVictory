@@ -81,7 +81,7 @@
                                                 Title = op.Product.Title,
                                                 Price = op.Price,
                                                 Quantity = op.Quantity,
-                                                ImageUrl = op.Product.ImageUrl ?? $"/noImage.jpg",
+                                                ImageUrl = op.Product.ImageUrl ?? NoImage,
                                             })
                                             .ToList(),
                     TotalPrice = order.OrderProducts.Sum(op => op.Price * op.Quantity)
@@ -110,7 +110,7 @@
                                                 Title = op.Product.Title,
                                                 Price = op.Product.Price,
                                                 Quantity = op.Quantity,
-                                                ImageUrl = op.Product.ImageUrl ?? $"/noImage.jpg",
+                                                ImageUrl = op.Product.ImageUrl ?? NoImage,
 
                                             }).ToList()
                 })
@@ -162,7 +162,7 @@
                         Title = op.Product.Title,
                         Price = op.Product.Price,
                         Quantity = op.Quantity,
-                        ImageUrl = op.Product.ImageUrl ?? $"/noImage.jpg",
+                        ImageUrl = op.Product.ImageUrl ?? NoImage,
 
                     }).ToList()
                 })
@@ -205,7 +205,7 @@
                         Title = op.Product.Title,
                         Price = op.Product.Price,
                         Quantity = op.Quantity,
-                        ImageUrl = op.Product.ImageUrl ?? $"/noImage.jpg",
+                        ImageUrl = op.Product.ImageUrl ?? NoImage,
 
                     }).ToList()
                 })

@@ -1,6 +1,7 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
@@ -44,20 +45,16 @@
                 throw new ArgumentNullException(nameof(exerciseIds), "Exercise ID list cannot be null.");
             }
 
-
-            // 1. Get all existing links for this workout plan
             ICollection<WorkoutPlanExercise> existingLinks = await this.workoutPlanExerciseRepo
                 .GetAllAttached()
                 .Where(wpe => wpe.WorkoutPlanId == workoutPlanGuid)
                 .ToListAsync();
 
-            // 2. Delete them in bulk
             if (existingLinks.Any())
             {
                 await this.workoutPlanExerciseRepo.HardDeleteRangeAsync(existingLinks);
             }
 
-            // 3. Add new links
             if (exerciseIds.Any())
             {
                 IEnumerable<WorkoutPlanExercise> newExercisesAttached = exerciseIds
@@ -69,10 +66,6 @@
 
                 await this.workoutPlanExerciseRepo.AddRangeAsync(newExercisesAttached);
             }
-
         }
-
-
-
     }
 }

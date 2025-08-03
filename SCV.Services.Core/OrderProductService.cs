@@ -1,6 +1,7 @@
 ﻿namespace SCV.Services.Core
 {
     using Microsoft.EntityFrameworkCore;
+
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core.Contracts;
@@ -65,9 +66,6 @@
 
             if (item != null)
             {
-                //TODO: For SoftDeletion when added
-                //await this.orderProductRepo.DeleteAsync(item);
-
                 await this.orderProductRepo.HardDeleteAsync(item);
             }
         }

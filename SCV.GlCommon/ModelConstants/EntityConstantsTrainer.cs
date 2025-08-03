@@ -25,6 +25,6 @@
     public static class EntityConstantsTrainerUser
     {
         public const int AdditionalInformationMaxLength = 500;
-        public const int AdditionalInformationMinLength = 0; // Optional field, so no minimum length
+        public const int AdditionalInformationMinLength = 0;
     }
 }

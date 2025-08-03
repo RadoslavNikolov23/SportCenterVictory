@@ -1,6 +1,7 @@
 ﻿namespace SCV.Web.ViewModels.Administration.TrainerBioVM
 {
     using SCV.GlCommon.Enums;
+
     using System.ComponentModel.DataAnnotations;
 
     using static SCV.GlCommon.ModelConstants.EntityConstantsTrainer;

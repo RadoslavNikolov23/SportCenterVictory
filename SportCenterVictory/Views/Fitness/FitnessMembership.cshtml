@@ -7,88 +7,6 @@
 }
 
 
-@* <style>
-    .membership-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-        padding: 40px;
-    }
-
-    .membership-card {
-        background-color: #f8f9fa;
-        border-radius: 15px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        padding: 25px;
-        text-align: center;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-        .membership-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-    .membership-title {
-        font-size: 1.8rem;
-        font-weight: bold;
-        color: #333;
-        margin-bottom: 10px;
-    }
-
-    .membership-type-tier {
-        font-size: 1.1rem;
-        font-weight: 600;
-        color: #007bff;
-        margin-bottom: 10px;
-    }
-
-    .membership-description {
-        font-size: 1rem;
-        color: #666;
-        margin-bottom: 20px;
-    }
-
-    .membership-price-duration {
-        font-size: 1.3rem;
-        font-weight: bold;
-        color: #000;
-        margin-bottom: 10px;
-    }
-
-    .buy-button {
-        padding: 10px 20px;
-        background-color: #28a745;
-        border: none;
-        border-radius: 8px;
-        color: white;
-        font-weight: 600;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-        .buy-button:hover {
-            background-color: #218838;
-        }
-
-    .remove-button {
-        align-self: flex-start;
-        background-color: #903031;
-        color: white;
-        font-weight: 600;
-        border: none;
-        padding: 10px 16px;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-    }
-
-        .remove-button:hover {
-            background-color: #772929;
-        }
-</style> *@
-
-
 <h2 class="about_taital text-center pt-4 pb-4">YOur Fitness Memberships</h2>
 
 <div class="membership-container">
@@ -130,14 +48,14 @@
                 }
                 else
                 {
-                    
-                        <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
-                            <input type="hidden" name="membershipId" value="@membership.Id" />
-                            <button type="submit" class="buy-button">
-                                <i class="bi bi-bookmark-star"></i> Buy Membership
-                            </button>
-                        </form>
-                    
+
+                    <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                        <input type="hidden" name="membershipId" value="@membership.Id" />
+                        <button type="submit" class="buy-button">
+                            <i class="bi bi-bookmark-star"></i> Buy Membership
+                        </button>
+                    </form>
+
                 }
             }
         </div>
