@@ -1,13 +1,12 @@
 ﻿namespace SCV.Test.ServiceTests
 {
-    using Microsoft.EntityFrameworkCore;
-    using MockQueryable.EntityFrameworkCore;
+    using MockQueryable.Moq;
     using Moq;
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core;
-    using SCV.Test.ServiceTests.Extensions;
+    using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
     using SCV.Web.ViewModels.CrossfitVM;
     using System.Linq;
@@ -17,26 +16,26 @@
     {
         private Mock<ICrossfitClassRepository> crossfitClassRepoMock = null!;
 
-        private CrossfitClassService crossfitCLassService = null!;
+        private ICrossfitClassService crossfitClassService = null!;
 
         [SetUp]
         public void SetUp()
         {
             crossfitClassRepoMock = new Mock<ICrossfitClassRepository>();
-            crossfitCLassService = new CrossfitClassService(crossfitClassRepoMock.Object);
+            crossfitClassService = new CrossfitClassService(crossfitClassRepoMock.Object);
         }
 
         [Test]
         public async Task GetAllCrossfitClassesAsync_ReturnsSortedList()
         {
-            IList<CrossfitClass> classes = new List<CrossfitClass>
+            IQueryable<CrossfitClass> crossfitClasses = new List<CrossfitClass>
             {
                 new CrossfitClass
                 {
                     Id = Guid.NewGuid(),
                     Name = "WOD: Hero Workout",
                     Description = "A high-intensity Hero WOD designed to test endurance and mental toughness.",
-                    DayOfWeek = DayOfWeek.Monday, //Use Enums!!
+                    DayOfWeek = DayOfWeek.Monday,
                     StartTime = "Monday at 17:00",
                     TrainerName = "Ivan Dimitrov"
                 },
@@ -49,15 +48,15 @@
                     StartTime = "Wednesday at 17:00",
                     TrainerName = "Georgi Kolev"
                 }
-            };
+            }.AsQueryable();
 
-            IQueryable<CrossfitClass> mockDbSet = classes.BuildMock();
+            var mockDbSet = crossfitClasses.BuildMockDbSet();
 
             crossfitClassRepoMock.Setup(repo => repo.GetAllAttached())
-                                                .Returns(mockDbSet);
+                                                .Returns(mockDbSet.Object);
 
-            IEnumerable<CrossfitClassDetailViewModel> result = await crossfitCLassService
-                                                 .GetAllCrossfitClassesAsync();
+            IEnumerable<CrossfitClassDetailViewModel> result = await crossfitClassService
+                                    .GetAllCrossfitClassesAsync();
 
             IList<CrossfitClassDetailViewModel> resultList = result.ToList();
 
@@ -65,12 +64,14 @@
 
             Assert.That(resultList[0].Name, Is.EqualTo("WOD: Hero Workout"));
             Assert.That(resultList[0].Description, Is.EqualTo("A high-intensity Hero WOD designed to test endurance and mental toughness."));
+            //Assert.That(resultList[0].DayOfWeek, Is.EqualTo(DayOfWeek.Monday));
             Assert.That(resultList[0].StartTime, Is.EqualTo("Monday at 17:00"));
             Assert.That(resultList[0].TrainerName, Is.EqualTo("Ivan Dimitrov"));
 
 
             Assert.That(resultList[1].Name, Is.EqualTo("CrossFit Team Challenge"));
             Assert.That(resultList[1].Description, Is.EqualTo("Team-based workout to build camaraderie and competitive spirit."));
+            //Assert.That(resultList[1].DayOfWeek, Is.EqualTo(DayOfWeek.Wednesday));
             Assert.That(resultList[1].StartTime, Is.EqualTo("Wednesday at 17:00"));
             Assert.That(resultList[1].TrainerName, Is.EqualTo("Georgi Kolev"));
 
@@ -92,25 +93,21 @@
                 .Setup(repo => repo.AddAsync(It.IsAny<CrossfitClass>()))
                 .Returns(Task.CompletedTask);
 
-            bool isAdded = await crossfitCLassService.AddCrossfitClassAsync(newClass);
+            bool isAdded = await crossfitClassService
+                                        .AddCrossfitClassAsync(newClass);
 
             Assert.IsTrue(isAdded);
-
             crossfitClassRepoMock.Verify(r => r.AddAsync(It.Is<CrossfitClass>(cc => cc.Name == "CrossFit Open Prep")), Times.Once);
-
             crossfitClassRepoMock.Verify(r => r.AddAsync(It.Is<CrossfitClass>(cc => cc.Description == "Specialized training session to prepare for the CrossFit Open competition.")), Times.Once);
-
             crossfitClassRepoMock.Verify(r => r.AddAsync(It.Is<CrossfitClass>(cc => cc.StartTime == "Saturday at 10:00")), Times.Once);
-
-            crossfitClassRepoMock.Verify(r => r.AddAsync(It.Is<CrossfitClass>(cc => cc.DayOfWeek.ToString() == DayOfWeek.Saturday.ToString())), Times.Once);
-
+            crossfitClassRepoMock.Verify(r => r.AddAsync(It.Is<CrossfitClass>(cc => cc.DayOfWeek == DayOfWeek.Saturday)), Times.Once);
             crossfitClassRepoMock.Verify(r => r.AddAsync(It.Is<CrossfitClass>(cc => cc.TrainerName == "Guest Coach: Stoyan Dimitrov")), Times.Once);
         }
 
         [Test]
         public async Task GetCrossfitClassByIdAsync_WithInvalidId_ReturnsNull()
         {
-            IList<CrossfitClass> data = new List<CrossfitClass>
+            IQueryable<CrossfitClass> crossfitClassList = new List<CrossfitClass>
             {
                 new CrossfitClass {
                         Id = Guid.NewGuid(),
@@ -120,12 +117,15 @@
                         DayOfWeek = DayOfWeek.Saturday,
                         TrainerName = "Guest Coach: Test"
                 }
-            };
+            }.AsQueryable();
 
-            IQueryable<CrossfitClass> mockDbSet = data.BuildMock();
-            crossfitClassRepoMock.Setup(r => r.GetAllAttached()).Returns(mockDbSet);
+            var mockDbSet = crossfitClassList.BuildMockDbSet();
 
-            CrossfitClassEditViewModel? result = await crossfitCLassService.GetCrossfitClassByIdAsync("WOD:Hero Workout");
+            crossfitClassRepoMock.Setup(r => r.GetAllAttached())
+                                        .Returns(mockDbSet.Object);
+
+            CrossfitClassEditViewModel? result = await crossfitClassService
+                                            .GetCrossfitClassByIdAsync("WOD:Hero Workout");
 
             Assert.IsNull(result);
         }
@@ -134,7 +134,8 @@
         public async Task EditCrossfitClassAsync_WithValidModel_EditsAndReturnsTrue()
         {
             Guid crossfitClassId = Guid.NewGuid();
-            CrossfitClassEditViewModel model = new CrossfitClassEditViewModel
+
+            CrossfitClassEditViewModel crossfitClassVM = new CrossfitClassEditViewModel
             {
                 Id = crossfitClassId.ToString(),
                 Name = "Test",
@@ -154,29 +155,34 @@
                 TrainerName = "Guest Coach: Stoyan Dimitrov"
             };
 
-            IList<CrossfitClass> data = new List<CrossfitClass> { existingClass };
-            IQueryable<CrossfitClass> mockDbSet = data.BuildMock();
-            crossfitClassRepoMock.Setup(r => r.GetAllAttached()).Returns(mockDbSet);
-            crossfitClassRepoMock.Setup(r => r.UpdateAsync(It.IsAny<CrossfitClass>())).ReturnsAsync(true);
+            IQueryable<CrossfitClass> crossfitClassList = new List<CrossfitClass> { existingClass }
+                                                    .AsQueryable();
+            var mockDbSet = crossfitClassList.BuildMockDbSet();
 
-            bool isEdited = await crossfitCLassService.EditCrossfitClassAsync(model);
+            crossfitClassRepoMock.Setup(r => r.GetAllAttached())
+                                                .Returns(mockDbSet.Object);
+            crossfitClassRepoMock.Setup(r => r.UpdateAsync(It.IsAny<CrossfitClass>()))
+                                                .ReturnsAsync(true);
+
+            var isEdited = await crossfitClassService
+                                    .EditCrossfitClassAsync(crossfitClassVM);
 
             Assert.IsTrue(isEdited);
             crossfitClassRepoMock.Verify(r => r.UpdateAsync(It.Is<CrossfitClass>(
-                cc =>
-                    cc.Id == crossfitClassId &&
-                    cc.Name == "Test" &&
-                    cc.Description == "This is a test" &&
-                    cc.StartTime == "Test at 00:00" &&
-                    cc.DayOfWeek == DayOfWeek.Saturday &&
-                    cc.TrainerName == "Guest Coach: Test"
-            )), Times.Once);
+                                                cc =>
+                                                    cc.Id == crossfitClassId &&
+                                                    cc.Name == "Test" &&
+                                                    cc.Description == "This is a test" &&
+                                                    cc.StartTime == "Test at 00:00" &&
+                                                    cc.DayOfWeek == DayOfWeek.Saturday &&
+                                                    cc.TrainerName == "Guest Coach: Test"
+                                            )), Times.Once);
         }
 
         [Test]
         public async Task EditCrossfitClassAsync_WithInvalidId_ReturnsFalse()
         {
-            CrossfitClassEditViewModel model = new CrossfitClassEditViewModel
+            CrossfitClassEditViewModel crossfitClassEditViewModel = new CrossfitClassEditViewModel
             {
                 Id = Guid.NewGuid().ToString(),
                 Name = "Test",
@@ -186,30 +192,34 @@
                 TrainerName = "Guest Coach: Test"
             };
 
-            IList<CrossfitClass> data = new List<CrossfitClass>(); //no classes available!
-            IQueryable<CrossfitClass> mockDbSet = data.BuildMock();
+            IQueryable<CrossfitClass> crossfitClassList = new List<CrossfitClass>()
+                                           .AsQueryable(); //no classes available!
+            var mockDbSet = crossfitClassList.BuildMockDbSet();
 
-            crossfitClassRepoMock.Setup(r => r.GetAllAttached()).Returns(mockDbSet);
+            crossfitClassRepoMock.Setup(r => r.GetAllAttached())
+                                        .Returns(mockDbSet.Object);
 
-            bool isEdited = await crossfitCLassService.EditCrossfitClassAsync(model);
+            bool isEdit = await crossfitClassService
+                                    .EditCrossfitClassAsync(crossfitClassEditViewModel);
 
-            Assert.IsFalse(isEdited);
+            Assert.IsFalse(isEdit);
             crossfitClassRepoMock.Verify(r => r.UpdateAsync(It.IsAny<CrossfitClass>()), Times.Never);
         }
 
         [Test]
         public async Task EditCrossfitClassAsync_WithNullInput_ReturnsFalse()
         {
-            bool isEdited = await crossfitCLassService.EditCrossfitClassAsync(null!);
+            bool isEdit = await crossfitClassService.
+                                    EditCrossfitClassAsync(null!);
 
-            Assert.IsFalse(isEdited);
+            Assert.IsFalse(isEdit);
             crossfitClassRepoMock.Verify(r => r.UpdateAsync(It.IsAny<CrossfitClass>()), Times.Never);
         }
 
         [Test]
         public async Task DeleteOrRestoreCrossfitClassAsync_WithActiveClass_TogglesToInactive()
         {
-            var crossfitClasId = Guid.NewGuid();
+            Guid crossfitClasId = Guid.NewGuid();
 
             CrossfitClass entity = new CrossfitClass
             {
@@ -222,24 +232,26 @@
                 IsActive = true
             };
 
-            IList<CrossfitClass> data = new List<CrossfitClass> { entity };
-            IQueryable<CrossfitClass> mockDbSet = data.BuildMock();
+            IQueryable<CrossfitClass> crossfitClassList = new List<CrossfitClass> { entity }
+                                                    .AsQueryable();
+            var mockDbSet = crossfitClassList.BuildMockDbSet();
 
-            crossfitClassRepoMock.Setup(r => r.GetAllAttached()).Returns(mockDbSet);
+            crossfitClassRepoMock.Setup(r => r.GetAllAttached()).Returns(mockDbSet.Object);
             crossfitClassRepoMock.Setup(r => r.UpdateAsync(It.IsAny<CrossfitClass>())).ReturnsAsync(true);
 
-            (bool isSuccess, bool isRestored) opResult = await crossfitCLassService.DeleteOrRestoreCrossfitClassAsync(crossfitClasId.ToString());
+            (bool result, bool isRestored) = await crossfitClassService
+                                .DeleteOrRestoreCrossfitClassAsync(crossfitClasId.ToString());
 
-            Assert.IsTrue(opResult.isSuccess);
-            Assert.IsFalse(opResult.isRestored); // It was active, now inactive
-            crossfitClassRepoMock.Verify(r => r.UpdateAsync(It.Is<CrossfitClass>(cc => cc.IsActive == false)), Times.Once);
+            Assert.IsTrue(result);
+            Assert.IsFalse(isRestored); // It was active, now inactive
+            crossfitClassRepoMock.Verify(r => r.UpdateAsync
+                                (It.Is<CrossfitClass>(cc =>cc.IsActive == false)), Times.Once);
         }
 
         [Test]
         public async Task DeleteOrRestoreCrossfitClassAsync_WithInactiveClass_TogglesToActive()
         {
             Guid crossfitClassId = Guid.NewGuid();
-
             CrossfitClass entity = new CrossfitClass
             {
                 Id = crossfitClassId,
@@ -251,33 +263,40 @@
                 IsActive = false
             };
 
-            IList<CrossfitClass> data = new List<CrossfitClass> { entity };
-            IQueryable<CrossfitClass> mockDbSet = data.BuildMock();
+            IQueryable<CrossfitClass> crossfitClassList = new List<CrossfitClass> { entity }
+                                        .AsQueryable();
+            var mockDbSet = crossfitClassList.BuildMockDbSet();
 
-            crossfitClassRepoMock.Setup(r => r.GetAllAttached()).Returns(mockDbSet);
-            crossfitClassRepoMock.Setup(r => r.UpdateAsync(It.IsAny<CrossfitClass>())).ReturnsAsync(true);
+            crossfitClassRepoMock.Setup(r => r.GetAllAttached()).Returns(mockDbSet.Object);
+            crossfitClassRepoMock.Setup(r => r.UpdateAsync(It.IsAny<CrossfitClass>()))
+                                                    .ReturnsAsync(true);
 
-           (bool result, bool isRestored) = await crossfitCLassService
-                                    .DeleteOrRestoreCrossfitClassAsync(crossfitClassId.ToString());
+            (bool result, bool isRestored) = await crossfitClassService
+                                .DeleteOrRestoreCrossfitClassAsync(crossfitClassId.ToString());
 
             Assert.IsTrue(result);
             Assert.IsTrue(isRestored);
-            crossfitClassRepoMock.Verify(r => r.UpdateAsync(It.Is<CrossfitClass>(cc => cc.IsActive == true)), Times.Once);
+            crossfitClassRepoMock.Verify(r => r.UpdateAsync
+                                    (It.Is<CrossfitClass>(cc => cc.IsActive == true)), Times.Once);
         }
 
         [Test]
         public async Task DeleteOrRestoreCrossfitClassAsync_WithInvalidId_ReturnsFalse()
         {
-            IList<CrossfitClass> data = new List<CrossfitClass>();
-            IQueryable<CrossfitClass> mockDbSet = data.BuildMock();
-            crossfitClassRepoMock.Setup(r => r.GetAllAttached()).Returns(mockDbSet);
+            IQueryable<CrossfitClass> crossfitClassList = new List<CrossfitClass>()
+                                            .AsQueryable();
+            var mockDbSet = crossfitClassList.BuildMockDbSet();
 
-            (bool result, bool isRestored) = await crossfitCLassService
-                                    .DeleteOrRestoreCrossfitClassAsync("test-Id");
+            crossfitClassRepoMock.Setup(r => r.GetAllAttached())
+                                        .Returns(mockDbSet.Object);
+
+            (bool result, bool isRestored) = await crossfitClassService.
+                                            DeleteOrRestoreCrossfitClassAsync("test-Id");
 
             Assert.IsFalse(result);
             Assert.IsFalse(isRestored);
-            crossfitClassRepoMock.Verify(r => r.UpdateAsync(It.IsAny<CrossfitClass>()), Times.Never);
+            crossfitClassRepoMock.Verify(r => r.UpdateAsync
+                                        (It.IsAny<CrossfitClass>()), Times.Never);
         }
 
     }
