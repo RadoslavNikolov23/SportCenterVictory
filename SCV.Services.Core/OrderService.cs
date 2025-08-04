@@ -22,6 +22,13 @@
 
         public async Task<Order> GetOrCreateDraftOrderAsync(string userId)
         {
+            bool isUserIdGuidable = Guid.TryParse(userId, out Guid userGuid);
+
+            if (!isUserIdGuidable)
+            {
+                throw new ArgumentException("Invalid user ID format.");
+            }
+
             Order? order = await this.orderRepo
                     .GetAllAttached()
                     .Include(o => o.OrderProducts)
@@ -29,12 +36,6 @@
                                             && o.OrderStatus == OrderStatus.Processing
                                             && o.IsDeleted == false);
 
-            bool isUserIdGuidable = Guid.TryParse(userId, out Guid userGuid);
-
-            if (!isUserIdGuidable)
-            {
-                throw new ArgumentException("Invalid user ID format.");
-            }
 
             if (order == null)
             {

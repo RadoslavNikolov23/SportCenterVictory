@@ -1,7 +1,7 @@
 ﻿namespace SCV.Test.ServiceTests
 {
-    using MockQueryable.Moq;
     using Moq;
+    using MockQueryable.Moq;
 
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
@@ -135,6 +135,7 @@
         {
             Guid eventId = Guid.NewGuid();
             DateTime starDate= DateTime.UtcNow;
+
             IQueryable<Event> data = new List<Event>
                 {
                     new Event
@@ -151,9 +152,11 @@
                 .AsQueryable();
 
             var mockSet = data.BuildMockDbSet();
-            mockRepo.Setup(r => r.GetAllAttached()).Returns(mockSet.Object);
+            mockRepo.Setup(r => r.GetAllAttached())
+                    .Returns(mockSet.Object);
 
-            EventEditViewModel? result = await eventService.GetEventByIdAsync(eventId.ToString());
+            EventEditViewModel? result = await eventService
+                                .GetEventByIdAsync(eventId.ToString());
 
             Assert.IsNotNull(result);
             Assert.That(result.Title, Is.EqualTo("Test Fitness Event"));
