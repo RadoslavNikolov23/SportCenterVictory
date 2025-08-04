@@ -18936,7 +18936,7 @@ var widgetsTabs = $.ui.tabs;
 // TODO: Switch return back to widget declaration at top of file when this is removed
 
 
-}));
+));
 
 
 

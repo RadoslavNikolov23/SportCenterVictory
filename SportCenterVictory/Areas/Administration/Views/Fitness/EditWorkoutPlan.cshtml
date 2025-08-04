@@ -33,8 +33,8 @@
                 </div>
 
                 <div class="col-sm-6 mb-2">
-                    <label for="Type">Sport Type</label>
-                    <select id="Type" name="Type" class="form-control">
+                    <label for="Type" class="form-label fw-bold">Sport Type</label>
+                    <select id="Type" name="Type" class="form-control w-75">
                         <option value="">Select an membership type</option>
                         @foreach (var type in Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>())
                         {

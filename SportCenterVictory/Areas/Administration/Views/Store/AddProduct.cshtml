@@ -23,11 +23,13 @@
 
 
                 <div class="col-md-6 mb-2">
-                    <label asp-for="ProductCategory" class="form-label-add-edit">Product Category</label>
-                    <select asp-for="ProductCategory" class="form-control"
-                            asp-items="Html.GetEnumSelectList<SCV.GlCommon.Enums.ProductCategory>()">
-                        <option value="">Select Type</option>
-                    </select>
+                    <label asp-for="ProductCategory" class="form-label fw-bold">Product Category</label>
+                    <div class="input-group">
+                        <select asp-for="ProductCategory" class="form-select"
+                                asp-items="Html.GetEnumSelectList<SCV.GlCommon.Enums.ProductCategory>()">
+                            <option value="">Select Type</option>
+                        </select>
+                    </div>
                     <span asp-validation-for="ProductCategory" class="text-danger"></span>
                 </div>
             </div>

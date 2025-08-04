@@ -40,7 +40,7 @@
                     <textarea name="Feedback" class="form-control" rows="2">@feedback.Feedback</textarea>
                 </td>
                 <td>
-                    <select name="Status" class="form-select">
+                    <select name="Status" class="form-label fw-bold w-75">
                         @foreach (var status in Enum.GetValues(typeof(FeedbackStatus)))
                         {
                             <option value="@status" selected="@(status.ToString() == feedback.Status.ToString())">@status</option>

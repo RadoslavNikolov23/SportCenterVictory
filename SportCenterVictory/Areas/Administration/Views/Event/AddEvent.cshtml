@@ -21,13 +21,17 @@
             </div>
 
             <div class="mb-2">
-                <label asp-for="EventType" class="form-label-add-edit">Event Type</label>
-                <select asp-for="EventType" class="form-control"
-                        asp-items="Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>()">
-                    <option value="">Select Type</option>
-                </select>
+                <label asp-for="EventType" class="form-label fw-bold">Event Type</label>
+                <div class="input-group">
+                    <select asp-for="EventType" class="form-select"
+                            asp-items="Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>()">
+                        <option value="">Select Type</option>
+                    </select>
+                </div>
                 <span asp-validation-for="EventType" class="text-danger"></span>
             </div>
+
+
 
             <div class="mb-2">
                 <label asp-for="StartDate" class="form-label-add-edit">Start Date</label>

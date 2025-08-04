@@ -43,16 +43,16 @@
 
             <div class="row">
                 <div class="col-md-6 mb-2">
-                    <label asp-for="TrainerSpecialty" class="form-label-add-edit">Trainer Specialty</label>
-                    <select asp-for="TrainerSpecialty" class="form-control"
+                    <label asp-for="TrainerSpecialty" class="form-label fw-bold">Trainer Specialty</label>
+                    <select asp-for="TrainerSpecialty" class="form-control w-75"
                             asp-items="Html.GetEnumSelectList<SportType>()">
                         <option value="">Select Specialty</option>
                     </select>
                     <span asp-validation-for="TrainerSpecialty" class="text-danger"></span>
                 </div>
                 <div class="col-md-6 mb-2">
-                    <label asp-for="ApplicationUserId" class="form-label-add-edit">Trainer User (Email)</label>
-                    <select asp-for="ApplicationUserId" class="form-control"
+                    <label asp-for="ApplicationUserId" class="form-label fw-bold">Trainer User (Email)</label>
+                    <select asp-for="ApplicationUserId" class="form-control w-75"
                             asp-items="ViewBag.Trainers">
                         <option value="">Select User</option>
                     </select>

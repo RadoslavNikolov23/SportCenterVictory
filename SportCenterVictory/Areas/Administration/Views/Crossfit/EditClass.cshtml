@@ -46,8 +46,8 @@
 
 
                 <div class="col-sm-6 mb-2">
-                    <label for="DayOfWeek" class="form-label-add-edit">Day of the Week</label>
-                    <select id="DayOfWeek" name="DayOfWeek" class="form-control">
+                    <label for="DayOfWeek" class="form-label fw-bold">Day of the Week</label>
+                    <select id="DayOfWeek" name="DayOfWeek" class="form-control w-75">
                         <option value="">Select a day</option>
                         @foreach (var day in Html.GetEnumSelectList<SCV.GlCommon.Enums.DayOfWeek>())
                         {

@@ -36,13 +36,13 @@
                 </div>
 
                 <div class="col-sm-6 mb-2">
-                    <label asp-for="DayOfWeek" class="form-label-add-edit">Day of the Week</label>
-                    <select asp-for="DayOfWeek" class="form-control"
+                <label asp-for="DayOfWeek" class="form-label fw-bold">Day of the Week</label>
+                    <select asp-for="DayOfWeek" class="form-select w-75"
                             asp-items="Html.GetEnumSelectList<SCV.GlCommon.Enums.DayOfWeek>()">
                         <option value="">Select a day</option>
                     </select>
-                    <span asp-validation-for="DayOfWeek" class="text-danger"></span>
                 </div>
+                <span asp-validation-for="DayOfWeek" class="text-danger"></span>
             </div>
 
             <div class="mb-2">

@@ -50,8 +50,8 @@
                 </div>
 
                 <div class="col-sm-6 mb-2">
-                    <label for="EventType">Event Type</label>
-                    <select id="EventType" name="EventType" class="form-control">
+                    <label for="EventType" class="form-label fw-bold">Event Type</label>
+                    <select id="EventType" name="EventType" class="form-control w-75">
                         <option value="">Select an event type</option>
                         @foreach (var type in Html.GetEnumSelectList<SCV.GlCommon.Enums.SportType>())
                         {
