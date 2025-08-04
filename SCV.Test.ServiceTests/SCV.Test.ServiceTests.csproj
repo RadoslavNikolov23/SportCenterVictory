@@ -11,10 +11,19 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="NUnit" Version="3.14.0" />
     <PackageReference Include="NUnit.Analyzers" Version="3.9.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
+    <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
+    <ProjectReference Include="..\SCV.Services.Core\SCV.Services.Core.csproj" />
+    <ProjectReference Include="..\SCV.Web.ViewModels\SCV.Web.ViewModels.csproj" />
   </ItemGroup>
 
   <ItemGroup>
