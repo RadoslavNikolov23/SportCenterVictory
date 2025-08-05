@@ -11,23 +11,23 @@
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.TrainerVM;
 
-    public class PowerliftingController : BaseController
+    public class PowerliftingController : BaseController<PowerliftingController>
     {
-        private readonly IMembershipService membershipService;
         private readonly ITrainerService trainerService;
+        private readonly ITrainerUserService trainerUserService;
         private readonly IEventService eventService;
         private readonly IEventUserService eventUserService;
+        private readonly IMembershipService membershipService;
         private readonly IMembershipUserService membershipUserService;
-        private readonly ITrainerUserService trainerUserService;
 
-        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ITrainerUserService trainerUserService)
+        public PowerliftingController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ITrainerUserService trainerUserService, ILogger<PowerliftingController> logger) : base(logger)
         {
-            this.membershipService = membershipService;
             this.trainerService = trainerService;
+            this.trainerUserService = trainerUserService;
             this.eventService = eventService;
             this.eventUserService = eventUserService;
+            this.membershipService = membershipService;
             this.membershipUserService = membershipUserService;
-            this.trainerUserService = trainerUserService;
         }
 
         [HttpGet]
@@ -49,19 +49,19 @@
                 {
                     membershipDetailVM.IsPurchasedMembership = await this.membershipUserService
                                  .IsUserAddedToMembershipList(membershipDetailVM.Id, this.GetUserId());
-                    
+
                     membershipDetailVM.CanBeRemoved = await this.membershipUserService
                                   .CanUserRemovedIt(membershipDetailVM.Id, this.GetUserId());
 
 
                     membershipDetailVM.IsExpired = await this.membershipUserService
                                   .IsExpired(membershipDetailVM.Id, this.GetUserId());
-
                 }
             }
 
             if (membershipsVM == null || !membershipsVM.Any())
             {
+                this.logger.LogWarning(string.Format(ErrorMessages.MembershipsNotFound, "Powerlifting"));
                 return NotFoundWithMessage(string.Format(ErrorMessages.MembershipsNotFound, "Powerlifting"));
             }
 
@@ -86,12 +86,12 @@
 
             if (trainerViewModels == null || !trainerViewModels.Any())
             {
+                this.logger.LogWarning(string.Format(ErrorMessages.TrainersNotFound, "Powerlifting"));
                 return NotFoundWithMessage(string.Format(ErrorMessages.TrainersNotFound, "Powerlifting"));
 
             }
 
             return View(trainerViewModels);
-
         }
 
         [HttpGet]
@@ -112,11 +112,11 @@
 
             if (eventViewModels == null || !eventViewModels.Any())
             {
+                this.logger.LogWarning(string.Format(ErrorMessages.EventsNotFound, "Powerlifting"));
                 return NotFoundWithMessage(string.Format(ErrorMessages.EventsNotFound, "Powerlifting"));
             }
 
             return View(eventViewModels);
-
         }
     }
 }

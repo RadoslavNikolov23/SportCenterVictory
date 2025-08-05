@@ -1,39 +1,38 @@
 ﻿namespace SportCenterVictory.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Authorization;
-
+    using Microsoft.AspNetCore.Mvc;
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
+    using SCV.Services.Core.EventServices.Contracts;
+    using SCV.Services.Core.FitnessServices.Contracts;
+    using SCV.Services.Core.StoreServices.Contracts;
+    using SCV.Services.Core.TrainerServices.Contracts;
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.FitnessVM;
     using SCV.Web.ViewModels.TrainerVM;
-    using SCV.Services.Core.FitnessServices.Contracts;
-    using SCV.Services.Core.TrainerServices.Contracts;
-    using SCV.Services.Core.StoreServices.Contracts;
-    using SCV.Services.Core.EventServices.Contracts;
 
-    public class FitnessController : BaseController
+    public class FitnessController : BaseController<FitnessController>
     {
         private readonly IExerciseService exerciseService;
-        private readonly IMembershipService membershipService;
-        private readonly ITrainerService trainerService;
-        private readonly IEventService eventService;
         private readonly IWorkoutPlanService workoutPlanService;
-        private readonly IEventUserService eventUserService;
-        private readonly IMembershipUserService membershipUserService;
+        private readonly ITrainerService trainerService;
         private readonly ITrainerUserService trainerUserService;
+        private readonly IEventService eventService;
+        private readonly IEventUserService eventUserService;
+        private readonly IMembershipService membershipService;
+        private readonly IMembershipUserService membershipUserService;
 
-        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IWorkoutPlanService workoutPlanService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ITrainerUserService trainerUserService)
+        public FitnessController(IExerciseService exerciseService, IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, IWorkoutPlanService workoutPlanService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ITrainerUserService trainerUserService, ILogger<FitnessController> logger) : base(logger)
         {
             this.exerciseService = exerciseService;
-            this.membershipService = membershipService;
-            this.trainerService = trainerService;
-            this.eventService = eventService;
             this.workoutPlanService = workoutPlanService;
-            this.eventUserService = eventUserService;
-            this.membershipUserService = membershipUserService;
+            this.trainerService = trainerService;
             this.trainerUserService = trainerUserService;
+            this.eventService = eventService;
+            this.eventUserService = eventUserService;
+            this.membershipService = membershipService;
+            this.membershipUserService = membershipUserService;
         }
 
         [HttpGet]
@@ -91,7 +90,6 @@
                     membershipDetailVM.CanBeRemoved = await this.membershipUserService
                              .CanUserRemovedIt(membershipDetailVM.Id, this.GetUserId());
 
-
                     membershipDetailVM.IsExpired = await this.membershipUserService
                         .IsExpired(membershipDetailVM.Id, this.GetUserId());
                 }
@@ -99,7 +97,8 @@
 
             if (membershipsVM == null || !membershipsVM.Any())
             {
-                return NotFound(string.Format(ErrorMessages.MembershipsNotFound, "the Fitness"));
+                this.logger.LogWarning(string.Format(ErrorMessages.MembershipsNotFound, "the Fitness"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.MembershipsNotFound, "the Fitness"));
             }
 
             return View(membershipsVM);
@@ -124,12 +123,12 @@
 
             if (trainerViewModels == null || !trainerViewModels.Any())
             {
-                return NotFound(string.Format(ErrorMessages.TrainersNotFound, "the Fitness"));
+                this.logger.LogWarning(string.Format(ErrorMessages.TrainersNotFound, "the Fitness"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.TrainersNotFound, "the Fitness"));
 
             }
 
             return View(trainerViewModels);
-
         }
 
         [HttpGet]
@@ -150,12 +149,11 @@
 
             if (eventViewModels == null || !eventViewModels.Any())
             {
-                return NotFound(string.Format(ErrorMessages.EventsNotFound, "the Fitness"));
-
+                this.logger.LogWarning(string.Format(ErrorMessages.EventsNotFound, "the Fitness"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.EventsNotFound, "the Fitness"));
             }
 
             return View(eventViewModels);
-
         }
 
         [HttpGet]
@@ -166,12 +164,11 @@
 
             if (workoutPlanDetailVM == null || !workoutPlanDetailVM.Any())
             {
-                return NotFound(string.Format(ErrorMessages.WorkoutPlansNotFound, "the Fitness"));
-
+                this.logger.LogWarning(string.Format(ErrorMessages.WorkoutPlansNotFound, "the Fitness"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.WorkoutPlansNotFound, "the Fitness"));
             }
 
             return View(workoutPlanDetailVM);
-
         }
 
         [HttpGet]
@@ -188,7 +185,6 @@
             if (exerciseVM == null)
             {
                 return PartialView("_ExerciseNotFoundPopupPartial");
-
             }
 
             return PartialView("_ExercisePopupPartial", exerciseVM);

@@ -1,7 +1,7 @@
 ﻿namespace SCV.Services.Core.EmailServices
 {
     using Microsoft.Extensions.Options;
-    using SCV.Services.Common;
+    using SCV.Services.Common.EmailSettings;
     using SCV.Services.Core.EmailServices.Contracts;
     using SCV.Web.ViewModels.ContactVM;
     using System.Net.Mail;

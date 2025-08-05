@@ -1,6 +1,5 @@
 ﻿namespace SportCenterVictory.Controllers
 {
-
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
 
@@ -9,8 +8,15 @@
     using SCV.GlCommon;
 
     [Authorize]
-    public abstract class BaseController : Controller
+    public abstract class BaseController<T> : Controller
     {
+        protected readonly ILogger<T> logger;
+
+        public BaseController(ILogger<T> logger)
+        {
+            this.logger = logger;
+        }
+
         protected bool IsUserAuthenticated()
         {
             bool isAuthenticated = User.Identity?.IsAuthenticated ?? false;
@@ -24,28 +30,28 @@
 
             if (this.IsUserAuthenticated())
             {
-                userId= this.User
+                userId = this.User
                     .FindFirstValue(ClaimTypes.NameIdentifier);
             }
 
             return userId;
         }
 
-        protected IActionResult NotFoundWithMessage(string message)
+        protected IActionResult NotFoundWithMessage(string? message)
         {
             this.Response.StatusCode = 404;
 
             return View(ErrorViews.Error404, model: message);
         }
 
-        protected IActionResult AccessForbidden(string message)
+        protected IActionResult AccessForbiddenWithMessage(string? message)
         {
             this.Response.StatusCode = 403;
 
             return View(ErrorViews.Error403, model: message);
         }
 
-        protected IActionResult ServerError(string message)
+        protected IActionResult ServerErrorWithMessage(string? message)
         {
             this.Response.StatusCode = 500;
 

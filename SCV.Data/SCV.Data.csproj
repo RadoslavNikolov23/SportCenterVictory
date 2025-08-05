@@ -27,12 +27,17 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SCV.GlCommon\SCV.GlCommon.csproj" />
-    <ProjectReference Include="..\SCV.Data.Common\SCV.Data.Common.csproj" />
     <ProjectReference Include="..\SCV.Data.Models\SCV.Data.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="SeedFiles\CrossFitClasses\crossfitClassesSeed.json">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

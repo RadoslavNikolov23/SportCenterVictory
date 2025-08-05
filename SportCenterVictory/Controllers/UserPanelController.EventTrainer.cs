@@ -8,6 +8,11 @@
 
     using SCV.GlCommon;
 
+    using static SCV.GlCommon.ApplicationConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
+
     public partial class UserPanelController
     {
         //--------------------Events-------------------------------
@@ -22,11 +27,11 @@
 
                 if (userId == null)
                 {
-                    return this.Forbid();
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
                 }
 
                 IEnumerable<EventUserDetailViewModel> eventUserList = await this.eventUserService
-                    .GetEventUserListAsync(userId);
+                                .GetEventUserListAsync(userId);
 
                 foreach (EventUserDetailViewModel eventUserVM in eventUserList)
                 {
@@ -36,11 +41,10 @@
 
                 return View(eventUserList);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while loading events for User with ID: {this.GetUserId()}. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -53,6 +57,9 @@
 
                 if (eventId == null)
                 {
+                    this.logger.LogWarning($"Error occurred while joining event with Id: {eventId} by user with ID: {userId}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(JoinedEvents));
                 }
 
@@ -61,16 +68,21 @@
 
                 if (isEventJoinedByUser == false)
                 {
-                    return this.RedirectToAction(nameof(JoinedEvents), "UserPanel");
+                    this.logger.LogWarning($"Error occurred in the service method while joining event with ID: {eventId} by user with Id: {userId}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    return this.RedirectToAction(nameof(JoinedEvents));
                 }
+
+                TempData[SuccessMessageKey] = SuccessMessageJoinedEvent;
+
 
                 return this.RedirectToAction(nameof(JoinedEvents));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while joining event with Id: {eventId} by user with ID: {this.GetUserId()}. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -84,6 +96,9 @@
 
                 if (eventId == null)
                 {
+                    this.logger.LogWarning($"Error occurred while removing event with Id: {eventId} by user with ID: {userId}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(JoinedEvents));
                 }
 
@@ -92,15 +107,20 @@
 
                 if (isRemovedUserFromEvent == false)
                 {
+                    this.logger.LogWarning($"Error occurred in the service method while removing event with ID: {eventId} by user with Id: {userId}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(JoinedEvents), "UserPanel");
                 }
+
+                TempData[SuccessMessageKey] = SuccessRemovedJoinedEvent;
 
                 return this.RedirectToAction(nameof(JoinedEvents));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while removing event with Id: {eventId} by user with ID: {this.GetUserId()}. Error: {e.Message}.");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -116,7 +136,7 @@
 
                 if (userId == null)
                 {
-                    return this.Forbid();
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
                 }
 
                 IEnumerable<TrainerUserDetailViewModel> trainerUserList = await this.trainerUserService
@@ -132,9 +152,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while loading Favorite Trainers from user with ID: {this.GetUserId()}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -147,6 +166,9 @@
 
                 if (trainerId == null)
                 {
+                    this.logger.LogWarning($"Error occurred while adding trainer with Id: {trainerId} by user with ID: {userId}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(FavoriteTrainers));
                 }
 
@@ -155,16 +177,20 @@
 
                 if (isTrainerAddedByUser == false)
                 {
-                    return this.RedirectToAction(nameof(FavoriteTrainers), "UserPanel");
+                    this.logger.LogWarning($"Error occurred in the service methods while adding trainer with Id: {trainerId} by user with ID: {userId}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    return this.RedirectToAction(nameof(FavoriteTrainers));
                 }
+
+                TempData[SuccessMessageKey] = SuccessMessageJoinedTrainer;
 
                 return this.RedirectToAction(nameof(FavoriteTrainers));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while adding trainer with Id: {trainerId} by user with ID: {this.GetUserId()}. Exception: {e.Message}.");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -177,6 +203,9 @@
 
                 if (trainerId == null)
                 {
+                    this.logger.LogWarning($"Error occurred while removing trainer with Id: {trainerId} by user with ID: {userId}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(FavoriteTrainers));
                 }
 
@@ -185,15 +214,19 @@
 
                 if (isRemovedTrainerFromUser == false)
                 {
-                    return this.RedirectToAction(nameof(FavoriteTrainers), "UserPanel");
+                    this.logger.LogWarning($"Error occurred in the service method while c removing trainer with Id: {trainerId} by user with ID: {userId}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    return this.RedirectToAction(nameof(FavoriteTrainers));
                 }
+                TempData[SuccessMessageKey] = SuccessMessageRemovedTrainer;
 
                 return this.RedirectToAction(nameof(FavoriteTrainers));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while removing trainer with Id: {trainerId} by user with ID: {this.GetUserId()}. Error: {e.Message}.");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
     }

@@ -4,5 +4,7 @@
 
     public class OrderApproveAdminViewModel : OrderDetailViewModel
     {
+        public string CustomerFullName { get; set; } = null!;
+        public string? CustomerEmail { get; set; }
     }
 }

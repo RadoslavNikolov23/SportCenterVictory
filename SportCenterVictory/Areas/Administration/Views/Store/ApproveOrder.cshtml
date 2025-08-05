@@ -9,6 +9,7 @@
     <thead class="table-dark">
         <tr>
             <th>Order Date</th>
+            <th>Customer</th>
             <th>Total Price</th>
             <th>Payment</th>
             <th>Products</th>
@@ -22,6 +23,10 @@
             <tr class="table-warning">
                 <form asp-action="ApproveOrder" method="post">
                 <td>@order.OrderDate</td>
+                <td>
+                    <div>@order.CustomerFullName</div>
+                    <div>@order.CustomerEmail</div>
+                </td>
                 <td>@order.TotalPrice.ToString("C")</td>
                 <td>@order.PaymentMethod</td>
                 <td>

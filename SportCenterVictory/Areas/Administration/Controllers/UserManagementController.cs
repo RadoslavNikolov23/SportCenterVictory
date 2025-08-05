@@ -1,16 +1,19 @@
 ﻿namespace SportCenterVictory.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
+
     using SCV.Services.Core.UserServices.Contracts;
     using SCV.Web.ViewModels.Administration.UserManagementVM;
 
     using static SCV.GlCommon.ApplicationConstants;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
 
-    public class UserManagementController : BaseAdminController
+    public class UserManagementController : BaseAdminController<UserManagementController>
     {
         private readonly IUserService userService;
 
-        public UserManagementController(IUserService userService)
+        public UserManagementController(IUserService userService, ILogger<UserManagementController> logger) : base(logger)
         {
             this.userService = userService;
         }
@@ -30,12 +33,12 @@
             try
             {
                 bool userExists = await this.userService
-                .UserExistsByIdAsync(userId);
+                                .UserExistsByIdAsync(userId);
 
                 if (!userExists)
                 {
-                    TempData[ErrorMessageKey] = "User does not exist!";
-
+                    this.logger.LogWarning($"Cannot assign a role to user with ID: {userId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageUserDoesNotExist;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
@@ -44,18 +47,20 @@
 
                 if (!isAssayedRole)
                 {
-                    TempData[ErrorMessageKey] = "Something went wrong. Try Again later!";
+                    this.logger.LogWarning($"Error in the Service methods, Cannot assign a role to user with ID: {userId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
-                TempData[SuccessMessageKey] = "User assigned to role successfully!";
+                this.logger.LogInformation($"Successfully assing {role} to user with ID{userId}!.");
+
+                TempData[SuccessMessageKey] = SuccessMessageAssinRoleUser;
                 return this.RedirectToAction(nameof(EditUserRole));
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while assaying role! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home", new { area = "" });
+                this.logger.LogError($"Error occurred while assaying role to a user. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -69,7 +74,8 @@
 
                 if (!userExists)
                 {
-                    TempData[ErrorMessageKey] = "User does not exist!";
+                    this.logger.LogWarning($"Cannot remove a role to user with ID: {userId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageUserDoesNotExist;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
@@ -78,18 +84,20 @@
 
                 if (!isRemovedRole)
                 {
-                    TempData[ErrorMessageKey] = "Something went wrong. Try Again later!";
+                    this.logger.LogWarning($"Error in the Service methods, Cannot remove a role to user with ID: {userId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
-                TempData[SuccessMessageKey] = $"User removed from the given role {role} successfully!";
+                this.logger.LogInformation($"Successfully removed {role} to user with ID{userId}!.");
+
+                TempData[SuccessMessageKey] = string.Format(SuccessMessageRemoveRoleUser, role);
                 return this.RedirectToAction(nameof(EditUserRole));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while removing role! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home", new { area = "" });
+                this.logger.LogError($"Error occurred while removing role from a user with ID:{userId}. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -103,7 +111,8 @@
 
                 if (!userExists)
                 {
-                    TempData[ErrorMessageKey] = "User does not exist!";
+                    this.logger.LogWarning($"Cannot delete user with ID: {userId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageUserDoesNotExist;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
@@ -112,19 +121,19 @@
 
                 if (!isDeletedUser)
                 {
-                    TempData[ErrorMessageKey] = "Something went wrong. Try Again later!";
+                    this.logger.LogWarning($"Error in the Service methods, Cannot remove a role to user with ID: {userId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
-                TempData[SuccessMessageKey] = $"User deleted successfully!";
+                TempData[SuccessMessageKey] = SuccessMessageDeleteUser;
                 return this.RedirectToAction(nameof(EditUserRole));
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting user! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home", new { area = "" });
+                this.logger.LogError($"Error occurred while trying to delete user with ID: {userId}. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
     }

@@ -14,9 +14,11 @@
     using SCV.Web.ViewModels.UserFeedbackVM;
 
     using static SCV.GlCommon.ApplicationConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
 
-
-    public partial class UserPanelController : BaseController
+    public partial class UserPanelController : BaseController<UserPanelController>
     {
         private readonly IEventUserService eventUserService;
         private readonly IOrderService orderService;
@@ -26,7 +28,7 @@
         private readonly IUserFeedbackService userFeedbackService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public UserPanelController(IEventUserService eventUserService, ICrossfitClassUserService crossfitClassUserService, IMembershipUserService membershipUserService, ITrainerUserService trainerUserService, IUserFeedbackService userFeedbackService, IOrderService orderService, UserManager<ApplicationUser> userManager)
+        public UserPanelController(IEventUserService eventUserService, ICrossfitClassUserService crossfitClassUserService, IMembershipUserService membershipUserService, ITrainerUserService trainerUserService, IUserFeedbackService userFeedbackService, IOrderService orderService, UserManager<ApplicationUser> userManager, ILogger<UserPanelController> logger) : base(logger)
         {
             this.eventUserService = eventUserService;
             this.crossfitClassUserService = crossfitClassUserService;
@@ -44,12 +46,12 @@
         [Authorize(Roles = SCV.GlCommon.RoleConstants.User)]
         public async Task<IActionResult> LeaveFeedback()
         {
-            //TODO: use the methods in the BaseController
             var user = await userManager.GetUserAsync(User);
+
             if (user == null)
             {
-                TempData[ErrorMessageKey] = "Unable to find user.";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogWarning(UnableToFindUser);
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
 
             UserFeedbackAddViewModel userFeedbackAddVM = new UserFeedbackAddViewModel
@@ -58,6 +60,7 @@
                 UserName = user.UserName!,
                 FullName = user.FullName,
             };
+
             return View(userFeedbackAddVM);
         }
 
@@ -72,8 +75,8 @@
 
                 if (user == null)
                 {
-                    TempData[ErrorMessageKey] = "User not found.";
-                    return RedirectToAction("Index", "Home");
+                    this.logger.LogWarning(UnableToFindUser);
+                    return this.ServerErrorWithMessage(BaseServerErrorMessage);
                 }
 
                 userFeedbackAddVM.UserId = user.Id.ToString();
@@ -82,7 +85,7 @@
 
                 if (!this.ModelState.IsValid)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
+                    this.ModelState.AddModelError(string.Empty, SomethingWentWrong);
 
                     return this.View(userFeedbackAddVM);
                 }
@@ -92,24 +95,21 @@
 
                 if (!isAddedSuccessfully)
                 {
-                    TempData[ErrorMessageKey] = "User Feedback could not be created. Please try again.";
-
+                    this.logger.LogWarning($"Error occurred in the service method while adding User Feedback by user with Id: {user.Id.ToString()}.");
+                    TempData[ErrorMessageKey] = ErrorMessageUserFeedbackCannotCreate;
                     return View(userFeedbackAddVM);
                 }
 
 
-                TempData[SuccessMessageKey] = "User Feedback added successfully!";
-                return RedirectToAction("Index", "Home", new { area = "" });
-
-
+                TempData[SuccessMessageKey] = SuccessMessageUserFeedbackSuccessfulAdd;
+                return RedirectToAction(nameof(Index), "Home");
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the User Feedback! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while adding the User Feedback from User. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
-
 
         //-------------------CrossfitClasses--------------------------------------
 
@@ -123,10 +123,11 @@
 
                 if (userId == null)
                 {
-                    return this.Forbid();
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
                 }
 
-                IEnumerable<CrossfitClassUserDetailViewModel> crossfitClassUserList = await this.crossfitClassUserService.GetCrossfitClassUserListAsync(userId);
+                IEnumerable<CrossfitClassUserDetailViewModel> crossfitClassUserList = await this.crossfitClassUserService
+                                        .GetCrossfitClassUserListAsync(userId);
 
                 foreach (CrossfitClassUserDetailViewModel crossfitClassUserVM in crossfitClassUserList)
                 {
@@ -136,11 +137,10 @@
 
                 return View(crossfitClassUserList);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while loading Joined Crossfit Classes from User with ID: {this.GetUserId()}. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -153,6 +153,8 @@
 
                 if (crossfitClassId == null)
                 {
+                    this.logger.LogWarning($"Error occurred while joining Crossfit Class with ID: {crossfitClassId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(JoinedCrossfitClasses));
                 }
 
@@ -161,16 +163,18 @@
 
                 if (isCrossfitClassJoinedByUser == false)
                 {
-                    return this.RedirectToAction(nameof(JoinedCrossfitClasses), "UserPanel");
+                    this.logger.LogWarning($"Error occurred in the service methods while joining Crossfit Class with ID: {crossfitClassId} from user with ID:{userId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    return this.RedirectToAction(nameof(JoinedCrossfitClasses));
                 }
+                TempData[SuccessMessageKey] = SuccessMessageJoinedCrossfitClass;
 
                 return this.RedirectToAction(nameof(JoinedCrossfitClasses));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while joining Crossfit Class with ID: {crossfitClassId} from user with ID:{this.GetUserId()}. Error: {e.Message}.");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -183,6 +187,8 @@
 
                 if (crossfitClassId == null)
                 {
+                    this.logger.LogWarning($"Error occurred while removing Crossfit Class with ID: {crossfitClassId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(JoinedCrossfitClasses));
                 }
 
@@ -191,15 +197,20 @@
 
                 if (isRemovedUserFromCrossfitClass == false)
                 {
-                    return this.RedirectToAction(nameof(JoinedCrossfitClasses), "UserPanel");
+                    this.logger.LogWarning($"Error occurred in the service methods while removing Crossfit Class with ID: {crossfitClassId} from user with ID:{userId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    return this.RedirectToAction(nameof(JoinedCrossfitClasses));
                 }
+
+
+                TempData[SuccessMessageKey] = SuccessMessageRemovedCrossfitClass;
 
                 return this.RedirectToAction(nameof(JoinedCrossfitClasses));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while removing Crossfit Class with ID: {crossfitClassId} from user with ID:{this.GetUserId()}. Error: {e.Message}.");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 

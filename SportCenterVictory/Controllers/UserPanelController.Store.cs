@@ -6,6 +6,11 @@
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.StoreVM;
 
+    using static SCV.GlCommon.ApplicationConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
+
     public partial class UserPanelController
     {
         //------------------------Memberships---------------------------------
@@ -20,7 +25,7 @@
 
                 if (userId == null)
                 {
-                    return this.Forbid();
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
                 }
 
                 IEnumerable<MembershipUserDetailViewModel> membershipUserList = await this.membershipUserService
@@ -32,7 +37,7 @@
                         .IsUserAddedToMembershipList(membershipUserVM.MembershipId, this.GetUserId());
 
                     membershipUserVM.CanBeRemoved = await this.membershipUserService
-         .CanUserRemovedIt(membershipUserVM.MembershipId, this.GetUserId());
+                        .CanUserRemovedIt(membershipUserVM.MembershipId, this.GetUserId());
 
 
                     membershipUserVM.IsExpired = await this.membershipUserService
@@ -43,9 +48,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while loading purchased Memberships from user with ID: {this.GetUserId()}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -58,7 +62,9 @@
 
                 if (membershipId == null)
                 {
-                    return this.RedirectToAction(nameof(Index));
+                    this.logger.LogWarning($"Error occurred while purchasing Memberships with ID: {membershipId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    return this.RedirectToAction(nameof(PurchasedMemberships));
                 }
 
                 bool isMembershipJoinedByUser = await this.membershipUserService
@@ -66,16 +72,18 @@
 
                 if (isMembershipJoinedByUser == false)
                 {
-                    return this.RedirectToAction(nameof(PurchasedMemberships), "UserPanel");
+                    this.logger.LogWarning($"Error occurred in the service methods while purchasing Memberships with ID: {membershipId} by user with ID: {this.GetUserId()}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    return this.RedirectToAction(nameof(PurchasedMemberships));
                 }
 
                 return this.RedirectToAction(nameof(PurchasedMemberships));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
 
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while purchasing Memberships with ID: {membershipId} by user with ID: {this.GetUserId()}. Error: {e.Message}.");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -88,6 +96,8 @@
 
                 if (membershipId == null)
                 {
+                    this.logger.LogWarning($"Error occurred while removing Memberships with ID: {membershipId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(PurchasedMemberships));
                 }
 
@@ -96,15 +106,17 @@
 
                 if (isRemovedUserFromMembership == false)
                 {
-                    return this.RedirectToAction(nameof(PurchasedMemberships), "UserPanel");
+                    this.logger.LogWarning($"Error occurred in the service methods while removing Membersips with ID: {membershipId} by user with ID: {this.GetUserId()}.");
+                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    return this.RedirectToAction(nameof(PurchasedMemberships));
                 }
 
                 return this.RedirectToAction(nameof(PurchasedMemberships));
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while removing Memberships with ID: {membershipId} by user with ID: {this.GetUserId()}. Error: {e.Message}.");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -120,7 +132,7 @@
 
                 if (userId == null)
                 {
-                    return this.Forbid();
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
                 }
 
                 IEnumerable<OrderDetailViewModel> orders = await this.orderService
@@ -129,8 +141,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while loading order by user with ID: {this.GetUserId()}. Error: {e.Message}.");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
     }

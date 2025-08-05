@@ -9,14 +9,17 @@
     using SCV.Web.ViewModels.Administration.ReferenceVM;
 
     using static SCV.GlCommon.ApplicationConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
     using static SCV.GlCommon.RoleConstants;
+    using static SCV.GlCommon.ToastMessages;
 
-    public class EventController : BaseAdminController
+    public class EventController : BaseAdminController<EventController>
     {
         private readonly IEventService eventService;
         private readonly IEventUserService eventUserService;
 
-        public EventController(IEventService eventService, IEventUserService eventUserService)
+        public EventController(IEventService eventService, IEventUserService eventUserService, ILogger<EventController> logger) : base(logger)
         {
             this.eventService = eventService;
             this.eventUserService = eventUserService;
@@ -37,7 +40,7 @@
             {
                 if (!this.ModelState.IsValid)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
+                    this.ModelState.AddModelError(string.Empty, SomethingWentWrong);
 
                     return this.View(eventAddVM);
                 }
@@ -47,31 +50,32 @@
 
                 if (!isAddedSuccessfully)
                 {
-                    TempData[ErrorMessageKey] = "Event could not be created. Please try again.";
+                    this.logger.LogWarning($"Error occurred in the service methods while adding an Event.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateEvent;
 
                     return View(eventAddVM);
                 }
 
 
-                TempData[SuccessMessageKey] = "Event added successfully!";
+                TempData[SuccessMessageKey] = SuccessMessageAddEvent;
 
-                switch(eventAddVM.EventType)
+                switch (eventAddVM.EventType)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessEvents", "Fitness", new { area = "" });
+                        return RedirectToAction("FitnessEvents", "Fitness");
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossfitEvents", "Crossfit", new { area = "" });
+                        return RedirectToAction("CrossfitEvents", "Crossfit");
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingEvents", "Powerlifting", new { area = "" });
+                        return RedirectToAction("PowerliftingEvents", "Powerlifting");
                     default:
-                        return RedirectToAction("Index", "Home", new { area = "" });
+                        return RedirectToAction("Index", "Home");
                 }
 
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the Event! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while adding Event. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -87,8 +91,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Event! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while edditing Event. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -105,53 +109,62 @@
                     return Json(new
                     {
                         success = false,
-                        message = "Event could not be found. Please try again."
+                        message = ErrorMessageCannotFindEvent
                     });
                 }
 
                 return Json(new
                 {
                     success = true,
-                    data = new {
-                                    id = eventEditVM.Id,
-                                    title = eventEditVM.Title,
-                                    eventType = (int)eventEditVM.EventType,
-                                    description = eventEditVM.Description,
-                                    startDate = eventEditVM.StartDate,
-                                    location = eventEditVM.Location,
-                                    imageUrl = eventEditVM.ImageUrl
-                                }
+                    data = new
+                    {
+                        id = eventEditVM.Id,
+                        title = eventEditVM.Title,
+                        eventType = (int)eventEditVM.EventType,
+                        description = eventEditVM.Description,
+                        startDate = eventEditVM.StartDate,
+                        location = eventEditVM.Location,
+                        imageUrl = eventEditVM.ImageUrl
+                    }
                 });
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Event! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while editing Event with ID:{id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> EditEvent(EventEditViewModel eventEditVM)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(eventEditVM);
+                if (!ModelState.IsValid)
+                {
+                    return View(eventEditVM);
+                }
+
+                await eventService.EditEventAsync(eventEditVM);
+
+                TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateEvent, eventEditVM.Title);
+
+                switch (eventEditVM.EventType)
+                {
+                    case SportType.Fitness:
+                        return RedirectToAction("FitnessEvents", "Fitness");
+                    case SportType.CrossFit:
+                        return RedirectToAction("CrossfitEvents", "Crossfit");
+                    case SportType.Powerlifting:
+                        return RedirectToAction("PowerliftingEvents", "Powerlifting");
+                    default:
+                        return RedirectToAction("Index", "Home");
+                }
             }
-
-            await eventService.EditEventAsync(eventEditVM);
-
-            TempData["Success"] = $"Event {eventEditVM.Title} updated successfully!";
-
-            switch (eventEditVM.EventType)
+            catch (Exception e)
             {
-                case SportType.Fitness:
-                    return RedirectToAction("FitnessEvents", "Fitness", new { area = "" });
-                case SportType.CrossFit:
-                    return RedirectToAction("CrossfitEvents", "Crossfit", new { area = "" });
-                case SportType.Powerlifting:
-                    return RedirectToAction("PowerliftingEvents", "Powerlifting", new { area = "" });
-                default:
-                    return RedirectToAction("Memberships", "Store", new { area = "" });
+                this.logger.LogError($"Error occurred while edditing Event with ID:{eventEditVM.Id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -168,8 +181,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Event! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deleting Event. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -185,22 +198,21 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = "Event could not be found and deleted!";
+                    this.logger.LogWarning($"Error occurred in the service while deleting Event with ID:{id}.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotFindEvent;
                 }
                 else
                 {
-                    string operation = opResult.isRestored ? "Deleted" : "Restored";
-
-                    TempData[SuccessMessageKey] = $"Event is {operation} successfully!";
+                    string operation = opResult.isRestored ? Deleted : Restored;
+                    TempData[SuccessMessageKey] = string.Format(SuccessMessageDeleteEvent, operation);
                 }
 
                 return this.RedirectToAction(nameof(DeleteEvent));
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Event! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while editing Event with ID:{id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -217,9 +229,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while trying to load all the Events with their Clients. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 

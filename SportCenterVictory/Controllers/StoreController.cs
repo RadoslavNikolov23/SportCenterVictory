@@ -12,7 +12,12 @@
     using SCV.Web.ViewModels.StoreVM;
     using SVC.Web.ViewModels.StoreVM;
 
-    public class StoreController : BaseController
+    using static SCV.GlCommon.ApplicationConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
+
+    public class StoreController : BaseController<StoreController>
     {
         private readonly IProductService productService;
         private readonly IMembershipService membershipService;
@@ -22,7 +27,7 @@
         private readonly UserManager<ApplicationUser> userManager;
 
 
-        public StoreController(IProductService productService, IMembershipService membershipService, IMembershipUserService membershipUserService, IOrderService orderService, IOrderProductService orderProductService, UserManager<ApplicationUser> userManager)
+        public StoreController(IProductService productService, IMembershipService membershipService, IMembershipUserService membershipUserService, IOrderService orderService, IOrderProductService orderProductService, UserManager<ApplicationUser> userManager, ILogger<StoreController> logger) : base(logger)
         {
             this.productService = productService;
             this.membershipService = membershipService;
@@ -47,11 +52,11 @@
 
             if (productEquipmentViewModels == null || !productEquipmentViewModels.Any())
             {
-                return NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "equipment products"));
+                this.logger.LogWarning(string.Format(ErrorMessages.StoreItemsNotFound, "equipment products"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "equipment products"));
             }
 
             return View(productEquipmentViewModels);
-
         }
 
         [HttpGet]
@@ -62,19 +67,18 @@
 
             if (productNutritionViewModels == null || !productNutritionViewModels.Any())
             {
-                return NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "nutrition products"));
-
+                this.logger.LogWarning(string.Format(ErrorMessages.StoreItemsNotFound, "nutrition products"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "nutrition products"));
             }
 
             return View(productNutritionViewModels);
-
         }
 
         [HttpGet]
         public async Task<IActionResult> Memberships()
         {
             IEnumerable<MembershipDetailViewModel> allMembershipsViewModels = await this.membershipService
-                                                        .GetAllMembershipAsync();
+                                .GetAllMembershipAsync();
 
             if (this.IsUserAuthenticated())
             {
@@ -86,7 +90,6 @@
                     membershipDetailVM.CanBeRemoved = await this.membershipUserService
                                 .CanUserRemovedIt(membershipDetailVM.Id, this.GetUserId());
 
-
                     membershipDetailVM.IsExpired = await this.membershipUserService
                                 .IsExpired(membershipDetailVM.Id, this.GetUserId());
                 }
@@ -94,31 +97,39 @@
 
             if (allMembershipsViewModels == null || !allMembershipsViewModels.Any())
             {
-                return NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "memberships"));
-
+                this.logger.LogWarning(string.Format(ErrorMessages.StoreItemsNotFound, "memberships"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, "memberships"));
             }
 
             return View(allMembershipsViewModels);
-
         }
 
         [HttpPost]
         public async Task<IActionResult> AddToCart(Guid productId, int quantity)
         {
-            string? userId = this.userManager.GetUserId(User);
-
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                this.AccessForbidden("Access is forbidden. Log in or Register first.");
+                string? userId = this.userManager.GetUserId(User);
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
+                }
+
+                Order order = await this.orderService
+                                    .GetOrCreateDraftOrderAsync(userId!);
+
+                await this.orderProductService
+                            .AddProductToOrderAsync(order.Id.ToString(), productId.ToString(), quantity);
+
+                return RedirectToAction(nameof(Cart));
             }
+            catch (Exception ex)
+            {
 
-            Order order = await this.orderService
-                                .GetOrCreateDraftOrderAsync(userId!);
-
-            await this.orderProductService
-                        .AddProductToOrderAsync(order.Id.ToString(), productId.ToString(), quantity);
-
-            return RedirectToAction("Cart");
+                this.logger.LogError($"Error occurred while adding to Car Products: Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
+            }
         }
 
         [HttpGet]
@@ -128,7 +139,7 @@
 
             if (string.IsNullOrEmpty(userId))
             {
-                this.AccessForbidden("Access is forbidden. Log in or Register first.");
+                return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
             }
 
             OrderDetailViewModel? currentCart = await orderService
@@ -139,51 +150,69 @@
         [HttpPost]
         public async Task<IActionResult> RemoveFromCart(Guid productId)
         {
-            string? userId = this.userManager.GetUserId(User);
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                this.AccessForbidden("Access is forbidden. Log in or Register first.");
+                string? userId = this.userManager.GetUserId(User);
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
+                }
+
+                Order? order = await this.orderService.GetOrCreateDraftOrderAsync(userId!);
+
+                if (order == null)
+                {
+                    this.logger.LogWarning($"{OrderNotFound} for user with ID: {userId}");
+                    return this.NotFoundWithMessage(OrderNotFound);
+                }
+
+                await this.orderProductService.RemoveProductFromOrderAsync(order.Id, productId);
+
+                return RedirectToAction(nameof(Cart));
             }
-
-            Order? order = await this.orderService.GetOrCreateDraftOrderAsync(userId!);
-
-            if (order == null)
+            catch (Exception ex)
             {
-                return NotFoundWithMessage("Order not found.");
+                this.logger.LogError($"Error occurred while removing from Car Products: Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
-
-            await this.orderProductService.RemoveProductFromOrderAsync(order.Id, productId);
-
-            return RedirectToAction(nameof(Cart));
         }
 
         [HttpPost]
         public async Task<IActionResult> FinishOrder(OrderDetailViewModel currentCart)
         {
-            string? userId = this.userManager.GetUserId(User);
-
-            if (string.IsNullOrEmpty(userId))
+            try
             {
-                return this.AccessForbidden("Please log in to complete your order.");
+                string? userId = this.userManager.GetUserId(User);
+
+                if (string.IsNullOrEmpty(userId))
+                {
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return View(nameof(Cart));
+                }
+
+                bool isSuccessful = await this.orderService
+                                .FinishOrderAsync(userId, currentCart.PaymentMethod);
+
+                if (!isSuccessful)
+                {
+                    this.logger.LogWarning($"Error occurred while Finishing the order from user with Id: {userId}");
+                    return this.ServerErrorWithMessage(BaseServerErrorMessage);
+                }
+
+                TempData[SuccessMessageKey] = SuccessMessageOrderPlaced;
+
+                return RedirectToAction("MadeOrders", "UserPanel");
             }
-
-
-
-            if (!ModelState.IsValid)
+            catch (Exception ex)
             {
-                return View(nameof(Cart));
+                this.logger.LogError($"Error occurred while adding to Car Products: Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
-
-            bool isSuccessful = await this.orderService.FinishOrderAsync(userId, currentCart.PaymentMethod);
-
-            if (!isSuccessful)
-            {
-                return this.ServerError("Something went wrong. Please try again.");
-            }
-
-            TempData["Success"] = "Your order was placed successfully!";
-
-            return RedirectToAction("MadeOrders", "UserPane");
 
         }
 
@@ -210,19 +239,21 @@
         {
             IEnumerable<StoreProductViewModel> productsByCategory = await this.productService
                                                 .GetAllProductsByProductCategoryAsync(productCategory);
+
             if (productsByCategory == null || !productsByCategory.Any())
             {
+                this.logger.LogWarning(string.Format(ErrorMessages.StoreItemsNotFound, productCategory.ToString().ToLower() + " products"));
                 return NotFoundWithMessage(string.Format(ErrorMessages.StoreItemsNotFound, productCategory.ToString().ToLower() + " products"));
             }
 
             switch (productCategory)
             {
                 case ProductCategory.Equipment:
-                    return RedirectToAction("Equipment", "Store", new { area = "" });
+                    return RedirectToAction(nameof(Equipment), "Store");
                 case ProductCategory.Nutrition:
-                    return RedirectToAction("Nutrition", "Store", new { area = "" });
+                    return RedirectToAction(nameof(Nutrition), "Store");
                 default:
-                    return RedirectToAction("Index", "Store", new { area = "" });
+                    return RedirectToAction(nameof(Index), "Store");
             }
         }
     }

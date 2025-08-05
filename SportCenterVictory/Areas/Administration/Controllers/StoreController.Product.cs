@@ -8,6 +8,9 @@
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
 
     public partial class StoreController
     {
@@ -26,7 +29,7 @@
             {
                 if (!this.ModelState.IsValid)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
+                    this.ModelState.AddModelError(string.Empty, SomethingWentWrong);
 
                     return this.View(productAddVM);
                 }
@@ -36,29 +39,28 @@
 
                 if (!isAddedSuccessfully)
                 {
-                    TempData[ErrorMessageKey] = "Product could not be created. Please try again.";
-
+                    this.logger.LogWarning($"Error occurred while trying to create a Product.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateProduct;
                     return View(productAddVM);
                 }
 
 
-                TempData[SuccessMessageKey] = "Product added successfully!";
-
+                TempData[SuccessMessageKey] = SuccessMessageProductCreated;
 
                 switch (productAddVM.ProductCategory)
                 {
                     case ProductCategory.Equipment:
-                        return RedirectToAction("Equipment", "Store", new { area = "" });
+                        return RedirectToAction("Equipment", "Store");
                     case ProductCategory.Nutrition:
-                        return RedirectToAction("Nutrition", "Store", new { area = "" });
+                        return RedirectToAction("Nutrition", "Store");
                     default:
-                        return RedirectToAction("Index", "Store", new { area = "" });
+                        return RedirectToAction("Index", "Store");
                 }
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the Membership! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while adding a Product. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -75,8 +77,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Product! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while editing a Product. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -94,7 +96,7 @@
                     return Json(new
                     {
                         success = false,
-                        message = "Product could not be found. Please try again."
+                        message = ErrorMessageCannotFindProduct
                     });
                 }
 
@@ -113,40 +115,45 @@
                     }
                 });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Product! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while adding a Product with ID: {id}. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> EditProduct(ProductEditViewModel productEditVM)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                TempData[ErrorMessageKey] = $"Something went wrong please try again or contact the administration!";
-                IEnumerable<ProductAdminDetailViewModel> productAdminDetailVM = await this.productService.GetAllProductsForAdminAsync();
+                if (!ModelState.IsValid)
+                {
+                    IEnumerable<ProductAdminDetailViewModel> productAdminDetailVM = await this.productService
+                                            .GetAllProductsForAdminAsync();
+                    return this.View(productAdminDetailVM);
+                }
 
-                return this.View(productAdminDetailVM);
+                await productService.EditProductAsync(productEditVM);
+
+                TempData[SuccessMessageKey] = string.Format(SuccessMessageProductCreate, productEditVM.Title);
+
+                switch (productEditVM.ProductCategory)
+                {
+                    case ProductCategory.Equipment:
+                        return RedirectToAction("Equipment", "Store");
+                    case ProductCategory.Nutrition:
+                        return RedirectToAction("Nutrition", "Store");
+                    default:
+                        return RedirectToAction("Index", "Store");
+                }
             }
-
-            await productService.EditProductAsync(productEditVM);
-
-            TempData["Success"] = $"Product {productEditVM.Title} updated successfully!";
-
-            switch (productEditVM.ProductCategory)
+            catch (Exception e)
             {
-                case ProductCategory.Equipment:
-                    return RedirectToAction("Equipment", "Store", new { area = "" });
-                case ProductCategory.Nutrition:
-                    return RedirectToAction("Nutrition", "Store", new { area = "" });
-                default:
-                    return RedirectToAction("Index", "Store", new { area = "" });
+                this.logger.LogError($"Error occurred while adding a Product with ID: {productEditVM.Id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
-
         }
-
 
         [HttpGet]
         [Authorize(Roles = AdminOrManager)]
@@ -154,14 +161,15 @@
         {
             try
             {
-                IEnumerable<ProductDeleteViewModel> productDeleteDetailVM = await this.productService.GetAllProductsForDeletingAsync();
+                IEnumerable<ProductDeleteViewModel> productDeleteDetailVM = await this.productService
+                                        .GetAllProductsForDeletingAsync();
 
                 return this.View(productDeleteDetailVM);
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Product! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deletin a Product. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -176,22 +184,21 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = "Product could not be found and deleted!";
+                    TempData[ErrorMessageKey] = ErrorMessageCannotFindProduct;
                 }
                 else
                 {
-                    string operation = opResult.isRestored ? "Deleted" : "Restored";
+                    string operation = opResult.isRestored ? Deleted : Restored;
 
-                    TempData[SuccessMessageKey] = $"Product is {operation} successfully!";
+                    TempData[SuccessMessageKey] = string.Format(SuccessMessageDeleteProduct, operation);
                 }
 
                 return this.RedirectToAction(nameof(DeleteProduct));
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Product! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deleting a Product with ID: {id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -216,18 +223,18 @@
 
                 if (!isSuccess)
                 {
-                    TempData[ErrorMessageKey] = "Order could not be updated. Please try again.";
+                    this.logger.LogWarning($"Error occurred in the service methods while trying to approve order with ID: {orderId}.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotApproveOrder;
                     return RedirectToAction(nameof(ApproveOrder));
                 }
 
-                TempData[SuccessMessageKey] = "Order status updated successfully!";
+                TempData[SuccessMessageKey] = SuccessMessageApproveOrder;
                 return RedirectToAction(nameof(ApproveOrder));
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while approving the Order! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while approving an Order. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -243,8 +250,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while retrieving all orders! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while retrieving all Orders maded by Users. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
     }

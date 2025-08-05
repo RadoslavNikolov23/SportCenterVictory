@@ -4,11 +4,10 @@
     using Microsoft.Extensions.Options;
 
     using System.Net.Mail;
-
-    using SCV.Services.Common;
     using SCV.Services.Core.EmailServices;
     using SCV.Services.Core.EmailServices.Contracts;
     using SCV.Web.ViewModels.ContactVM;
+    using SCV.Services.Common.EmailSettings;
 
     [TestFixture]
     public class EmailServiceTests

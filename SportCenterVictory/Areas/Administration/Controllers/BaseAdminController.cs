@@ -10,8 +10,15 @@
 
     [Area(AreaName)]
     [Authorize]
-    public abstract class BaseAdminController : Controller
+    public abstract class BaseAdminController<T> : Controller
     {
+        protected readonly ILogger<T> logger;
+
+        public BaseAdminController(ILogger<T> logger)
+        {
+            this.logger = logger;
+        }
+
         private bool IsUserAuthenticated()
         {
             bool retRes = false;
@@ -34,22 +41,21 @@
 
             return userId;
         }
-
-        protected IActionResult NotFoundWithMessage(string message)
+        protected IActionResult NotFoundWithMessage(string? message)
         {
             this.Response.StatusCode = 404;
 
             return View(ErrorViews.Error404, model: message);
         }
 
-        protected IActionResult AccessForbidden(string message)
+        protected IActionResult AccessForbiddenWithMessage(string? message)
         {
             this.Response.StatusCode = 403;
 
             return View(ErrorViews.Error403, model: message);
         }
 
-        protected IActionResult ServerError(string message)
+        protected IActionResult ServerErrorWithMessage(string? message)
         {
             this.Response.StatusCode = 500;
 

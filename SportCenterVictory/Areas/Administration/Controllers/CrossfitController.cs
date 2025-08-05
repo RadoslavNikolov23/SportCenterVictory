@@ -8,13 +8,16 @@
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
 
-    public class CrossfitController : BaseAdminController
+    public class CrossfitController : BaseAdminController<CrossfitController>
     {
         private readonly ICrossfitClassService crossfitClassService;
         private readonly ICrossfitClassUserService crossfitClassUserService;
 
-        public CrossfitController(ICrossfitClassService crossfitClassService, ICrossfitClassUserService crossfitClassUserService)
+        public CrossfitController(ICrossfitClassService crossfitClassService, ICrossfitClassUserService crossfitClassUserService, ILogger<CrossfitController> logger) : base(logger)
         {
             this.crossfitClassService = crossfitClassService;
             this.crossfitClassUserService = crossfitClassUserService;
@@ -35,8 +38,7 @@
             {
                 if (!this.ModelState.IsValid)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
-
+                    this.ModelState.AddModelError(string.Empty, SomethingWentWrong);
                     return this.View(crossfitClassAddVM);
                 }
 
@@ -45,24 +47,21 @@
 
                 if (!isAddedSuccessfully)
                 {
-                    TempData[ErrorMessageKey] = "CrossFit Class could not be created. Please try again.";
-
+                    this.logger.LogWarning($"Error occurred while creating a Crossfit Class");
+                    TempData[ErrorMessageKey] = ErrorMessageCrossfitClassCannotCreate;
                     return View(crossfitClassAddVM);
                 }
-
-
-                TempData[SuccessMessageKey] = "CrossFit Classes added successfully!";
+                TempData[SuccessMessageKey] = SuccessMessageCrossfitClassCreated;
                 return RedirectToAction("CrossfitClasses", "Crossfit");
 
 
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the CrossFit Class! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while adding Crossfit Class. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
-
 
         [HttpGet]
         public async Task<IActionResult> EditClass()
@@ -71,13 +70,13 @@
             {
                 IEnumerable<CrossfitClassAdminDetailViewModel> crossfitClassesAdminDetailVM = await this.crossfitClassService
                                          .GetAllCrossfitClassesForAdminAsync();
-                
+
                 return this.View(crossfitClassesAdminDetailVM);
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the CrossFit Class! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while edditing Crossfit Class. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -94,7 +93,7 @@
                     return Json(new
                     {
                         success = false,
-                        message = "CrossFit Class could not be found. Please try again."
+                        message = ErrorMessageCrossfitClassCannotFind
                     });
                 }
 
@@ -112,26 +111,34 @@
                     }
                 });
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the CrossFit Class! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while editing Crossfit Class with ID: {id}. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> EditClass(CrossfitClassEditViewModel crossfitClassEditVM)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(crossfitClassEditVM);
+                if (!ModelState.IsValid)
+                {
+                    return View(crossfitClassEditVM);
+                }
+
+                await crossfitClassService.EditCrossfitClassAsync(crossfitClassEditVM);
+
+                TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateCrossfitClass, crossfitClassEditVM.Name);
+
+                return RedirectToAction("CrossfitClasses", "Crossfit");
             }
-
-            await crossfitClassService.EditCrossfitClassAsync(crossfitClassEditVM);
-
-            TempData["Success"] = $"CrossFit Class {crossfitClassEditVM.Name} updated successfully!";
-
-            return RedirectToAction("CrossfitClasses", "Crossfit");
+            catch (Exception e)
+            {
+                this.logger.LogError($"Error occurred while edditing Crossfit Class with ID: {crossfitClassEditVM.Id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
+            }
         }
 
         [HttpGet]
@@ -147,8 +154,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the CrossFit class! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while Deleting Crossfit Class. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -159,28 +166,27 @@
         {
             try
             {
-
                 (bool isSuccess, bool isRestored) opResult = await this.crossfitClassService
                                         .DeleteOrRestoreCrossfitClassAsync(id);
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = "CrossFit Class could not be found and deleted!";
+                    this.logger.LogError($"Error occurred in the service methos while trying to Deleting Crossfit Class with ID: {id}");
+                    TempData[ErrorMessageKey] = ErrorMessageCrossfitClassCannotDelete;
                 }
                 else
                 {
-                    string operation = opResult.isRestored ? "Active" : "Inactive";
+                    string operation = opResult.isRestored ? Active : Inactive;
 
-                    TempData[SuccessMessageKey] = $"CrossFit Class {operation} successfully!";
+                    TempData[SuccessMessageKey] = string.Format(SuccessMessageDeleteCrossfitClass, operation);
                 }
 
                 return this.RedirectToAction(nameof(DeleteClass));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the CrossFit class! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while Deleting Crossfit Class. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -197,9 +203,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while loading all the Crossfit Class with their users. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
     }

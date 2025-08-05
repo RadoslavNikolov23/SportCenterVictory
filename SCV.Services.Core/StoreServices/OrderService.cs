@@ -152,9 +152,12 @@
                 .Where(o => o.OrderStatus == OrderStatus.Processing)
                 .Include(o => o.OrderProducts)
                 .ThenInclude(op => op.Product)
+                 .Include(o => o.Customer)
                 .Select(o => new OrderApproveAdminViewModel
                 {
                     OrderId = o.Id.ToString(),
+                    CustomerFullName = o.Customer.FullName,
+                    CustomerEmail = o.Customer.Email!=null? o.Customer.Email : o.Customer.UserName ?? null,
                     TotalPrice = o.OrderProducts.Sum(op => op.Product.Price * op.Quantity),
                     OrderDate = o.OrderDate.ToString(DateOnlyFormat),
                     Products = o.OrderProducts.Select(op => new OrderProductDetailViewModel

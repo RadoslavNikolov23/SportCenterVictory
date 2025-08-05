@@ -2,7 +2,9 @@
 {
     public static class ErrorMessages
     {
-        
+
+        public const string AccessIsForbiddenLogOrRegister = "Access is forbidden. Log in or Register first.";
+
         public const string NoUserFeedbacks = "No user feedbacks found.";
 
         public const string StoreItemsNotFound = "No {0} found.";
@@ -15,14 +17,18 @@
 
         public const string CrossfitClassesNotFound = "No CrossFit classes found.";
 
+        public const string CrossfitWODInvalidId = "Invalid WOD Id.";
+
         public const string CrossfitWODNotFound = "No Workout of the Day found!";
 
         public const string ExercisesNotFound = "No exercises found.";
 
         public const string WorkoutPlansNotFound = "No workout plans found for {0}.";
 
+        public const string OrderNotFound = "Order not found.";
 
+        public const string UnableToFindUser = "Unable to find user";
 
-
+        public const string SomethingWentWrong = "Something went wrong, try again!";
     }
 }

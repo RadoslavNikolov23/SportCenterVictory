@@ -4,17 +4,20 @@
     using Microsoft.AspNetCore.Authorization;
 
     using System.Collections.Generic;
+
     using SCV.Web.ViewModels.Administration.UserFeedbackVM;
+    using SCV.Services.Core.UserFeedbackServices.Contracts;
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
-    using SCV.Services.Core.UserFeedbackServices.Contracts;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
 
-    public class UserFeedbackController : BaseAdminController
+    public class UserFeedbackController : BaseAdminController<UserFeedbackController>
     {
         private readonly IUserFeedbackService userFeedbackService;
 
-        public UserFeedbackController(IUserFeedbackService userFeedbackService)
+        public UserFeedbackController(IUserFeedbackService userFeedbackService, ILogger<UserFeedbackController> logger) : base(logger)
         {
             this.userFeedbackService = userFeedbackService;
         }
@@ -36,7 +39,7 @@
             {
                 if (!ModelState.IsValid)
                 {
-                    TempData[ErrorMessageKey] = "Invalid User Feedback. Please review the feedback!.";
+                    TempData[ErrorMessageKey] = ErrorMessageInvalidUserFeedback;
                     return RedirectToAction(nameof(ApproveFeedback));
                 }
 
@@ -45,19 +48,20 @@
 
                 if (!isApproved)
                 {
-                    TempData[ErrorMessageKey] = "Could not update User Feedback. Please try again.";
+                    this.logger.LogWarning($"Error occurred in the services methods while trying to approve a User Feedback, with ID: {feedbackVM.Id}.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotApproveUserFeedback;
                     return RedirectToAction(nameof(ApproveFeedback));
 
                 }
 
-                TempData[SuccessMessageKey] = "User Feedback status updated successfully!";
+                this.logger.LogInformation($"Successfully approve new Feedback with ID: {feedbackVM.Id} from {feedbackVM.FullName}.");
+                TempData[SuccessMessageKey] = SuccessMessageApproveUserFeedback;
                 return RedirectToAction(nameof(ApproveFeedback));
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the User feedback! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while diting the User feedback!. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
     }

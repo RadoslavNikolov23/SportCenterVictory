@@ -13,28 +13,30 @@
     using SCV.Web.ViewModels.CrossfitVM;
     using SCV.Web.ViewModels.TrainerVM;
 
-    public class CrossFitController : BaseController
+    using static SCV.GlCommon.ErrorMessages;
+
+    public class CrossFitController : BaseController<CrossFitController>
     {
+        private readonly ICrossfitClassService crossfitClassService;
+        private readonly ICrossfitWODService crossfitWODService;
+        private readonly ICrossfitClassUserService crossfitClassUserService;
         private readonly IMembershipService membershipService;
         private readonly ITrainerService trainerService;
         private readonly IEventService eventService;
-        private readonly ICrossfitClassService crossfitClassService;
-        private readonly ICrossfitWODService crossfitWODService;
         private readonly IEventUserService eventUserService;
         private readonly IMembershipUserService membershipUserService;
-        private readonly ICrossfitClassUserService crossfitClassUserService;
         private readonly ITrainerUserService trainerUserService;
 
-        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, ICrossfitClassService crossfitClassService, ICrossfitWODService crossfitWODService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ICrossfitClassUserService crossfitClassUserService, ITrainerUserService trainerUserService)
+        public CrossFitController(IMembershipService membershipService, ITrainerService trainerService, IEventService eventService, ICrossfitClassService crossfitClassService, ICrossfitWODService crossfitWODService, IEventUserService eventUserService, IMembershipUserService membershipUserService, ICrossfitClassUserService crossfitClassUserService, ITrainerUserService trainerUserService, ILogger<CrossFitController> logger) : base(logger)
         {
+            this.crossfitClassService = crossfitClassService;
+            this.crossfitWODService = crossfitWODService;
+            this.crossfitClassUserService = crossfitClassUserService;
             this.membershipService = membershipService;
             this.trainerService = trainerService;
             this.eventService = eventService;
-            this.crossfitClassService = crossfitClassService;
-            this.crossfitWODService = crossfitWODService;
             this.eventUserService = eventUserService;
             this.membershipUserService = membershipUserService;
-            this.crossfitClassUserService = crossfitClassUserService;
             this.trainerUserService = trainerUserService;
         }
 
@@ -70,8 +72,8 @@
 
             if (membershipsVM == null || !membershipsVM.Any())
             {
-                return NotFoundWithMessage(string.Format(ErrorMessages.MembershipsNotFound, "CrossFit"));
-
+                this.logger.LogWarning(string.Format(ErrorMessages.MembershipsNotFound, "CrossFit"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.MembershipsNotFound, "CrossFit"));
             }
 
             return View(membershipsVM);
@@ -90,18 +92,16 @@
                 {
                     trainerDetailVM.IsAddedToFavorites = await this.trainerUserService
                         .IsTrainerAddedToUserList(trainerDetailVM.Id, this.GetUserId());
-
                 }
             }
 
             if (trainerViewModels == null || !trainerViewModels.Any())
             {
-                return NotFoundWithMessage(string.Format(ErrorMessages.TrainersNotFound, "CrossFit"));
-
+                this.logger.LogWarning(string.Format(ErrorMessages.TrainersNotFound, "CrossFit"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.TrainersNotFound, "CrossFit"));
             }
 
             return View(trainerViewModels);
-
         }
 
         [HttpGet]
@@ -122,7 +122,8 @@
 
             if (eventViewModels == null || !eventViewModels.Any())
             {
-                return NotFoundWithMessage(string.Format(ErrorMessages.EventsNotFound, "CrossFit"));
+                this.logger.LogWarning(string.Format(ErrorMessages.EventsNotFound, "CrossFit"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.EventsNotFound, "CrossFit"));
             }
 
             return View(eventViewModels);
@@ -147,7 +148,8 @@
 
             if (allCrossfitClassDetailVM == null || !allCrossfitClassDetailVM.Any())
             {
-                return NotFoundWithMessage(ErrorMessages.CrossfitClassesNotFound);
+                this.logger.LogWarning(ErrorMessages.CrossfitClassesNotFound);
+                return this.NotFoundWithMessage(ErrorMessages.CrossfitClassesNotFound);
             }
 
             return View(allCrossfitClassDetailVM);
@@ -163,7 +165,8 @@
 
             if (crossfitWODViewModel == null)
             {
-                return NotFoundWithMessage(ErrorMessages.CrossfitWODNotFound);
+                this.logger.LogWarning(ErrorMessages.CrossfitWODNotFound);
+                return this.NotFoundWithMessage(ErrorMessages.CrossfitWODNotFound);
             }
 
             return View(crossfitWODViewModel);
@@ -182,12 +185,19 @@
         [AllowAnonymous]
         public async Task<IActionResult> CrossFitWODById(string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                this.logger.LogWarning(CrossfitWODInvalidId);
+                return this.NotFoundWithMessage(CrossfitWODInvalidId);
+            }
+
             CrossfitWODViewModel? crossfitWODViewModel = await this.crossfitWODService
                                 .GetCrossfitWODByIdAsync(id);
 
             if (crossfitWODViewModel == null)
             {
-                return NotFound();
+                this.logger.LogWarning($"{ErrorMessages.CrossfitWODNotFound}. The WOD Id was {id}.");
+                return NotFoundWithMessage(ErrorMessages.CrossfitWODNotFound);
             }
 
             return Json(new

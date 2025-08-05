@@ -58,9 +58,9 @@ else
         @Html.AntiForgeryToken()
         <input type="hidden" asp-for="OrderId" />
 
-        <div class="flex-grow-1 pr-5" style="max-width: 180px;">
-            <label for="CurrentCart_PaymentMethod" class="form-label mb-1" style="font-size: 0.9rem;">Payment Method</label>
-            <select asp-for="PaymentMethod" asp-items="Html.GetEnumSelectList<PaymentMethod>()" class="form-control form-control-sm" style="font-size: 0.9rem; padding: 0.25rem 0.5rem;"></select>
+        <div class="flex-grow-1 pr-5" style="max-width: 300px;">
+            <label for="CurrentCart_PaymentMethod" class="form-label mb-1" style="font-size: 1.2rem;">Payment Method</label>
+            <select asp-for="PaymentMethod" asp-items="Html.GetEnumSelectList<PaymentMethod>()" class="form-label fw-bold" style="font-size: 1.5rem; padding: 0.25rem 0.5rem;"></select>
         </div>
 
         <div>

@@ -116,14 +116,22 @@
 
                 if (userFeedbackToApprove != null)
                 {
+                    if(userFeedbackApproveVM.Status == FeedbackStatus.Removed)
+                    {
+                        isApproved = await this.userFeedbackRepo
+                                            .HardDeleteAsync(userFeedbackToApprove);
+                    }
+                    else
+                    {
 
-                    userFeedbackToApprove.UserName = userFeedbackApproveVM.UserName;
-                    userFeedbackToApprove.FullName = userFeedbackApproveVM.FullName;
-                    userFeedbackToApprove.Feedback = userFeedbackApproveVM.Feedback;
-                    userFeedbackToApprove.Status = userFeedbackApproveVM.Status;
-                    userFeedbackToApprove.ImageUrl = userFeedbackApproveVM.ImageUrl;
+                        userFeedbackToApprove.UserName = userFeedbackApproveVM.UserName;
+                        userFeedbackToApprove.FullName = userFeedbackApproveVM.FullName;
+                        userFeedbackToApprove.Feedback = userFeedbackApproveVM.Feedback;
+                        userFeedbackToApprove.Status = userFeedbackApproveVM.Status;
+                        userFeedbackToApprove.ImageUrl = userFeedbackApproveVM.ImageUrl;
+                        isApproved = await userFeedbackRepo.UpdateAsync(userFeedbackToApprove);
+                    }
 
-                    isApproved = await userFeedbackRepo.UpdateAsync(userFeedbackToApprove);
                 }
             }
 

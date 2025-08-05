@@ -10,19 +10,22 @@
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
 
-    public partial class StoreController : BaseAdminController
+    public partial class StoreController : BaseAdminController<StoreController>
     {
         private readonly IMembershipService membershipServices;
         private readonly IMembershipUserService membershipUserServices;
         private readonly IProductService productService;
         private readonly IOrderService orderService;
 
-        public StoreController(IMembershipService memershipServices, IMembershipUserService membershipUserServices, IProductService productService, IOrderService orderService)
+        public StoreController(IMembershipService memershipServices, IMembershipUserService membershipUserServices, IProductService productService, IOrderService orderService, ILogger<StoreController> logger) : base(logger)
         {
             this.membershipServices = memershipServices;
-            this.productService = productService;
             this.membershipUserServices = membershipUserServices;
+            this.productService = productService;
             this.orderService = orderService;
         }
 
@@ -41,7 +44,7 @@
             {
                 if (!this.ModelState.IsValid)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
+                    this.ModelState.AddModelError(string.Empty, SomethingWentWrong);
 
                     return this.View(membershipAddVM);
                 }
@@ -51,13 +54,12 @@
 
                 if (!isAddedSuccessfully)
                 {
-                    TempData[ErrorMessageKey] = "Membership could not be created. Please try again.";
-
+                    this.logger.LogWarning($"Error occurred in the service methods while trying to create a Membership.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateMembership;
                     return View(membershipAddVM);
                 }
 
-
-                TempData[SuccessMessageKey] = "Membership added successfully!";
+                TempData[SuccessMessageKey] = ErrorMessageMembershipAdded;
 
                 switch (membershipAddVM.MembershipType)
                 {
@@ -68,13 +70,13 @@
                     case SportType.Powerlifting:
                         return RedirectToAction("PowerliftingMembership", "Powerlifting");
                     default:
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Memberships", "Store");
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the Membership! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while adding a Membership. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -83,17 +85,16 @@
         [Authorize(Roles = AdminOrManager)]
         public async Task<IActionResult> EditMembership()
         {
-
             try
             {
                 IEnumerable<MembershipAdminDetailViewModel> membershipAdminDetailVM = await this.membershipServices.GetAllMembershipsForAdminAsync();
 
                 return this.View(membershipAdminDetailVM);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Membership! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while editing a Membership. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -111,7 +112,7 @@
                     return Json(new
                     {
                         success = false,
-                        message = "Event could not be found. Please try again."
+                        message = ErrorMessageCannotFindMembership
                     });
                 }
 
@@ -131,33 +132,41 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Membership! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while editing a Membership with {id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> EditMembership(MembershipEditViewModel membershipEditVM)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(membershipEditVM);
+                if (!ModelState.IsValid)
+                {
+                    return View(membershipEditVM);
+                }
+
+                await membershipServices.EditMembershipAsync(membershipEditVM);
+
+                TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateMembership, membershipEditVM.Name);
+
+                switch (membershipEditVM.MembershipType)
+                {
+                    case SportType.Fitness:
+                        return RedirectToAction("FitnessMembership", "Fitness");
+                    case SportType.CrossFit:
+                        return RedirectToAction("CrossfitMembership", "Crossfit");
+                    case SportType.Powerlifting:
+                        return RedirectToAction("PowerliftingMembership", "Powerlifting");
+                    default:
+                        return RedirectToAction("Memberships", "Store");
+                }
             }
-
-            await membershipServices.EditMembershipAsync(membershipEditVM);
-
-            TempData["Success"] = $"Membership {membershipEditVM.Name} updated successfully!";
-
-            switch (membershipEditVM.MembershipType)
+            catch (Exception e)
             {
-                case SportType.Fitness:
-                    return RedirectToAction("FitnessMembership", "Fitness");
-                case SportType.CrossFit:
-                    return RedirectToAction("CrossfitMembership", "Crossfit");
-                case SportType.Powerlifting:
-                    return RedirectToAction("PowerliftingMembership", "Powerlifting");
-                default:
-                    return RedirectToAction("Memberships", "Store");
+                this.logger.LogError($"Error occurred while editing a Membership with {membershipEditVM.Id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
 
         }
@@ -174,8 +183,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Membership! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deleting a Membership. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -190,22 +199,22 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = "Membership could not be found and deleted!";
+                    this.logger.LogWarning($"Error occurred in the service methods while trying to delete a Membership.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotFindMembership;
                 }
                 else
                 {
-                    string operation = opResult.isRestored ? "Deleted" : "Restored";
+                    string operation = opResult.isRestored ? Deleted : Restored;
 
-                    TempData[SuccessMessageKey] = $"Membership is {operation} successfully!";
+                    TempData[SuccessMessageKey] = string.Format(SuccessMessageDeleteMembership, operation);
                 }
 
                 return this.RedirectToAction(nameof(DeleteMembership));
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Membership! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deleting a Membership with {id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -215,17 +224,15 @@
         {
             try
             {
-
                 IEnumerable<UserMembershipForAdminListViewModel> memebrshipUsersList = await this.membershipUserServices
-                    .ForAdminMembershipClientsListAsync();
+                                    .ForAdminMembershipClientsListAsync();
 
                 return View(memebrshipUsersList);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while trying to load all the Memberships and the Users that have purchased them. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 

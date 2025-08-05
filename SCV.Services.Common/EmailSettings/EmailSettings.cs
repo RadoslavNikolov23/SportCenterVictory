@@ -1,4 +1,4 @@
-﻿namespace SCV.Services.Common
+﻿namespace SCV.Services.Common.EmailSettings
 {
     public class EmailSettings
     {

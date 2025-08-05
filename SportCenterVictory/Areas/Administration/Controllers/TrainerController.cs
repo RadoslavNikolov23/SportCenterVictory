@@ -13,14 +13,17 @@
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
 
-    public class TrainerController : BaseAdminController
+    public class TrainerController : BaseAdminController<TrainerController>
     {
         private readonly ITrainerService trainerService;
         private readonly ITrainerUserService trainerUserService;
         private readonly UserManager<ApplicationUser> userManager;
 
-        public TrainerController(ITrainerService trainerService, UserManager<ApplicationUser> userManager, ITrainerUserService trainerUserService)
+        public TrainerController(ITrainerService trainerService, UserManager<ApplicationUser> userManager, ITrainerUserService trainerUserService, ILogger<TrainerController> logger) : base(logger)
         {
             this.trainerService = trainerService;
             this.userManager = userManager;
@@ -47,127 +50,167 @@
             {
                 if (!this.ModelState.IsValid)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
+                    this.ModelState.AddModelError(string.Empty, SomethingWentWrong);
                     return this.View(trainerBioToAddVM);
                 }
 
-                bool isAddedSuccessfully = await this.trainerService.AddTrainerBioAsync(trainerBioToAddVM);
-               
+                bool isAddedSuccessfully = await this.trainerService
+                                    .AddTrainerBioAsync(trainerBioToAddVM);
+
                 if (!isAddedSuccessfully)
                 {
-                    TempData[ErrorMessageKey] = "Trainer Bio could not be created. Please try again.";
+                    this.logger.LogWarning($"Error occurred in the service methods while creating a Trainer.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateTrainer;
                     return View(trainerBioToAddVM);
                 }
-                TempData[SuccessMessageKey] = "Trainer Bio added successfully!";
+
+                this.logger.LogInformation($"Successfully a new Trainer was Created with the name {trainerBioToAddVM.FirstName} {trainerBioToAddVM.LastName}");
+                TempData[SuccessMessageKey] = SuccessMessageCreatedTrainer;
 
                 switch (trainerBioToAddVM.TrainerSpecialty)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessTrainer", "Fitness", new { area = "" });
+                        return RedirectToAction("FitnessTrainer", "Fitness");
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossFitCoaches", "Crossfit", new { area = "" });
+                        return RedirectToAction("CrossFitCoaches", "Crossfit");
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingCoaches", "Powerlifting", new { area = "" });
+                        return RedirectToAction("PowerliftingCoaches", "Powerlifting");
                     default:
-                        return RedirectToAction("Index", "Home", new { area = "" });
+                        return RedirectToAction("Index", "Home");
                 }
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the Trainer Bio! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while adding a Trainer Bio. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
         [HttpGet]
         public async Task<IActionResult> EditTrainerBio()
         {
-            ApplicationUser? user = await userManager.GetUserAsync(User);
-            IList<string> roles = await userManager.GetRolesAsync(user!);
-
-            if (roles.Contains(SCV.GlCommon.RoleConstants.Trainer))
+            try
             {
-                // Trainer sees only their own bio
-                TrainerBioEditViewModel? trainerEditVM = await trainerService
-                                                .GetTrainerBioByIdAsync(user!.Id.ToString());
-                if (trainerEditVM == null)
+                ApplicationUser? user = await userManager.GetUserAsync(User);
+                IList<string> roles = await userManager.GetRolesAsync(user!);
+
+                if (roles.Contains(SCV.GlCommon.RoleConstants.Trainer))
                 {
-                    return NotFound();
+                    //! Trainer sees only their own bio
+                    TrainerBioEditViewModel? trainerEditVM = await trainerService
+                                                    .GetTrainerBioByIdAsync(user!.Id.ToString());
+                    if (trainerEditVM == null)
+                    {
+                        return this.NotFoundWithMessage(ErrorMessageCannotFindTrainer);
+                    }
+
+                    return View("EditTrainerBioUser", trainerEditVM);
                 }
 
-                return View("EditTrainerBioUser", trainerEditVM);
-            }
+                if (roles.Contains(Manager) || roles.Contains(Admin))
+                {
+                    // Admins and Managers see the dropdown list
+                    IEnumerable<TrainerAdminDetailViewModel> allTrainers = await trainerService
+                                                .GetAllTrainersForAdminAsync();
 
-            if (roles.Contains(Manager) || roles.Contains(Admin))
+                    return View("EditTrainerBioAdminManager", allTrainers);
+                }
+
+                return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
+
+            }
+            catch (Exception ex)
             {
-                // Admins and Managers see the dropdown list
-                IEnumerable<TrainerAdminDetailViewModel> allTrainers = await trainerService.GetAllTrainersForAdminAsync();
-
-                return View("EditTrainerBioAdminManager", allTrainers);
+                this.logger.LogError($"Error occurred while editing a Trainer Bio. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
-
-            return Forbid();
         }
 
         [HttpGet]
         [Authorize(Roles = AdminOrManager)]
         public async Task<IActionResult> GetTrainer(string id)
         {
-            if (string.IsNullOrWhiteSpace(id))
+            try
             {
-                return BadRequest();
-            }
+                if (string.IsNullOrWhiteSpace(id))
+                {
+                    return this.NotFoundWithMessage(ErrorMessageCannotFindTrainer);
+                }
 
-            ApplicationUser? user = await userManager.GetUserAsync(User);
-            IList<string> roles = await userManager.GetRolesAsync(user!);
+                ApplicationUser? user = await userManager.GetUserAsync(User);
+                IList<string> roles = await userManager.GetRolesAsync(user!);
 
-            if (!roles.Contains(Admin) && !roles.Contains(Manager))
-            {
-                return Forbid();
-            }
+                if (!roles.Contains(Admin) && !roles.Contains(Manager))
+                {
+                    return this.AccessForbiddenWithMessage(AccessIsForbiddenLogOrRegister);
+                }
 
-            TrainerBioEditViewModel? trainerVM = await trainerService
-                                                        .GetTrainerBioByIdAsync(id);
+                TrainerBioEditViewModel? trainerVM = await trainerService
+                                            .GetTrainerBioByIdAsync(id);
 
-            if (trainerVM == null)
-            {
+                if (trainerVM == null)
+                {
+                    return Json(new
+                    {
+                        success = false,
+                        message = ErrorMessageCannotFindTrainer
+                    });
+                }
+
                 return Json(new
                 {
-                    success = false,
-                    message = "Trainer could not be found or is not a trainer. Please try again."
+                    success = true,
+                    data = trainerVM
                 });
             }
-
-            return Json(new
+            catch (Exception e)
             {
-                success = true,
-                data = trainerVM
-            });
+                this.logger.LogError($"Error occurred while editing a Trainer Bio with {id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> EditTrainerBio(TrainerBioEditViewModel trainerBioEditVM)
         {
-            ApplicationUser? user = await userManager.GetUserAsync(User);
-
-            if (!ModelState.IsValid)
+            try
             {
-                return View("EditTrainerBioUser", trainerBioEditVM);
+                ApplicationUser? user = await userManager.GetUserAsync(User);
+
+                if (!ModelState.IsValid)
+                {
+                    return View("EditTrainerBioUser", trainerBioEditVM);
+                }
+
+                bool isEdited = await trainerService
+                                        .EditTrainerBioAsync(trainerBioEditVM, user!.Id.ToString());
+
+                if (!isEdited)
+                {
+                    TempData[ErrorMessageKey] = ErrorMessageNotAuthorizeToEdit;
+                    return View("EditTrainerBioUser", trainerBioEditVM);
+                }
+
+                TempData[SuccessMessageKey] = SuccessMessageUpdateTrainer;
+
+                switch (trainerBioEditVM.TrainerSpecialty)
+                {
+                    case SportType.Fitness:
+                        return RedirectToAction("FitnessTrainer", "Fitness");
+                    case SportType.CrossFit:
+                        return RedirectToAction("CrossFitCoaches", "Crossfit");
+                    case SportType.Powerlifting:
+                        return RedirectToAction("PowerliftingCoaches", "Powerlifting");
+                    default:
+                        return RedirectToAction("Index", "Home");
+                }
+
             }
-
-            bool isEdited = await trainerService
-                                    .EditTrainerBioAsync(trainerBioEditVM, user!.Id.ToString());
-
-            if (!isEdited)
+            catch (Exception ex)
             {
-                TempData["Error"] = "You are not authorized to edit this Trainer Bio.";
-                return View("EditTrainerBioUser", trainerBioEditVM);
+                this.logger.LogError($"Error occurred while editing a Trainer Bio with ID: {trainerBioEditVM.Id}. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
-
-            TempData["Success"] = "Trainer Bio updated successfully.";
-
-            return RedirectToAction("EditTrainerBio");
         }
 
         [HttpGet]
@@ -183,8 +226,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Trainer Bio! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deleting a Trainer Bio. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -200,22 +243,21 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = "Trainer Bio could not be found and deleted!";
+                    TempData[ErrorMessageKey] = ErrorMessageCannotFindTrainer;
                 }
                 else
                 {
-                    string operation = opResult.isRestored ? "Deleted" : "Restored";
+                    string operation = opResult.isRestored ? Deleted : Restored;
 
-                    TempData[SuccessMessageKey] = $"Trainer is {operation} successfully!";
+                    TempData[SuccessMessageKey] = string.Format(SuccessMessageTrainerDeleted, operation);
                 }
 
                 return this.RedirectToAction(nameof(DeleteTrainerBio));
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Trainer! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deleting a Trainer Bio with {id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -225,17 +267,15 @@
         {
             try
             {
-
                 IEnumerable<TrainerUserForAdminListViewModel> clientsTrainerList = await this.trainerUserService
-                    .ForAdminTrainerClientsListAsync();
+                                        .ForAdminTrainerClientsListAsync();
 
                 return View(clientsTrainerList);
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.Message);
-
-                return this.RedirectToAction(nameof(Index), "Home");
+                this.logger.LogError($"Error occurred while trying to load all the Trainers and their Clients. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
     }

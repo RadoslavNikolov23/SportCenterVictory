@@ -10,14 +10,12 @@ namespace SportCenterVictory.Controllers
     using SCV.Web.ViewModels.UserFeedbackVM;
     using SCV.Services.Core.UserFeedbackServices.Contracts;
 
-    public class HomeController : BaseController
+    public class HomeController : BaseController<HomeController>
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IUserFeedbackService userFeedbackService;
 
-        public HomeController(ILogger<HomeController> logger, IUserFeedbackService userFeedbackService)
+        public HomeController(IUserFeedbackService userFeedbackService, ILogger<HomeController> logger) : base(logger)
         {
-            this._logger = logger;
             this.userFeedbackService = userFeedbackService;
         }
 
@@ -26,11 +24,11 @@ namespace SportCenterVictory.Controllers
         public async Task<IActionResult> Index()
         {
             IEnumerable<UserFeedbackDetailViewModel> userFeedbackDetailVM = await this.userFeedbackService
-                                                        .GetAllUserFeedbacksAsync();
+                                    .GetAllUserFeedbacksAsync();
 
-            if(userFeedbackDetailVM == null)
+            if (userFeedbackDetailVM == null)
             {
-                this._logger.LogWarning(ErrorMessages.NoUserFeedbacks);
+                this.logger.LogInformation(ErrorMessages.NoUserFeedbacks);
                 return View(new List<UserFeedbackDetailViewModel>());
             }
 

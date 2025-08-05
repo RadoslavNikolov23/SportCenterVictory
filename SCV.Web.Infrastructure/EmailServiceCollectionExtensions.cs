@@ -4,7 +4,7 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Options;
 
-    using SCV.Services.Common;
+    using SCV.Services.Common.EmailSettings;
     using SCV.Services.Core.EmailServices;
     using SCV.Services.Core.EmailServices.Contracts;
 

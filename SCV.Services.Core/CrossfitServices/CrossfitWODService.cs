@@ -68,13 +68,13 @@
                     }
                 }
             }
+            //crossfitWODVieModel = new CrossfitWODViewModel()
+            //{
+            //    Id = entityCrossfitWOD!.Id.ToString(),
+            //    Name = entityCrossfitWOD.Name,
+            //    DescriptionHTML = entityCrossfitWOD.DescriptionHTML,
+            //};
 
-            crossfitWODVieModel = new CrossfitWODViewModel()
-            {
-                Id = entityCrossfitWOD!.Id.ToString(),
-                Name = entityCrossfitWOD.Name,
-                DescriptionHTML = entityCrossfitWOD.DescriptionHTML,
-            };
 
             return crossfitWODVieModel;
         }

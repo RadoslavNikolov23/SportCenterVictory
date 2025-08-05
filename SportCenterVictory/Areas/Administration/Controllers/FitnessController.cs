@@ -7,14 +7,17 @@
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
+    using static SCV.GlCommon.ErrorMessages;
+    using static SCV.GlCommon.ExceptionMessages;
+    using static SCV.GlCommon.ToastMessages;
 
-    public class FitnessController : BaseAdminController
+    public class FitnessController : BaseAdminController<FitnessController>
     {
         private readonly IExerciseService exerciseService;
         private readonly IWorkoutPlanService workoutPlanService;
         private readonly IWorkoutPlanExerciseService workoutPlanExerciseService;
 
-        public FitnessController(IExerciseService exerciseService, IWorkoutPlanService workoutPlanService, IWorkoutPlanExerciseService workoutPlanExerciseService)
+        public FitnessController(IExerciseService exerciseService, IWorkoutPlanService workoutPlanService, IWorkoutPlanExerciseService workoutPlanExerciseService, ILogger<FitnessController> logger) : base(logger)
         {
             this.exerciseService = exerciseService;
             this.workoutPlanService = workoutPlanService;
@@ -34,7 +37,7 @@
             {
                 if (!this.ModelState.IsValid)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
+                    this.ModelState.AddModelError(string.Empty, SomethingWentWrong);
 
                     return this.View(exerciseAddVM);
                 }
@@ -44,21 +47,21 @@
 
                 if (!isAddedSuccessfully)
                 {
-                    TempData[ErrorMessageKey] = "Exercise could not be created. Please try again.";
-
+                    this.logger.LogWarning($"Error occurred in the Service methods while trying to add an Exercise.");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateExercise;
                     return View(exerciseAddVM);
                 }
 
 
-                TempData[SuccessMessageKey] = "Exercise added successfully!";
+                TempData[SuccessMessageKey] = SuccessMessageCreatedExercise;
 
                 return View(nameof(AddExercise));
 
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the Exercise! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while Adding Exercise. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -66,7 +69,6 @@
         [HttpGet]
         public async Task<IActionResult> EditExercise()
         {
-
             try
             {
                 IEnumerable<ExerciseAdminDetailViewModel> exerciseAdminDetailVM = await this.exerciseService
@@ -76,8 +78,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Exercise! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while Editing Exercise. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -94,7 +96,7 @@
                     return Json(new
                     {
                         success = false,
-                        message = "Exercise could not be found. Please try again."
+                        message = ErrorMessageCannotFindExercise
                     });
                 }
 
@@ -119,24 +121,32 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Exercise! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while Editing Exercise with ID:{id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> EditExercise(ExerciseEditViewModel exerciseEditVM)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(exerciseEditVM);
+                if (!ModelState.IsValid)
+                {
+                    return View(exerciseEditVM);
+                }
+
+                await exerciseService.EditExerciseAsync(exerciseEditVM);
+
+                TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateExercise, exerciseEditVM.Name);
+
+                return RedirectToAction("Exercises", "Fitness");
             }
-
-            await exerciseService.EditExerciseAsync(exerciseEditVM);
-
-            TempData["Success"] = $"Exercise {exerciseEditVM.Name} updated successfully!";
-
-            return RedirectToAction("Exercises", "Fitness", new { area = "" });
+            catch (Exception e)
+            {
+                this.logger.LogError($"Error occurred while Editing Exercise with ID:{exerciseEditVM.Id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
+            }
         }
 
         [HttpGet]
@@ -145,7 +155,6 @@
         {
             try
             {
-
                 ExerciseDeletePageViewModel exerciseDeletePageVM = await this.exerciseService
                             .GetAllExerciseForDeletingByPageAsync(page, searchTerm);
 
@@ -158,8 +167,8 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Exercise! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while Deleting Exercise. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -174,24 +183,25 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = "Exercise could not be found and deleted!";
+                    TempData[ErrorMessageKey] = ErrorMessageCannotFindExercise;
                 }
                 else
                 {
-                    string operation = opResult.isRestored ? "Deleted" : "Restored";
+                    string operation = opResult.isRestored ? Deleted : Restored;
 
-                    TempData[SuccessMessageKey] = $"Exercise is {operation} successfully!";
+                    TempData[SuccessMessageKey] = string.Format(SuccessMessageDeleteExercise, operation);
                 }
 
                 return this.RedirectToAction(nameof(DeleteExercise));
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Exercise! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while Deletin Exercise with ID:{id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
+
+        //------------------Workout Plan------------------------
 
         [HttpGet]
         public IActionResult AddWorkoutPlan()
@@ -206,8 +216,7 @@
             {
                 if (!this.ModelState.IsValid)
                 {
-                    this.ModelState.AddModelError(string.Empty, "Something went wrong, try again!");
-
+                    this.ModelState.AddModelError(string.Empty, SomethingWentWrong);
                     return this.View(workoutPlanAddVM);
                 }
 
@@ -216,21 +225,21 @@
 
                 if (!isAddedSuccessfully)
                 {
-                    TempData[ErrorMessageKey] = "Workout Plan could not be created. Please try again.";
+                    this.logger.LogWarning($"Error occurred in the service methods while creating a Workout Plan");
+                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateWorkoutPlan;
 
                     return View(workoutPlanAddVM);
                 }
 
-
-                TempData[SuccessMessageKey] = "Workout Plan added successfully!";
+                TempData[SuccessMessageKey] = SuccessMessageCreatedWorkoutPlan;
 
                 return RedirectToAction(nameof(AddWorkoutPlan));
 
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while adding the Workout Plan! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while adding the Workout Plan. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -242,14 +251,14 @@
             try
             {
                 IEnumerable<WorkoutPlanAdminDetailViewModel> workoutPlanAdminDetailVM = await this.workoutPlanService
-                                                .GetAllWorkoutPlansForAdminAsync();
+                                    .GetAllWorkoutPlansForAdminAsync();
 
                 return this.View(workoutPlanAdminDetailVM);
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Workout Plan! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while editing the Workout Plan. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -266,7 +275,7 @@
                     return Json(new
                     {
                         success = false,
-                        message = "Workout Plan could not be found. Please try again."
+                        message = ErrorMessageCannotFindWorkoutPlan
                     });
                 }
 
@@ -285,25 +294,32 @@
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while editing the Workout Plan! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while editing the Workout Plan with ID:{id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
         [HttpPost]
         public async Task<IActionResult> EditWorkoutPlan(WorkoutPlanEditViewModel workoutPlanEditVM)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return View(workoutPlanEditVM);
+                if (!ModelState.IsValid)
+                {
+                    return View(workoutPlanEditVM);
+                }
+
+                await workoutPlanService.EditWorkoutPlanAsync(workoutPlanEditVM);
+
+                TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateWorkoutPlan, workoutPlanEditVM.Title);
+
+                return RedirectToAction("WorkoutPlan", "Fitness");
             }
-
-            await workoutPlanService.EditWorkoutPlanAsync(workoutPlanEditVM);
-
-            TempData["Success"] = $"Workout Plan {workoutPlanEditVM.Title} updated successfully!";
-
-            return RedirectToAction("WorkoutPlab", "Fitness", new { area = "" });
-
+            catch (Exception e)
+            {
+                this.logger.LogError($"Error occurred while editing the Workout Plan with ID:{workoutPlanEditVM.Id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
+            }
         }
 
         [HttpGet]
@@ -317,10 +333,10 @@
 
                 return this.View(workoutPlanDeleteDetailVM);
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Workout Plan! Please contact developer team! The error is {e.Message}";
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deleting the Workout Plan. Error: {ex.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -335,22 +351,21 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = "Workout Plan could not be found and deleted!";
+                    TempData[ErrorMessageKey] = ErrorMessageCannotFindWorkoutPlan;
                 }
                 else
                 {
-                    string operation = opResult.isRestored ? "Deleted" : "Restored";
+                    string operation = opResult.isRestored ? Deleted : Restored;
 
-                    TempData[SuccessMessageKey] = $"Workout Plan is {operation} successfully!";
+                    TempData[SuccessMessageKey] = string.Format(SuccessMessageDeleteWorkoutPlan, operation);
                 }
 
                 return this.RedirectToAction(nameof(DeleteWorkoutPlan));
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while deleting the Workout Plan! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while deleting the Workout Plan with ID: {id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
@@ -360,9 +375,9 @@
             IEnumerable<WorkoutPlanAdminDetailViewModel> workoutPlans = await workoutPlanService.GetAllWorkoutPlansForAdminAsync();
 
             WorkoutPlanSelectListViewModel WorkoutPlansSelectedListVM = new WorkoutPlanSelectListViewModel
-                                        {
-                                            WorkoutPlans = workoutPlans
-                                        };
+            {
+                WorkoutPlans = workoutPlans
+            };
 
             return View(WorkoutPlansSelectedListVM);
         }
@@ -370,31 +385,40 @@
         [HttpGet]
         public async Task<IActionResult> AttachExercises(string id)
         {
-            WorkoutPlanEditViewModel? workoutPlan = await workoutPlanService
-                                .GetWorkoutPlanByIdAsync(id);
-
-            if (workoutPlan == null)
+            try
             {
-                TempData[ErrorMessageKey] = "Workout plan not found.";
+                WorkoutPlanEditViewModel? workoutPlan = await workoutPlanService
+                                    .GetWorkoutPlanByIdAsync(id);
 
-                return RedirectToAction(nameof(EditWorkoutPlan), "Fitness");
+                if (workoutPlan == null)
+                {
+                    this.logger.LogWarning($"Error occurred while trying to attach Exercise to WorkoutPlan with ID: {id}.");
+
+                    TempData[ErrorMessageKey] = ErrorMessageCannotFindWorkoutPlan;
+                    return RedirectToAction(nameof(EditWorkoutPlan), "Fitness");
+                }
+
+                IEnumerable<ExerciseAdminDetailViewModel> allExercises = await exerciseService
+                                                        .GetAllExerciseForAdminAsync();
+
+                ICollection<string> attachedIds = await workoutPlanExerciseService
+                                    .GetExerciseIdsForWorkoutPlanAsync(id);
+
+                WorkoutPlanExerciseAttachViewModel workoutPlanExerciseAttachVM = new WorkoutPlanExerciseAttachViewModel
+                {
+                    WorkoutPlanId = id,
+                    WorkoutPlanTitle = workoutPlan.Title,
+                    AllExercises = allExercises,
+                    AttachedExerciseIds = attachedIds
+                };
+
+                return View(workoutPlanExerciseAttachVM);
             }
-
-            IEnumerable<ExerciseAdminDetailViewModel> allExercises = await exerciseService
-                                                    .GetAllExerciseForAdminAsync();
-
-            ICollection<string> attachedIds = await workoutPlanExerciseService
-                                .GetExerciseIdsForWorkoutPlanAsync(id);
-
-            WorkoutPlanExerciseAttachViewModel workoutPlanExerciseAttachVM = new WorkoutPlanExerciseAttachViewModel
+            catch (Exception e)
             {
-                WorkoutPlanId = id,
-                WorkoutPlanTitle = workoutPlan.Title,
-                AllExercises = allExercises,
-                AttachedExerciseIds = attachedIds
-            };
-
-            return View(workoutPlanExerciseAttachVM);
+                this.logger.LogError($"Error occurred while trying to attach Exercise to WorkoutPlan with ID: {id}. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
+            }
         }
 
         [HttpPost]
@@ -412,14 +436,13 @@
                 await workoutPlanExerciseService
                     .UpdateExercisesForWorkoutPlanAsync(workoutPlanExerciseAttachVM.WorkoutPlanId, workoutPlanExerciseAttachVM.SelectedExerciseIds ?? new List<string>());
 
-                TempData["Success"] = "Exercises updated successfully.";
-                return RedirectToAction("EditWorkoutPlan", "Fitness");
+                TempData[SuccessMessageKey] = SuccessMessageWorkoutPlanExerciseUpdate;
+                return RedirectToAction(nameof(EditWorkoutPlan), "Fitness");
             }
             catch (Exception e)
             {
-                TempData[ErrorMessageKey] = $"Unexpected error occurred while attaching Exercises to the Workout Plan! Please contact developer team! The error is {e.Message}";
-
-                return RedirectToAction("Index", "Home");
+                this.logger.LogError($"Error occurred while trying attaching Exercises to the Workout Plan. Error: {e.Message}");
+                return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
 
