@@ -1,6 +1,6 @@
 # Sport Center Victory (ASP.NET Core MVC Project)
 
-This is a university project for managing a sports center (Fitness, CrossFit, Powerlifting), including user memberships, programs, store, and events. Still under development. Some of the features are not implemented.
+This is a university project for managing a sports center (Fitness, CrossFit, Powerlifting), including user memberships, programs, store, and events. For more information scroll down below.
 
 ## 📸 Screenshot (Main page)
 <div style="line-height: 0;">
@@ -10,6 +10,48 @@ This is a university project for managing a sports center (Fitness, CrossFit, Po
    <img src="https://dl.dropboxusercontent.com/scl/fi/y6j737mb8kd4z0ij92czv/MainPaige04.png?rlkey=8a614rw4m3q38ej5tbfvkovd6&st=63x1c5jq" width="750" style="display:block;"/>
    <img src="https://dl.dropboxusercontent.com/scl/fi/4pv03oet9ryv1944mc3yn/MainPaige05.png?rlkey=n90njo6hfar8rjtnfmtwq395x&st=fko5aqt8" width="750" style="display:block;"/>
 </div>
+
+---
+
+## 🏋️‍♂️ Project Overview
+
+**Sport Center Victory** is a full-featured ASP.NET Core MVC web application developed as a student project, simulating a modern multi-sport facility platform. It supports three main sport disciplines — **Fitness**, **CrossFit**, and **Powerlifting** — each offering tailored content such as **events**, **memberships**, dedicated zones (e.g., *Fitness Center*, *CrossFit Arena*, *Powerlifting Zone*), and **trainer/coach interactions**. Registered users can explore and join events, purchase sport-specific memberships, add favorite trainers, and interact with each sport's unique features.
+
+Each sport section is enriched with additional functionality:
+- **Fitness**: includes a searchable **exercise database** with over 800 exercises and a **Workout Plan** section where users can explore plans with attached exercises.
+- **CrossFit**: features **CrossFit Classes** that users can join and a daily **Workout of the Day (WOD)** automatically pulled and stored from [CrossFit.com](https://crossfit.com).
+- **Store**: users can purchase **supplements and equipment**, manage their cart, and buy memberships directly.
+
+The app also includes user-friendly features like **Contact Us**, **Privacy**, and **About** sections. Each registered user has access to a **User Panel** to manage memberships, joined events, favorite trainers, submitted feedback, and more.
+
+---
+
+## 👥 Roles & Permissions
+
+The application uses a **role-based access system** with four predefined roles: **User**, **Trainer**, **Manager**, and **Admin**.
+
+- **User**: Default role upon registration. Can purchase memberships, join events and classes, favorite trainers, and leave feedback.
+- **Trainer**: In addition to user features, can manage their own bio, add/edit workout plans, exercises, and CrossFit classes, and view users who have marked them as a favorite.
+- **Manager**: Inherits trainer permissions and can approve/delete user feedback, manage all content (events, exercises, bios, etc.), and review site-wide data in an admin dashboard.
+- **Admin**: Has full access across the platform, including role assignment (excluding other admin roles) and permanent user deletion.
+
+Feedback submitted by users appears on the homepage if approved by a Manager/Admin. Only three approved feedbacks are displayed at a time, chosen dynamically from the database.
+
+---
+
+## 🤝 Credits & Contributions
+
+This project wouldn't be possible without the amazing contributions and tools from the community:
+
+- 💡  Data Exercises and some of the implementaion about them are inspired and forked from [yuhonas](https://github.com/yuhonas)
+- 🖼️ High-quality images sourced from [Unsplash](https://unsplash.com)
+- 🛒 Sample product ideas from [MyProtein.com](https://www.myprotein.com/) — a personal favorite and highly recommended!
+- 🤖 Technical guidance, testing, and support: **SotftUni**, **ChatGPT**, GitHub users, Stack Overflow, and the .NET community.
+
+Huge thanks to all the open-source contributors and platforms that inspired and supported this project’s development!
+
+
+---
 
 ## 🚀 How to Run
 
@@ -53,8 +95,7 @@ This is a university project for managing a sports center (Fitness, CrossFit, Po
 
 ## 💾 Data Seeding
 
-- Application users, roles, and user roles are seeded in the `ApplicationUserConfiguration.cs`, `ApplicationRoleConfiguration.cs` and `ApplicationUserRoleConfiguration.cs`
-- Other data like Trainers, Products, Memberships, etc., are seeded from JSON files using EF Core `HasData` in the `Configuration` classes.
+- Check the GitHub Project Notes (Updated) below.
 
 ## 📦 Project Structure
 
