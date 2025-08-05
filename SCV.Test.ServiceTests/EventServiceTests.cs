@@ -6,7 +6,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core;
+    using SCV.Services.Core.EventServices;
     using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Services.Core.EventServices.Contracts;

@@ -4,6 +4,5 @@
 
     public interface ITrainerRepository : IAsyncRepository<Trainer, Guid>, IRepository<Trainer, Guid>
     {
-
     }
 }

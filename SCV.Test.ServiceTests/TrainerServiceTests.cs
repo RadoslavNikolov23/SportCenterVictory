@@ -7,7 +7,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core;
+    using SCV.Services.Core.TrainerServices;
     using SCV.Services.Core.TrainerServices.Contracts;
     using SCV.Web.ViewModels.Administration.TrainerBioVM;
     using SCV.Web.ViewModels.TrainerVM;

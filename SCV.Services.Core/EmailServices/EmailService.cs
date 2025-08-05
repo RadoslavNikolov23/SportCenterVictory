@@ -21,8 +21,8 @@
         {
             MailMessage message = new MailMessage
             {
-                From = new MailAddress(settings.SenderEmail, "Sport Center Victory - Email \n\n"),
-                Subject = $"Contact Form: {model.Name} \n\n",
+                From = new MailAddress(settings.SenderEmail, "Sport Center Victory - Email"),
+                Subject = $"Contact Form: {model.Name}",
                 Body = $"Name: {model.Name}\nEmail: {model.Email}\nPhone: {model.PhoneNumber}\nMessage:\n{model.Message} \n\n",
                 IsBodyHtml = false
             };

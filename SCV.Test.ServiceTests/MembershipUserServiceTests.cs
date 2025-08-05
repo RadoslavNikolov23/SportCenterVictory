@@ -5,7 +5,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core;
+    using SCV.Services.Core.StoreServices;
     using SCV.Services.Core.StoreServices.Contracts;
     using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.CommonVM;

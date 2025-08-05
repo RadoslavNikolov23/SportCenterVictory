@@ -15,5 +15,6 @@
 
         [Required]
         public string Message { get; set; } = null!;
+
     }
 }

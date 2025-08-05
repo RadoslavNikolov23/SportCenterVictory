@@ -6,9 +6,8 @@
 
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
-    using SCV.Services.Core;
+    using SCV.Services.Core.FitnessServices;
     using SCV.Services.Core.FitnessServices.Contracts;
-    using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.Administration.FitnessVM;
     using SCV.Web.ViewModels.FitnessVM;
 
