@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.EventServices.Contracts;
     using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.Administration.ReferenceVM;
 

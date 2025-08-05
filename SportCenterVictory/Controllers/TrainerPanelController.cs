@@ -2,8 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.TrainerServices.Contracts;
     using SCV.Web.ViewModels.TrainerVM;
 
     using static SCV.GlCommon.RoleConstants;

@@ -1,8 +1,7 @@
 ﻿namespace SportCenterVictory.Areas.Administration.Controllers
 {
     using Microsoft.AspNetCore.Mvc;
-
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.UserServices.Contracts;
     using SCV.Web.ViewModels.Administration.UserManagementVM;
 
     using static SCV.GlCommon.ApplicationConstants;

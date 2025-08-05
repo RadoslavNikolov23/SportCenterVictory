@@ -5,7 +5,11 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SCV.Data.Models;
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.CrossfitServices.Contracts;
+    using SCV.Services.Core.EventServices.Contracts;
+    using SCV.Services.Core.StoreServices.Contracts;
+    using SCV.Services.Core.TrainerServices.Contracts;
+    using SCV.Services.Core.UserFeedbackServices.Contracts;
     using SCV.Web.ViewModels.CrossfitVM;
     using SCV.Web.ViewModels.UserFeedbackVM;
 

@@ -5,7 +5,7 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.Services.Core;
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.CrossfitServices.Contracts;
     using SCV.Web.ViewModels.CrossfitVM;
 
     [TestFixture]

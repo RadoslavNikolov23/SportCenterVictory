@@ -7,7 +7,7 @@
     using SCV.Data.Models;
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.StoreServices.Contracts;
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.StoreVM;
     using SVC.Web.ViewModels.StoreVM;

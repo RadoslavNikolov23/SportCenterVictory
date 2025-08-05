@@ -7,9 +7,9 @@
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core;
-    using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.EventVM;
     using SCV.Web.ViewModels.CommonVM;
+    using SCV.Services.Core.EventServices.Contracts;
 
     [TestFixture]
     public class EventServiceTests

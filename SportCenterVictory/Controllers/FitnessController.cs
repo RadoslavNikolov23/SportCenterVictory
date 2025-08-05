@@ -5,10 +5,13 @@
 
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.FitnessVM;
     using SCV.Web.ViewModels.TrainerVM;
+    using SCV.Services.Core.FitnessServices.Contracts;
+    using SCV.Services.Core.TrainerServices.Contracts;
+    using SCV.Services.Core.StoreServices.Contracts;
+    using SCV.Services.Core.EventServices.Contracts;
 
     public class FitnessController : BaseController
     {

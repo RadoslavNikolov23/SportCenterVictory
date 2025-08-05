@@ -6,7 +6,7 @@
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core;
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.StoreServices.Contracts;
 
     [TestFixture]
     public class OrderProductServiceTests

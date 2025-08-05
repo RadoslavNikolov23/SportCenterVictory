@@ -2,8 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.CrossfitServices.Contracts;
     using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
     using SCV.Web.ViewModels.Administration.ReferenceVM;
 

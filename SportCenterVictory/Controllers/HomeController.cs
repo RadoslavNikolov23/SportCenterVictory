@@ -6,9 +6,9 @@ namespace SportCenterVictory.Controllers
     using System.Diagnostics;
 
     using SCV.GlCommon;
-    using SCV.Services.Core.Contracts;
     using SCV.Web.Models;
     using SCV.Web.ViewModels.UserFeedbackVM;
+    using SCV.Services.Core.UserFeedbackServices.Contracts;
 
     public class HomeController : BaseController
     {

@@ -4,7 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
 
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.StoreServices.Contracts;
     using SCV.Web.ViewModels.Administration.ReferenceVM;
     using SCV.Web.ViewModels.Administration.StoreVM.MembershipsVM;
 

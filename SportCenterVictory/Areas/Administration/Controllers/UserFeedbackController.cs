@@ -4,12 +4,11 @@
     using Microsoft.AspNetCore.Authorization;
 
     using System.Collections.Generic;
-
-    using SCV.Services.Core.Contracts;
     using SCV.Web.ViewModels.Administration.UserFeedbackVM;
 
     using static SCV.GlCommon.ApplicationConstants;
     using static SCV.GlCommon.RoleConstants;
+    using SCV.Services.Core.UserFeedbackServices.Contracts;
 
     public class UserFeedbackController : BaseAdminController
     {

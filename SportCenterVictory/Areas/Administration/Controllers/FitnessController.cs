@@ -2,8 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.FitnessServices.Contracts;
     using SCV.Web.ViewModels.Administration.FitnessVM;
 
     using static SCV.GlCommon.ApplicationConstants;

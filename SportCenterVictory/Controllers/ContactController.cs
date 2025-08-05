@@ -2,8 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.EmailServices.Contracts;
     using SCV.Web.ViewModels.ContactVM;
 
     using static SCV.GlCommon.ApplicationConstants;

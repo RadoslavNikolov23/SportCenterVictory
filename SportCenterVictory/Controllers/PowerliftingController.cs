@@ -5,7 +5,9 @@
 
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
-    using SCV.Services.Core.Contracts;
+    using SCV.Services.Core.EventServices.Contracts;
+    using SCV.Services.Core.StoreServices.Contracts;
+    using SCV.Services.Core.TrainerServices.Contracts;
     using SCV.Web.ViewModels.CommonVM;
     using SCV.Web.ViewModels.TrainerVM;
 
