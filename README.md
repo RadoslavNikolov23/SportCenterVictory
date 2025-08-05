@@ -46,7 +46,7 @@ This project wouldn't be possible without the amazing contributions and tools fr
 - 💡  Data Exercises and some of the implementaion about them are inspired and forked from [yuhonas](https://github.com/yuhonas)
 - 🖼️ High-quality images sourced from [Unsplash](https://unsplash.com)
 - 🛒 Sample product ideas from [MyProtein.com](https://www.myprotein.com/) — a personal favorite and highly recommended!
-- 🤖 Technical guidance, testing, and support: **ChatGPT**, GitHub users, Stack Overflow, and the .NET community.
+- 🤖 Technical guidance, testing, and support: **SotftUni**, **ChatGPT**, GitHub users, Stack Overflow, and the .NET community.
 
 Huge thanks to all the open-source contributors and platforms that inspired and supported this project’s development!
 
