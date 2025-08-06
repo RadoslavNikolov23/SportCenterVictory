@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using SCV.Services.Core.FitnessServices.Contracts;
     using SCV.Web.ViewModels.Administration.FitnessVM;
 
@@ -212,7 +213,7 @@
             }
             catch (Exception e)
             {
-                this.logger.LogError($"Error occurred while Deletin Exercise with ID:{id}. Error: {e.Message}");
+                this.logger.LogError($"Error occurred while Deleting Exercise with ID:{id}. Error: {e.Message}");
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
@@ -477,6 +478,5 @@
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
-
     }
 }

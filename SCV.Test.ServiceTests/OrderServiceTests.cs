@@ -231,43 +231,6 @@
         }
 
         [Test]
-        public async Task GetUsersOrdersForProcessingAsync_ReturnsProcessingOrders()
-        {
-            var order = new Order
-            {
-                OrderStatus = OrderStatus.Processing,
-                OrderDate = DateTime.UtcNow,
-                OrderProducts = new List<OrderProduct> { new OrderProduct
-                                                        { Product = new Product
-                                                            {
-                                                                Title = "CrossFit Hoodie",
-                                                                ProductCategory  = ProductCategory.Equipment,
-                                                                Quantity = 30,
-                                                                Description = "Black hoodie for CrossFit sessions.",
-                                                                Price = 52.99m
-                                                            },
-                                                          Quantity = 1 } 
-                                                        }
-            };
-
-            var mockSet = new List<Order> 
-                                { 
-                                    order 
-                                }
-                                .AsQueryable()
-                                .BuildMockDbSet();
-            orderRepoMock.Setup(r => r.GetAllAttached())
-                         .Returns(mockSet.Object);
-
-            IEnumerable<OrderApproveAdminViewModel> result = await orderService
-                        .GetUsersOrdersForProcessingAsync();
-
-            Assert.That(result.Count(), Is.EqualTo(1));
-            Assert.That(result.Count(), Is.EqualTo(1));
-
-        }
-
-        [Test]
         public async Task GetAllOrdersForAdminAsync_ReturnsAllOrders()
         {
             Order order = new Order

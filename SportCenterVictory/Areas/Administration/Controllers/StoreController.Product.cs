@@ -183,7 +183,7 @@
             }
             catch (Exception e)
             {
-                this.logger.LogError($"Error occurred while deletin a Product. Error: {e.Message}");
+                this.logger.LogError($"Error occurred while deleting a Product. Error: {e.Message}");
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
@@ -265,7 +265,7 @@
             }
             catch (Exception e)
             {
-                this.logger.LogError($"Error occurred while retrieving all Orders maded by Users. Error: {e.Message}");
+                this.logger.LogError($"Error occurred while retrieving all Orders made by Users. Error: {e.Message}");
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }

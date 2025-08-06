@@ -41,16 +41,6 @@ namespace SportCenterVictory
                             options.Password.RequireLowercase = true;
                             options.Password.RequiredLength = 6;
 
-
-                            /*For production, you should set the following options to true:
-                             * 
-                                options.Password.RequireDigit = true;
-                                options.Password.RequireNonAlphanumeric = true;
-                                options.Password.RequireUppercase = true;
-                                options.Password.RequireLowercase = true;
-                                options.Password.RequiredLength = 8;
-                                options.Password.RequiredUniqueChars = 1;
-                             */
                         })
                     .AddEntityFrameworkStores<SportCenterDbContext>()
                     .AddDefaultTokenProviders();

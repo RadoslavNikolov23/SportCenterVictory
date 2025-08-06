@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using SCV.Services.Core.CrossfitServices.Contracts;
     using SCV.Web.ViewModels.Administration.CrossfitClassesVM;
     using SCV.Web.ViewModels.Administration.ReferenceVM;
@@ -76,7 +77,7 @@
             }
             catch (Exception e)
             {
-                this.logger.LogError($"Error occurred while edditing Crossfit Class. Error: {e.Message}");
+                this.logger.LogError($"Error occurred while editing Crossfit Class. Error: {e.Message}");
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
@@ -153,7 +154,7 @@
             }
             catch (Exception e)
             {
-                this.logger.LogError($"Error occurred while edditing Crossfit Class with ID: {crossfitClassEditVM.Id}. Error: {e.Message}");
+                this.logger.LogError($"Error occurred while editing Crossfit Class with ID: {crossfitClassEditVM.Id}. Error: {e.Message}");
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }

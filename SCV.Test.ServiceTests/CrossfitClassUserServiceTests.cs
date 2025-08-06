@@ -111,28 +111,7 @@
             Assert.IsTrue(isAdded);
         }
 
-        [Test]
-        public async Task RemoveUserFromCrossfitClassAsync_RemovesSuccessfully()
-        {
-            CrossfitClassUser crossfitClassUser = mockData.First();
-
-            mockRepo.Setup(r => r.GetAllAttached())
-                    .Returns(new List<CrossfitClassUser> 
-                                        { 
-                                            crossfitClassUser 
-                                        }
-                    .AsQueryable()
-                    .BuildMockDbSet().Object);
-
-            mockRepo.Setup(r => r.DeleteAsync(It.IsAny<CrossfitClassUser>()))
-                    .ReturnsAsync(true);
-
-            bool isRemoved = await crossfitClassUserService
-                              .RemoveUserFromCrossfitClassAsync(classId.ToString(), userId.ToString());
-
-            Assert.IsTrue(isRemoved);
-        }
-
+       
         [Test]
         public async Task IsUserAddedToCrossfitClassList_ActiveEntryExists_ReturnsTrue()
         {

@@ -91,7 +91,7 @@
             }
             catch (Exception e)
             {
-                this.logger.LogError($"Error occurred while edditing Event. Error: {e.Message}");
+                this.logger.LogError($"Error occurred while editing Event. Error: {e.Message}");
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
@@ -178,7 +178,7 @@
             }
             catch (Exception e)
             {
-                this.logger.LogError($"Error occurred while edditing Event with ID:{eventEditVM.Id}. Error: {e.Message}");
+                this.logger.LogError($"Error occurred while editing Event with ID:{eventEditVM.Id}. Error: {e.Message}");
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
@@ -248,6 +248,5 @@
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }
-
     }
 }

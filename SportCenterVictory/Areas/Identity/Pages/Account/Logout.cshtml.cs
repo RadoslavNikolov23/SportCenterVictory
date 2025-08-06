@@ -1,14 +1,11 @@
 ﻿namespace SportCenterVictory.Areas.Identity.Pages.Account
 {
-    using SCV.Data.Models;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
-    using static SCV.GlCommon.ApplicationConstants;
-    using static SCV.GlCommon.ToastMessages;
-    using SCV.GlCommon;
+    using SCV.Data.Models;
 
     [AllowAnonymous]
     public class LogoutModel : PageModel
@@ -36,7 +33,6 @@
             }
             else
             {
-                TempData[SuccessMessageKey] = SuccessfulLogOut;
                 return RedirectToAction("Index", "Home", new { area = "" });
             }
         }

@@ -62,7 +62,7 @@
             }
             catch (Exception ex)
             {
-                this.logger.LogError($"Error occurred while diting the User feedback!. Error: {ex.Message}");
+                this.logger.LogError($"Error occurred while editing the User feedback!. Error: {ex.Message}");
                 return this.ServerErrorWithMessage(BaseServerErrorMessage);
             }
         }

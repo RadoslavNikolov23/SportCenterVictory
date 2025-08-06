@@ -2,6 +2,7 @@
 {
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+
     using SCV.GlCommon;
     using SCV.GlCommon.Enums;
     using SCV.Services.Core.EventServices.Contracts;
