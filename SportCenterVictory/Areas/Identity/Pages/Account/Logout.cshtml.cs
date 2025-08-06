@@ -6,6 +6,10 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.RazorPages;
 
+    using static SCV.GlCommon.ApplicationConstants;
+    using static SCV.GlCommon.ToastMessages;
+    using SCV.GlCommon;
+
     [AllowAnonymous]
     public class LogoutModel : PageModel
     {
@@ -32,7 +36,8 @@
             }
             else
             {
-                return RedirectToPage();
+                TempData[SuccessMessageKey] = SuccessfulLogOut;
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
         }
     }

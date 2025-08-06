@@ -48,12 +48,12 @@
                 if (!isAddedSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred while creating a Crossfit Class");
-                    TempData[ErrorMessageKey] = ErrorMessageCrossfitClassCannotCreate;
+                    TempData[WarningMessageKey] = ErrorMessageCrossfitClassCannotCreate;
                     return View(crossfitClassAddVM);
                 }
 
                 TempData[SuccessMessageKey] = SuccessMessageCrossfitClassCreated;
-                return RedirectToAction("CrossfitClasses", "Crossfit");
+                return RedirectToAction("CrossfitClasses", "Crossfit", new { area = "" });
 
 
             }
@@ -124,12 +124,17 @@
         {
             try
             {
+                if (crossfitClassEditVM.Id == null)
+                {
+                    TempData[WarningMessageKey] = SomethingWentWrong;
+
+                    return RedirectToAction(nameof(EditClass));
+                }
+
                 if (!ModelState.IsValid)
                 {
                     return View(crossfitClassEditVM);
                 }
-
-
 
                 bool isEditSuccessfully = await crossfitClassService.EditCrossfitClassAsync(crossfitClassEditVM);
 
@@ -137,14 +142,14 @@
                 if (!isEditSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred while editing a CrossFit Class with {crossfitClassEditVM.Id}!");
-                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateCrossfitClass, crossfitClassEditVM.Name); ;
+                    TempData[WarningMessageKey] = string.Format(ErrorMessageCannotUpdateCrossfitClass, crossfitClassEditVM.Name); ;
                     return View(crossfitClassEditVM);
                 }
 
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateCrossfitClass, crossfitClassEditVM.Name);
 
-                return RedirectToAction("CrossfitClasses", "Crossfit");
+                return RedirectToAction("CrossFitClasses", "CrossFit", new { area = "" });
             }
             catch (Exception e)
             {
@@ -184,7 +189,7 @@
                 if (!opResult.isSuccess)
                 {
                     this.logger.LogError($"Error occurred in the service methos while trying to Deleting Crossfit Class with ID: {id}");
-                    TempData[ErrorMessageKey] = ErrorMessageCrossfitClassCannotDelete;
+                    TempData[WarningMessageKey] = ErrorMessageCrossfitClassCannotDelete;
                 }
                 else
                 {

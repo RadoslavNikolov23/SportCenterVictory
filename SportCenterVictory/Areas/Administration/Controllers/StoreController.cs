@@ -55,7 +55,7 @@
                 if (!isAddedSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred in the service methods while trying to create a Membership.");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateMembership;
+                    TempData[WarningMessageKey] = ErrorMessageCannotCreateMembership;
                     return View(membershipAddVM);
                 }
 
@@ -64,13 +64,13 @@
                 switch (membershipAddVM.MembershipType)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessMembership", "Fitness");
+                        return RedirectToAction("FitnessMembership", "Fitness", new { area = "" });
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossfitMembership", "Crossfit");
+                        return RedirectToAction("CrossfitMembership", "Crossfit", new { area = "" });
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingMembership", "Powerlifting");
+                        return RedirectToAction("PowerliftingMembership", "Powerlifting", new { area = "" });
                     default:
-                        return RedirectToAction("Memberships", "Store");
+                        return RedirectToAction("Memberships", "Store", new { area = "" });
                 }
             }
             catch (Exception ex)
@@ -142,6 +142,13 @@
         {
             try
             {
+                if (membershipEditVM.Id == null)
+                {
+                    TempData[WarningMessageKey] = SomethingWentWrong;
+
+                    return RedirectToAction(nameof(EditMembership));
+                }
+
                 if (!ModelState.IsValid)
                 {
                     return View(membershipEditVM);
@@ -162,13 +169,13 @@
                 switch (membershipEditVM.MembershipType)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessMembership", "Fitness");
+                        return RedirectToAction("FitnessMembership", "Fitness", new { area = "" });
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossfitMembership", "Crossfit");
+                        return RedirectToAction("CrossfitMembership", "Crossfit", new { area = "" });
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingMembership", "Powerlifting");
+                        return RedirectToAction("PowerliftingMembership", "Powerlifting", new { area = "" });
                     default:
-                        return RedirectToAction("Memberships", "Store");
+                        return RedirectToAction("Memberships", "Store", new { area = "" });
                 }
             }
             catch (Exception e)

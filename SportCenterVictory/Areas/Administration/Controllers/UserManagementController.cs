@@ -38,7 +38,7 @@
                 if (!userExists)
                 {
                     this.logger.LogWarning($"Cannot assign a role to user with ID: {userId}.");
-                    TempData[ErrorMessageKey] = ErrorMessageUserDoesNotExist;
+                    TempData[WarningMessageKey] = ErrorMessageUserDoesNotExist;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
@@ -48,7 +48,7 @@
                 if (!isAssayedRole)
                 {
                     this.logger.LogWarning($"Error in the Service methods, Cannot assign a role to user with ID: {userId}.");
-                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    TempData[WarningMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
@@ -75,7 +75,7 @@
                 if (!userExists)
                 {
                     this.logger.LogWarning($"Cannot remove a role to user with ID: {userId}.");
-                    TempData[ErrorMessageKey] = ErrorMessageUserDoesNotExist;
+                    TempData[WarningMessageKey] = ErrorMessageUserDoesNotExist;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
@@ -85,7 +85,7 @@
                 if (!isRemovedRole)
                 {
                     this.logger.LogWarning($"Error in the Service methods, Cannot remove a role to user with ID: {userId}.");
-                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    TempData[WarningMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
@@ -112,7 +112,7 @@
                 if (!userExists)
                 {
                     this.logger.LogWarning($"Cannot delete user with ID: {userId}.");
-                    TempData[ErrorMessageKey] = ErrorMessageUserDoesNotExist;
+                    TempData[WarningMessageKey] = ErrorMessageUserDoesNotExist;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 
@@ -122,7 +122,7 @@
                 if (!isDeletedUser)
                 {
                     this.logger.LogWarning($"Error in the Service methods, Cannot remove a role to user with ID: {userId}.");
-                    TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
+                    TempData[WarningMessageKey] = ErrorMessageBaseSomethingWentWrong;
                     return this.RedirectToAction(nameof(EditUserRole));
                 }
 

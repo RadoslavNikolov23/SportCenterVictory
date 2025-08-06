@@ -40,7 +40,7 @@
                 if (!isAddedSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred while trying to create a Product.");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateProduct;
+                    TempData[WarningMessageKey] = ErrorMessageCannotCreateProduct;
                     return View(productAddVM);
                 }
 
@@ -50,11 +50,11 @@
                 switch (productAddVM.ProductCategory)
                 {
                     case ProductCategory.Equipment:
-                        return RedirectToAction("Equipment", "Store");
+                        return RedirectToAction("Equipment", "Store", new { area = "" });
                     case ProductCategory.Nutrition:
-                        return RedirectToAction("Nutrition", "Store");
+                        return RedirectToAction("Nutrition", "Store", new { area = "" });
                     default:
-                        return RedirectToAction("Index", "Store");
+                        return RedirectToAction("Index", "Store", new { area = "" });
                 }
             }
             catch (Exception e)
@@ -127,6 +127,13 @@
         {
             try
             {
+                if (productEditVM.Id == null)
+                {
+                    TempData[WarningMessageKey] = SomethingWentWrong;
+
+                    return RedirectToAction(nameof(EditProduct));
+                }
+
                 if (!ModelState.IsValid)
                 {
                     IEnumerable<ProductAdminDetailViewModel> productAdminDetailVM = await this.productService
@@ -140,23 +147,20 @@
                 if (!isEditSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred while editing a Product with Id: {productEditVM.Id} - {productEditVM.ProductCategory}");
-                    TempData[ErrorMessageKey] = string.Format(ErrorMessageProductCannotUpdate, productEditVM.Title); ;
+                    TempData[WarningMessageKey] = string.Format(ErrorMessageProductCannotUpdate, productEditVM.Title); ;
                     return View(productEditVM);
                 }
-
-
-                await productService.EditProductAsync(productEditVM);
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageProductUpdate, productEditVM.Title);
 
                 switch (productEditVM.ProductCategory)
                 {
                     case ProductCategory.Equipment:
-                        return RedirectToAction("Equipment", "Store");
+                        return RedirectToAction("Equipment", "Store", new { area = "" });
                     case ProductCategory.Nutrition:
-                        return RedirectToAction("Nutrition", "Store");
+                        return RedirectToAction("Nutrition", "Store", new { area = "" });
                     default:
-                        return RedirectToAction("Index", "Store");
+                        return RedirectToAction("Index", "Store", new { area = "" });
                 }
             }
             catch (Exception e)
@@ -195,7 +199,7 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = ErrorMessageCannotFindProduct;
+                    TempData[WarningMessageKey] = ErrorMessageCannotFindProduct;
                 }
                 else
                 {
@@ -235,7 +239,7 @@
                 if (!isSuccess)
                 {
                     this.logger.LogWarning($"Error occurred in the service methods while trying to approve order with ID: {orderId}.");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotApproveOrder;
+                    TempData[WarningMessageKey] = ErrorMessageCannotApproveOrder;
                     return RedirectToAction(nameof(ApproveOrder));
                 }
 

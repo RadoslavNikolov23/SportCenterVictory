@@ -51,7 +51,7 @@
                 if (!isAddedSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred in the service methods while adding an Event.");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateEvent;
+                    TempData[WarningMessageKey] = ErrorMessageCannotCreateEvent;
 
                     return View(eventAddVM);
                 }
@@ -62,13 +62,13 @@
                 switch (eventAddVM.EventType)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessEvents", "Fitness");
+                        return RedirectToAction("FitnessEvents", "Fitness", new { area = "" });
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossfitEvents", "Crossfit");
+                        return RedirectToAction("CrossfitEvents", "Crossfit", new { area = "" });
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingEvents", "Powerlifting");
+                        return RedirectToAction("PowerliftingEvents", "Powerlifting", new { area = "" });
                     default:
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
             }
@@ -140,6 +140,13 @@
         {
             try
             {
+                if(eventEditVM.Id == null)
+                {
+                    TempData[WarningMessageKey] = SomethingWentWrong;
+
+                    return RedirectToAction(nameof(EditEvent));
+                }
+
                 if (!ModelState.IsValid)
                 {
                     return View(eventEditVM);
@@ -150,7 +157,7 @@
                 if (!isEditSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred while editing a Event with Id:{eventEditVM.Id}");
-                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateEvent, eventEditVM.Title); ;
+                    TempData[WarningMessageKey] = string.Format(ErrorMessageCannotUpdateEvent, eventEditVM.Title); ;
                     return View(eventEditVM);
                 }
 
@@ -160,13 +167,13 @@
                 switch (eventEditVM.EventType)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessEvents", "Fitness");
+                        return RedirectToAction("FitnessEvents", "Fitness", new { area = "" });
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossfitEvents", "Crossfit");
+                        return RedirectToAction("CrossfitEvents", "Crossfit", new { area = "" });
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingEvents", "Powerlifting");
+                        return RedirectToAction("PowerliftingEvents", "Powerlifting", new { area = "" });
                     default:
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception e)
@@ -207,7 +214,7 @@
                 if (!opResult.isSuccess)
                 {
                     this.logger.LogWarning($"Error occurred in the service while deleting Event with ID:{id}.");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotFindEvent;
+                    TempData[WarningMessageKey] = ErrorMessageCannotFindEvent;
                 }
                 else
                 {

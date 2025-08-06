@@ -39,7 +39,7 @@
             {
                 if (!ModelState.IsValid)
                 {
-                    TempData[ErrorMessageKey] = ErrorMessageInvalidUserFeedback;
+                    TempData[WarningMessageKey] = ErrorMessageInvalidUserFeedback;
                     return RedirectToAction(nameof(ApproveFeedback));
                 }
 
@@ -49,12 +49,14 @@
                 if (!isApproved)
                 {
                     this.logger.LogWarning($"Error occurred in the services methods while trying to approve a User Feedback, with ID: {feedbackVM.Id}.");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotApproveUserFeedback;
+                    
+                    TempData[WarningMessageKey] = ErrorMessageCannotApproveUserFeedback;
                     return RedirectToAction(nameof(ApproveFeedback));
 
                 }
 
                 this.logger.LogInformation($"Successfully approve new Feedback with ID: {feedbackVM.Id} from {feedbackVM.FullName}.");
+                
                 TempData[SuccessMessageKey] = SuccessMessageApproveUserFeedback;
                 return RedirectToAction(nameof(ApproveFeedback));
             }

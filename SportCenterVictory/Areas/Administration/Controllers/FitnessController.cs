@@ -48,14 +48,14 @@
                 if (!isAddedSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred in the Service methods while trying to add an Exercise.");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateExercise;
+                    TempData[WarningMessageKey] = ErrorMessageCannotCreateExercise;
                     return View(exerciseAddVM);
                 }
 
 
                 TempData[SuccessMessageKey] = SuccessMessageCreatedExercise;
 
-                return View(nameof(AddExercise));
+                return RedirectToAction(nameof(AddExercise));
 
             }
             catch (Exception e)
@@ -131,6 +131,13 @@
         {
             try
             {
+                if (exerciseEditVM.Id == null)
+                {
+                    TempData[WarningMessageKey] = SomethingWentWrong;
+
+                    return RedirectToAction(nameof(EditExercise));
+                }
+
                 if (!ModelState.IsValid)
                 {
                     return View(exerciseEditVM);
@@ -142,14 +149,14 @@
                 if (!isEditSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred while editing a Exercise with Id{exerciseEditVM.Id}");
-                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateExercise, exerciseEditVM.Name); ;
+                    TempData[WarningMessageKey] = string.Format(ErrorMessageCannotUpdateExercise, exerciseEditVM.Name); ;
                     return View(exerciseEditVM);
                 }
 
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateExercise, exerciseEditVM.Name);
 
-                return RedirectToAction("Exercises", "Fitness");
+                return RedirectToAction(nameof(EditExercise));
             }
             catch (Exception e)
             {
@@ -192,7 +199,7 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = ErrorMessageCannotFindExercise;
+                    TempData[WarningMessageKey] = ErrorMessageCannotFindExercise;
                 }
                 else
                 {
@@ -235,7 +242,7 @@
                 if (!isAddedSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred in the service methods while creating a Workout Plan");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateWorkoutPlan;
+                    TempData[WarningMessageKey] = ErrorMessageCannotCreateWorkoutPlan;
 
                     return View(workoutPlanAddVM);
                 }
@@ -313,6 +320,13 @@
         {
             try
             {
+                if (workoutPlanEditVM.Id == null)
+                {
+                    TempData[WarningMessageKey] = SomethingWentWrong;
+
+                    return RedirectToAction(nameof(EditWorkoutPlan));
+                }
+
                 if (!ModelState.IsValid)
                 {
                     return View(workoutPlanEditVM);
@@ -324,14 +338,14 @@
                 if (!isEditSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred while editing a Workout Plan with Id:{workoutPlanEditVM.Id}");
-                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateWorkoutPlan, workoutPlanEditVM.Title); ;
+                    TempData[WarningMessageKey] = string.Format(ErrorMessageCannotUpdateWorkoutPlan, workoutPlanEditVM.Title); ;
                     return View(workoutPlanEditVM);
                 }
 
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateWorkoutPlan, workoutPlanEditVM.Title);
 
-                return RedirectToAction("WorkoutPlan", "Fitness");
+                return RedirectToAction("WorkoutPlan", "Fitness", new { area = "" });
             }
             catch (Exception e)
             {
@@ -369,7 +383,7 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = ErrorMessageCannotFindWorkoutPlan;
+                    TempData[WarningMessageKey] = ErrorMessageCannotFindWorkoutPlan;
                 }
                 else
                 {
@@ -412,7 +426,7 @@
                 {
                     this.logger.LogWarning($"Error occurred while trying to attach Exercise to WorkoutPlan with ID: {id}.");
 
-                    TempData[ErrorMessageKey] = ErrorMessageCannotFindWorkoutPlan;
+                    TempData[WarningMessageKey] = ErrorMessageCannotFindWorkoutPlan;
                     return RedirectToAction(nameof(EditWorkoutPlan), "Fitness");
                 }
 
@@ -455,7 +469,7 @@
                     .UpdateExercisesForWorkoutPlanAsync(workoutPlanExerciseAttachVM.WorkoutPlanId, workoutPlanExerciseAttachVM.SelectedExerciseIds ?? new List<string>());
 
                 TempData[SuccessMessageKey] = SuccessMessageWorkoutPlanExerciseUpdate;
-                return RedirectToAction(nameof(EditWorkoutPlan), "Fitness");
+                return RedirectToAction(nameof(EditWorkoutPlan));
             }
             catch (Exception e)
             {

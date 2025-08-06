@@ -248,6 +248,9 @@
 
                     if (exerciseExists == null)
                     {
+                        await exerciseRepo
+                            .HardDeleteAsync(exerciseEntity);
+
                         exerciseEntity.Id = newId;
                         exerciseEntity.Name = exerciseEditVM.Name;
                         exerciseEntity.Force = exerciseEditVM.Force;
@@ -260,8 +263,9 @@
                         exerciseEntity.ImageUrlOne = exerciseEditVM.ImageUrlOne;
                         exerciseEntity.ImageUrlTwo = exerciseEditVM.ImageUrlTwo;
 
-                        isEdited = await exerciseRepo
-                                            .UpdateAsync(exerciseEntity);
+                         await exerciseRepo
+                                       .AddAsync(exerciseEntity);
+                        isEdited = true;
                         return isEdited;
                     }
                     else

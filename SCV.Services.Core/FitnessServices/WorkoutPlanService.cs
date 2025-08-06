@@ -47,6 +47,34 @@
 
             return workoutPlanDetailVM;
         }
+
+        public async Task<IEnumerable<WorkoutPlanDetailViewModel>> GetAllWorkoutPlansForEverySportAsync()
+        {
+            IEnumerable<WorkoutPlanDetailViewModel> workoutPlanDetailVM = await workoutPlanRepo
+                                    .GetAllAttached()
+                                    .Include(wp => wp.WorkoutPlanExercises)
+                                    .AsNoTracking()
+                                    .OrderBy(wp => wp.Type)
+                                    .Select(wp => new WorkoutPlanDetailViewModel()
+                                    {
+                                        Id = wp.Id.ToString(),
+                                        Title = wp.Title,
+                                        Description = wp.Description,
+                                        Type = wp.Type,
+                                        ImageUrl = wp.ImageUrl ?? ImageFallback,
+                                        WorkoutPlanExercisesVM = wp.WorkoutPlanExercises
+                                                                    .Where(wpe => wpe.WorkoutPlanId == wp.Id)
+                                                                    .Select(wpe => new WorkoutPlanExerciseDetailViewModel()
+                                                                    {
+                                                                        ExerciseId = wpe.ExerciseId,
+                                                                        ExerciseName = wpe.Exercise.Name
+                                                                    })
+                                                                    .ToList()
+                                    })
+                                    .ToListAsync();
+
+            return workoutPlanDetailVM;
+        }
         public async Task<IEnumerable<WorkoutPlanAdminDetailViewModel>> GetAllWorkoutPlansForAdminAsync()
         {
             IEnumerable<WorkoutPlanAdminDetailViewModel> workoutPlansAdminDetailVM = await

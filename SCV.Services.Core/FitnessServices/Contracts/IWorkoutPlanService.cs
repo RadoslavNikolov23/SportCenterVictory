@@ -8,6 +8,8 @@
     {
         Task<IEnumerable<WorkoutPlanDetailViewModel>> GetAllWorkoutPlansBySportTypeAsync(SportType sportType);
 
+        Task<IEnumerable<WorkoutPlanDetailViewModel>> GetAllWorkoutPlansForEverySportAsync();
+
         Task<IEnumerable<WorkoutPlanAdminDetailViewModel>> GetAllWorkoutPlansForAdminAsync();
 
         Task<bool> AddWorkoutPlanAsync(WorkoutPlanAddViewModel workoutPlanAddVM);

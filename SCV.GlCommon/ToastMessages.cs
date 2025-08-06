@@ -4,6 +4,7 @@
     {
         //Base Messages
         public const string ErrorMessageBaseSomethingWentWrong = "Something went wrong. Try again later!";
+        public const string SuccessfulLogOut = "You have successively logout!";
 
 
         //EmailSender Messages

@@ -160,12 +160,12 @@
         public async Task<IActionResult> WorkoutPlans()
         {
             IEnumerable<WorkoutPlanDetailViewModel> workoutPlanDetailVM = await this.workoutPlanService
-                                    .GetAllWorkoutPlansBySportTypeAsync(SportType.Fitness);
+                                    .GetAllWorkoutPlansForEverySportAsync();
 
             if (workoutPlanDetailVM == null || !workoutPlanDetailVM.Any())
             {
-                this.logger.LogWarning(string.Format(ErrorMessages.WorkoutPlansNotFound, "the Fitness"));
-                return this.NotFoundWithMessage(string.Format(ErrorMessages.WorkoutPlansNotFound, "the Fitness"));
+                this.logger.LogWarning(string.Format(ErrorMessages.WorkoutPlansNotFound, "this sport"));
+                return this.NotFoundWithMessage(string.Format(ErrorMessages.WorkoutPlansNotFound, "this sport"));
             }
 
             return View(workoutPlanDetailVM);

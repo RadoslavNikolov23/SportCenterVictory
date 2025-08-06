@@ -60,7 +60,7 @@
                 if (!isAddedSuccessfully)
                 {
                     this.logger.LogWarning($"Error occurred in the service methods while creating a Trainer.");
-                    TempData[ErrorMessageKey] = ErrorMessageCannotCreateTrainer;
+                    TempData[WarningMessageKey] = ErrorMessageCannotCreateTrainer;
                     return View(trainerBioToAddVM);
                 }
 
@@ -70,13 +70,13 @@
                 switch (trainerBioToAddVM.TrainerSpecialty)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessTrainer", "Fitness");
+                        return RedirectToAction("FitnessTrainer", "Fitness", new { area = "" });
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossFitCoaches", "Crossfit");
+                        return RedirectToAction("CrossFitCoaches", "Crossfit", new { area = "" });
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingCoaches", "Powerlifting");
+                        return RedirectToAction("PowerliftingCoaches", "Powerlifting", new { area = "" });
                     default:
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home", new { area = "" });
                 }
             }
             catch (Exception e)
@@ -175,6 +175,13 @@
         {
             try
             {
+                if (trainerBioEditVM.Id == null)
+                {
+                    TempData[WarningMessageKey] = SomethingWentWrong;
+
+                    return RedirectToAction(nameof(EditTrainerBio));
+                }
+
                 ApplicationUser? user = await userManager.GetUserAsync(User);
 
                 if (!ModelState.IsValid)
@@ -187,7 +194,7 @@
 
                 if (!isEdited)
                 {
-                    TempData[ErrorMessageKey] = ErrorMessageNotAuthorizeToEdit;
+                    TempData[WarningMessageKey] = ErrorMessageNotAuthorizeToEdit;
                     return View("EditTrainerBioUser", trainerBioEditVM);
                 }
 
@@ -196,13 +203,13 @@
                 switch (trainerBioEditVM.TrainerSpecialty)
                 {
                     case SportType.Fitness:
-                        return RedirectToAction("FitnessTrainer", "Fitness");
+                        return RedirectToAction("FitnessTrainer", "Fitness", new { area = "" });
                     case SportType.CrossFit:
-                        return RedirectToAction("CrossFitCoaches", "Crossfit");
+                        return RedirectToAction("CrossFitCoaches", "Crossfit", new { area = "" });
                     case SportType.Powerlifting:
-                        return RedirectToAction("PowerliftingCoaches", "Powerlifting");
+                        return RedirectToAction("PowerliftingCoaches", "Powerlifting", new { area = "" });
                     default:
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Home", new { area = "" });
                 }
 
             }
@@ -243,7 +250,7 @@
 
                 if (!opResult.isSuccess)
                 {
-                    TempData[ErrorMessageKey] = ErrorMessageCannotFindTrainer;
+                    TempData[WarningMessageKey] = ErrorMessageCannotFindTrainer;
                 }
                 else
                 {
