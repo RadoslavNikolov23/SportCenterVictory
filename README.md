@@ -140,7 +140,7 @@ Huge thanks to all the open-source contributors and platforms that inspired and 
   > For security, the actual credentials should be placed in `secrets.json` or use environment variables.
 
 
-- **Configure the database connection in `appsettings.json`** and `secrets.json`**   
+- **Configure the database connection in `appsettings.json` and `secrets.json`**   
   > Make sure your local database connection string is correctly set under:  
   > `"ConnectionStrings": { "DefaultConnection": "your-local-connection-string" }`.
   > For security, the actual credentials should be placed in `secrets.json` or use environment variables.
