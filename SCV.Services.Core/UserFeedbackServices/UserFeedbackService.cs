@@ -37,7 +37,6 @@
                                                })
                                                .ToListAsync();
 
-            //Chech if it is a HasSet their is a bool in add method
             HashSet<UserFeedbackDetailViewModel> randomUserFeedback = new HashSet<UserFeedbackDetailViewModel>();
 
             if(userFeedbackDetailsVM.Count() < 3)
