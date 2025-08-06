@@ -111,8 +111,8 @@ Huge thanks to all the open-source contributors and platforms that inspired and 
 - 🗂️ The application includes an **Administration area** with **7 controllers** and **36 views**, enabling management of key modules like Exercises, Events, Memberships, Trainers, Orders, Roles, and Feedback.
 - 🚀 There are **9 main controllers** serving the core user-facing functionalities such as Fitness, CrossFit, Powerlifting, Store, and Account-related operations.
 - 🧩 A total of **36 Razor Views** support these controllers, along with **5 Partial Views** used across shared layouts and components like Navbar, Footer, Cards, and Dropdowns.
-- 🔧 **19 services** are used in the project, following dependency injection principles to maintain a clean, modular architecture.
-- 🗃️ The project contains **18 model entities**, including a custom `ApplicationUser` (extends `IdentityUser`), and **6 mapping tables** for many-to-many relations (e.g., user-to-class, user-to-membership, order-to-product).
+- 🔧 Over **18 services** are used in the project, following dependency injection principles to maintain a clean, modular architecture.
+- 🗃️ The project contains over **17 model entities**, including a custom `ApplicationUser` (extends `IdentityUser`), and **6 mapping tables** for many-to-many relations (e.g., user-to-class, user-to-membership, order-to-product).
 
 ### 📌 Additional Features
 
