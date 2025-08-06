@@ -135,8 +135,8 @@ Huge thanks to all the open-source contributors and platforms that inspired and 
 ## 📝 GitHub Project Notes (Updated)
 
 - **Configure the Email Sender options in `appsettings.json` and `secrets.json`**  
-  > The app reads SMTP credentials (host, port, sender email, and password) from:  
-  > `"EmailSettings": { "Host": "smtp.example.com", "Port": 587,   "Username": "exampleName", "Password": "your-password", "SenderEmail": "you@example.com" and     "ReceiverEmail": "example@email.com" }`  
+  > The app reads SMTP credentials (host, port, sender/receiver email, username and password) from:  
+  > `"EmailSettings": { "Host": "smtp.example.com", "Port": 587, "Username": "exampleName", "Password": "your-password", "SenderEmail": "you@example.com" and "ReceiverEmail": "example@email.com" }`  
   > For security, the actual credentials should be placed in `secrets.json` or use environment variables.
 
 
