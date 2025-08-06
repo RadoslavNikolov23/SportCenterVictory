@@ -106,11 +106,44 @@ Huge thanks to all the open-source contributors and platforms that inspired and 
 - `SCV.Web` – Applciation infrastructure and ViewModels
 - `SCV.Test` – Integration Tests, Service Tests and WebTests
 
+## 🧠 Application Logic & Architecture
+
+- 🗂️ The application includes an **Administration area** with **7 controllers** and **36 views**, enabling management of key modules like Exercises, Events, Memberships, Trainers, Orders, Roles, and Feedback.
+- 🚀 There are **9 main controllers** serving the core user-facing functionalities such as Fitness, CrossFit, Powerlifting, Store, and Account-related operations.
+- 🧩 A total of **36 Razor Views** support these controllers, along with **5 Partial Views** used across shared layouts and components like Navbar, Footer, Cards, and Dropdowns.
+- 🔧 **19 services** are used in the project, following dependency injection principles to maintain a clean, modular architecture.
+- 🗃️ The project contains **18 model entities**, including a custom `ApplicationUser` (extends `IdentityUser`), and **6 mapping tables** for many-to-many relations (e.g., user-to-class, user-to-membership, order-to-product).
+
+### 📌 Additional Features
+
+- 🛢️ Uses **Microsoft SQL Server** for data storage, with rich entity configuration and dynamic data seeding (trainers, roles, users, etc.).
+- 📧 Includes an integrated **Email Sender** service that allows users to send messages through the **Contact page**, delivered directly to admin email.
+- 🎨 All styling is handled via **CSS**, and interactive features are built with **custom JavaScript**. All static files are stored in the `wwwroot` folder.
+- 🖼️ Images are hosted using **Dropbox** for improved loading times, except **Exercise images**, which are stored locally in `wwwroot/imagesExercises/` due to development time constraints.
+- 📱 The website is designed to be **fully responsive**, optimized for mobile and small-screen devices.
+
+### 🏷️ Badges
+
+![ASP.NET Core](https://img.shields.io/badge/ASP.NET_Core-8.0-blue?logo=dotnet&logoColor=white)
+![SQL Server](https://img.shields.io/badge/Database-SQL_Server-red?logo=MicrosoftSQLServer&logoColor=white)
+![Entity Framework](https://img.shields.io/badge/ORM-Entity_Framework_Core-green?logo=efcore&logoColor=white)
+![Responsive](https://img.shields.io/badge/UI-Responsive-lightgrey?logo=css3&logoColor=blue)
+![Dropbox](https://img.shields.io/badge/Image_Hosting-Dropbox-blue?logo=dropbox&logoColor=white)
+![Email Service](https://img.shields.io/badge/Feature-Email_Sender-important?logo=gmail&logoColor=white)
+
+
 ## 📝 GitHub Project Notes (Updated)
 
-- **Configure the database connection in `appsettings.json`**  
+- **Configure the Email Sender options in `appsettings.json` and `secrets.json`**  
+  > The app reads SMTP credentials (host, port, sender email, and password) from:  
+  > `"EmailSettings": { "Host": "smtp.example.com", "Port": 587,   "Username": "exampleName", "Password": "your-password", "SenderEmail": "you@example.com" and     "ReceiverEmail": "example@email.com" }`  
+  > For security, the actual credentials should be placed in `secrets.json` or use environment variables.
+
+
+- **Configure the database connection in `appsettings.json`** and `secrets.json`**   
   > Make sure your local database connection string is correctly set under:  
   > `"ConnectionStrings": { "DefaultConnection": "your-local-connection-string" }`.
+  > For security, the actual credentials should be placed in `secrets.json` or use environment variables.
 
 - **Initialize EF Core Migrations and create the database**  
   > Run `Update-Database` in the **Package Manager Console** to apply all EF Core migrations.  
