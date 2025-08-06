@@ -49,7 +49,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> JoinEvent(string? eventId)
+        public async Task<IActionResult> JoinEvent(string? eventId, string? returnUrl)
         {
             try
             {
@@ -76,6 +76,10 @@
 
                 TempData[SuccessMessageKey] = SuccessMessageJoinedEvent;
 
+                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
 
                 return this.RedirectToAction(nameof(JoinedEvents));
             }
@@ -88,7 +92,7 @@
 
         [HttpPost]
         [Authorize(Roles = $"{RoleConstants.User},{RoleConstants.Trainer}")]
-        public async Task<IActionResult> RemoveEvent(string? eventId)
+        public async Task<IActionResult> RemoveEvent(string? eventId, string? returnUrl)
         {
             try
             {
@@ -110,10 +114,15 @@
                     this.logger.LogWarning($"Error occurred in the service method while removing event with ID: {eventId} by user with Id: {userId}.");
 
                     TempData[ErrorMessageKey] = ErrorMessageBaseSomethingWentWrong;
-                    return this.RedirectToAction(nameof(JoinedEvents), "UserPanel");
+                    return this.RedirectToAction(nameof(JoinedEvents));
                 }
 
                 TempData[SuccessMessageKey] = SuccessRemovedJoinedEvent;
+
+                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
 
                 return this.RedirectToAction(nameof(JoinedEvents));
             }
@@ -158,7 +167,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTrainer(string? trainerId)
+        public async Task<IActionResult> AddTrainer(string? trainerId, string? returnUrl)
         {
             try
             {
@@ -185,6 +194,11 @@
 
                 TempData[SuccessMessageKey] = SuccessMessageJoinedTrainer;
 
+                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
                 return this.RedirectToAction(nameof(FavoriteTrainers));
             }
             catch (Exception e)
@@ -195,7 +209,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> RemoveTrainer(string? trainerId)
+        public async Task<IActionResult> RemoveTrainer(string? trainerId, string? returnUrl)
         {
             try
             {
@@ -221,6 +235,10 @@
                 }
                 TempData[SuccessMessageKey] = SuccessMessageRemovedTrainer;
 
+                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
                 return this.RedirectToAction(nameof(FavoriteTrainers));
             }
             catch (Exception e)

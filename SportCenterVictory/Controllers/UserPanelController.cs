@@ -129,12 +129,6 @@
                 IEnumerable<CrossfitClassUserDetailViewModel> crossfitClassUserList = await this.crossfitClassUserService
                                         .GetCrossfitClassUserListAsync(userId);
 
-                foreach (CrossfitClassUserDetailViewModel crossfitClassUserVM in crossfitClassUserList)
-                {
-                    crossfitClassUserVM.IsUserJoined = await this.crossfitClassUserService
-                        .IsUserAddedToCrossfitClassList(crossfitClassUserVM.CrossfitClassId, this.GetUserId());
-                }
-
                 return View(crossfitClassUserList);
             }
             catch (Exception ex)
@@ -145,7 +139,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> JoinCrossfitClass(string? crossfitClassId)
+        public async Task<IActionResult> JoinCrossfitClass(string? crossfitClassId, string? returnUrl)
         {
             try
             {
@@ -169,7 +163,12 @@
                 }
                 TempData[SuccessMessageKey] = SuccessMessageJoinedCrossfitClass;
 
-                return this.RedirectToAction(nameof(JoinedCrossfitClasses));
+                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
+
+                return this.RedirectToAction("CrossFitClasses", "CrossFit");
             }
             catch (Exception e)
             {
@@ -179,7 +178,7 @@
         }
 
         [HttpPost]
-        public async Task<IActionResult> RemoveCrossfitClass(string? crossfitClassId)
+        public async Task<IActionResult> RemoveCrossfitClass(string? crossfitClassId, string? returnUrl)
         {
             try
             {
@@ -204,6 +203,11 @@
 
 
                 TempData[SuccessMessageKey] = SuccessMessageRemovedCrossfitClass;
+
+                if (!string.IsNullOrWhiteSpace(returnUrl) && Url.IsLocalUrl(returnUrl))
+                {
+                    return Redirect(returnUrl);
+                }
 
                 return this.RedirectToAction(nameof(JoinedCrossfitClasses));
             }

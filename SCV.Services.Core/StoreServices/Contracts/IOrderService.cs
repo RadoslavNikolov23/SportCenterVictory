@@ -17,7 +17,7 @@
 
         Task<IEnumerable<OrderApproveAdminViewModel>> GetUsersOrdersForProcessingAsync();
 
-        Task<bool> UpdateOrderStatusAsync(string orderId, OrderStatus newStatus);
+        Task<bool> ApproveOrderStatusAsync(string orderId, OrderStatus newStatus);
 
         Task<IEnumerable<OrderAdminDetailViewModel>> GetAllOrdersForAdminAsync();
     }

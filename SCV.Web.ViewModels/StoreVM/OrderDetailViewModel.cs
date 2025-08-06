@@ -8,7 +8,7 @@
 
         public decimal TotalPrice { get; set; }
 
-        public string OrderDate { get; set; } = null!;
+        public string? OrderDate { get; set; }
 
         public PaymentMethod PaymentMethod { get; set; }
 

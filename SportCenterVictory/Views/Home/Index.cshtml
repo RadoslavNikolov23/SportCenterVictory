@@ -114,7 +114,7 @@
     </div>
 </div>
 
-<!-- User feedback slider start -->
+<!-- User feedback slider start, if there is any!-->
 @if (Model != null && Model.Any())
 {
     <div class="client_section layout_padding pb-5">
@@ -167,11 +167,5 @@
                 </a>
             </div>
         </div>
-    </div>
-}
-else
-{
-    <div class="alert alert-info mt-5 text-center">
-        No client feedbacks available at the moment.
     </div>
 }

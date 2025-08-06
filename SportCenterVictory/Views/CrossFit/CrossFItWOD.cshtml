@@ -5,8 +5,20 @@
     ViewData["Title"] = "CrossFit Workout of the Day ";
 }
 
-<div class="about_section layout_padding pt-2">
-    <div class="wod-container pt-2">
+<h2 class="about_taital text-center pt-4">CrossFit Workout of the Day</h2>
+
+@if (Model == null)
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No Workout of the day is available at the moment, currently uploading it. Please check back later.
+        </p>
+    </div>
+}
+else
+{
+    <div class="pt-xl-5">
+    <div class="wod-container mt-5 pt-4 container">
         <button class="nav-arrow arrow-left" id="prevBtn" disabled>
             <i class="fa fa-arrow-left"></i>
         </button>
@@ -14,13 +26,13 @@
             <i class="fa fa-arrow-right"></i>
         </button>
 
-            <div class="wod-title" id="wodTitle">Workout of the Day: @Model.Name</div>
-            <div class="wod-html" id="wodContent">
-                @Html.Raw(Model.DescriptionHTML)
-            </div>
+        <div class="wod-title" id="wodTitle">Workout of the Day: @Model.Name</div>
+        <div class="wod-html" id="wodContent">
+            @Html.Raw(Model.DescriptionHTML)
+        </div>
     </div>
-</div>
-
+    </div>
+}
 @section Styles {
     <link href="~/css/crossfitWOD.css" rel="stylesheet" />
 }

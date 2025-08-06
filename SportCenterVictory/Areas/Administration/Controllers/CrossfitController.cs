@@ -51,6 +51,7 @@
                     TempData[ErrorMessageKey] = ErrorMessageCrossfitClassCannotCreate;
                     return View(crossfitClassAddVM);
                 }
+
                 TempData[SuccessMessageKey] = SuccessMessageCrossfitClassCreated;
                 return RedirectToAction("CrossfitClasses", "Crossfit");
 
@@ -128,7 +129,18 @@
                     return View(crossfitClassEditVM);
                 }
 
-                await crossfitClassService.EditCrossfitClassAsync(crossfitClassEditVM);
+
+
+                bool isEditSuccessfully = await crossfitClassService.EditCrossfitClassAsync(crossfitClassEditVM);
+
+
+                if (!isEditSuccessfully)
+                {
+                    this.logger.LogWarning($"Error occurred while editing a CrossFit Class with {crossfitClassEditVM.Id}!");
+                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateCrossfitClass, crossfitClassEditVM.Name); ;
+                    return View(crossfitClassEditVM);
+                }
+
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateCrossfitClass, crossfitClassEditVM.Name);
 

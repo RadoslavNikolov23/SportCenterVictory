@@ -1,6 +1,7 @@
 ﻿@using static SCV.GlCommon.RoleConstants;
 
-@functions {
+@* For Future Usage!
+    @functions {
     public string UserArea()
     {
         if (User.IsInRole(@Admin)) return @Admin;
@@ -8,7 +9,7 @@
         if (User.IsInRole(@Trainer)) return @Trainer;
         return "";
     }
-}
+} *@
 
 
 @if (User.Identity!.IsAuthenticated &&

@@ -147,7 +147,15 @@
                     return View(membershipEditVM);
                 }
 
-                await membershipServices.EditMembershipAsync(membershipEditVM);
+                bool isEditSuccessfully = await membershipServices.EditMembershipAsync(membershipEditVM);
+
+
+                if (!isEditSuccessfully)
+                {
+                    this.logger.LogWarning($"Error occurred while editing a Membership with Id: {membershipEditVM.Id} - {membershipEditVM.MembershipType}");
+                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateMembership, membershipEditVM.Name); ;
+                    return View(membershipEditVM);
+                }
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateMembership, membershipEditVM.Name);
 

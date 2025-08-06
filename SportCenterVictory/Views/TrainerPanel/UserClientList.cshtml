@@ -7,28 +7,41 @@
 
 <h3 class="about_taital text-center pb-4">All of Our Clients</h3>
 
-<div class="container mb-4">
-    <input type="text" id="searchInput" class="form-control w-50 mx-auto" placeholder="Search clients by name or email..." />
-</div>
 
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="clientCardList">
-        @foreach (var userVm in Model)
-        {
-            <div class="col client-card-item">
-                <div class="card h-100 client-card border-0 shadow-sm text-center">
-                    <div class="card-body">
-                        <div class="avatar-circle">
-                            @userVm.FullName.Substring(0, 1).ToUpper()
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No Clients are available at the moment. Please check back later.
+        </p>
+    </div>
+
+}
+else
+{
+    <div class="container mb-4">
+        <input type="text" id="searchInput" class="form-control w-50 mx-auto" placeholder="Search clients by name or email..." />
+    </div>
+
+    <div class="container">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="clientCardList">
+            @foreach (var userVm in Model)
+            {
+                <div class="col client-card-item">
+                    <div class="card h-100 client-card border-0 shadow-sm text-center">
+                        <div class="card-body">
+                            <div class="avatar-circle">
+                                @userVm.FullName.Substring(0, 1).ToUpper()
+                            </div>
+                            <h5 class="card-title">@userVm.FullName</h5>
+                            <p class="card-text text-muted">@userVm.UserName</p>
                         </div>
-                        <h5 class="card-title">@userVm.FullName</h5>
-                        <p class="card-text text-muted">@userVm.UserName</p>
                     </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
     </div>
-</div>
+}
 
 @section Styles {
     <link href="~/css/trainerClientList.css" rel="stylesheet" />

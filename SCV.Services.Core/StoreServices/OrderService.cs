@@ -173,21 +173,29 @@
                 .ToListAsync();
         }
 
-        public async Task<bool> UpdateOrderStatusAsync(string orderId, OrderStatus newStatus)
+        public async Task<bool> ApproveOrderStatusAsync(string orderId, OrderStatus newStatus)
         {
-            bool isUpdated = false;
+            bool isApproved = false;
 
-            Order? order = await orderRepo
+            Order? orderToApprove = await orderRepo
                             .GetAllAttached()
                             .SingleOrDefaultAsync(o => o.Id.ToString().ToLower() == orderId.ToLower());
 
-            if (order != null)
+            if (orderToApprove != null)
             {
-                order.OrderStatus = newStatus;
-                isUpdated = await orderRepo.UpdateAsync(order);
+                if (orderToApprove.OrderStatus == OrderStatus.Cancelled)
+                {
+                    isApproved = await this.orderRepo
+                                        .HardDeleteAsync(orderToApprove);
+                }
+                else
+                {
+                    orderToApprove.OrderStatus = newStatus;
+                    isApproved = await orderRepo.UpdateAsync(orderToApprove);
+                }
             }
 
-            return isUpdated;
+            return isApproved;
         }
 
         public async Task<IEnumerable<OrderAdminDetailViewModel>> GetAllOrdersForAdminAsync()

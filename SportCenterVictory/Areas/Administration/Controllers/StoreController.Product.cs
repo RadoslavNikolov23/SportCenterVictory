@@ -134,9 +134,20 @@
                     return this.View(productAdminDetailVM);
                 }
 
+                bool isEditSuccessfully = await productService.EditProductAsync(productEditVM);
+
+
+                if (!isEditSuccessfully)
+                {
+                    this.logger.LogWarning($"Error occurred while editing a Product with Id: {productEditVM.Id} - {productEditVM.ProductCategory}");
+                    TempData[ErrorMessageKey] = string.Format(ErrorMessageProductCannotUpdate, productEditVM.Title); ;
+                    return View(productEditVM);
+                }
+
+
                 await productService.EditProductAsync(productEditVM);
 
-                TempData[SuccessMessageKey] = string.Format(SuccessMessageProductCreate, productEditVM.Title);
+                TempData[SuccessMessageKey] = string.Format(SuccessMessageProductUpdate, productEditVM.Title);
 
                 switch (productEditVM.ProductCategory)
                 {
@@ -219,7 +230,7 @@
             try
             {
                 bool isSuccess = await orderService
-                    .UpdateOrderStatusAsync(orderId, newStatus);
+                    .ApproveOrderStatusAsync(orderId, newStatus);
 
                 if (!isSuccess)
                 {

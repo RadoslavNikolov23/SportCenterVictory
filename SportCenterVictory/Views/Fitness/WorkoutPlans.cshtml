@@ -7,51 +7,62 @@
 
 <h2 class="about_taital text-center pt-4"> Our Fitness Workout Plans</h2>
 
-<div class="plans-grid">
-    @foreach (var workoutPlan in Model)
-    {
-        <div class="workout-card">
-            <img src="@workoutPlan.ImageUrl" />
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No Workout Plans are available at the moment. Please check back later.
+        </p>
+    </div>
+}
+else
+{
+    <div class="plans-grid">
+        @foreach (var workoutPlan in Model)
+        {
+            <div class="workout-card">
+                <img src="@workoutPlan.ImageUrl" />
 
-            <div class="workout-content">
-                <div class="workout-title">@workoutPlan.Title</div>
-                <div class="workout-type">@workoutPlan.Type</div>
-                <div class="workout-description">
-                    @Html.Raw(workoutPlan.Description.Replace("\n", "<br />"))
-                </div>
-
-
-                @if (workoutPlan.WorkoutPlanExercisesVM != null && workoutPlan.WorkoutPlanExercisesVM.Any())
-                {
-                    <div class="exercise-section">
-                        <div class="exercise-title">Learn More:</div>
-                        <ul class="exercise-list">
-                            @foreach (var ex in workoutPlan.WorkoutPlanExercisesVM)
-                            {
-                                <li class="exercise-item">
-                                    <a href="#" class="exercise-link" data-id="@ex.ExerciseId">@ex.ExerciseName</a>
-                                </li>
-                            }
-                        </ul>
+                <div class="workout-content">
+                    <div class="workout-title">@workoutPlan.Title</div>
+                    <div class="workout-type">@workoutPlan.Type</div>
+                    <div class="workout-description">
+                        @Html.Raw(workoutPlan.Description.Replace("\n", "<br />"))
                     </div>
-                }
-            </div>
-        </div>
-    }
-</div>
 
-<div class="modal fade" id="exerciseModal" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title text-center w-100 fs-3" id="exerciseModalLabel">Exercise Details</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                    @if (workoutPlan.WorkoutPlanExercisesVM != null && workoutPlan.WorkoutPlanExercisesVM.Any())
+                    {
+                        <div class="exercise-section">
+                            <div class="exercise-title">Learn More:</div>
+                            <ul class="exercise-list">
+                                @foreach (var ex in workoutPlan.WorkoutPlanExercisesVM)
+                                {
+                                    <li class="exercise-item">
+                                        <a href="#" class="exercise-link" data-id="@ex.ExerciseId">@ex.ExerciseName</a>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    }
+                </div>
             </div>
-            <div class="modal-body" id="exerciseModalBody">
+        }
+    </div>
+
+    <div class="modal fade" id="exerciseModal" tabindex="-1" aria-labelledby="exerciseModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center w-100 fs-3" id="exerciseModalLabel">Exercise Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="exerciseModalBody">
+                </div>
             </div>
         </div>
     </div>
-</div>
+}
 
 
 @section Styles {

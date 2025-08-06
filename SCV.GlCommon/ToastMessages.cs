@@ -23,6 +23,7 @@
         public const string SuccessMessageCrossfitClassCreated = "CrossFit Classes added successfully!";
         public const string ErrorMessageCrossfitClassCannotCreate = "CrossFit Class could not be created. Please try again.";
         public const string SuccessMessageUpdateCrossfitClass = "CrossFit Class {0} updated successfully!";
+        public const string ErrorMessageCannotUpdateCrossfitClass = "CrossFit Class {0} was not updated! Please try again!";
         public const string SuccessMessageJoinedCrossfitClass = "CrossFit Class joined successfully!";
         public const string SuccessMessageRemovedCrossfitClass = "CrossFit Class removed successfully!";
         public const string ErrorMessageCrossfitClassCannotDelete = "CrossFit Class could not be found and deleted!";
@@ -35,6 +36,7 @@
         public const string ErrorMessageCannotCreateEvent = "Event could not be created. Please try again.";
         public const string ErrorMessageCannotFindEvent = "Event could not be found. Please try again.";
         public const string SuccessMessageUpdateEvent = "Event {0} updated successfully!";
+        public const string ErrorMessageCannotUpdateEvent = "Event {0} was not updated! Please try again!";
         public const string SuccessMessageDeleteEvent = "Event is {0} successfully!";
         public const string SuccessMessageJoinedEvent = "Event joined successfully!";
         public const string SuccessRemovedJoinedEvent = "Event removed successfully!";
@@ -46,15 +48,18 @@
         public const string SuccessMessageCreatedExercise = "Exercise added successfully!";
         public const string ErrorMessageCannotFindExercise = "Exercise could not be found. Please try again.";
         public const string SuccessMessageUpdateExercise = "Exercise {0} updated successfully!";
+        public const string ErrorMessageCannotUpdateExercise = "Exercise {0} was not updated successfully! Please try again!";
         public const string SuccessMessageDeleteExercise = "Exercise is {0} successfully!";
 
         //Workout Messages
         public const string SuccessMessageCreatedWorkoutPlan = "Workout Plan added successfully!";
         public const string ErrorMessageCannotCreateWorkoutPlan = "Workout Plan could not be created. Please try again.";
-        public const string SuccessMessageUpdateWorkoutPlan = "Workout Plan } updated successfully!";
+        public const string SuccessMessageUpdateWorkoutPlan = "Workout Plan {0} updated successfully!";
+        public const string ErrorMessageCannotUpdateWorkoutPlan = "Workout Plan {0} updated successfully!";
         public const string ErrorMessageCannotFindWorkoutPlan = "Workout Plan could not be found. Please try again.";
         public const string SuccessMessageDeleteWorkoutPlan = "Workout Plan is {0} successfully!";
         public const string SuccessMessageWorkoutPlanExerciseUpdate = "Exercises updated successfully.";
+        public const string ErrorMessageWorkoutPlanExerciseCannotUpdate = "Exercises was not updated! Try again later!";
 
 
         //Store Messages
@@ -62,15 +67,18 @@
         public const string SuccessMessageProductCreated = "Product added successfully!";
         public const string ErrorMessageCannotCreateProduct = "Product could not be created. Please try again.";
         public const string ErrorMessageCannotFindProduct = "Product could not be found. Please try again.";
-        public const string SuccessMessageProductCreate = "Product {0} updated successfully!";
+        public const string SuccessMessageProductUpdate = "Product {0} updated successfully!";
+        public const string ErrorMessageProductCannotUpdate = "Product {0} was not updated! Please try again!";
         public const string SuccessMessageDeleteProduct = "Product is {0} successfully!";
         public const string ErrorMessageCannotApproveOrder = "Order could not be approved. Please try again.";
         public const string SuccessMessageApproveOrder = "Order status updated successfully!";
         public const string ErrorMessageCannotCreateMembership = "Membership could not be created. Please try again.";
         public const string ErrorMessageMembershipAdded = "Membership added successfully!";
         public const string ErrorMessageCannotFindMembership = "Membership could not be found. Please try again.";
-        public const string SuccessMessageUpdateMembership = "Membership {} updated successfully!";
-        public const string SuccessMessageDeleteMembership = "Membership is {} successfully!";
+        public const string SuccessMessageUpdateMembership = "Membership {0} updated successfully!";
+        public const string ErrorMessageCannotUpdateMembership = "Membership {0} was not updated! Please try again later!";
+        public const string SuccessMessageCannotUpdateMembership = "Membership {0} was not updated! Please try again!";
+        public const string SuccessMessageDeleteMembership = "Membership is {0} successfully!";
 
 
         //Trainer Messages
@@ -79,6 +87,7 @@
         public const string ErrorMessageCannotFindTrainer = "Trainer could not be found or is not a trainer. Please try again";
         public const string ErrorMessageNotAuthorizeToEdit = "You are not authorized to edit this Trainer Bio.";
         public const string SuccessMessageUpdateTrainer = "Trainer Bio updated successfully.";
+        public const string ErrorMessagecannotUpdateTrainer = "Trainer Bio was not updated! Please try again!";
         public const string SuccessMessageTrainerDeleted = "Trainer is {0} successfully!";
         public const string SuccessMessageJoinedTrainer = "Trainer added successfully!";
         public const string SuccessMessageRemovedTrainer = "Trainer removed successfully!";

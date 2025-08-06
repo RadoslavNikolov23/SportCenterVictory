@@ -34,20 +34,22 @@ else
                         {
                             <form asp-controller="UserPanel" asp-action="RemoveEvent" method="post" class="d-inline">
                                 <input type="hidden" name="eventId" value="@eventVM.EventId" />
+                                <input type="hidden" name="returnUrl" value="@Url.Action("JoinedEvents", "UserPanel")" />
                                 <button type="submit" class="remove-button">
                                     <i class="bi bi-file-x"></i> Remove Event
                                 </button>
                             </form>
                         }
-                        else
+                        @* else
                         {
                             <form asp-controller="UserPanel" asp-action="JoinEvent" method="post" class="d-inline">
                                 <input type="hidden" name="eventId" value="@eventVM.EventId" />
+                                <input type="hidden" name="returnUrl" value="@Url.Action("JoinedEvents", "UserPanel")" />
                                 <button type="submit" class="join-button">
                                     <i class="bi bi-bookmark-star"></i> Join Event
                                 </button>
                             </form>
-                        }
+                        } *@
                     }
                 </div>
 

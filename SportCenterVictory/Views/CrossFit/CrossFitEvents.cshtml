@@ -6,53 +6,74 @@
     ViewData["Title"] = "CrossFit Events ";
 }
 
-
 <h2 class="about_taital text-center pt-4">🏆 Upcoming CrossFit Events</h2>
 
-<div class="events-board">
-    @foreach (var eventVM in Model)
-    {
-        <div class="event-card">
-            <img src="@eventVM.ImageUrl" />
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No CrossFit events are available at the moment. Please check back later.
+        </p>
+    </div>
+}
+else
+{
+    <div class="events-board">
+        @foreach (var eventVM in Model)
+        {
+            <div class="event-card">
+                <img src="@eventVM.ImageUrl" />
 
-            <div class="event-content">
-                <div>
-                    <div class="event-title">@eventVM.Title</div>
-                    <div class="event-type">@eventVM.EventType</div>
-                    <div class="event-description-box">@eventVM.Description</div>
+                <div class="event-content">
+                    <div>
+                        <div class="event-title">@eventVM.Title</div>
+                        <div class="event-type">@eventVM.EventType</div>
+                        <div class="event-description-box">@eventVM.Description</div>
+                    </div>
+
+                    @if ((User?.Identity?.IsAuthenticated ?? false) && !(User.IsInRole(RoleConstants.AdminOrManager)))
+
+                    {
+                        @if (eventVM.IsUserJoined)
+                        {
+                            <form asp-controller="UserPanel" asp-action="RemoveEvent" method="post" class="d-inline">
+                                <input type="hidden" name="eventId" value="@eventVM.Id" />
+                                <input type="hidden" name="returnUrl" value="@Url.Action("CrossfitEvents", "Crossfit")" />
+                                <button type="submit" class="remove-button">
+                                    <i class="bi bi-file-x"></i> Remove Event
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="UserPanel" asp-action="JoinEvent" method="post" class="d-inline">
+                                <input type="hidden" name="eventId" value="@eventVM.Id" />
+                                <input type="hidden" name="returnUrl" value="@Url.Action("CrossfitEvents", "Crossfit")" />
+                                <button type="submit" class="join-button">
+                                    <i class="bi bi-bookmark-star"></i> Join Event
+                                </button>
+                            </form>
+                        }
+                    }
                 </div>
 
-                @if ((User?.Identity?.IsAuthenticated ?? false) && !(User.IsInRole(RoleConstants.AdminOrManager)))
-
-                {
-                    @if (eventVM.IsUserJoined)
-                    {
-                        <form asp-controller="UserPanel" asp-action="RemoveEvent" method="post" class="d-inline">
-                            <input type="hidden" name="eventId" value="@eventVM.Id" />
-                            <button type="submit" class="remove-button">
-                                <i class="bi bi-file-x"></i> Remove Event
-                            </button>
-                        </form>
-                    }
-                    else
-                    {
-                        <form asp-controller="UserPanel" asp-action="JoinEvent" method="post" class="d-inline">
-                            <input type="hidden" name="eventId" value="@eventVM.Id" />
-                            <button type="submit" class="join-button">
-                                <i class="bi bi-bookmark-star"></i> Join Event
-                            </button>
-                        </form>
-                    }
-                }
+                <div class="event-footer">
+                    <div class="event-location">
+                        📍
+                        <a href="https://www.google.com/maps/search/?q=@Uri.EscapeDataString(eventVM.Location)"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            @eventVM.Location
+                        </a>
+                    </div>
+                    <div class="event-date">
+                        @eventVM.StartDate
+                    </div>
+                </div>
             </div>
-
-            <div class="event-footer">
-                <div class="event-location">📍 @eventVM.Location</div>
-                <div class="event-date">@eventVM.StartDate</div>
-            </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
 
 @section Styles {
     <link href="~/css/crossfitEvent.css" rel="stylesheet" />

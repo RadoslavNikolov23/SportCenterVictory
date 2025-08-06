@@ -10,60 +10,72 @@
 
     <h1 class="text-center pt-4"> All Our Memberships</h1>
 
-    @foreach (var group in Model.GroupBy(m => m.MembershipType))
+    @if (Model == null || !Model.Any())
     {
-        <h3 class="text-center mt-5">@group.Key Memberships</h3>
-        <div class="membership-container">
-            @foreach (var membership in group)
-            {
-                <div class="membership-card">
-                    <div class="membership-title">@membership.Name</div>
-
-                    <div class="membership-description">@membership.Description</div>
-
-                    <div class="membership-price-duration">
-                        @membership.Price.ToString("C") - @membership.DurationText
-                    </div>
-
-                    @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
-                    {
-                        @if (membership.IsPurchasedMembership && membership.CanBeRemoved)
-                        {
-
-                            @if (membership.CanBeRemoved)
-                            {
-                                <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
-                                    <input type="hidden" name="membershipId" value="@membership.Id" />
-                                    <button type="submit" class="remove-button">
-                                        <i class="bi bi-file-x"></i> Remove Membership
-                                    </button>
-                                </form>
-                            }
-                            else if (membership.IsExpired)
-                            {
-                                <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
-                                    <input type="hidden" name="membershipId" value="@membership.Id" />
-                                    <button type="submit" class="buy-button">
-                                        <i class="bi bi-bookmark-star"></i> Buy Membership
-                                    </button>
-                                </form>
-                            }
-
-                        }
-                        else
-                        {
-                                <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
-                                    <input type="hidden" name="membershipId" value="@membership.Id" />
-                                    <button type="submit" class="buy-button">
-                                        <i class="bi bi-bookmark-star"></i> Buy Membership
-                                    </button>
-                                </form>
-                            
-                        }
-                    }
-                </div>
-            }
+        <div class="text-center" style="padding-top: 180px;">
+            <p class="text-center fs-4" style="font-size: 1.5rem;">
+                No Memberships are available at the moment. Please check back later.
+            </p>
         </div>
+
+    }
+    else
+    {
+        @foreach (var group in Model.GroupBy(m => m.MembershipType))
+        {
+            <h3 class="text-center mt-5">@group.Key Memberships</h3>
+            <div class="membership-container">
+                @foreach (var membership in group)
+                {
+                    <div class="membership-card">
+                        <div class="membership-title">@membership.Name</div>
+
+                        <div class="membership-description">@membership.Description</div>
+
+                        <div class="membership-price-duration">
+                            @membership.Price.ToString("C") - @membership.DurationText
+                        </div>
+
+                        @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
+                        {
+                            @if (membership.IsPurchasedMembership && membership.CanBeRemoved)
+                            {
+
+                                @if (membership.CanBeRemoved)
+                                {
+                                    <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
+                                        <input type="hidden" name="membershipId" value="@membership.Id" />
+                                        <button type="submit" class="remove-button">
+                                            <i class="bi bi-file-x"></i> Remove Membership
+                                        </button>
+                                    </form>
+                                }
+                                else if (membership.IsExpired)
+                                {
+                                    <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                                        <input type="hidden" name="membershipId" value="@membership.Id" />
+                                        <button type="submit" class="buy-button">
+                                            <i class="bi bi-bookmark-star"></i> Buy Membership
+                                        </button>
+                                    </form>
+                                }
+
+                            }
+                            else
+                            {
+                                <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                                    <input type="hidden" name="membershipId" value="@membership.Id" />
+                                    <button type="submit" class="buy-button">
+                                        <i class="bi bi-bookmark-star"></i> Buy Membership
+                                    </button>
+                                </form>
+
+                            }
+                        }
+                    </div>
+                }
+            </div>
+        }
     }
 </div>
 

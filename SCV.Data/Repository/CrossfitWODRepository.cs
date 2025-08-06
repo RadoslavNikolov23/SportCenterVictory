@@ -19,7 +19,7 @@
             try
             {
                 crossfitWOD = await this.DbContext.CrossfitWorkoutOfTheDays
-                                        .SingleOrDefaultAsync(cwod => cwod.WorkoutDate == todayWOD);
+                                        .SingleOrDefaultAsync(cwod => cwod.WorkoutDate.Date == todayWOD.Date);
             }
             catch (Exception ex)
             {

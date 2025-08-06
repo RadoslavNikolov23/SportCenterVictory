@@ -23,7 +23,6 @@
             IEnumerable<CrossfitClassUserDetailViewModel> crossfitClassUserList = await crossfitClassUserRepo
                 .GetAllAttached()
                 .Include(ccu => ccu.CrossfitClass)
-                .Include(ccu => ccu.ApplicationUser)
                 .AsNoTracking()
                 .Where(ccu => ccu.ApplicationUserId.ToString().ToLower() == userId.ToLower())
                 .Select(ccu => new CrossfitClassUserDetailViewModel()
@@ -32,12 +31,14 @@
                     Name = ccu.CrossfitClass.Name,
                     StartTime = ccu.CrossfitClass.StartTime,
                     DayOfWeek = ccu.CrossfitClass.DayOfWeek,
-                    TrainerName = ccu.CrossfitClass.TrainerName
+                    TrainerName = ccu.CrossfitClass.TrainerName,
+                    IsUserJoined = ccu.IsActive,
                 })
                 .ToArrayAsync();
 
             return crossfitClassUserList;
         }
+
 
         public async Task<bool> AddUserToCrossfitClass(string? crossfitClassId, string userId)
         {
@@ -71,6 +72,7 @@
                         {
                             ApplicationUserId = userGuid,
                             CrossfitClassId = crossfitClassGuid,
+                            IsActive = true,
                             JoinedAt = DateTime.UtcNow,
                         };
 
@@ -95,15 +97,15 @@
                 {
                     CrossfitClassUser? crossfitClassUserEntry = await crossfitClassUserRepo
                                     .GetAllAttached()
+                                    .Include(cc=>cc.CrossfitClass)
+                                    .Include(cc=>cc.ApplicationUser)
                                     .IgnoreQueryFilters()
                                     .SingleOrDefaultAsync(ccu => ccu.ApplicationUserId.ToString().ToLower() == userId && ccu.CrossfitClassId.ToString() == crossfitClassGuid.ToString());
 
                     if (crossfitClassUserEntry != null)
                     {
-                        crossfitClassUserEntry.IsActive = false;
-                        crossfitClassUserEntry.JoinedAt = new DateTime();
 
-                        result = await crossfitClassUserRepo.DeleteAsync(crossfitClassUserEntry);
+                        result = await crossfitClassUserRepo.HardDeleteAsync(crossfitClassUserEntry);
                     }
                 }
             }
@@ -126,8 +128,7 @@
                             .AsNoTracking()
                             .IgnoreQueryFilters()
                             .SingleOrDefaultAsync(ccu => ccu.ApplicationUserId.ToString().ToLower() == userId 
-                            && ccu.CrossfitClassId.ToString().ToLower() == crossfitClassGuid.ToString().ToLower()
-                            && ccu.IsActive == true);
+                            && ccu.CrossfitClassId.ToString().ToLower() == crossfitClassGuid.ToString().ToLower());
 
                     if (crossfitClassUserEntry != null)
                     {

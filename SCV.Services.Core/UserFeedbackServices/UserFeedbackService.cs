@@ -7,11 +7,11 @@
     using SCV.Data.Models;
     using SCV.Data.Repository.Contracts;
     using SCV.GlCommon.Enums;
+    using SCV.Services.Core.UserFeedbackServices.Contracts;
     using SCV.Web.ViewModels.Administration.UserFeedbackVM;
     using SCV.Web.ViewModels.UserFeedbackVM;
 
     using static SCV.GlCommon.ApplicationConstants;
-    using SCV.Services.Core.UserFeedbackServices.Contracts;
 
     public class UserFeedbackService : IUserFeedbackService
     { 
@@ -37,7 +37,6 @@
                                                })
                                                .ToListAsync();
 
-            //Chech if it is a HasSet their is a bool in add method
             HashSet<UserFeedbackDetailViewModel> randomUserFeedback = new HashSet<UserFeedbackDetailViewModel>();
 
             if(userFeedbackDetailsVM.Count() < 3)
@@ -45,7 +44,7 @@
                 return userFeedbackDetailsVM;
             }
 
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < FeedbacksNumberRetrieve; i++)
             {
                 int randomIndex = Random.Shared.Next(0, userFeedbackDetailsVM.Count());
 
@@ -123,7 +122,6 @@
                     }
                     else
                     {
-
                         userFeedbackToApprove.UserName = userFeedbackApproveVM.UserName;
                         userFeedbackToApprove.FullName = userFeedbackApproveVM.FullName;
                         userFeedbackToApprove.Feedback = userFeedbackApproveVM.Feedback;

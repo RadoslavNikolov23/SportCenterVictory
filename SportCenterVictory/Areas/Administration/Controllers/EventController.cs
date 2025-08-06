@@ -145,7 +145,15 @@
                     return View(eventEditVM);
                 }
 
-                await eventService.EditEventAsync(eventEditVM);
+                bool isEditSuccessfully = await eventService.EditEventAsync(eventEditVM);
+
+                if (!isEditSuccessfully)
+                {
+                    this.logger.LogWarning($"Error occurred while editing a Event with Id:{eventEditVM.Id}");
+                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateEvent, eventEditVM.Title); ;
+                    return View(eventEditVM);
+                }
+
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateEvent, eventEditVM.Title);
 

@@ -137,6 +137,12 @@
             IEnumerable<CrossfitClassDetailViewModel> allCrossfitClassDetailVM = await this.crossfitClassService
                                     .GetAllCrossfitClassesAsync();
 
+            if (allCrossfitClassDetailVM == null || !allCrossfitClassDetailVM.Any())
+            {
+                this.logger.LogWarning(ErrorMessages.CrossfitClassesNotFound);
+                return this.NotFoundWithMessage(ErrorMessages.CrossfitClassesNotFound);
+            }
+
             if (this.IsUserAuthenticated())
             {
                 foreach (CrossfitClassDetailViewModel crossfitClassDetailVM in allCrossfitClassDetailVM)
@@ -146,11 +152,6 @@
                 }
             }
 
-            if (allCrossfitClassDetailVM == null || !allCrossfitClassDetailVM.Any())
-            {
-                this.logger.LogWarning(ErrorMessages.CrossfitClassesNotFound);
-                return this.NotFoundWithMessage(ErrorMessages.CrossfitClassesNotFound);
-            }
 
             return View(allCrossfitClassDetailVM);
 

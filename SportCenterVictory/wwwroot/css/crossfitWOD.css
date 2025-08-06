@@ -4,13 +4,13 @@
 }
 
 .wod-container {
-    max-width: 800px;
-    margin: 60px auto;
-    padding: 30px 50px;
+    max-width: 600px;
+    margin: 100px auto 60px;
+    padding: 30px 150px;
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    position: relative;
+    position: absolute;
 }
 
 .wod-title {

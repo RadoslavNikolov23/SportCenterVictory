@@ -9,33 +9,57 @@
 
 <h2 class="about_taital text-center pt-4">Our Powerlifting Memberships</h2>
 
-<div class="membership-container">
-    @foreach (var membership in Model)
-    {
-        <div class="membership-card">
-            <div class="membership-title">@membership.Name</div>
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No Powerlifting memberships are available at the moment. Please check back later.
+        </p>
+    </div>
 
-            <div class="membership-description">@membership.Description</div>
+}
+else
+{
+    <div class="membership-container">
+        @foreach (var membership in Model)
+        {
+            <div class="membership-card">
+                <div class="membership-title">@membership.Name</div>
 
-            <div class="membership-price-duration">
-                @membership.Price.ToString("C") - @membership.DurationText
-            </div>
+                <div class="membership-description">@membership.Description</div>
 
-            @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
-            {
-                @if (membership.IsPurchasedMembership)
+                <div class="membership-price-duration">
+                    @membership.Price.ToString("C") - @membership.DurationText
+                </div>
+
+                @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
                 {
-
-                    @if (membership.CanBeRemoved)
+                    @if (membership.IsPurchasedMembership)
                     {
-                        <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
-                            <input type="hidden" name="membershipId" value="@membership.Id" />
-                            <button type="submit" class="remove-button">
-                                <i class="bi bi-file-x"></i> Remove Membership
-                            </button>
-                        </form>
+
+                        @if (membership.CanBeRemoved)
+                        {
+                            <form asp-controller="UserPanel" asp-action="RemoveMembership" method="post" class="d-inline">
+                                <input type="hidden" name="membershipId" value="@membership.Id" />
+                                @* <input type="hidden" name="returnUrl" value="@Url.Action("PowerliftingMembership", "Powerlifting")" /> *@
+                                <button type="submit" class="remove-button">
+                                    <i class="bi bi-file-x"></i> Remove Membership
+                                </button>
+                            </form>
+                        }
+                        else if (membership.IsExpired)
+                        {
+                            <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
+                                <input type="hidden" name="membershipId" value="@membership.Id" />
+                                @* <input type="hidden" name="returnUrl" value="@Url.Action("PowerliftingMembership", "Powerlifting")" /> *@
+                                <button type="submit" class="buy-button">
+                                    <i class="bi bi-bookmark-star"></i> Buy Membership
+                                </button>
+                            </form>
+                        }
+
                     }
-                    else if (membership.IsExpired)
+                    else
                     {
                         <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
                             <input type="hidden" name="membershipId" value="@membership.Id" />
@@ -43,23 +67,13 @@
                                 <i class="bi bi-bookmark-star"></i> Buy Membership
                             </button>
                         </form>
+
                     }
-
                 }
-                else
-                {
-                    <form asp-controller="UserPanel" asp-action="JoinMembership" method="post" class="d-inline">
-                        <input type="hidden" name="membershipId" value="@membership.Id" />
-                        <button type="submit" class="buy-button">
-                            <i class="bi bi-bookmark-star"></i> Buy Membership
-                        </button>
-                    </form>
-
-                }
-            }
-        </div>
-    }
-</div>
+            </div>
+        }
+    </div>
+}
 
 
 @section Styles {

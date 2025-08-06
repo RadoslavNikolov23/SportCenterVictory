@@ -192,6 +192,8 @@
 
                 if (!ModelState.IsValid)
                 {
+                    TempData[ErrorMessageKey]= ErrorMessageBaseSomethingWentWrong;
+
                     return View(nameof(Cart));
                 }
 

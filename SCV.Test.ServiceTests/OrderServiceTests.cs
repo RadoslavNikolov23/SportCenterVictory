@@ -223,7 +223,7 @@
                          .ReturnsAsync(true);
 
             bool isUpdated = await orderService
-                                    .UpdateOrderStatusAsync(orderId.ToString(), OrderStatus.Delivered);
+                                    .ApproveOrderStatusAsync(orderId.ToString(), OrderStatus.Delivered);
 
             Assert.IsTrue(isUpdated);
             Assert.That(order.OrderStatus, Is.EqualTo(OrderStatus.Delivered));

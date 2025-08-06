@@ -8,52 +8,65 @@
 
 <h2 class="about_taital text-center pt-4">Meet Our Powerlifting Coaches</h2>
 
-<div class="trainer-grid">
-    @foreach (var trainer in Model)
-    {
-        <div class="trainer-card">
-            <div class="sport-icon">🏋️‍♂️</div> @* Decorative only *@
+@if (Model == null || !Model.Any())
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No Powerlifting coaches are available at the moment. Please check back later.
+        </p>
+    </div>
+}
+else
+{
+    <div class="trainer-grid">
+        @foreach (var trainer in Model)
+        {
+            <div class="trainer-card">
+                <div class="sport-icon">🏋️‍♂️</div> @* Decorative only *@
 
-            <div class="trainer-img">
-                <img src="@trainer.ImageUrl" />
+                <div class="trainer-img">
+                    <img src="@trainer.ImageUrl" />
 
-                @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
-                {
-                    @if (trainer.IsAddedToFavorites)
+                    @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
                     {
+                        @if (trainer.IsAddedToFavorites)
+                        {
 
-                        <form asp-controller="UserPanel" asp-action="RemoveTrainer" method="post" class="d-inline">
-                            <input type="hidden" name="trainerId" value="@trainer.Id" />
-                            <button type="submit" role="button" class="trainer-heart">
-                                <i class="fas fa-heart"></i>
-                            </button>
-                        </form>
+                            <form asp-controller="UserPanel" asp-action="RemoveTrainer" method="post" class="d-inline">
+                                <input type="hidden" name="trainerId" value="@trainer.Id" />
+                                <input type="hidden" name="returnUrl" value="@Url.Action("PowerliftingCoaches", "Powerlifting")" />
+                                <button type="submit" role="button" class="trainer-heart">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                            </form>
+                        }
+                        else
+                        {
+                            <form asp-controller="UserPanel" asp-action="AddTrainer" method="post" class="d-inline">
+                                <input type="hidden" name="trainerId" value="@trainer.Id" />
+                                <input type="hidden" name="returnUrl" value="@Url.Action("PowerliftingCoaches", "Powerlifting")" />
+                                <button type="submit" role="button" class="trainer-heart">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            </form>
+                        }
                     }
-                    else
-                    {
-                        <form asp-controller="UserPanel" asp-action="AddTrainer" method="post" class="d-inline">
-                            <input type="hidden" name="trainerId" value="@trainer.Id" />
-                            <button type="submit" role="button" class="trainer-heart">
-                                <i class="far fa-heart"></i>
-                            </button>
-                        </form>
-                    }
-                }
-            </div>
+                </div>
 
-            <div class="trainer-content">
-                <div class="trainer-name">@trainer.FirstName @trainer.LastName</div>
-                <div class="trainer-specialty">@trainer.TrainerSpecialty</div>
-                <div class="trainer-bio">@trainer.Bio</div>
+                <div class="trainer-content">
+                    <div class="trainer-name">@trainer.FirstName @trainer.LastName</div>
+                    <div class="trainer-specialty">@trainer.TrainerSpecialty</div>
+                    <div class="trainer-bio">@trainer.Bio</div>
 
-                <div class="trainer-contact">
-                    <div><strong>Email:</strong> @trainer.Email</div>
-                    <div><strong>Phone:</strong> @trainer.PhoneNumber</div>
+                    <div class="trainer-contact">
+                        <div><strong>Email:</strong> @trainer.Email</div>
+                        <div><strong>Phone:</strong> @trainer.PhoneNumber</div>
+                    </div>
                 </div>
             </div>
-        </div>
-    }
-</div>
+        }
+    </div>
+}
 
 @section Styles {
     <link href="~/css/powerliftingCoaches.css" rel="stylesheet" />

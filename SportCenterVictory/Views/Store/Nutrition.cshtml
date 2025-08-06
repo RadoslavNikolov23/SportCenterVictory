@@ -16,33 +16,45 @@
             </a>
         </div>
 
-        <div class="product-grid">
-            @foreach (var product in Model)
-            {
-                <div class="product-card">
-                    <img src="@product.ImageUrl" alt="@product.Title" class="product-image" />
+        @if (Model == null || !Model.Any())
+        {
+            <div class="text-center" style="padding-top: 180px;">
+                <p class="text-center fs-4" style="font-size: 1.5rem;">
+                    No Nutrition Products are available at the moment. Please check back later.
+                </p>
+            </div>
 
-                    <div class="product-content">
-                        <div class="product-title">@product.Title</div>
-                        <div class="product-category">@product.ProductCategory</div>
+        }
+        else
+        {
+            <div class="product-grid">
+                @foreach (var product in Model)
+                {
+                    <div class="product-card">
+                        <img src="@product.ImageUrl" alt="@product.Title" class="product-image" />
 
-                        @if (!string.IsNullOrWhiteSpace(product.Description))
-                        {
-                            <div class="product-description">@product.Description</div>
-                        }
+                        <div class="product-content">
+                            <div class="product-title">@product.Title</div>
+                            <div class="product-category">@product.ProductCategory</div>
 
-                        <div class="product-price">@product.Price.ToString("C")</div>
+                            @if (!string.IsNullOrWhiteSpace(product.Description))
+                            {
+                                <div class="product-description">@product.Description</div>
+                            }
 
-                        <form asp-controller="Store" asp-action="AddToCart" method="post" class="quantity-buy">
-                            @Html.AntiForgeryToken()
-                            <input type="hidden" name="productId" value="@product.Id" />
-                            <input type="number" name="quantity" min="1" max="@product.Quantity" value="1" class="form-control" />
-                            <button type="submit" class="btn-buy">Buy</button>
-                        </form>
+                            <div class="product-price">@product.Price.ToString("C")</div>
+
+                            <form asp-controller="Store" asp-action="AddToCart" method="post" class="quantity-buy">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="productId" value="@product.Id" />
+                                <input type="number" name="quantity" min="1" max="@product.Quantity" value="1" class="form-control" />
+                                <button type="submit" class="btn-buy">Buy</button>
+                            </form>
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
+                }
+            </div>
+        }
     </div>
 </div>
 

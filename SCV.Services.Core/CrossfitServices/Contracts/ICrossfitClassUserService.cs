@@ -6,7 +6,6 @@
     public interface ICrossfitClassUserService
     {
         Task<IEnumerable<CrossfitClassUserDetailViewModel>> GetCrossfitClassUserListAsync(string userId);
-
         Task<bool> AddUserToCrossfitClass(string? crossfitClassId, string userId);
 
         Task<bool> RemoveUserFromCrossfitClassAsync(string? crossfitClassId, string? userId);

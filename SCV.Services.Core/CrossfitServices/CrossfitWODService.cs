@@ -66,14 +66,23 @@
                         crossfitWODRepository.Add(entityCrossfitWOD);
 
                     }
+
+                    crossfitWODVieModel = new CrossfitWODViewModel()
+                    {
+                        Id = wodExist!.Id.ToString(),
+                        Name = wodExist.Name,
+                        DescriptionHTML = wodExist.DescriptionHTML,
+                    };
+
+                    return crossfitWODVieModel;
                 }
             }
-            //crossfitWODVieModel = new CrossfitWODViewModel()
-            //{
-            //    Id = entityCrossfitWOD!.Id.ToString(),
-            //    Name = entityCrossfitWOD.Name,
-            //    DescriptionHTML = entityCrossfitWOD.DescriptionHTML,
-            //};
+            crossfitWODVieModel = new CrossfitWODViewModel()
+            {
+                Id = entityCrossfitWOD!.Id.ToString(),
+                Name = entityCrossfitWOD.Name,
+                DescriptionHTML = entityCrossfitWOD.DescriptionHTML,
+            };
 
 
             return crossfitWODVieModel;

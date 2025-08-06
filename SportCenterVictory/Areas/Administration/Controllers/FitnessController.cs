@@ -136,7 +136,16 @@
                     return View(exerciseEditVM);
                 }
 
-                await exerciseService.EditExerciseAsync(exerciseEditVM);
+                bool isEditSuccessfully = await exerciseService.EditExerciseAsync(exerciseEditVM);
+
+
+                if (!isEditSuccessfully)
+                {
+                    this.logger.LogWarning($"Error occurred while editing a Exercise with Id{exerciseEditVM.Id}");
+                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateExercise, exerciseEditVM.Name); ;
+                    return View(exerciseEditVM);
+                }
+
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateExercise, exerciseEditVM.Name);
 
@@ -309,7 +318,16 @@
                     return View(workoutPlanEditVM);
                 }
 
-                await workoutPlanService.EditWorkoutPlanAsync(workoutPlanEditVM);
+                bool isEditSuccessfully = await workoutPlanService.EditWorkoutPlanAsync(workoutPlanEditVM);
+
+
+                if (!isEditSuccessfully)
+                {
+                    this.logger.LogWarning($"Error occurred while editing a Workout Plan with Id:{workoutPlanEditVM.Id}");
+                    TempData[ErrorMessageKey] = string.Format(ErrorMessageCannotUpdateWorkoutPlan, workoutPlanEditVM.Title); ;
+                    return View(workoutPlanEditVM);
+                }
+
 
                 TempData[SuccessMessageKey] = string.Format(SuccessMessageUpdateWorkoutPlan, workoutPlanEditVM.Title);
 

@@ -7,41 +7,57 @@
 
 <h2 class="about_taital text-center pt-4">Join our CrossFit Classes</h2>
 
-<div class="classes-board">
-    @foreach (var crossfitClass in Model)
-    {
-        <div class="class-card">
-            <div class="class-title">@crossfitClass.Name</div>
+@if (Model == null || !Model.Any())
+{
 
-            <div class="class-info"><strong>Trainer:</strong> @crossfitClass.TrainerName</div>
-            <div class="class-info"><strong>Start Time:</strong> @crossfitClass.StartTime</div>
 
-            <div class="class-description">@crossfitClass.Description</div>
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No CrossFit classes are available at the moment. Please check back later.
+        </p>
+    </div>
+}
+else
+{
 
-            @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
-            {
-                @if (crossfitClass.IsUserJoined)
+    <div class="classes-board">
+        @foreach (var crossfitClass in Model)
+        {
+            <div class="class-card">
+                <div class="class-title">@crossfitClass.Name</div>
+
+                <div class="class-info"><strong>Trainer:</strong> @crossfitClass.TrainerName</div>
+                <div class="class-info"><strong>Start Time:</strong> @crossfitClass.StartTime</div>
+
+                <div class="class-description">@crossfitClass.Description</div>
+
+                @if ((User?.Identity?.IsAuthenticated ?? false) && User.IsInRole(RoleConstants.User))
                 {
-                    <form asp-controller="UserPanel" asp-action="RemoveCrossfitClass" method="post" class="d-inline">
-                        <input type="hidden" name="crossfitClassId" value="@crossfitClass.CrossfitClassId" />
-                        <button type="submit" class="remove-button">
-                            <i class="bi bi-file-x"></i> Remove Class
-                        </button>
-                    </form>
+                    @if (crossfitClass.IsUserJoined)
+                    {
+                        <form asp-controller="UserPanel" asp-action="RemoveCrossfitClass" method="post" class="d-inline">
+                            <input type="hidden" name="crossfitClassId" value="@crossfitClass.CrossfitClassId" />
+                            <input type="hidden" name="returnUrl" value="@Url.Action("CrossfitClasses", "Crossfit")" />
+                            <button type="submit" class="remove-button">
+                                <i class="bi bi-file-x"></i> Remove Class
+                            </button>
+                        </form>
+                    }
+                    else
+                    {
+                        <form asp-controller="UserPanel" asp-action="JoinCrossfitClass" method="post" class="d-inline">
+                            <input type="hidden" name="crossfitClassId" value="@crossfitClass.CrossfitClassId" />
+                            <input type="hidden" name="returnUrl" value="@Url.Action("CrossfitClasses", "Crossfit")" />
+                            <button type="submit" class="join-button">
+                                <i class="bi bi-bookmark-star"></i> Join Class
+                            </button>
+                        </form>
+                    }
                 }
-                else
-                {
-                    <form asp-controller="UserPanel" asp-action="JoinCrossfitClass" method="post" class="d-inline">
-                        <input type="hidden" name="crossfitClassId" value="@crossfitClass.CrossfitClassId" />
-                        <button type="submit" class="join-button">
-                            <i class="bi bi-bookmark-star"></i> Join Class
-                        </button>
-                    </form>
-                }
-            }
-        </div>
-    }
-</div>
+            </div>
+        }
+    </div>
+}
 
 @section Styles {
     <link href="~/css/crossfitClass.css" rel="stylesheet" />
