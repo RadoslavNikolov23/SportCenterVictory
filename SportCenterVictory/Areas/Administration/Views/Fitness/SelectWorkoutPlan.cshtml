@@ -7,6 +7,17 @@
 
 <h3 class="about_taital text-center pb-5 pt-5">Select a Workout Plan to Attach Exercises</h3>
 
+@if (Model == null)
+{
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No Workout Plans currently availble. Please check back later.
+        </p>
+    </div>
+
+}
+else
+{
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     @foreach (var plan in Model.WorkoutPlans)
     {
@@ -29,3 +40,4 @@
         </div>
     }
 </div>
+}

@@ -9,38 +9,50 @@
 
 <h3 class="about_taital text-center pt-5 pb-5">Trainer & Client Overview</h3>
 
-@foreach (var trainerClient in groupedTrainerClient)
+@if (Model == null || !Model.Any())
 {
-    <div class="card specialty-card">
-        <div class="specialty-header">
-            <h4 class="mb-0 text-white text-center">@trainerClient.Key.ToString() Trainer(s)</h4>
-        </div>
-
-        <div class="table-responsive">
-            <table class="table table-striped table-hover specialty-table mb-0">
-                <thead>
-                    <tr>
-                        <th>Trainer Name</th>
-                        <th>Trainer Email</th>
-                        <th>Client Full Name</th>
-                        <th>Client Email</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in trainerClient)
-                    {
-                        <tr>
-                            <td>@item.TrainerFullName</td>
-                            <td><a href="mailto:@item.TrainerEmail">@item.TrainerEmail</a></td>
-                            <td>@item.ClientFullName</td>
-                            <td><a href="mailto:@item.ClientEmail">@item.ClientEmail</a></td>
-
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+    <div class="text-center" style="padding-top: 180px;">
+        <p class="text-center fs-4" style="font-size: 1.5rem;">
+            No users has joined the Trainers. Please check back later.
+        </p>
     </div>
+
+}
+else
+{
+    @foreach (var trainerClient in groupedTrainerClient)
+    {
+        <div class="card specialty-card">
+            <div class="specialty-header">
+                <h4 class="mb-0 text-white text-center">@trainerClient.Key.ToString() Trainer(s)</h4>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped table-hover specialty-table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Trainer Name</th>
+                            <th>Trainer Email</th>
+                            <th>Client Full Name</th>
+                            <th>Client Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in trainerClient)
+                        {
+                            <tr>
+                                <td>@item.TrainerFullName</td>
+                                <td><a href="mailto:@item.TrainerEmail">@item.TrainerEmail</a></td>
+                                <td>@item.ClientFullName</td>
+                                <td><a href="mailto:@item.ClientEmail">@item.ClientEmail</a></td>
+
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    }
 }
 
 @section Styles {
