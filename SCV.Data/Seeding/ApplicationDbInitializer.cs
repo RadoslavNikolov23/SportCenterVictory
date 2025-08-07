@@ -97,10 +97,10 @@
                     }
                 }
 
+            }
                   await SeedUserFeedbackAsync();
 
                   await SeedTrainerAsync();
-            }
         }
 
         private async Task SeedUserFeedbackAsync()
