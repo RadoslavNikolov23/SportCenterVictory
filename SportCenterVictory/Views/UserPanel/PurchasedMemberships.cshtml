@@ -5,13 +5,14 @@
     ViewData["Title"] = "Purchased Memberships";
     var now = DateTime.UtcNow;
     var currentMemberships = Model.Where(m => m.CanBeRemoved).ToList();
-    var pastMemberships = Model.Where(m => !m.CanBeRemoved && m.IsExpired).ToList();
+    var pastMemberships = Model.Where(m => !m.CanBeRemoved).ToList();
+    var expiredMemberships = Model.Where(m => m.IsExpired).ToList();
 }
 
 
 <h2 class="about_taital text-center pt-4 pb-4">Purchased Memberships</h2>
 
-@if (!currentMemberships.Any() && !pastMemberships.Any())
+@if (!currentMemberships.Any() && !pastMemberships.Any() && !expiredMemberships.Any())
 {
     <div class="text-center" style="padding-top: 180px;">
         <h4>You have not purchased any Membership!</h4>
@@ -59,7 +60,25 @@ else
                     <p class="membership-description">Purchased on: @membership.PurchasedOn</p>
 
                     <button class="remove-button remove-disabled" disabled>
-                        <i class="bi bi-lock"></i> Cannot Remove (Expired)
+                        <i class="bi bi-lock"></i> Cannot Remove
+                    </button>
+                </div>
+            }
+        </div>
+    }
+
+    @if (expiredMemberships.Any())
+    {
+        <div class="section-title">Expired Memberships</div>
+        <div class="membership-container">
+                @foreach (var membership in expiredMemberships)
+            {
+                <div class="membership-card">
+                    <div class="membership-title">@membership.Name</div>
+                    <p class="membership-description">Purchased on: @membership.PurchasedOn</p>
+
+                    <button class="remove-button remove-disabled" disabled>
+                        <i class="bi bi-lock"></i> Expired
                     </button>
                 </div>
             }

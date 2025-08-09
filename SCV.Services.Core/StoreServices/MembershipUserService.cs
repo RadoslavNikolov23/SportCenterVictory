@@ -214,6 +214,9 @@
 
                     if (membershipUserEntry != null && IsExpired(membershipUserEntry.PurchasedOn, membershipUserEntry.Membership.Duration))
                     {
+                        membershipUserEntry.IsDeleted = true;
+
+                        await this.membershipUserRepo.UpdateAsync(membershipUserEntry);
                         result = true;
                     }
                 }
