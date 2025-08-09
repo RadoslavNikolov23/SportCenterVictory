@@ -22,7 +22,7 @@
             IEnumerable<CrossfitClassDetailViewModel> crossfitClassDetailVM = await crossfitClassRepo
                                             .GetAllAttached()
                                             .AsNoTracking()
-                                            .OrderBy(cc => cc.DayOfWeek)
+                                            .OrderBy(cc => (int)cc.DayOfWeek)
                                             .Select(cc => new CrossfitClassDetailViewModel()
                                             {
                                                 CrossfitClassId = cc.Id.ToString(),
