@@ -4,14 +4,14 @@ This is a university project for managing a sports center (Fitness, CrossFit, Po
 
 ## 🚀 Live Demo
 
-You can try out the live demo of **Sport Center Victory** hosted on Azure at:  
-<div style="padding: 10px; border: 1px solid #ccc; background-color: #f9f9f9; width: fit-content; margin-bottom: 1rem;">
-  <a href="https://sportcentervictory-ada0dvawgrcxbhb3.germanywestcentral-01.azurewebsites.net/" target="_blank" style="text-decoration: none; font-weight: bold; color: #2a6ebb;">
-    [Live Demo: SportCenterVictory]
-  </a>
-</div>
-<br>
-<strong>N.B.</strong> Please be aware that since this app is hosted on a free Azure trial plan, the first load might take a bit longer as the service “wakes up” from inactivity.
+You can try out the live demo of **Sport Center Victory** hosted on Azure:  
+[**Live Demo: SportCenterVictory**](https://sportcentervictory-ada0dvawgrcxbhb3.germanywestcentral-01.azurewebsites.net/)
+
+> **Note:**  
+> - This app is hosted on a **free Azure trial plan**, so the first load might take a bit longer as the service “wakes up” from inactivity.  
+> - For faster loading, the exercise database is scaled down to **30 exercises**, all of which are used in workout plans.  
+> - All database data is dynamically loaded when the server starts.
+
 
 
 ## 📸 Screenshot (Main page)
