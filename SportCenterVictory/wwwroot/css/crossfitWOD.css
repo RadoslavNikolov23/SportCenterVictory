@@ -4,13 +4,13 @@
 }
 
 .wod-container {
-    max-width: 600px;
+    position: relative;
+    max-width: 800px;
     margin: 100px auto 60px;
-    padding: 30px 150px;
+    padding: 30px 40px;
     background: #ffffff;
     border-radius: 16px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    position: absolute;
 }
 
 .wod-title {
@@ -35,12 +35,12 @@
     transform: translateY(-50%);
     background: none;
     border: none;
-    font-size: 4rem;
+    font-size: 3rem; /* Slightly smaller so it fits nicely */
     font-weight: bold;
     color: #89048E;
     cursor: pointer;
-    z-index: 99;
-    padding: 0 20px;
+    z-index: 10;
+    padding: 0;
     transition: color 0.2s ease-in-out;
 }
 
@@ -49,14 +49,60 @@
     }
 
 .arrow-left {
-    left: -100px;
+    left: -50px; /* Half inside the container */
 }
 
 .arrow-right {
-    right: -100px;
+    right: -50px; /* Half inside the container */
 }
 
 .nav-arrow:disabled {
     color: #ccc;
     cursor: not-allowed;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .wod-container {
+        padding: 20px;
+        margin: 60px 15px;
+    }
+
+    .wod-title {
+        font-size: 1.5rem;
+    }
+
+    .nav-arrow {
+        font-size: 2rem;
+    }
+
+    .arrow-left {
+        left: -30px;
+    }
+
+    .arrow-right {
+        right: -30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .wod-container {
+        padding: 15px;
+    }
+
+    .wod-title {
+        font-size: 1.3rem;
+    }
+
+    .nav-arrow {
+        font-size: 1.8rem;
+    }
+
+    .arrow-left {
+        left: -20px;
+    }
+
+    .arrow-right {
+        right: -20px;
+    }
 }

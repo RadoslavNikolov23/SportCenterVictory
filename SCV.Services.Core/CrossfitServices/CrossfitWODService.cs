@@ -69,9 +69,9 @@
 
                     crossfitWODVieModel = new CrossfitWODViewModel()
                     {
-                        Id = wodExist!.Id.ToString(),
-                        Name = wodExist.Name,
-                        DescriptionHTML = wodExist.DescriptionHTML,
+                        Id = entityCrossfitWOD!.Id.ToString(),
+                        Name = entityCrossfitWOD.Name,
+                        DescriptionHTML = entityCrossfitWOD.DescriptionHTML,
                     };
 
                     return crossfitWODVieModel;

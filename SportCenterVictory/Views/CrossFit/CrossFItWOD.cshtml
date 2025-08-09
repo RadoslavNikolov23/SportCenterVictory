@@ -4,7 +4,6 @@
 @{
     ViewData["Title"] = "CrossFit Workout of the Day ";
 }
-
 <h2 class="about_taital text-center pt-4">CrossFit Workout of the Day</h2>
 
 @if (Model == null)
@@ -18,19 +17,19 @@
 else
 {
     <div class="pt-xl-5">
-    <div class="wod-container mt-5 pt-4 container">
-        <button class="nav-arrow arrow-left" id="prevBtn" disabled>
-            <i class="fa fa-arrow-left"></i>
-        </button>
-        <button class="nav-arrow arrow-right" id="nextBtn" disabled>
-            <i class="fa fa-arrow-right"></i>
-        </button>
+        <div class="wod-container">
+            <button class="nav-arrow arrow-left" id="prevBtn" disabled>
+                <i class="fa fa-arrow-left"></i>
+            </button>
+            <button class="nav-arrow arrow-right" id="nextBtn" disabled>
+                <i class="fa fa-arrow-right"></i>
+            </button>
 
-        <div class="wod-title" id="wodTitle">Workout of the Day: @Model.Name</div>
-        <div class="wod-html" id="wodContent">
-            @Html.Raw(Model.DescriptionHTML)
+            <div class="wod-title" id="wodTitle">Workout of the Day: @Model.Name</div>
+            <div class="wod-html" id="wodContent">
+                @Html.Raw(Model.DescriptionHTML)
+            </div>
         </div>
-    </div>
     </div>
 }
 @section Styles {
