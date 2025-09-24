@@ -136,7 +136,7 @@
             if (order != null || !order!.OrderProducts.Any())
             {
                 order.PaymentMethod = paymentMethod;
-                order.OrderStatus = OrderStatus.Shipped;
+                order.OrderStatus = OrderStatus.Processing;
                 order.TotalPrice = order.OrderProducts.Sum(op => op.Quantity * op.Price);
 
                 isFinished = await orderRepo.UpdateAsync(order);
