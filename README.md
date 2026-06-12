@@ -3,6 +3,12 @@
 This is a university project for managing a sports center (Fitness, CrossFit, Powerlifting), including user memberships, programs, store, and events. For more information scroll down below.
 
 ## 🚀 Live Demo
+> **Note:** The live demo is currently offline. This project was previously hosted on Azure as part of a student project.
+
+
+
+<details>
+<summary>Previous hosting details</summary>
 
 You can try out the live demo of **Sport Center Victory** hosted on Azure:  
 [**Live Demo: SportCenterVictory**](https://sportcentervictory-ada0dvawgrcxbhb3.germanywestcentral-01.azurewebsites.net/)
@@ -11,8 +17,10 @@ You can try out the live demo of **Sport Center Victory** hosted on Azure:
 > - This app is hosted on a **free Azure trial plan**, so the first load might take a bit longer as the service “wakes up” from inactivity.  
 > - For faster loading, the exercise database is scaled down to **30 exercises**, all of which are used in workout plans.  
 > - All database data is dynamically loaded when the server starts.
+> - 
+This app was hosted on a free Azure trial plan, so the first load took a bit longer as the service "wakes up" from inactivity. The exercise database was scaled down to 30 exercises for faster loading, all of which are used in workout plans.
 
-
+</details>
 
 ## 📸 Screenshot (Main page)
 <div style="line-height: 0;">
