@@ -17,8 +17,7 @@ You can try out the live demo of **Sport Center Victory** hosted on Azure:
 > - This app is hosted on a **free Azure trial plan**, so the first load might take a bit longer as the service “wakes up” from inactivity.  
 > - For faster loading, the exercise database is scaled down to **30 exercises**, all of which are used in workout plans.  
 > - All database data is dynamically loaded when the server starts.
-> - 
-This app was hosted on a free Azure trial plan, so the first load took a bit longer as the service "wakes up" from inactivity. The exercise database was scaled down to 30 exercises for faster loading, all of which are used in workout plans.
+> - This app was hosted on a free Azure trial plan, so the first load took a bit longer as the service "wakes up" from inactivity. The exercise database was scaled down to 30 exercises for faster loading, all of which are used in workout plans.
 
 </details>
 
